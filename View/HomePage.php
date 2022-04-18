@@ -15,12 +15,14 @@
     <!-- Header -->
 
     <?php
-    require("./View/_partial/Header_Footer.php");
+    require("./_partial/Header_Footer/Header_Footer.php");
     head()
     ?>
 
     <!-- Giới Thiệu -->
-
+    <div id="form"  style=" display: none" >
+    <?php include './_partial/form/formSignUp.php'; ?>
+    </div>
     <div class="container my-5">
         <div class="row">
             <div class="col mt-5">
@@ -33,10 +35,10 @@
                     </span>
                     một cách dễ dàng và hiệu quả.
                 </p>
-                <button type="button" class="btn btn-success shadow">THAM GIA NGAY</button>
+                <button type="button" id= "btSignIn" class="btn btn-success shadow">THAM GIA NGAY</button>
             </div>
             <div class="col text-center">
-                <img src="./Assets/img/Light bulb.jpg" alt="lightbulb">
+                <img src="../Assets/img/Light bulb.jpg" alt="lightbulb">
             </div>
         </div>
     </div>
@@ -77,7 +79,7 @@
     <div class="p-5 row" style="margin-right: 0px;">
         <h1 class="mb-5  text-center"> <span class="text-success">Tính năng </span> nổi bật</h1>
         <div class="col-sm-6 text-center border-end">
-            <img src="./Assets/img/function.png" alt="function" style="width:70%" class="m-5 img-thumbnail">
+            <img src="../Assets/img/function.png" alt="function" style="width:70%" class="m-5 img-thumbnail">
         </div>
         <div class="col-sm-6 ps-5">
             <p class="m-5">
@@ -113,5 +115,39 @@
     footer();
     ?>
 </body>
+<?php include 'form_modules.php' ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        var CV="gv";
+        function setCV(cv){
+            CV=cv;
+        }
+        $(document).ready(function(){
+            $("#btSignIn").click(function(){
+                console.log("1");
+                document.getElementById("form").style.display="block";
+            });
+            $("#form").submit(function(e){
+                e.preventDefault();
+                let ten=$("#inputTen").val();
+                let emails=$("#inputEmail").val();
+                let password=$("#inputPass1").val();
+                let password2=$("#inputPass2").val();
+                let sdt=$("#inputSdt").val();   
+                let ngaysinh=$("#inputDate").val();
+                let gioitinh=$("#inputGioitinh").val();
+                console.log(ten);
+                console.log(emails);
+                console.log(password);
+                console.log(password2);
+                console.log(sdt);
+                console.log(gioitinh);
+                console.log(ngaysinh);
+                console.log(CV);
+            });
+        });
+
+
+    </script>
 
 </html>

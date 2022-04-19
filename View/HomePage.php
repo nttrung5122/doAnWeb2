@@ -115,7 +115,6 @@
     footer();
     ?>
 </body>
-<?php include 'form_modules.php' ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         var CV="gv";

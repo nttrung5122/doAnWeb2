@@ -5,11 +5,21 @@
 
 <?php include 'form_modules.php'; 
 ?>
+        <div class="modal fade" id="form_signUp" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupLabel">Sign Up</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+
 
     <div class="position-relative p-2">
-        <div class="mx-auto">Thông tin cá nhân</div>
+        <!-- <div class="mx-auto">Thông tin cá nhân</div> -->
         <form class="position-relative" action="">
-            <hr>
             <!-- input text -->
             <?php
             FormBootstrap::horizontalInput("text", "Họ và tên", "inputTen");
@@ -47,14 +57,15 @@
                 </label>
             </div>
             <br>
-            <br>
-            <hr>
-            <!-- nút -->
-            <div class="position-absolute start-50 translate-middle-x">
-                <button type="submit" class="btn btn-primary">Đăng ký</button>
-                <button type="button" class="btn btn-outline-primary">Hủy</button>
-            </div>
         </form>
     </div>
 
-
+    </div>
+    <div class="modal-footer">
+                        <!-- data-bs-dismiss="modal" - đóng cửa sổ popup -->
+                        <button type="button" class="btn btn-primary"  id="btnForm">Đăng ký</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                    </div>
+                </div>
+            </div>
+</div>

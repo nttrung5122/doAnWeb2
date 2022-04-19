@@ -19,7 +19,7 @@ function head()
                             <a class="nav-link fs-4 text-nowrap" href="#">Liên Lạc</a>
                         </li>
                         <button type="button" class="btn btn-success col-3 shadow fs-5">Đăng nhập</button>
-                        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5">Đăng ký</button>
+                        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>
                     </ul>
                 </div>
             </div>

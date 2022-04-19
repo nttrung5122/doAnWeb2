@@ -35,7 +35,7 @@
                     </span>
                     một cách dễ dàng và hiệu quả.
                 </p>
-                <button type="button" id= "btSignIn" class="btn btn-success shadow">THAM GIA NGAY</button>
+                <button type="button" id= "btSignIn" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp" >THAM GIA NGAY</button>
             </div>
             <div class="col text-center">
                 <img src="../Assets/img/Light bulb.jpg" alt="lightbulb">
@@ -127,9 +127,13 @@
                 console.log("1");
                 document.getElementById("form").style.display="block";
             });
-            $("#form").submit(function(e){
-                e.preventDefault();
-                let ten=$("#inputTen").val();
+            $("#btnForm").click(function(e){
+                postData();
+                
+            });
+        });
+        function postData(){
+            let ten=$("#inputTen").val();
                 let emails=$("#inputEmail").val();
                 let password=$("#inputPass1").val();
                 let password2=$("#inputPass2").val();
@@ -144,9 +148,7 @@
                 console.log(gioitinh);
                 console.log(ngaysinh);
                 console.log(CV);
-            });
-        });
-
+        }
 
     </script>
 

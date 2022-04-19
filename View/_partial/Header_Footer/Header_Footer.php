@@ -1,6 +1,18 @@
 <?php
-function head()
+session_start();
+function head($checkLog)
 {
+    $headerRight = "";
+    // $username = $_SESSION['username'];
+    $username = "Toan";
+    if (!$checkLog) {
+        $headerRight = '<button type="button" class="btn btn-success col-3 shadow fs-5">Đăng nhập</button>
+        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5">Đăng ký</button>';
+    }
+    else {
+        $headerRight = '<div class="thongBao"><a class="nav-link fs-5 text-nowrap" href="#">Thong Bao</a></div>
+                        <div class="taiKhoan"><a class="nav-link fs-5 text-nowrap" href="#">'. $username.'</a></div>';
+    }
     echo '<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
@@ -13,13 +25,12 @@ function head()
                 <div class="collapse navbar-collapse d-lg-inline-flex flex-row-reverse" id="navbarSupportedContent">
                     <ul class="navbar-nav gap-5" style="margin-right: 100px;">
                         <li class="nav-item">
-                            <a class="nav-link fs-4 text-nowrap" href="#">Giới Thiệu</a>
+                            <a class="nav-link fs-5 text-nowrap" href="#">Giới Thiệu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-4 text-nowrap" href="#">Liên Lạc</a>
+                            <a class="nav-link fs-5 text-nowrap" href="#">Liên Lạc</a>
                         </li>
-                        <button type="button" class="btn btn-success col-3 shadow fs-5">Đăng nhập</button>
-                        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>
+                        '.$headerRight.'
                     </ul>
                 </div>
             </div>

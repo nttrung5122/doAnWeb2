@@ -18,7 +18,7 @@
                     <form class="position-relative was-validated" action="">
                         <!-- input text -->
                         <?php
-                        FormBootstrap::horizontalInput("text", "Họ và tên", "inputTen");
+                        FormBootstrap::horizontalInputrequired("text", "Họ và tên", "inputTen");
                         FormBootstrap::horizontalInputrequired("text", "Email", "inputEmail");
                         FormBootstrap::horizontalInput("text", "Số điện thoại", "inputSdt");
                         FormBootstrap::horizontalInputrequired("password", "Nhập mật khẩu", "inputPass1");

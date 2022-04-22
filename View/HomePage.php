@@ -22,6 +22,7 @@
     <!-- Giới Thiệu -->
     <div id="form"  style=" display: none" >
     <?php include './_partial/form/formSignUp.php'; ?>
+    <?php include './_partial/popup/modal_modules.php'; popupModules::onlyWindows("Chú ý","<div id=\"notice\">test</div>","noticePopup") ?>
     </div>
     <div class="container my-5">
         <div class="row">
@@ -131,6 +132,28 @@
                 
             });
         });
+        function checkPasswords(){
+            return true;
+            let emails=$("#inputEmail").val();
+            let password=$("#inputPass1").val();
+            let password2=$("#inputPass2").val();
+            let sdt=$("#inputSdt").val();   
+            let ngaysinh=$("#inputDate").val();
+            let gioitinh=$("#inputGioitinh").val();
+            if(emails.trim()=="" || password.trim()=="" || sdt.trim()=="" ||ngaysinh.trim()=="" || gioitinh.trim()=="" ){
+                showNotice("Vui lòng nhập đầy đủ thông tin");
+                return false;
+            }
+            if(password!=password2){
+                showNotice("Mật khẩu không khớp vui lòng nhập lại");
+                return false;
+            }
+            return true;
+        }
+        function showNotice(title){
+            document.getElementById("notice").innerHTML=title;
+            $('#noticePopup').modal('show');
+        }
         function postData(){
             let ten=$("#inputTen").val();
                 let emails=$("#inputEmail").val();
@@ -147,8 +170,28 @@
                 console.log(gioitinh);
                 console.log(ngaysinh);
                 console.log(CV);
+                if(checkPasswords()){
+                    console.log("ajax")
+                    $.ajax({
+                        type: "POST",
+                        url:"../Controller/signUpController.php",
+                        data:{
+                            emails:emails,
+                            password:password,
+                            sdt:sdt,
+                            ngaysinh:ngaysinh,
+                            gioitinh:gioitinh,
+                            cv:CV,
+                        },
+                        success:function(data){
+                            console.log(JSON.parse(data));
+                            // console.log(data);
+                            
+                        }
+                    })
+                }
         }
-
+        
     </script>
 
 </html>

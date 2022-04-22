@@ -79,3 +79,20 @@ class popupModules
         ';
     }
 }
+
+// if(isset($_POST['act'])){
+//     if($_POST['act'] == 'btnToCallpopup'){
+//         popupModules::btnToCallpopup($_POST['lable'],$_POST['modalId']);
+//     }
+//     if($_POST['act'] == 'twoButtons'){
+//         popupModules::twoButtons($_POST['title'],$_POST['text'],$_POST['primaryBtn'],$_POST['secondaryBtn'],$_POST['id']);
+//     }
+//     if($_POST['act'] == 'oneButtons'){
+//         popupModules::oneButtons($_POST['title'],$_POST['text'],$_POST['primaryBtn'],$_POST['id']);
+        
+//     }
+//     if($_POST['act'] == 'onlyWindows'){
+//         popupModules::onlyWindows($_POST['title'],$_POST['text'],$_POST['id']);
+        
+//     }
+// }

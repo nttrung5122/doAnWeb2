@@ -49,7 +49,7 @@
                         <!-- Check box điều khoản -->
                         <br>
                         <div class="form-check position-absolute start-50 translate-middle-x">
-                            <input class="form-check-input" type="checkbox" value="" id="checkCondition" required>
+                            <input class="form-check-input" type="checkbox" value="check" id="checkCondition" required>
                             <label class="form-check-label" for="">
                                 Đồng ý với các điều khoản của chúng tôi.
                             </label>

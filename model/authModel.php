@@ -1,6 +1,6 @@
 <?php
 
-include './dataProvider.php';
+include '../model/dataProvider.php';
 
 class AuthModel{
     public static function getAllUsers(){
@@ -10,12 +10,12 @@ class AuthModel{
     }
 
     public static function getUsers($email){
-        $sql = "SELECT * FROM `taikhoan` WHERE maTaiKhoan=\".$email.\";";
+        $sql = "SELECT * FROM `taikhoan` WHERE maTaiKhoan=\"$email\";";
         $data= DataProvider::executeSQL($sql);
         return $data;
     }
 
-    public static function checkUsers($email){
+    public static function checkUsersExit($email){
         $data=  AuthModel :: getAllUsers();
         while ($row = mysqli_fetch_array($data)){
             if($row[0]==$email){
@@ -27,10 +27,10 @@ class AuthModel{
     }   
     
     public static function createUser($email,$pass,$hoten,$ngaysinh,$sdt,$cv){        
-        $sql = "INSERT INTO `taikhoan` (`mail`, `password`, `loaiTk`, `hoten`, `ngaysinh`, `sdt`) VALUES ('.$email.', '.$pass.', '.$cv.', '.$hoten.', '.$ngaysinh.', '.$sdt.');";
+        $sql = "INSERT INTO `taikhoan` (`mail`, `password`, `loaiTk`, `hoten`, `ngaysinh`, `sdt`) VALUES ('$email', '$pass', '$cv', '$hoten', '$ngaysinh', '$sdt');";
         $data=DataProvider::executeSQL($sql);
     }
-
+    
 
 }   
 ?>

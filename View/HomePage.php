@@ -20,9 +20,10 @@
     ?>
 
     <!-- Giới Thiệu -->
-    <div id="form"  style=" display: none" >
-    <?php include './_partial/form/formSignUp.php'; ?>
-    <?php include './_partial/popup/modal_modules.php'; popupModules::onlyWindows("Chú ý","<div id=\"notice\">test</div>","noticePopup") ?>
+    <div id="form" style=" display: none">
+        <?php include './_partial/form/formSignUp.php'; ?>
+        <?php include './_partial/popup/modal_modules.php';
+        popupModules::onlyWindows("Chú ý", "<div id=\"notice\">test</div>", "noticePopup") ?>
     </div>
     <div class="container my-5">
         <div class="row">
@@ -36,7 +37,7 @@
                     </span>
                     một cách dễ dàng và hiệu quả.
                 </p>
-                <button type="button" id= "btSignIn" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp" >THAM GIA NGAY</button>
+                <button type="button" id="btSignIn" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp">THAM GIA NGAY</button>
             </div>
             <div class="col text-center">
                 <img src="../Assets/img/Light bulb.jpg" alt="lightbulb">
@@ -117,81 +118,129 @@
     ?>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        var CV="gv";
-        function setCV(cv){
-            CV=cv;
-        }
-        $(document).ready(function(){
-            $("#btSignIn").click(function(){
-                console.log("1");
-                document.getElementById("form").style.display="block";
-            });
-            $("#btnForm").click(function(e){
-                postData();
-                
-            });
+<script>
+    var CV = "gv";
+
+    function setCV(cv) {
+        CV = cv;
+    }
+    $(document).ready(function() {
+        $("#btSignIn").click(function() {
+            // console.log("1");
+            document.getElementById("form").style.display = "block";
         });
-        function checkPasswords(){
-            return true;
-            let emails=$("#inputEmail").val();
-            let password=$("#inputPass1").val();
-            let password2=$("#inputPass2").val();
-            let sdt=$("#inputSdt").val();   
-            let ngaysinh=$("#inputDate").val();
-            let gioitinh=$("#inputGioitinh").val();
-            if(emails.trim()=="" || password.trim()=="" || sdt.trim()=="" ||ngaysinh.trim()=="" || gioitinh.trim()=="" ){
-                showNotice("Vui lòng nhập đầy đủ thông tin");
-                return false;
-            }
-            if(password!=password2){
-                showNotice("Mật khẩu không khớp vui lòng nhập lại");
-                return false;
-            }
-            return true;
+        $("#btnForm").click(function(e) {
+            postData();
+
+        });
+    });
+
+    function check() {
+        // return true;
+        let emails = $("#inputEmail").val();
+        let password = $("#inputPass1").val();
+        let password2 = $("#inputPass2").val();
+        let sdt = $("#inputSdt").val();
+        let ngaysinh = $("#inputDate").val();
+        let gioitinh = $("#inputGioitinh").val();
+        if (emails.trim() == "" || password.trim() == "" || sdt.trim() == "" || ngaysinh.trim() == "" || gioitinh.trim() == "") {
+            showNotice("Vui lòng nhập đầy đủ thông tin");
+            return false;
         }
-        function showNotice(title){
-            document.getElementById("notice").innerHTML=title;
-            $('#noticePopup').modal('show');
+        if (!checkSdt(sdt)) {
+            showNotice('Số điện thoại của bạn không đúng định dạng!');
+            return false;
         }
-        function postData(){
-            let ten=$("#inputTen").val();
-                let emails=$("#inputEmail").val();
-                let password=$("#inputPass1").val();
-                let password2=$("#inputPass2").val();
-                let sdt=$("#inputSdt").val();   
-                let ngaysinh=$("#inputDate").val();
-                let gioitinh=$("#inputGioitinh").val();
-                console.log(ten);
-                console.log(emails);
-                console.log(password);
-                console.log(password2);
-                console.log(sdt);
-                console.log(gioitinh);
-                console.log(ngaysinh);
-                console.log(CV);
-                if(checkPasswords()){
-                    console.log("ajax")
-                    $.ajax({
-                        type: "POST",
-                        url:"../Controller/signUpController.php",
-                        data:{
-                            emails:emails,
-                            password:password,
-                            sdt:sdt,
-                            ngaysinh:ngaysinh,
-                            gioitinh:gioitinh,
-                            cv:CV,
-                        },
-                        success:function(data){
-                            console.log(JSON.parse(data));
-                            // console.log(data);
-                            
-                        }
-                    })
+        if (!checkEmail(emails)) {
+            showNotice('Email của bạn không đúng định dạng!');
+            return false;
+        }
+        if (password != password2) {
+            showNotice("Mật khẩu không khớp vui lòng nhập lại");
+            return false;
+        }
+        if(!$('#checkCondition').is(':checked')){
+            showNotice("Vui lòng đồng ý với các điều khoản của chúng tôi.")
+            return false;
+        }
+        return true;
+    }
+
+    function checkSdt(sdt) {
+        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        if (sdt !== '') {
+            if (vnf_regex.test(sdt) == false) {
+                // showNotice('Số điện thoại của bạn không đúng định dạng!');
+
+                return false;
+            } else {
+                // showNotice('Số điện thoại của bạn hợp lệ!');
+                return true;
+            }
+        }
+    }
+
+    function checkEmail(email) {
+        // var email_regex = /^\S+@\S+\.\S+$/;
+        // if (email !== '') {
+        //     if (email_regex.test(email) == false) {
+        //         // showNotice('Email của bạn không đúng định dạng!');
+        //         return false;
+        //     } else {
+        //         // showNotice('Số điện thoại của bạn hợp lệ!');
+        //         return true;
+        //     }
+        // }
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    }
+
+    function showNotice(title) {
+        document.getElementById("notice").innerHTML = title;
+        $('#noticePopup').modal('show');
+    }
+
+    function postData() {
+        let ten = $("#inputTen").val();
+        let emails = $("#inputEmail").val();
+        let password = $("#inputPass1").val();
+        let password2 = $("#inputPass2").val();
+        let sdt = $("#inputSdt").val();
+        let ngaysinh = $("#inputDate").val();
+        let gioitinh = $("#inputGioitinh").val();
+        console.log(ten);
+        console.log(emails);
+        console.log(password);
+        console.log(password2);
+        console.log(sdt);
+        console.log(gioitinh);
+        console.log(ngaysinh);
+        console.log(CV);
+        if (check   ()) {
+            console.log("ajax")
+            $.ajax({
+                type: "POST",
+                url: "../Controller/authController.php",
+                data: {
+                    act: 'signUp',
+                    user: emails,
+                    hoten: ten,
+                    password: password,
+                    sdt: sdt,
+                    ngaysinh: ngaysinh,
+                    gioitinh: gioitinh,
+                    cv: CV,
+                },
+                success: function(data) {
+                    showNotice(data);
+                    // console.log(data);
                 }
+            })
         }
-        
-    </script>
+    }
+</script>
 
 </html>

@@ -7,7 +7,7 @@ function head($checkLog)
     $username = "Toàn";
     if (!$checkLog) {
         $headerRight = '<button type="button" class="btn btn-success col-3 shadow fs-5">Đăng nhập</button>
-        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="margin-right:100px;">Đăng ký</button>';
+        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="margin-right:100px;" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>';
     } else {
         $headerRight = '<li class="nav-item"><a class="nav-link fs-5 text-nowrap" href="#">Thông Báo</a></li>
         <li class="nav-item dropstart">

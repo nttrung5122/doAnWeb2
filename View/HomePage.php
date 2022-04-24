@@ -20,8 +20,10 @@
     ?>
 
     <!-- Giới Thiệu -->
-    <div id="form"  style=" display: none" >
-    <?php include './_partial/form/formSignUp.php'; ?>
+    <div id="containerPopUp">
+        <?php include './_partial/form/formSignUp.php'; ?>
+        <?php include './_partial/popup/modal_modules.php';
+        popupModules::onlyWindows("Chú ý", "<div id=\"notice\">test</div>", "noticePopup") ?>
     </div>
     <div class="container my-5">
         <div class="row">
@@ -35,7 +37,7 @@
                     </span>
                     một cách dễ dàng và hiệu quả.
                 </p>
-                <button type="button" id= "btSignIn" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp" >THAM GIA NGAY</button>
+                <button type="button" id="btSignIn" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp">THAM GIA NGAY</button>
             </div>
             <div class="col text-center">
                 <img src="../Assets/img/Light bulb.jpg" alt="lightbulb">
@@ -116,39 +118,147 @@
     ?>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        var CV="gv";
-        function setCV(cv){
-            CV=cv;
-        }
-        $(document).ready(function(){
-            $("#btSignIn").click(function(){
-                console.log("1");
-                document.getElementById("form").style.display="block";
-            });
-            $("#btnForm").click(function(e){
-                postData();
-                
-            });
+<script>
+    var CV = "gv";
+
+    function setCV(cv) {
+        CV = cv;
+    }
+    $(document).ready(function() {
+        $("#btnFormSignUp").click(function(e) {
+            postDataSignUp();
+
         });
-        function postData(){
-            let ten=$("#inputTen").val();
-                let emails=$("#inputEmail").val();
-                let password=$("#inputPass1").val();
-                let password2=$("#inputPass2").val();
-                let sdt=$("#inputSdt").val();   
-                let ngaysinh=$("#inputDate").val();
-                let gioitinh=$("#inputGioitinh").val();
-                console.log(ten);
-                console.log(emails);
-                console.log(password);
-                console.log(password2);
-                console.log(sdt);
-                console.log(gioitinh);
-                console.log(ngaysinh);
-                console.log(CV);
+        $("#btnFormSignIn").click(function(e) {
+            postDataSignIn();
+
+        });
+    });
+
+    function check() {
+        // return true;
+        let emails = $("#inputEmail").val();
+        let password = $("#inputPass1").val();
+        let password2 = $("#inputPass2").val();
+        let sdt = $("#inputSdt").val();
+        let ngaysinh = $("#inputDate").val();
+        let gioitinh = $("#inputGioitinh").val();
+        if (emails.trim() == "" || password.trim() == "" || sdt.trim() == "" || ngaysinh.trim() == "" || gioitinh.trim() == "") {
+            showNotice("Vui lòng nhập đầy đủ thông tin");
+            return false;
+        }
+        if (!checkSdt(sdt)) {
+            showNotice('Số điện thoại của bạn không đúng định dạng!');
+            return false;
+        }
+        if (!checkEmail(emails)) {
+            showNotice('Email của bạn không đúng định dạng!');
+            return false;
+        }
+        if(!checkPass(password)) {
+            showNotice('Mật khẩu không được kíchứa kí tự đặt biệt và phải hơn 8 kí tự');
+            return false;
+        }
+        if (password != password2) {
+            showNotice("Mật khẩu không khớp vui lòng nhập lại");
+            return false;
+        }
+        if(!$('#checkCondition').is(':checked')){
+            showNotice("Vui lòng đồng ý với các điều khoản của chúng tôi.")
+            return false;
+        }
+        return true;
+    }
+    function checkPass(pass){
+        let pass_regex=/^[a-zA-Z0-9]{8,}$/;
+        return pass_regex.test(pass);
+    }
+    function checkSdt(sdt) {
+        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        return vnf_regex.test(sdt);
+    }
+
+    function checkEmail(email) {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    }
+
+    function showNotice(title) {
+        document.getElementById("notice").innerHTML = title;
+        $('#noticePopup').modal('show');
+    }
+
+    function postDataSignUp() {
+        let ten = $("#inputTen").val();
+        let emails = $("#inputEmail").val();
+        let password = $("#inputPass1").val();
+        let password2 = $("#inputPass2").val();
+        let sdt = $("#inputSdt").val();
+        let ngaysinh = $("#inputDate").val();
+        let gioitinh = $("#inputGioitinh").val();
+        console.log(ten);
+        console.log(emails);
+        console.log(password);
+        console.log(password2);
+        console.log(sdt);
+        console.log(gioitinh);
+        console.log(ngaysinh);
+        console.log(CV);
+        if (check()) {
+            console.log("ajax")
+            $.ajax({
+                type: "POST",
+                url: "../Controller/controller.php",
+                data: {
+                    act: 'signUp',
+                    user: emails,
+                    hoten: ten,
+                    password: password,
+                    sdt: sdt,
+                    ngaysinh: ngaysinh,
+                    gioitinh: gioitinh,
+                    cv: CV,
+                },
+                success: function(data) {
+                    showNotice(JSON.parse(data)['notice']);
+                    if(JSON.parse(data)['status']=='success'){
+                        $('#form_signUp').modal('hide');
+                        // $('#form_signIn').modal('show');
+                    }
+                }
+            })
+        }   
+    }
+    function postDataSignIn(){
+        let id = $('#inputId').val();
+        let pass =$('#inputPass_SignIn').val();
+        if(!checkPass(pass)){
+            showNotice('Mật khẩu không chính xác');
+        }
+        else{
+            $.ajax({
+                type: 'POST',
+                url: "../Controller/controller.php",
+                data:{
+                    act: 'signIn',
+                    id: id,
+                    pass: pass,
+                },
+                success: function(data) {
+                    showNotice(JSON.parse(data)['notice']);
+                    if(JSON.parse(data)['status']=='success'){
+                        $('#form_signIn').modal('hide');
+                        // Chuyen hướng trang web 
+                        
+                    }
+                }
+            })
         }
 
-    </script>
+    }
+</script>
 
 </html>

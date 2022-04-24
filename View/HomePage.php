@@ -22,6 +22,7 @@
     <!-- Giới Thiệu -->
     <div id="containerPopUp">
         <?php include './_partial/form/formSignUp.php'; ?>
+        <?php include './_partial/form/formSignIn.php'; ?>
         <?php include './_partial/popup/modal_modules.php';
         popupModules::onlyWindows("Chú ý", "<div id=\"notice\">test</div>", "noticePopup") ?>
     </div>
@@ -37,7 +38,7 @@
                     </span>
                     một cách dễ dàng và hiệu quả.
                 </p>
-                <button type="button" id="btSignIn" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp">THAM GIA NGAY</button>
+                <button type="button" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp">THAM GIA NGAY</button>
             </div>
             <div class="col text-center">
                 <img src="../Assets/img/Light bulb.jpg" alt="lightbulb">
@@ -223,6 +224,7 @@
                     cv: CV,
                 },
                 success: function(data) {
+                    console.log(data);
                     showNotice(JSON.parse(data)['notice']);
                     if(JSON.parse(data)['status']=='success'){
                         $('#form_signUp').modal('hide');
@@ -233,8 +235,9 @@
         }   
     }
     function postDataSignIn(){
-        let id = $('#inputId').val();
-        let pass =$('#inputPass_SignIn').val();
+        let id = $('#signinEmail').val();
+        let pass =$('#siginPassword').val();
+        // console.log(id+pass);
         if(!checkPass(pass)){
             showNotice('Mật khẩu không chính xác');
         }
@@ -244,13 +247,14 @@
                 url: "../Controller/controller.php",
                 data:{
                     act: 'signIn',
-                    id: id,
-                    pass: pass,
+                    user: id,
+                    password: pass,
                 },
                 success: function(data) {
+                    console.log(data);
                     showNotice(JSON.parse(data)['notice']);
                     if(JSON.parse(data)['status']=='success'){
-                        $('#form_signIn').modal('hide');
+                        // $('#form_signIn').modal('hide');
                         // Chuyen hướng trang web 
                         
                     }

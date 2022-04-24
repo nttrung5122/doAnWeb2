@@ -5,19 +5,19 @@ include '../model/dataProvider.php';
 class AuthModel{
     public static function getAllUsers(){
         $sql = "SELECT * FROM `taikhoan`;";
-        $data= DataProvider::executeSQL($sql);
-        return $data;
+        $dataSql= DataProvider::executeSQL($sql);
+        return $dataSql;
     }
 
     public static function getUsers($email){
-        $sql = "SELECT * FROM `taikhoan` WHERE maTaiKhoan=\"$email\";";
-        $data= DataProvider::executeSQL($sql);
-        return $data;
+        $sql = "SELECT * FROM `taikhoan` WHERE `mail` =\"$email\";";
+        $dataSql= DataProvider::executeSQL($sql);
+        return $dataSql;
     }
 
     public static function checkUsersExit($email){
-        $data=  AuthModel :: getAllUsers();
-        while ($row = mysqli_fetch_array($data)){
+        $dataSql=  AuthModel :: getAllUsers();
+        while ($row = mysqli_fetch_array($dataSql)){
             if($row[0]==$email){
                 return true;
             }
@@ -28,7 +28,7 @@ class AuthModel{
     
     public static function createUser($email,$pass,$hoten,$ngaysinh,$sdt,$cv){        
         $sql = "INSERT INTO `taikhoan` (`mail`, `password`, `loaiTk`, `hoten`, `ngaysinh`, `sdt`) VALUES ('$email', '$pass', '$cv', '$hoten', '$ngaysinh', '$sdt');";
-        $data=DataProvider::executeSQL($sql);
+        $dataSql=DataProvider::executeSQL($sql);
     }
     
 

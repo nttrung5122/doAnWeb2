@@ -4,14 +4,23 @@ function head($checkLog)
 {
     $headerRight = "";
     // $username = $_SESSION['username'];
-    $username = "Toan";
+    $username = "Toàn";
     if (!$checkLog) {
         $headerRight = '<button type="button" class="btn btn-success col-3 shadow fs-5">Đăng nhập</button>
-        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5">Đăng ký</button>';
-    }
-    else {
-        $headerRight = '<div class="thongBao"><a class="nav-link fs-5 text-nowrap" href="#">Thong Bao</a></div>
-                        <div class="taiKhoan"><a class="nav-link fs-5 text-nowrap" href="#">'. $username.'</a></div>';
+        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="margin-right:100px;">Đăng ký</button>';
+    } else {
+        $headerRight = '<li class="nav-item"><a class="nav-link fs-5 text-nowrap" href="#">Thông Báo</a></li>
+        <li class="nav-item dropstart">
+            <a class="nav-link fs-5 text-nowrap dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                ' . $username . '
+            </a>
+            <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+                <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+                <hr>
+                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+            </ul>
+        </li>';
     }
     echo '<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
             <div class="container-fluid">
@@ -19,18 +28,18 @@ function head($checkLog)
                     <!-- cần bổ sung -->
                     <img src="logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
                 </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                <div class="collapse navbar-collapse d-lg-inline-flex flex-row-reverse" id="navbarSupportedContent">
-                    <ul class="navbar-nav gap-5" style="margin-right: 100px;">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav gap-3">
                         <li class="nav-item">
                             <a class="nav-link fs-5 text-nowrap" href="#">Giới Thiệu</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-5 text-nowrap" href="#">Liên Lạc</a>
                         </li>
-                        '.$headerRight.'
+                        ' . $headerRight . '
                     </ul>
                 </div>
             </div>

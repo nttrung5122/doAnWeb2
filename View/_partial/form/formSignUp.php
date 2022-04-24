@@ -42,7 +42,7 @@
                         <div class="position-absolute start-50 translate-middle-x">
                             <input type="radio" class="btn-check" name="chucvu" id="radioGV" autocomplete="off" value="gv" checked onclick="setCV(this.value)">
                             <label class="btn btn-outline-primary" for="radioGV">Giảng viên</label>
-                            <input type="radio" class="btn-check" name="chucvu" id="radioHS" value="hs" autocomplete="off" onclick="setCV(this.value)">
+                            <input type="radio" class="btn-check" name="chucvu" id="radioHS" value="sv" autocomplete="off" onclick="setCV(this.value)">
                             <label class="btn btn-outline-primary" for="radioHS">Học sinh</label>
                         </div>
                         <br>

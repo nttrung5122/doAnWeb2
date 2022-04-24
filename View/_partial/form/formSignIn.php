@@ -41,7 +41,7 @@
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <div id="dangkyText">Bạn chưa có tài khoản?</div>
                         <!-- Btn chuyển sang form đăng ký -->
-                        <button class="btn btn-success" type="button">Đăng ký</button>
+                        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>
                     </div>
                 </div>
             </div>

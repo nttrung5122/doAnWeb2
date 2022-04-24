@@ -259,5 +259,12 @@
         </div>
     </div>
 </body>
-
+<script>
+    $(document).ready(function(){
+        $('#btnLogOut').click(function(){
+            <?php    session_destroy(); ?>
+            window.location='./HomePage.php';
+        });
+    });
+</script>
 </html>

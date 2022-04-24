@@ -3,13 +3,13 @@ session_start();
 function head($checkLog)
 {
     $headerRight = "";
-    // $username = $_SESSION['username'];
-    $username = "Toàn";
+    // $username = "Toàn";
     if (!$checkLog) {
         $headerRight = '
         <button type="button" class="btn btn-success col-3 shadow fs-5" data-bs-toggle="modal" data-bs-target="#form_signIn" >Đăng nhập</button>
         <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="margin-right:100px;" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>';
     } else {
+        $username = $_SESSION['user'][3];
         $headerRight = '<li class="nav-item"><a class="nav-link fs-5 text-nowrap" href="#">Thông Báo</a></li>
         <li class="nav-item dropstart">
             <a class="nav-link fs-5 text-nowrap dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -19,7 +19,7 @@ function head($checkLog)
                 <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
                 <li><a class="dropdown-item" href="#">Cài đặt</a></li>
                 <hr>
-                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                <li><a class="dropdown-item" href="#" id="btnLogOut">Đăng xuất</a></li>
             </ul>
         </li>';
     }

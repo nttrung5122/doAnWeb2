@@ -227,7 +227,7 @@
                     console.log(data);
                     showNotice(JSON.parse(data)['notice']);
                     if(JSON.parse(data)['status']=='success'){
-                        $('#form_signUp').modal('hide');
+                        // $('#form_signUp').modal('hide');
                         // $('#form_signIn').modal('show');
                     }
                 }
@@ -254,6 +254,13 @@
                     console.log(data);
                     showNotice(JSON.parse(data)['notice']);
                     if(JSON.parse(data)['status']=='success'){
+                        if(JSON.parse(data)['cv']== 'gv'){
+                            window.location="./teacherPage.php";
+                        }
+                        else{
+                            // window.location="./studentPage.php";
+                            console.log("Sinh vien");
+                        }
                         // $('#form_signIn').modal('hide');
                         // Chuyen hướng trang web 
                         

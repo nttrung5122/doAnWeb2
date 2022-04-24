@@ -28,6 +28,9 @@ class AuthController {
             if($dataUser[1]==$password){
                 $data['status']='success';
                 $data['notice']="Đăng nhập thành công thành công";
+                session_start();
+                $_SESSION['user']=$dataUser;
+                $data['cv']=$dataUser['loaiTk'];
                 return $data;
             }
  

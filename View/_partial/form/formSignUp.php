@@ -62,9 +62,9 @@
             </div>
             <div class="modal-footer">
                 <!-- data-bs-dismiss="modal" - đóng cửa sổ popup -->
-                <button type="button" class="btn btn-primary" id="btnForm">Đăng ký</button>
+                <button type="button" class="btn btn-primary" id="btnFormSignUp">Đăng ký</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
             </div>
         </div>
     </div>
-</div>
+</div>  

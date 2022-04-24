@@ -20,7 +20,7 @@
     ?>
 
     <!-- Giới Thiệu -->
-    <div id="form" style=" display: none">
+    <div id="containerPopUp">
         <?php include './_partial/form/formSignUp.php'; ?>
         <?php include './_partial/popup/modal_modules.php';
         popupModules::onlyWindows("Chú ý", "<div id=\"notice\">test</div>", "noticePopup") ?>
@@ -125,12 +125,12 @@
         CV = cv;
     }
     $(document).ready(function() {
-        $("#btSignIn").click(function() {
-            // console.log("1");
-            document.getElementById("form").style.display = "block";
+        $("#btnFormSignUp").click(function(e) {
+            postDataSignUp();
+
         });
-        $("#btnForm").click(function(e) {
-            postData();
+        $("#btnFormSignIn").click(function(e) {
+            postDataSignIn();
 
         });
     });
@@ -155,6 +155,10 @@
             showNotice('Email của bạn không đúng định dạng!');
             return false;
         }
+        if(!checkPass(password)) {
+            showNotice('Mật khẩu không được kíchứa kí tự đặt biệt và phải hơn 8 kí tự');
+            return false;
+        }
         if (password != password2) {
             showNotice("Mật khẩu không khớp vui lòng nhập lại");
             return false;
@@ -165,32 +169,16 @@
         }
         return true;
     }
-
+    function checkPass(pass){
+        let pass_regex=/^[a-zA-Z0-9]{8,}$/;
+        return pass_regex.test(pass);
+    }
     function checkSdt(sdt) {
         var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-        if (sdt !== '') {
-            if (vnf_regex.test(sdt) == false) {
-                // showNotice('Số điện thoại của bạn không đúng định dạng!');
-
-                return false;
-            } else {
-                // showNotice('Số điện thoại của bạn hợp lệ!');
-                return true;
-            }
-        }
+        return vnf_regex.test(sdt);
     }
 
     function checkEmail(email) {
-        // var email_regex = /^\S+@\S+\.\S+$/;
-        // if (email !== '') {
-        //     if (email_regex.test(email) == false) {
-        //         // showNotice('Email của bạn không đúng định dạng!');
-        //         return false;
-        //     } else {
-        //         // showNotice('Số điện thoại của bạn hợp lệ!');
-        //         return true;
-        //     }
-        // }
         return String(email)
             .toLowerCase()
             .match(
@@ -203,7 +191,7 @@
         $('#noticePopup').modal('show');
     }
 
-    function postData() {
+    function postDataSignUp() {
         let ten = $("#inputTen").val();
         let emails = $("#inputEmail").val();
         let password = $("#inputPass1").val();
@@ -219,11 +207,11 @@
         console.log(gioitinh);
         console.log(ngaysinh);
         console.log(CV);
-        if (check   ()) {
+        if (check()) {
             console.log("ajax")
             $.ajax({
                 type: "POST",
-                url: "../Controller/authController.php",
+                url: "../Controller/controller.php",
                 data: {
                     act: 'signUp',
                     user: emails,
@@ -235,11 +223,41 @@
                     cv: CV,
                 },
                 success: function(data) {
-                    showNotice(data);
-                    // console.log(data);
+                    showNotice(JSON.parse(data)['notice']);
+                    if(JSON.parse(data)['status']=='success'){
+                        $('#form_signUp').modal('hide');
+                        // $('#form_signIn').modal('show');
+                    }
+                }
+            })
+        }   
+    }
+    function postDataSignIn(){
+        let id = $('#inputId').val();
+        let pass =$('#inputPass_SignIn').val();
+        if(!checkPass(pass)){
+            showNotice('Mật khẩu không chính xác');
+        }
+        else{
+            $.ajax({
+                type: 'POST',
+                url: "../Controller/controller.php",
+                data:{
+                    act: 'signIn',
+                    id: id,
+                    pass: pass,
+                },
+                success: function(data) {
+                    showNotice(JSON.parse(data)['notice']);
+                    if(JSON.parse(data)['status']=='success'){
+                        $('#form_signIn').modal('hide');
+                        // Chuyen hướng trang web 
+                        
+                    }
                 }
             })
         }
+
     }
 </script>
 

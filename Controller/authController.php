@@ -40,4 +40,3 @@ class AuthController {
             return $data;
     }
 }
-?>

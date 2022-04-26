@@ -16,7 +16,7 @@
 
     <?php
     require("./_partial/Header_Footer/Header_Footer.php");
-    head(false);
+    head($homePage);
     ?>
 
     <!-- Giới Thiệu -->

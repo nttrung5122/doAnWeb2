@@ -24,8 +24,9 @@
 </head>
 <body>
 <?php
-    require("./Header_Footer.php");
-    head()
+    include "./_partial/Header_Footer/Header_Footer.php";
+
+    head(1);
     ?>
 
 <div class="container-fluid position-fixed" style="top:70px">

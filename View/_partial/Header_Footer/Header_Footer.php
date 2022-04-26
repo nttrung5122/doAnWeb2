@@ -1,13 +1,16 @@
 <?php
+$homePage = "Home Page";
+$studentPage = "Student Page";
+$teacherPage = "Teacher Page";
 session_start();
-function head($checkLog)
+function head($currentPage)
 {
     $headerRight = "";
     // $username = "Toàn";
     if (!isset( $_SESSION['user'])) {
         $headerRight = '
-        <button type="button" class="btn btn-success col-3 shadow fs-5" data-bs-toggle="modal" data-bs-target="#form_signIn" >Đăng nhập</button>
-        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="margin-right:100px;" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>';
+        <button type="button" class="btn btn-success col-3 shadow fs-5" style="width: 140px;" data-bs-toggle="modal" data-bs-target="#form_signIn" >Đăng nhập</button>
+        <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="width: 140px;" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>';
     } else {
         $username = $_SESSION['user'][3];
         $headerRight = '<li class="nav-item"><a class="nav-link fs-5 text-nowrap" href="#">Thông Báo</a></li>
@@ -33,13 +36,8 @@ function head($checkLog)
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav gap-3">
-                        <li class="nav-item">
-                            <a class="nav-link fs-5 text-nowrap" href="#">Giới Thiệu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-5 text-nowrap" href="#">Liên Lạc</a>
-                        </li>
+                    <ul class="navbar-nav gap-3"  style="height: 46px;">
+                        '. createLinkAndButton($currentPage) .'
                         ' . $headerRight . '
                     </ul>
                 </div>
@@ -70,4 +68,29 @@ function footer()
                 <a class="nav-link link-dark" href="#">Liên Lạc</a>
             </div>
         </div>';
+}
+function createLinkAndButton($currentPage)
+{
+    global $homePage, $studentPage;
+    if ($currentPage == $homePage)
+    {
+        return'<li class="nav-item">
+                    <a class="nav-link fs-5 text-nowrap" href="#">Giới Thiệu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fs-5 text-nowrap" href="#">Liên Lạc</a>
+                </li>';
+    }
+    else if ($currentPage == $studentPage)
+    {
+        return '<li class="nav-item">
+                    <a class="nav-link fs-5 text-nowrap" href="#"><i class="fas fa-plus-circle"></i> Tìm lớp</a>
+                </li>';
+    }
+    else 
+    {
+        return '<li class="nav-item">
+                    <a class="nav-link fs-5 text-nowrap" href="#"><i class="fas fa-plus-circle"></i> Tạo lớp</a>
+                </li>';
+    }
 }

@@ -8,6 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/1f286772f7.js" crossorigin="anonymous"></script>
     <title>Dashboard</title>
     <style>
         body{
@@ -26,10 +27,10 @@
 <?php
     include "./_partial/Header_Footer/Header_Footer.php";
 
-    head(1);
+    head($studentPage);
     ?>
 
-<div class="container-fluid position-fixed" style="top:70px">
+<div class="container-fluid position-fixed" style="top:60.2px">
     <div class="row flex-nowrap">
         <!-- px là set padding cho left right, còn py là set padding cho top bottom -->
         <div class="col-2 col-md-2 col-xl-2 px-sm-2 fw-bold" style="background-color: #d6e1cd;">

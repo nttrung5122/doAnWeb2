@@ -40,7 +40,7 @@
 <body>
     <!-- Header -->
     <?php require("./_partial/Header_Footer/Header_Footer.php");
-    head(true) ?>
+    head($teacherPage) ?>
 
     <!-- Side Navigation -->
     <div class="d-flex flex-column fixed-top flex-shrink-0 p-2" style="height:100vh; width: 280px; margin-top: 60.2px; background-color: #82dda5; z-index: 1;">

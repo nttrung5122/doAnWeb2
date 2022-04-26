@@ -1,21 +1,27 @@
 <head>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+    <script>
+        function closeBackdrop(modalID) {
+            $(modalID).modal('hide');
+            // $('body').removeClass('modal-open');
+        }
+    </script>
 </head>
 
 <?php include 'form_modules.php';
 ?>
-<div class="modal fade" id="form_signUp" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
+<div class="modal" id="form_signUp" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="popupLabel">Sign Up</h5>
+                <h5 class="modal-title" id="popupLabel">Đăng ký</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="position-relative p-2">
                     <!-- <div class="mx-auto">Thông tin cá nhân</div> -->
-                    <form class="position-relative was-validated" action="">
+                    <form class="position-relative" action="">
                         <!-- input text -->
                         <?php
                         FormBootstrap::horizontalInputrequired("text", "Họ và tên", "inputTen");
@@ -63,8 +69,9 @@
             <div class="modal-footer">
                 <!-- data-bs-dismiss="modal" - đóng cửa sổ popup -->
                 <button type="button" class="btn btn-primary" id="btnFormSignUp">Đăng ký</button>
+                <button type="button" class="btn btn-success" data-bs-target="#form_signIn" data-bs-toggle="modal">Chuyển sang Đăng nhập</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
             </div>
         </div>
     </div>
-</div>  
+</div>

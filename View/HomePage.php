@@ -157,7 +157,7 @@
             return false;
         }
         if(!checkPass(password)) {
-            showNotice('Mật khẩu không được kíchứa kí tự đặt biệt và phải hơn 8 kí tự');
+            showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
             return false;
         }
         if (password != password2) {

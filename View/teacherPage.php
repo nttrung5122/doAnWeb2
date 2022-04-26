@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -262,8 +265,18 @@
 <script>
     $(document).ready(function(){
         $('#btnLogOut').click(function(){
-            <?php    session_destroy(); ?>
+            $.ajax({
+                type: 'POST',
+                url: "../Controller/controller.php",
+                data:{
+                    act: 'logOut'
+                },
+                success: function(data){
+                    console.log(data);
+                }
+            })
             window.location='./HomePage.php';
+
         });
     });
 </script>

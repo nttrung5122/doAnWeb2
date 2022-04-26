@@ -2,7 +2,6 @@
 $homePage = "Home Page";
 $studentPage = "Student Page";
 $teacherPage = "Teacher Page";
-session_start();
 function head($currentPage)
 {
     $headerRight = "";

@@ -8,6 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Home</title>
+    <?php 
+        include './_partial/form/formSignUp.php'; 
+        include './_partial/form/formSignIn.php'; 
+        include "./_partial/popup/notice.php";
+    ?>
 </head>
 
 <body class="selector-for-some-widget">
@@ -21,10 +26,6 @@
 
     <!-- Giới Thiệu -->
     <div id="containerPopUp">
-        <?php include './_partial/form/formSignUp.php'; ?>
-        <?php include './_partial/form/formSignIn.php'; ?>
-        <?php include './_partial/popup/modal_modules.php';
-        popupModules::onlyWindows("Chú ý", "<div id=\"notice\">test</div>", "noticePopup") ?>
     </div>
     <div class="container my-5">
         <div class="row">
@@ -185,11 +186,6 @@
             .match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
-    }
-
-    function showNotice(title) {
-        document.getElementById("notice").innerHTML = title;
-        $('#noticePopup').modal('show');
     }
 
     function postDataSignUp() {

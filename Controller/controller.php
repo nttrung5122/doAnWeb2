@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_POST['act'])){
     switch ($_POST['act']) {
         case "signUp":{
@@ -17,6 +18,12 @@ if (isset($_POST['act'])){
         case "logOut":{        
             session_unset();
             echo json_encode("success");
+        }
+        break;
+        case "createClass":{
+            require './classController.php';
+            $data=ClassController::createClass($_POST['id'],$_POST['info'],$_SESSION['user'][0],$_POST['name']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
     }

@@ -25,6 +25,24 @@
             background-color: #d5d5d5;
         }
     </style>
+    <script>
+    $(document).ready(function(){
+        $('#btnLogOut').click(function(){
+            $.ajax({
+                type: 'POST',
+                url: "../Controller/controller.php",
+                data:{
+                    act: 'logOut'
+                },
+                success: function(data){
+                    console.log(data);
+                }
+            })
+            window.location='./HomePage.php';
+
+        });
+    });
+</script>
 </head>
 <body>
 <?php

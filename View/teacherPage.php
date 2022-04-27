@@ -1,5 +1,5 @@
-<?php 
-    session_start();
+<?php
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,14 +36,87 @@
                 $(this).addClass('active');
                 $(this).removeClass('link-dark');
             });
+            $('#btnRandomCode').click(function() {
+                $("#txtIdClass").val(gen_Code(8));
+            });
+            $('#btnLogOut').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "../Controller/controller.php",
+                    data: {
+                        act: 'logOut'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                })
+                window.location = './HomePage.php';
+
+            });
+            $("#btnCreateClass").click(function() {
+                let id = $("#txtIdClass").val();
+                let name = $("#txtNameClass").val();
+                let info = $("#txtInfoClass").val();
+                console.log(id);
+                console.log(name);
+                console.log(info);
+                $.ajax({
+                    type: "POST",
+                    url: "../Controller/controller.php",
+                    data: {
+                        act: "createClass",
+                        id: id,
+                        name: name,
+                        info: info,
+                    },
+                    success: function(data) {
+                        showNotice(JSON.parse(data)['notice']);
+                        if (data['status'] == 'success') {
+                            window.location="./teacherPage.php";
+                        }
+                    }
+                })
+            });
         });
+
+        function gen_Code(length, special) {
+            let iteration = 0;
+            let password = "";
+            let randomNumber;
+            if (special == undefined) {
+                var special = false;
+            }
+            while (iteration < length) {
+                randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
+                if (!special) {
+                    if ((randomNumber >= 33) && (randomNumber <= 47)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 58) && (randomNumber <= 64)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 91) && (randomNumber <= 96)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 123) && (randomNumber <= 126)) {
+                        continue;
+                    }
+                }
+                iteration++;
+                password += String.fromCharCode(randomNumber);
+            }
+            return password;
+        }
     </script>
 </head>
 
 <body>
     <!-- Header -->
     <?php require("./_partial/Header_Footer/Header_Footer.php");
-    head($teacherPage) ?>
+    head($teacherPage);
+    include "./_partial/form/form_create_class.php";
+    include "./_partial/popup/notice.php"
+    ?>
 
     <!-- Side Navigation -->
     <div class="d-flex flex-column fixed-top flex-shrink-0 p-2" style="height:100vh; width: 280px; margin-top: 60.2px; background-color: #82dda5; z-index: 1;">
@@ -262,22 +335,5 @@
         </div>
     </div>
 </body>
-<script>
-    $(document).ready(function(){
-        $('#btnLogOut').click(function(){
-            $.ajax({
-                type: 'POST',
-                url: "../Controller/controller.php",
-                data:{
-                    act: 'logOut'
-                },
-                success: function(data){
-                    console.log(data);
-                }
-            })
-            window.location='./HomePage.php';
 
-        });
-    });
-</script>
 </html>

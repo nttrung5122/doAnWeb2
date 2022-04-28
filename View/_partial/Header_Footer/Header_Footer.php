@@ -27,9 +27,8 @@ function head($currentPage)
     }
     echo '<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <!-- cần bổ sung -->
-                    <img src="logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+                <a class="navbar-brand" href="./HomePage.php">
+                    <img src="../Assets/img/Logo.png" alt="Avatar Logo" style="width:36px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -47,17 +46,14 @@ function footer()
 {
     echo '<div class="row p-5" style="background-color: #82dda5; margin-right:0px">
             <div class="col-3 m-auto">
-                <a class="navbar-brand" href="#">
-                <!-- cần bổ sung -->
-                <img src="logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+                <a class="navbar-brand" href="./HomePage.php">
+                <img src="../Assets/img/Logo.png" alt="Avatar Logo" style="width:80px;">
                 </a>
-                <!-- cần bổ sung -->
-                <p> &copy;copyright 2022 .... All Rights Reserved</p>
+                <p> &copy;copyright 2022 OnTest All Rights Reserved</p>
             </div>
             <div class="col-3 m-auto ps-5">
                 <h5>Email</h5>
-                <!-- cần bổ sung -->
-                <p>...@gmail.com</p>
+                <p>ontest@gmail.com</p>
                 <h5>Địa chỉ</h5>
                 <p>273 An D. Vương, Phường 3, Quận 5, Thành phố Hồ Chí Minh</p>
             </div>

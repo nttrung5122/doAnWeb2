@@ -33,7 +33,7 @@
                 <h1 style="font-size: 300%;">Cùng nhau <span class="text-success"> học tập, kiểm tra </span> trực tuyến</h1>
                 <!-- cần bổ sung -->
                 <p>
-                    ... mang tới cho bạn một công cụ hỗ trợ việc
+                    OnTest mang tới cho bạn một công cụ hỗ trợ việc
                     <span class="fw-bold">
                         quản lý và thực hiện bài kiểm tra theo hình thức online
                     </span>

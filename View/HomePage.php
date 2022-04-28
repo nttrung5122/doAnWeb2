@@ -8,10 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Home</title>
-    <?php 
-        include './_partial/form/formSignUp.php'; 
-        include './_partial/form/formSignIn.php'; 
-        include "./_partial/popup/notice.php";
+    <?php
+    include './_partial/form/formSignUp.php';
+    include './_partial/form/formSignIn.php';
+    include "./_partial/popup/notice.php";
     ?>
 </head>
 
@@ -157,7 +157,7 @@
             showNotice('Email của bạn không đúng định dạng!');
             return false;
         }
-        if(!checkPass(password)) {
+        if (!checkPass(password)) {
             showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
             return false;
         }
@@ -165,16 +165,18 @@
             showNotice("Mật khẩu không khớp vui lòng nhập lại");
             return false;
         }
-        if(!$('#checkCondition').is(':checked')){
+        if (!$('#checkCondition').is(':checked')) {
             showNotice("Vui lòng đồng ý với các điều khoản của chúng tôi.")
             return false;
         }
         return true;
     }
-    function checkPass(pass){
-        let pass_regex=/^[a-zA-Z0-9]{8,}$/;
+
+    function checkPass(pass) {
+        let pass_regex = /^[a-zA-Z0-9]{8,}$/;
         return pass_regex.test(pass);
     }
+
     function checkSdt(sdt) {
         var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
         return vnf_regex.test(sdt);
@@ -222,26 +224,26 @@
                 success: function(data) {
                     console.log(data);
                     showNotice(JSON.parse(data)['notice']);
-                    if(JSON.parse(data)['status']=='success'){
+                    if (JSON.parse(data)['status'] == 'success') {
                         // $('#form_signUp').modal('hide');
                         // $('#form_signIn').modal('show');
                     }
                 }
             })
-        }   
-    }
-    function postDataSignIn(){
-        let id = $('#signinEmail').val();
-        let pass =$('#siginPassword').val();
-        // console.log(id+pass);
-        if(!checkPass(pass)){
-            showNotice('Mật khẩu không chính xác');
         }
-        else{
+    }
+
+    function postDataSignIn() {
+        let id = $('#signinEmail').val();
+        let pass = $('#siginPassword').val();
+        // console.log(id+pass);
+        if (!checkPass(pass)) {
+            showNotice('Mật khẩu không chính xác');
+        } else {
             $.ajax({
                 type: 'POST',
                 url: "../Controller/controller.php",
-                data:{
+                data: {
                     act: 'signIn',
                     user: id,
                     password: pass,
@@ -249,22 +251,25 @@
                 success: function(data) {
                     console.log(data);
                     showNotice(JSON.parse(data)['notice']);
-                    if(JSON.parse(data)['status']=='success'){
-                        if(JSON.parse(data)['cv']== 'gv'){
-                            window.location="./teacherPage.php";
+                    if (JSON.parse(data)['status'] == 'success')
+                        setTimeout(() => {
+                            if (JSON.parse(data)['cv'] == 'gv') {
+                                window.location = "./teacherPage.php";
+                            } else {
+                                window.location = "./studentPage.php";
+                                console.log("Sinh vien");
+                            }
+
                         }
-                        else{
-                            // window.location="./studentPage.php";
-                            console.log("Sinh vien");
-                        }
-                        // $('#form_signIn').modal('hide');
-                        // Chuyen hướng trang web 
-                        
-                    }
+                        ,2000);
                 }
             })
         }
 
+    }
+
+    function reload() {
+        window.location.reload();
     }
 </script>
 

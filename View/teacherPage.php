@@ -71,8 +71,11 @@ session_start();
                     },
                     success: function(data) {
                         showNotice(JSON.parse(data)['notice']);
-                        if (data['status'] == 'success') {
-                            window.location="./teacherPage.php";
+                        if (JSON.parse(data)['status'] == 'success') {
+                            setTimeout(()=>{
+                                window.location.reload();
+                            }, 2000);
+                            
                         }
                     }
                 })

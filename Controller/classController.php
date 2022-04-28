@@ -29,6 +29,24 @@ class ClassController{
         }
 
     }
+
+    public static function getClass($idClass){
+        return mysqli_fetch_array(ClassModel::getClass($idClass));
+    }
+
+    public static function rederClass($email){
+        $data=ClassModel::getClassOfUser($email);
+        $result="";
+        while ($row = mysqli_fetch_array($data)){
+            $result .='            <li>
+            <a href="#" class="nav-link link-dark" onclick="renderInfo(\''.$row['maLop'].'\')">'
+
+                .$row['tenLop'].
+            '</a>
+        </li>';
+        }
+        echo $result;
+    }
 }
 
 

@@ -24,9 +24,9 @@ session_start();
     </style>
     <script>
         $(document).ready(function() {
-            $('#exam a').click(function() {
-                $('#exam').find('a.active').addClass('link-dark');
-                $('#exam').find('a.active').removeClass('active');
+            $('#class a').click(function() {
+                $('#class').find('a.active').addClass('link-dark');
+                $('#class').find('a.active').removeClass('active');
                 $(this).addClass('active');
                 $(this).removeClass('link-dark');
             });
@@ -107,6 +107,25 @@ session_start();
             }
             return password;
         }
+
+        function renderInfo(idClass){
+            $.ajax({
+                type: "POST",
+                url: "../Controller/controller.php",
+                data: {
+                    act: "getClass",    
+                    id: idClass,
+                },
+                success: function(data) {
+                    data=JSON.parse(data);
+                    $("#nameClass").html(data['tenLop']);
+                    $("#infoClass").html(data['ThongTin']);
+                    $("#idClass").html("Mã lớp: "+data['maLop']);
+                    $("#soHs").html(data['soLuong']);
+                    $("#idClassCurent").val(data['maLop']);
+                }
+            })
+        }
     </script>
 </head>
 
@@ -124,32 +143,11 @@ session_start();
             <span class="fs-3 fw-bold">Danh sách lớp</span>
         </a>
         <hr>
-        <ul id="exam" class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item ">
-                <a href="#" class="nav-link active">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
+        <ul id="class" class="nav nav-pills flex-column mb-auto">
+            <?php
+                include "../Controller/classController.php";
+                ClassController::rederClass($_SESSION['user'][0]);
+            ?>  
         </ul>
         <hr>
         <ul id="tabs" class="nav nav-pills flex-column mb-auto">
@@ -212,11 +210,12 @@ session_start();
             <div class="col-sm-8 mt-5 ">
                 <!-- Classroom information -->
                 <div class="container border border-3">
-                    <h4>Phát triển web 2 - 112</h4>
+                    <h4 id="nameClass"></h4>
                     <h4>Chú thích:</h4>
                     <!-- p for chú thích -->
-                    <p class="ps-3">bla bla bla bla bla bla bla bla bla bla</p>
-                    <h4>Mã lớp:</h4>
+                    <p class="ps-3" id="infoClass"></p>
+                    <h4 id="idClass">Mã lớp:</h4>
+                    <input type="hidden" name="" value="" id="idClassCurent">
                 </div>
                 <!-- Statistical Card -->
                 <div class="row gap-5 justify-content-center mt-5" style="margin-left: 0; margin-right: 0;">
@@ -228,7 +227,7 @@ session_start();
                                         <i class="far fa-user fs-1"></i>
                                     </div>
                                     <div class="media-body text-end col-sm-8" style="padding-right:0px;">
-                                        <h3>40</h3>
+                                        <h3 id="soHs">40</h3>
                                         <span>Số học sinh</span>
                                     </div>
                                 </div>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (isset($_POST['act'])){
     switch ($_POST['act']) {
         case "signUp":{
@@ -22,7 +21,14 @@ if (isset($_POST['act'])){
         break;
         case "createClass":{
             require './classController.php';
+            session_start();
             $data=ClassController::createClass($_POST['id'],$_POST['info'],$_SESSION['user'][0],$_POST['name']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "getClass":{
+            require './classController.php';
+            $data=ClassController::getClass($_POST['id']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;

@@ -9,8 +9,22 @@ class ClassModel{
         $data= DataProvider::executeSQL($sql);
     }
 
+    public static function getClassOfUser($email){
+        // $sql = "SELECT * FROM `lop` WHERE `maGiangVien`=\`$email\`;";
+        $sql = "SELECT * FROM `lop` WHERE `maGiangVien`=\"$email\";";
+
+        $data= DataProvider::executeSQL($sql);
+        return $data;
+    }
+
     public static function getAllClass(){
         $sql = "SELECT * FROM `lop`;";
+        $data= DataProvider::executeSQL($sql);
+        return $data;
+    }
+
+    public static function getClass($idClass){
+        $sql = "SELECT * FROM `lop` WHERE `maLop`=\"$idClass\";";
         $data= DataProvider::executeSQL($sql);
         return $data;
     }
@@ -38,5 +52,5 @@ class ClassModel{
 
 
 }
-    
+    // echo ClassModel::getClassOfUser("nguyntrung291@gmail.com");
 ?>

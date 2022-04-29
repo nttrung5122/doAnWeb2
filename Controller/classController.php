@@ -47,6 +47,13 @@ class ClassController{
         }
         echo $result;
     }
+
+    public static function deleteClass($idClass){
+        ClassModel::deleteClass($idClass);
+        $data['notice']="Xóa lớp thành công";
+        $data['status']="success";
+        return $data;
+    }
 }
 
 

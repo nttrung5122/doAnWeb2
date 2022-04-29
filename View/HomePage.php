@@ -8,6 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Home</title>
+    <?php
+    include './_partial/form/formSignUp.php';
+    include './_partial/form/formSignIn.php';
+    include "./_partial/popup/notice.php";
+    ?>
 </head>
 
 <body class="selector-for-some-widget">
@@ -16,14 +21,11 @@
 
     <?php
     require("./_partial/Header_Footer/Header_Footer.php");
-    head(false);
+    head($homePage);
     ?>
 
     <!-- Giới Thiệu -->
     <div id="containerPopUp">
-        <?php include './_partial/form/formSignUp.php'; ?>
-        <?php include './_partial/popup/modal_modules.php';
-        popupModules::onlyWindows("Chú ý", "<div id=\"notice\">test</div>", "noticePopup") ?>
     </div>
     <div class="container my-5">
         <div class="row">
@@ -31,13 +33,13 @@
                 <h1 style="font-size: 300%;">Cùng nhau <span class="text-success"> học tập, kiểm tra </span> trực tuyến</h1>
                 <!-- cần bổ sung -->
                 <p>
-                    ... mang tới cho bạn một công cụ hỗ trợ việc
+                    OnTest mang tới cho bạn một công cụ hỗ trợ việc
                     <span class="fw-bold">
                         quản lý và thực hiện bài kiểm tra theo hình thức online
                     </span>
                     một cách dễ dàng và hiệu quả.
                 </p>
-                <button type="button" id="btSignIn" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp">THAM GIA NGAY</button>
+                <button type="button" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp">THAM GIA NGAY</button>
             </div>
             <div class="col text-center">
                 <img src="../Assets/img/Light bulb.jpg" alt="lightbulb">
@@ -155,24 +157,26 @@
             showNotice('Email của bạn không đúng định dạng!');
             return false;
         }
-        if(!checkPass(password)) {
-            showNotice('Mật khẩu không được kíchứa kí tự đặt biệt và phải hơn 8 kí tự');
+        if (!checkPass(password)) {
+            showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
             return false;
         }
         if (password != password2) {
             showNotice("Mật khẩu không khớp vui lòng nhập lại");
             return false;
         }
-        if(!$('#checkCondition').is(':checked')){
+        if (!$('#checkCondition').is(':checked')) {
             showNotice("Vui lòng đồng ý với các điều khoản của chúng tôi.")
             return false;
         }
         return true;
     }
-    function checkPass(pass){
-        let pass_regex=/^[a-zA-Z0-9]{8,}$/;
+
+    function checkPass(pass) {
+        let pass_regex = /^[a-zA-Z0-9]{8,}$/;
         return pass_regex.test(pass);
     }
+
     function checkSdt(sdt) {
         var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
         return vnf_regex.test(sdt);
@@ -184,11 +188,6 @@
             .match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
-    }
-
-    function showNotice(title) {
-        document.getElementById("notice").innerHTML = title;
-        $('#noticePopup').modal('show');
     }
 
     function postDataSignUp() {
@@ -223,41 +222,54 @@
                     cv: CV,
                 },
                 success: function(data) {
+                    console.log(data);
                     showNotice(JSON.parse(data)['notice']);
-                    if(JSON.parse(data)['status']=='success'){
-                        $('#form_signUp').modal('hide');
+                    if (JSON.parse(data)['status'] == 'success') {
+                        // $('#form_signUp').modal('hide');
                         // $('#form_signIn').modal('show');
                     }
                 }
             })
-        }   
-    }
-    function postDataSignIn(){
-        let id = $('#inputId').val();
-        let pass =$('#inputPass_SignIn').val();
-        if(!checkPass(pass)){
-            showNotice('Mật khẩu không chính xác');
         }
-        else{
+    }
+
+    function postDataSignIn() {
+        let id = $('#signinEmail').val();
+        let pass = $('#siginPassword').val();
+        // console.log(id+pass);
+        if (!checkPass(pass)) {
+            showNotice('Mật khẩu không chính xác');
+        } else {
             $.ajax({
                 type: 'POST',
                 url: "../Controller/controller.php",
-                data:{
+                data: {
                     act: 'signIn',
-                    id: id,
-                    pass: pass,
+                    user: id,
+                    password: pass,
                 },
                 success: function(data) {
+                    console.log(data);
                     showNotice(JSON.parse(data)['notice']);
-                    if(JSON.parse(data)['status']=='success'){
-                        $('#form_signIn').modal('hide');
-                        // Chuyen hướng trang web 
-                        
-                    }
+                    if (JSON.parse(data)['status'] == 'success')
+                        setTimeout(() => {
+                            if (JSON.parse(data)['cv'] == 'gv') {
+                                window.location = "./teacherPage.php";
+                            } else {
+                                window.location = "./studentPage.php";
+                                console.log("Sinh vien");
+                            }
+
+                        }
+                        ,2000);
                 }
             })
         }
 
+    }
+
+    function reload() {
+        window.location.reload();
     }
 </script>
 

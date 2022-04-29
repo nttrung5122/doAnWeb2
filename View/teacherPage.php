@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,9 +25,9 @@
     </style>
     <script>
         $(document).ready(function() {
-            $('#exam a').click(function() {
-                $('#exam').find('a.active').addClass('link-dark');
-                $('#exam').find('a.active').removeClass('active');
+            $('#class a').click(function() {
+                $('#class').find('a.active').addClass('link-dark');
+                $('#class').find('a.active').removeClass('active');
                 $(this).addClass('active');
                 $(this).removeClass('link-dark');
             });
@@ -34,116 +37,132 @@
                 $(this).addClass('active');
                 $(this).removeClass('link-dark');
             });
+            $('#btnRandomCode').click(function() {
+                $("#txtIdClass").val(gen_Code(8));
+            });
+            $('#btnLogOut').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "../Controller/controller.php",
+                    data: {
+                        act: 'logOut'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                })
+                window.location = './HomePage.php';
+
+            });
+            $("#btnCreateClass").click(function() {
+                let id = $("#txtIdClass").val();
+                let name = $("#txtNameClass").val();
+                let info = $("#txtInfoClass").val();
+                console.log(id);
+                console.log(name);
+                console.log(info);
+                $.ajax({
+                    type: "POST",
+                    url: "../Controller/controller.php",
+                    data: {
+                        act: "createClass",
+                        id: id,
+                        name: name,
+                        info: info,
+                    },
+                    success: function(data) {
+                        showNotice(JSON.parse(data)['notice']);
+                        if (JSON.parse(data)['status'] == 'success') {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+
+                        }
+                    }
+                })
+            });
         });
+
+        function gen_Code(length, special) {
+            let iteration = 0;
+            let password = "";
+            let randomNumber;
+            if (special == undefined) {
+                var special = false;
+            }
+            while (iteration < length) {
+                randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
+                if (!special) {
+                    if ((randomNumber >= 33) && (randomNumber <= 47)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 58) && (randomNumber <= 64)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 91) && (randomNumber <= 96)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 123) && (randomNumber <= 126)) {
+                        continue;
+                    }
+                }
+                iteration++;
+                password += String.fromCharCode(randomNumber);
+            }
+            return password;
+        }
+
+        function renderInfo(idClass) {
+            $.ajax({
+                type: "POST",
+                url: "../Controller/controller.php",
+                data: {
+                    act: "getClass",
+                    id: idClass,
+                },
+                success: function(data) {
+                    data = JSON.parse(data);
+                    $("#nameClass").html(data['tenLop']);
+                    $("#infoClass").html(data['ThongTin']);
+                    $("#idClass").html("Mã lớp: " + data['maLop']);
+                    $("#soHs").html(data['soLuong']);
+                    $("#idClassCurent").val(data['maLop']);
+                }
+            })
+        }
     </script>
 </head>
 
 <body>
     <!-- Header -->
     <?php require("./_partial/Header_Footer/Header_Footer.php");
-    head(true) ?>
+    head($teacherPage);
+    include "./_partial/form/form_create_class.php";
+    include "./_partial/popup/notice.php"
+    ?>
 
     <!-- Side Navigation -->
-    <div class="d-flex flex-column fixed-top flex-shrink-0 p-2" style="height:100vh; width: 280px; margin-top: 60.2px; background-color: #82dda5; z-index: 1;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <span class="fs-3 fw-bold">Danh sách lớp</span>
-        </a>
-        <hr>
-        <ul id="exam" class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item ">
-                <a href="#" class="nav-link active">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    Phát triển web 2
-                </a>
-            </li>
-        </ul>
-        <hr>
-        <ul id="tabs" class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item ">
-                <a href="#" class="nav-link active">
-                    <i class="fas fa-chart-bar"></i>
-                    Tổng Quan
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="fas fa-users"></i>
-                    Thành Viên
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="fas fa-book"></i>
-                    Tài Liệu
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link link-dark">
-                    <i class="fas fa-bullhorn"></i>
-                    Tạo Thông báo
-                </a>
-            </li>
+    <div class="d-flex flex-column fixed-top flex-shrink-0 p-2 overflow-auto" style="height:93%; width: 280px; margin-top: 60.2px; background-color: #82dda5; z-index: 1;">
+        <!-- Tính năng -->
+        <?php require("./_partial/TeacherAndStudent_Component/Sidebar.php");
+        Sidebar($teacherPage); ?>
+        <!-- Danh sách lớp -->
+        <span class="fs-3 fw-bold">Danh sách lớp</span>
+        <ul id="class" class="nav nav-pills flex-column mb-5 border-top border-dark pt-2">
+            <?php
+            include "../Controller/classController.php";
+            ClassController::rederClass($_SESSION['user'][0]);
+            ?>
         </ul>
     </div>
+
     <!-- Content -->
+    
     <div style="margin-left: 280px; margin-top: 80px;">
-        <!-- Top button -->
-        <!-- <ul class="nav nav-pills mb-auto gap-5 justify-content-center">
-            <li class="nav-item mx-5">
-                <button class="fw-bold btn btn-outline-success rounded-pill shadow">
-                    <i class="fas fa-chart-bar"></i>
-                    Tổng Quan
-                </button>
-            </li>
-            <li class="nav-item mx-5">
-                <button class="fw-bold btn btn-outline-success rounded-pill shadow">
-                    <i class="fas fa-users"></i>
-                    Thành Viên
-                </button>
-            </li>
-            <li class="nav-item mx-5">
-                <button class="fw-bold btn btn-outline-success rounded-pill shadow">
-                    <i class="fas fa-book"></i>
-                    Tài Liệu
-                </button>
-            </li>
-            <li class="nav-item mx-5">
-                <button class="fw-bold btn btn-outline-success rounded-pill shadow">
-                    <i class="fas fa-bullhorn"></i>
-                    Tạo Thông báo
-                </button>
-            </li>
-        </ul> -->
         <div class="row gap-2" style="margin-left: 0; margin-right: 0;">
             <div class="col-sm-8 mt-5 ">
                 <!-- Classroom information -->
-<<<<<<< Updated upstream
-                <div class="container border border-3">
-                    <h4>Phát triển web 2 - 112</h4>
-                    <h4>Chú thích:</h4>
-                    <!-- p for chú thích -->
-                    <p class="ps-3">bla bla bla bla bla bla bla bla bla bla</p>
-                    <h4>Mã lớp:</h4>
-=======
+
                 <div class="container border border-3" style="">
                     <h4 id="nameClass"></h4>
                     <h4>Mô tả:</h4>
@@ -161,7 +180,6 @@
                         <i class="fa-solid fa-trash"></i> Xóa Lớp</button>
                         </div>
                     </div>
->>>>>>> Stashed changes
                 </div>
                 <!-- Statistical Card -->
                 <div class="row gap-5 justify-content-center mt-5" style="margin-left: 0; margin-right: 0;">
@@ -173,7 +191,7 @@
                                         <i class="far fa-user fs-1"></i>
                                     </div>
                                     <div class="media-body text-end col-sm-8" style="padding-right:0px;">
-                                        <h3>40</h3>
+                                        <h3 id="soHs">40</h3>
                                         <span>Số học sinh</span>
                                     </div>
                                 </div>
@@ -246,37 +264,12 @@
             </div>
         </div>
         <div class="container col-sm-3 overflow-auto text-center fixed-top bg-light" style="margin-right:0px; margin-top:70px; height:90%; z-index: 1;">
-            <!-- Announcement -->
-            <div class="border-start">
-
-                <h4>Thông báo gần nhất:</h4>
-                <p>Nguyễn Văn A đã tạo lớp</p>
-                <p>4/8/2022 lúc 07:00</p>
-            </div>
-            <hr>
-            <!-- Information -->
-            <div class="border-start">
-                <p>Thông tin</p>
-                <h4>Bài kiểm tra 1</h4>
-                <div class="ps-3 text-start row" style="margin:0; padding:0;">
-                    <div class="col-sm-6">
-                        <p>Loại</p>
-                        <p>Đã nộp</p>
-                        <p>Ngày tạo</p>
-                        <p>Chia sẻ</p>
-                    </div>
-                    <div class="col-sm-6 fw-bold">
-                        <p>Trắc nghiệm</p>
-                        <p>14/40</p>
-                        <p>1 tháng 4</p>
-                        <p><i class="fas fa-share-alt"></i></p>
-                    </div>
-                </div>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique soluta quo libero minus aperiam accusamus dolorem officiis earum impedit voluptas, reiciendis ullam incidunt sed fugiat laudantium nisi architecto nihil consectetur numquam praesentium sequi quae maxime quasi. Quasi explicabo placeat voluptates! Placeat ab dolorum ipsa laboriosam molestiae? Nisi fugit beatae fugiat iure natus libero totam, unde repellendus cupiditate corporis, obcaecati veritatis repellat consequuntur voluptatibus. Eligendi consequuntur, accusamus voluptates dolore, eos maxime reiciendis, iure suscipit et qui aspernatur fuga sunt cumque alias aut dicta quam accusantium perspiciatis optio soluta labore aliquam nulla. Blanditiis, dolorum provident mollitia ipsam non facilis minus ex dicta.</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique soluta quo libero minus aperiam accusamus dolorem officiis earum impedit voluptas, reiciendis ullam incidunt sed fugiat laudantium nisi architecto nihil consectetur numquam praesentium sequi quae maxime quasi. Quasi explicabo placeat voluptates! Placeat ab dolorum ipsa laboriosam molestiae? Nisi fugit beatae fugiat iure natus libero totam, unde repellendus cupiditate corporis, obcaecati veritatis repellat consequuntur voluptatibus. Eligendi consequuntur, accusamus voluptates dolore, eos maxime reiciendis, iure suscipit et qui aspernatur fuga sunt cumque alias aut dicta quam accusantium perspiciatis optio soluta labore aliquam nulla. Blanditiis, dolorum provident mollitia ipsam non facilis minus ex dicta.</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique soluta quo libero minus aperiam accusamus dolorem officiis earum impedit voluptas, reiciendis ullam incidunt sed fugiat laudantium nisi architecto nihil consectetur numquam praesentium sequi quae maxime quasi. Quasi explicabo placeat voluptates! Placeat ab dolorum ipsa laboriosam molestiae? Nisi fugit beatae fugiat iure natus libero totam, unde repellendus cupiditate corporis, obcaecati veritatis repellat consequuntur voluptatibus. Eligendi consequuntur, accusamus voluptates dolore, eos maxime reiciendis, iure suscipit et qui aspernatur fuga sunt cumque alias aut dicta quam accusantium perspiciatis optio soluta labore aliquam nulla. Blanditiis, dolorum provident mollitia ipsam non facilis minus ex dicta.</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique soluta quo libero minus aperiam accusamus dolorem officiis earum impedit voluptas, reiciendis ullam incidunt sed fugiat laudantium nisi architecto nihil consectetur numquam praesentium sequi quae maxime quasi. Quasi explicabo placeat voluptates! Placeat ab dolorum ipsa laboriosam molestiae? Nisi fugit beatae fugiat iure natus libero totam, unde repellendus cupiditate corporis, obcaecati veritatis repellat consequuntur voluptatibus. Eligendi consequuntur, accusamus voluptates dolore, eos maxime reiciendis, iure suscipit et qui aspernatur fuga sunt cumque alias aut dicta quam accusantium perspiciatis optio soluta labore aliquam nulla. Blanditiis, dolorum provident mollitia ipsam non facilis minus ex dicta.</p>
-            </div>
+            <?php require("./_partial/TeacherAndStudent_Component/AnnouncementAndInfo.php");
+            // Announcement
+            createAnnouncement();
+            // Information
+            createInformation();
+            ?>
         </div>
     </div>
 </body>

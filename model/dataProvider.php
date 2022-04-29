@@ -11,11 +11,6 @@ class DataProvider {
         $resultSql = mysqli_query($connection, $query);
         return $resultSql;
     }
-    public static function executeSQL2($query) {
-        $connection = mysqli_connect(self::$localhost, self::$username, self::$pass, self::$db);
-        mysqli_query($connection, $query);
-        // return $resultSql;
-    }
 
 }
 ?>

@@ -9,6 +9,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/1f286772f7.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/dde1966e52.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -161,13 +162,24 @@ session_start();
         <div class="row gap-2" style="margin-left: 0; margin-right: 0;">
             <div class="col-sm-8 mt-5 ">
                 <!-- Classroom information -->
-                <div class="container border border-3">
+
+                <div class="container border border-3" style="">
                     <h4 id="nameClass"></h4>
                     <h4>Mô tả:</h4>
                     <!-- p for chú thích -->
                     <p class="ps-3" id="infoClass"></p>
-                    <h4 id="idClass">Mã lớp:</h4>
-                    <input type="hidden" name="" value="" id="idClassCurent">
+                    <div class="row py-2">
+                        <div class="col">
+                            <h4 id="idClass">Mã lớp:</h4>
+                            <input type="hidden" name="" value="" id="idClassCurent">
+                        </div>
+                        <div class="col">
+                        </div>
+                        <div class="col justify-content-end">
+                        <button type="button" class="btn btn-warning text-center fw-bold">
+                        <i class="fa-solid fa-trash"></i> Xóa Lớp</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- Statistical Card -->
                 <div class="row gap-5 justify-content-center mt-5" style="margin-left: 0; margin-right: 0;">

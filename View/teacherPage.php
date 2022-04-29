@@ -81,6 +81,29 @@ session_start();
                     }
                 })
             });
+            $('#btnDeleteClass').click(function() {
+                let idClass=$("#idClassCurent").val();
+                if(idClass == "")
+                    return;
+                    $.ajax({
+                        type: "POST",
+                        url: "../Controller/controller.php",
+                        data: {
+                            act: 'deleteClass',
+                            idClass: idClass
+                        },
+                    success: function(data) {
+                        console.log(idClass);
+                        console.log(data);
+                        showNotice(JSON.parse(data)['notice']);
+                        if (JSON.parse(data)['status'] == 'success') {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        }
+                    }
+                });
+            });
         });
 
         function gen_Code(length, special) {
@@ -176,7 +199,7 @@ session_start();
                         <div class="col">
                         </div>
                         <div class="col justify-content-end">
-                        <button type="button" class="btn btn-warning text-center fw-bold">
+                        <button type="button" class="btn btn-warning text-center fw-bold" id="btnDeleteClass">
                         <i class="fa-solid fa-trash"></i> Xóa Lớp</button>
                         </div>
                     </div>

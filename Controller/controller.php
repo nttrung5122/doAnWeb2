@@ -32,6 +32,12 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "deleteClass":{
+            require './classController.php';
+            $data=ClassController::deleteClass($_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     }
 }
 

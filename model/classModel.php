@@ -30,9 +30,9 @@ class ClassModel{
     }
 
     public static function deleteClass($idClass){
-
-
-    }
+        $sql = "DELETE FROM `lop` WHERE `malop`='$idClass';";
+        $data= DataProvider::executeSQL($sql);        
+    }  
 
     public static function getInfoClass($idClass){
 

@@ -62,7 +62,7 @@ session_start();
                         console.log(data);
                     }
                 })
-                window.location = './HomePage.php';
+                window.location = './homePage.php';
 
             });
         });
@@ -74,6 +74,7 @@ session_start();
     <?php
     include "./View/_partial/Header_Footer/Header_Footer.php";
     head($studentPage);
+    include "./View/_partial/form/form_find_class.php";
     ?>
 
     <!-- Sidebar -->

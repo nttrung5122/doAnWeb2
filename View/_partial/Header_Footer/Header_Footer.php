@@ -47,7 +47,7 @@ function footer()
     echo '<div class="row p-5" style="background-color: #82dda5; margin-right:0px">
             <div class="col-3 m-auto">
                 <a class="navbar-brand" href="./HomePage.php">
-                <img src="../Assets/img/Logo.png" alt="Avatar Logo" style="width:80px;">
+                <img src="./Assets/img/Logo.png" alt="Avatar Logo" style="width:80px;">
                 </a>
                 <p> &copy;copyright 2022 OnTest All Rights Reserved</p>
             </div>
@@ -79,7 +79,7 @@ function createLinkAndButton($currentPage)
     else if ($currentPage == $studentPage)
     {
         return '<li class="nav-item">
-                    <a class="nav-link fs-5 text-nowrap" href="#" ><i class="fas fa-plus-circle"></i> Tìm lớp</a>
+                    <a class="nav-link fs-5 text-nowrap" href="#"  data-bs-toggle="modal" data-bs-target="#form_findClass"  ><i class="fas fa-plus-circle"></i> Tìm lớp</a>
                 </li>';
     }
     else 

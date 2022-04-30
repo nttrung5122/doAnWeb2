@@ -31,8 +31,8 @@ class ClassController{
 
     }
 
-    public static function getClassOfUser($email){
-        $data= ClassModel::getClassOfUser($email);
+    public static function getClassOfTeacher($email){
+        $data= ClassModel::getClassOfTeacher($email);
         return $data;
     }
 
@@ -47,14 +47,20 @@ class ClassController{
         return $data;
     }
 
-    public static function renderInfoClass($email){
-        $dataSQL=ClassController::getClassOfUser($email);
+    public static function renderListClass($email){
+        $dataSQL=ClassController::getClassOfTeacher($email);
         $data=ClassView::rederClass($dataSQL);
         // $data['status']="success";
         return $data;
     }
-}
 
+    public static function renderMember($idClass){
+        $dataSQL= ClassModel::getStudentInClass($idClass);
+        $data=ClassView::rederMember($dataSQL);
+        return $data;
+    }
+}
+    // echo ClassController::renderMember("5IabAbm4");
 
 
 

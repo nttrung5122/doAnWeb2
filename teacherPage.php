@@ -22,6 +22,10 @@ session_start();
         .nav-pills .nav-link:hover {
             background-color: #198754;
         }
+    .scrollClass {
+        height: 440px;
+        overflow-y: scroll;
+    }
     </style>
     <script>
         window.onload = function() {
@@ -29,11 +33,11 @@ session_start();
                 type: "POST",
                 url: "./Controller/controller.php",
                 data: {
-                    act: 'renderInfoClass',
+                    act: 'renderListClass',
                 },
                 success: function(data) {
                     $("#class").html(JSON.parse(data));
-                    // console.log(data);
+                    console.log(data);
                 }
             })
         };
@@ -64,7 +68,7 @@ session_start();
                         console.log(data);
                     }
                 })
-                window.location = './HomePage.php';
+                window.location = './homePage.php';
 
             });
             $("#btnCreateClass").click(function() {
@@ -115,6 +119,25 @@ session_start();
                                 window.location.reload();
                             }, 2000);
                         }
+                    }
+                });
+            });
+            $("#btnRenderMember").click(function(){
+                let idClass = $("#idClassCurent").val();
+                if (idClass == "")
+                    return;
+                
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'renderMember',
+                        idClass: idClass,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        // console.log(JSON.parse(data));
+                        $("#content").html(JSON.parse(data));
                     }
                 });
             });
@@ -265,7 +288,7 @@ session_start();
                 </div>
                 <!-- Average grade -->
                 <!-- Nhấp vào sẽ hiện thông tin của bài ktra ở phần information -->
-                <div class="mt-5 pb-5">
+                <div class="mt-5 pb-5" id="content">
                     <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
                         <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 1</p>
                         <p>Điểm trung bình:</p>

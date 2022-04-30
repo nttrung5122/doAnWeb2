@@ -9,12 +9,16 @@ class ClassModel{
         $data= DataProvider::executeSQL($sql);
     }
 
-    public static function getClassOfUser($email){
+    public static function getClassOfTeacher($email){
         // $sql = "SELECT * FROM `lop` WHERE `maGiangVien`=\`$email\`;";
         $sql = "SELECT * FROM `lop` WHERE `maGiangVien`=\"$email\";";
 
         $data= DataProvider::executeSQL($sql);
         return $data;
+    }
+
+    public static function getClassOfStudent($email){
+
     }
 
     public static function getAllClass(){
@@ -31,15 +35,14 @@ class ClassModel{
 
     public static function deleteClass($idClass){
         $sql = "DELETE FROM `lop` WHERE `malop`='$idClass';";
-        $data= DataProvider::executeSQL($sql);        
+        $data= DataProvider::executeSQL($sql);    
+        //TO DO remove Student, remove Test
     }  
 
-    public static function getInfoClass($idClass){
-
-    }
-
     public static function getStudentInClass($idClass){
-
+        $sql = "SELECT hoTen FROM chitietlop,taikhoan WHERE chitietlop.maTaiKhoan=taikhoan.mail AND maLop=\"$idClass\";";
+        $data= DataProvider::executeSQL($sql);    
+        return $data;
     }
 
     public static function addStudent($idClass,$email){
@@ -52,5 +55,4 @@ class ClassModel{
 
 
 }
-    // echo ClassModel::getClassOfUser("nguyntrung291@gmail.com");
 ?>

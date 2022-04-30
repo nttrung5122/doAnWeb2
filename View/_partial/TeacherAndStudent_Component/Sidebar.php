@@ -34,7 +34,7 @@ function sidebar($currentPage)
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link link-dark">
+                        <a href="#" id="btnRenderMember" class="nav-link link-dark">
                             <i class="fas fa-users"></i>
                             Thành Viên
                         </a>

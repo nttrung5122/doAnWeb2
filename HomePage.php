@@ -83,7 +83,7 @@
     <div class="p-5 row" style="margin-right: 0px;">
         <h1 class="mb-5  text-center"> <span class="text-success">Tính năng </span> nổi bật</h1>
         <div class="col-sm-6 text-center border-end">
-            <img src="../Assets/img/function.png" alt="function" style="width:70%" class="m-5 img-thumbnail">
+            <img src="./Assets/img/function.png" alt="function" style="width:70%" class="m-5 img-thumbnail">
         </div>
         <div class="col-sm-6 ps-5">
             <p class="m-5">

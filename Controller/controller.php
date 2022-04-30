@@ -38,6 +38,13 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "renderInfoClass":{
+           require './classController.php';
+           session_start();
+           $data=ClassController::renderInfoClass($_SESSION['user'][0]);
+           echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }  
+        break;
     }
 }
 

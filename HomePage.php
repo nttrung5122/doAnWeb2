@@ -9,9 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Home</title>
     <?php
-    include './_partial/form/formSignUp.php';
-    include './_partial/form/formSignIn.php';
-    include "./_partial/popup/notice.php";
+    include './View/_partial/form/formSignUp.php';
+    include './View/_partial/form/formSignIn.php';
+    include "./View/_partial/popup/notice.php";
     ?>
 </head>
 
@@ -20,7 +20,7 @@
     <!-- Header -->
 
     <?php
-    require("./_partial/Header_Footer/Header_Footer.php");
+    require("./View/_partial/Header_Footer/Header_Footer.php");
     head($homePage);
     ?>
 
@@ -42,7 +42,7 @@
                 <button type="button" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#form_signUp">THAM GIA NGAY</button>
             </div>
             <div class="col text-center">
-                <img src="../Assets/img/Light bulb.jpg" alt="lightbulb">
+                <img src="./Assets/img/Light bulb.jpg" alt="lightbulb">
             </div>
         </div>
     </div>
@@ -210,7 +210,7 @@
             console.log("ajax")
             $.ajax({
                 type: "POST",
-                url: "../Controller/controller.php",
+                url: "./Controller/controller.php",
                 data: {
                     act: 'signUp',
                     user: emails,
@@ -242,7 +242,7 @@
         } else {
             $.ajax({
                 type: 'POST',
-                url: "../Controller/controller.php",
+                url: "./Controller/controller.php",
                 data: {
                     act: 'signIn',
                     user: id,

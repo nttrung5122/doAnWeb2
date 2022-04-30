@@ -25,6 +25,19 @@ session_start();
         }
     </style>
     <script>
+        window.onload = function() {
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderInfoClass',
+                },
+                success: function(data) {
+                    $("#class").html(JSON.parse(data));
+                    // console.log(data);
+                }
+            })
+        };
         $(document).ready(function() {
             $('#class a').click(function() {
                 $('#class').find('a.active').addClass('link-dark');
@@ -41,7 +54,7 @@ session_start();
             $('#btnLogOut').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "../Controller/controller.php",
+                    url: "./Controller/controller.php",
                     data: {
                         act: 'logOut'
                     },
@@ -59,7 +72,7 @@ session_start();
 <body>
     <!-- Header -->
     <?php
-    include "./_partial/Header_Footer/Header_Footer.php";
+    include "./View/_partial/Header_Footer/Header_Footer.php";
     head($studentPage);
     ?>
 
@@ -67,15 +80,12 @@ session_start();
 
     <div class="d-flex flex-column fixed-top flex-shrink-0 p-2 overflow-auto" style="height:93%; width: 280px; margin-top: 60.2px; background-color: #82dda5; z-index: 1;">
         <!-- Tính năng -->
-        <?php require("./_partial/TeacherAndStudent_Component/Sidebar.php");
+        <?php require("./View/_partial/TeacherAndStudent_Component/Sidebar.php");
         Sidebar($studentPage); ?>
         <!-- Danh sách lớp -->
         <span class="fs-3 fw-bold">Danh sách lớp</span>
         <ul id="class" class="nav nav-pills flex-column mb-5 border-top border-dark pt-2">
-            <?php
-            include "../Controller/classController.php";
-            ClassController::rederClass($_SESSION['user'][0]);
-            ?>
+        <!-- inner danh sách lớp -->
         </ul>
     </div>
 
@@ -152,7 +162,7 @@ session_start();
         </div>
         <div class="container col-sm-3 overflow-auto text-center fixed-top bg-light" style="margin-right:0px; margin-top:70px; height:90%; z-index: 1;">
             <!-- Announcement -->
-            <?php require("./_partial/TeacherAndStudent_Component/AnnouncementAndInfo.php");
+            <?php require("./View/_partial/TeacherAndStudent_Component/AnnouncementAndInfo.php");
             createAnnouncement();
             ?>
         </div>

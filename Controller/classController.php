@@ -1,6 +1,7 @@
 <?php
 
 include '../model/classModel.php';
+include '../View/classView.php';
 
 class ClassController{
     
@@ -30,28 +31,26 @@ class ClassController{
 
     }
 
-    public static function getClass($idClass){
-        return mysqli_fetch_array(ClassModel::getClass($idClass));
+    public static function getClassOfUser($email){
+        $data= ClassModel::getClassOfUser($email);
+        return $data;
     }
 
-    public static function rederClass($email){
-        $data=ClassModel::getClassOfUser($email);
-        $result="";
-        while ($row = mysqli_fetch_array($data)){
-            $result .='            <li>
-            <a href="#" class="nav-link link-dark" onclick="renderInfo(\''.$row['maLop'].'\')">'
-
-                .$row['tenLop'].
-            '</a>
-        </li>';
-        }
-        echo $result;
+    public static function getClass($idClass){
+        return mysqli_fetch_array(ClassModel::getClass($idClass));
     }
 
     public static function deleteClass($idClass){
         ClassModel::deleteClass($idClass);
         $data['notice']="Xóa lớp thành công";
         $data['status']="success";
+        return $data;
+    }
+
+    public static function renderInfoClass($email){
+        $dataSQL=ClassController::getClassOfUser($email);
+        $data=ClassView::rederClass($dataSQL);
+        // $data['status']="success";
         return $data;
     }
 }

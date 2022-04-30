@@ -1,4 +1,4 @@
-<?php include './_partial/popup/modal_modules.php';
+<?php include './View/_partial/popup/modal_modules.php';
 popupModules::onlyWindows("Chú ý", "<div id=\"notice\">test</div>", "noticePopup") ?>
 
 <script>

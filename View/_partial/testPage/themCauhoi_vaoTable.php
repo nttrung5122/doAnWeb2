@@ -13,4 +13,15 @@ class themcauhoiModules
         </tr>
         ';
     }
+    
+    public static function themCauhoi_NoCheckBox($macauhoi, $noidung, $theloai)
+    {
+        echo '
+        <tr>
+            <th scope="row">' . $macauhoi . '</th>
+            <td>' . $noidung . '</td>
+            <td>' . $theloai . '</td>
+        </tr>
+        ';
+    }
 }

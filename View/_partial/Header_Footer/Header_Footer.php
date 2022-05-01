@@ -47,7 +47,7 @@ function footer()
     echo '<div class="row p-5" style="background-color: #82dda5; margin-right:0px">
             <div class="col-3 m-auto">
                 <a class="navbar-brand" href="./HomePage.php">
-                <img src="../Assets/img/Logo.png" alt="Avatar Logo" style="width:80px;">
+                <img src="./Assets/img/Logo.png" alt="Avatar Logo" style="width:80px;">
                 </a>
                 <p> &copy;copyright 2022 OnTest All Rights Reserved</p>
             </div>

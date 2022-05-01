@@ -41,14 +41,14 @@ function sidebar($currentPage)
                     </li>
                     <li>
                         <a href="#" class="nav-link link-dark">
-                            <i class="fas fa-book"></i>
-                            Tạo đề kiểm tra
+                            <i class="far fa-question-circle"></i>
+                            Ngân hàng câu hỏi
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link link-dark">
-                            <i class="fas fa-bullhorn"></i>
-                            Tạo Thông báo
+                            <i class="fas fa-book"></i>
+                            Tạo đề kiểm tra
                         </a>
                     </li>
                 </ul>';

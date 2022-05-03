@@ -18,17 +18,12 @@ function sidebar($currentPage)
                             Thành Viên
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <i class="fas fa-bullhorn"></i>
-                            Tạo Thông báo
-                        </a>
-                    </li>
+                
                 </ul>';
     } else {
         echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
                     <li>
-                        <a href="#" class="nav-link link-dark fw-bold">
+                        <a href="#" class="nav-link link-dark fw-bold" id="bankQuestion">
                             <i class="far fa-question-circle"></i>
                             Ngân hàng câu hỏi
                         </a>

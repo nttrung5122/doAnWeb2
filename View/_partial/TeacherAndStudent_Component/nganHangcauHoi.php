@@ -1,12 +1,106 @@
-<div class="col-sm-12 mt-3 px-5">
-    <!-- Bự quá chỉnh lại col-8 -->
-    <!-- Ngân hàng câu hỏi -->
-    <div class="p-3 pb-5 border">
-        <div class="d-flex justify-content-end">
-            <button class="btn btn-primary">Tạo câu hỏi</button>
-        </div>
         <!-- Script and sytle for Ngân Hàng Câu hỏi -->
         <script>
+            window.onload = function() {
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data:{
+                        act:"renderBankQuestion",
+                    },
+                    success: function(data) {
+                        // console.log(JSON.parse(data));
+                        $('#bangCauhoi').html(JSON.parse(data)['question']);
+                        $('#sltGroupQuestion').html(JSON.parse(data)['groupQuestion']);
+                    }
+                });
+                $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data:{
+                    act:"renderSltGroupQuestion",
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $('#sltQuestionGroup').html(JSON.parse(data));
+                }
+
+            });
+
+            }
+            $(document).ready(function() {
+                $('#btnCreateQuestion').click(function(){
+                    let noidung=$('#txtQuestion').val();
+                    let cauA=$('#txtCauA').val();
+                    let cauB=$('#txtCauB').val();
+                    let cauC=$('#txtCauC').val();
+                    let cauD=$('#txtCauD').val();
+                    let idGroup=$('#sltQuestionGroup').val();
+                    let dapAn=$('#sltAnswer').val();
+                    let tenNhom=$('#txtNewGroup').val();
+                    console.log(noidung);
+                    console.log(cauA);
+                    console.log(cauB);
+                    console.log(cauC);
+                    console.log(cauD);
+                    console.log(idGroup);
+                    console.log(dapAn);
+                    console.log(tenNhom);
+                    if(noidung==""){
+                        showNotice("Vui lòng nhập nội dung câu hỏi");
+                        return;
+                    }
+                    if(cauA==""){
+                        showNotice("Vui lòng nhập nội dung đáp án A");
+                        return;
+                    }
+                    
+                    if(cauB==""){
+                        showNotice("Vui lòng nhập nội dung đáp án B");
+                        return;
+                    }
+                    
+                    if(cauC==""){
+                        showNotice("Vui lòng nhập nội dung đáp án C");
+                        return;
+                    }
+                    
+                    if(cauD==""){
+                        showNotice("Vui lòng nhập nội dung đáp án D");
+                        return;
+                    }
+                    if(idGroup==null){
+                        showNotice("Vui lòng chọn nhóm câu hỏi");
+                        return;
+                    }
+                    if(idGroup=="newGroup" &&tenNhom==""){
+                        showNotice("Vui lòng nhập tên nhóm muốn tạo");
+                        return;
+                    }
+
+                    if(dapAn==null){
+                        showNotice("Vui lòng chọn đáp án");
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "./Controller/controller.php",
+                        data: {
+                            act:'createQuestion',
+                            noidung: noidung,
+                            cauA: cauA,
+                            cauB: cauB,
+                            cauC: cauC,
+                            cauD: cauD,
+                            idGroup: idGroup,
+                            tenNhom: tenNhom,
+                            dapAn: dapAn,   
+                        },
+                        success: function(data) {
+                            showNotice(JSON.parse(data)['notice']);
+                        }
+                    })
+                })
+            })
             function timCauhoi() {
                 // tạo biến
                 var input, filterByinput, filterByradio, table, tr, td, i, txtValue;
@@ -73,7 +167,6 @@
                 // console.log(questionArr);
             }
         </script>
-        <?php include './View/_partial/testPage/themCauhoi_vaoTable.php'; ?>
         <style>
             table thead,
             table tfoot {
@@ -90,18 +183,28 @@
                 /* "bottom" */
             }
         </style>
+    <?php
+        include "./View/_partial/form/form_create_question.php"
+    ?>
+<div class="col-sm-12 mt-3 px-5">
+    <!-- Bự quá chỉnh lại col-8 -->
+    <!-- Ngân hàng câu hỏi -->
+    <div class="p-3 pb-5 border">
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form_createQuestion" >Tạo câu hỏi</button>
+        </div>
         <div class="row align-items-start">
             <div class="text-center fw-bold fs-2 mb-3">Ngân hàng câu hỏi</div>
-            <div class="col">
+            <div class="col" id="sltGroupQuestion">
                 <!-- select chọn thể loại (nhóm câu hỏi) -->
-                <select class="form-select" aria-label="Loại câu hỏi" onchange="timCauhoiRadio(this)">
+                <!-- <select class="form-select" aria-label="Loại câu hỏi" onchange="timCauhoiRadio(this)">
                     <option hidden value="" selected>Loại câu hỏi</option>
                     <option value="">Tất cả</option>
 
                     <option value="Nông nghiệp">Nông nghiệp</option>
                     <option value="Công nghệ thông tin">Công nghệ thông tin</option>
                     <option value="Hài hước">Hài hước</option>
-                </select>
+                </select> -->
             </div>
             <!-- Filter lọc tìm câu hỏi -->
             <div class="col-sm-6">
@@ -124,12 +227,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <!-- Luôn đặt các mô đun bên dưới thẻ này -->
                     <?php
-                    themcauhoiModules::themCauhoi_NoCheckBox(1, 'Bò không ăn cỏ', 'Nông nghiệp');
-                    themcauhoiModules::themCauhoi_NoCheckBox(2, 'Gạch và đá', 'Xây dựng');
-                    themcauhoiModules::themCauhoi_NoCheckBox(3, 'Java là gì?', 'Công nghệ thông tin');
-                    themcauhoiModules::themCauhoi_NoCheckBox(4, 'Có 1 đàn chim đậu trên cành, người thợ săn bắn cái rằm. Hỏi chết mấy con?', 'Hài hước');
+                    // include "./model/questionModel.php";
+                    // $bankQuestion=QuestionModal::getAllQuesstion();
+                    // while($row = mysqli_fetch_array($data)){
+                    //     themcauhoiModules::themCauhoi_NoCheckBox($row['maCau'],$row['noiDung'],$row['tenNhomCauHoi']);
+                    // }
+                    // themcauhoiModules::themCauhoi_NoCheckBox(1, 'Bò không ăn cỏ', 'Nông nghiệp');
+                    // themcauhoiModules::themCauhoi_NoCheckBox(2, 'Gạch và đá', 'Xây dựng');
+                    // themcauhoiModules::themCauhoi_NoCheckBox(3, 'Java là gì?', 'Công nghệ thông tin');
+                    // themcauhoiModules::themCauhoi_NoCheckBox(4, 'Có 1 đàn chim đậu trên cành, người thợ săn bắn cái rằm. Hỏi chết mấy con?', 'Hài hước');
 
                     ?>
                 </tbody>

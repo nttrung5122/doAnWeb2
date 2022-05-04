@@ -51,6 +51,25 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "renderBankQuestion":{
+            require './questionController.php';
+            $data=QuestionController::renderBankQuestion();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderSltGroupQuestion":{
+            require './questionController.php';
+            $data=QuestionController::renderSltQuestionGroup();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "createQuestion":{
+            require './questionController.php';
+            $data=QuestionController::createQuestion($_POST['noidung'],$_POST['cauA'],$_POST['cauB'],$_POST['cauC'],$_POST['cauD'],$_POST['idGroup'],$_POST['tenNhom'],$_POST['dapAn']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+
+        }
+        break;
     }
 }
 

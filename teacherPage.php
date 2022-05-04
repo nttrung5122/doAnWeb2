@@ -219,9 +219,12 @@ session_start();
     <div style="margin-left: 280px; margin-top: 80px;">
         <div class="row" style="margin-left: 0; margin-right: 0;">
         <?php
-            // require('./View/_partial/TeacherAndStudent_Component/tongQuan_Teacher.php'); 
-            require('./View/_partial/TeacherAndStudent_Component/thanhVien.php');
-            // require('./View/_partial/TeacherAndStudent_Component/nganHangcauHoi.php');
+            if(isset($_GET['act']) && $_GET['act'] == 'bankQuestion' ){
+                    require('./View/_partial/TeacherAndStudent_Component/nganHangcauHoi.php');
+            }
+            else
+                require('./View/_partial/TeacherAndStudent_Component/tongQuan_Teacher.php'); 
+            // require('./View/_partial/TeacherAndStudent_Component/thanhVien.php');
             ?>
         </div>
     </div>

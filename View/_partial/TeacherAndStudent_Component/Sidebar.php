@@ -23,14 +23,14 @@ function sidebar($currentPage)
     } else {
         echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
                     <li>
-                        <a href="#" class="nav-link link-dark fw-bold" id="bankQuestion">
+                        <a href="./teacherPage.php?act=bankQuestion" class="nav-link link-dark fw-bold" id="bankQuestion">
                             <i class="far fa-question-circle"></i>
                             Ngân hàng câu hỏi
                         </a>
                     </li>
                     <hr>
                     <li class="nav-item ">
-                        <a href="#" class="nav-link active">
+                        <a href="./teacherPage.php?act=general" class="nav-link active">
                             <i class="fas fa-chart-bar"></i>
                             Tổng Quan
                         </a>

@@ -1,6 +1,10 @@
         <!-- Script and sytle for Ngân Hàng Câu hỏi -->
         <script>
             window.onload = function() {
+                renderBankQuestion();
+            }
+
+            function renderBankQuestion(){
                 $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
@@ -97,6 +101,7 @@
                         },
                         success: function(data) {
                             showNotice(JSON.parse(data)['notice']);
+                            renderBankQuestion();
                         }
                     })
                 })

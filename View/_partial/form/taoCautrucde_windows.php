@@ -8,7 +8,7 @@
     </button>
 <!-- Kiểm tra lại id của modal để thiết kế nút -->
 <div class="modal fade" id="form_createTest" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="popupLabel">Tạo đề kiểm tra</h5>
@@ -16,13 +16,6 @@
             </div>
             <!-- Nội dung của pop-up -->
             <div class="modal-body">
-                <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Mã đề</label>
-                    <div class="col">
-                        <input type="text" readonly class="form-control-plaintext" value="truyền mã đề zô đây">
-                    </div>
-                </div>
-                <hr>
                 <div class="row mb-3">
                     <label for="" class="col-sm-3 col-form-label">Thời gian làm bài</label>
                     <div class="col-sm-2">
@@ -42,7 +35,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Đảo câu hỏi và đáp án</label>
+                    <label for="" class="col-sm-3 col-form-label">Đảo câu hỏi</label>
                     <div class="col">
                         <input type="radio" class="btn-check" id="checkDaocauhoi1" name="daoCauhoi" autocomplete="off" value="true" checked>
                         <label class="btn btn-outline-primary" for="checkDaocauhoi1">Có</label>
@@ -51,20 +44,12 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Mật khẩu đề thi</label>
-                    <div class="col">
-                        <input type="text" class="form-control" id="mkDethi" placeholder="Mật khẩu">
-                    </div>
-                </div>
-                <div class="row mb-3">
                     <label for="" class="col-sm-3 col-form-label">Cho phép xem đáp án</label>
                     <div class="col">
                         <input type="radio" class="btn-check" id="xemDapan1" name="xemDapan" autocomplete="off" value="khong" checked>
                         <label class="btn btn-outline-primary" for="xemDapan1">Không</label>
-                        <input type="radio" class="btn-check" id="xemDapan2" name="xemDapan" autocomplete="off" value="thixong">
-                        <label class="btn btn-outline-primary" for="xemDapan2">Khi thi xong</label>
-                        <input type="radio" class="btn-check" id="xemDapan3" name="xemDapan" autocomplete="off" value="tatcathixong">
-                        <label class="btn btn-outline-primary" for="xemDapan3">Khi tất cả thi xong</label>
+                        <input type="radio" class="btn-check" id="xemDapan3" name="xemDapan" autocomplete="off" value="co">
+                        <label class="btn btn-outline-primary" for="xemDapan3">Có</label>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -72,19 +57,8 @@
                     <div class="col">
                         <input type="radio" class="btn-check" id="xemDiem1" name="xemDiem" autocomplete="off" value="khong" checked>
                         <label class="btn btn-outline-primary" for="xemDiem1">Không</label>
-                        <input type="radio" class="btn-check" id="xemDiem2" name="xemDiem" autocomplete="off" value="thixong">
-                        <label class="btn btn-outline-primary" for="xemDiem2">Khi thi xong</label>
-                        <input type="radio" class="btn-check" id="xemDiem3" name="xemDiem" autocomplete="off" value="tatcathixong">
-                        <label class="btn btn-outline-primary" for="xemDiem3">Khi tất cả thi xong</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Chia sẻ đề</label>
-                    <div class="col">
-                        <input type="radio" class="btn-check" id="chiaseDe1" name="chiaseDe" autocomplete="off" value="true" checked>
-                        <label class="btn btn-outline-primary" for="chiaseDe1">Có</label>
-                        <input type="radio" class="btn-check" id="chiaseDe2" name="chiaseDe" autocomplete="off" value="false">
-                        <label class="btn btn-outline-primary" for="chiaseDe2">Không</label>
+                        <input type="radio" class="btn-check" id="xemDiem3" name="xemDiem" autocomplete="off" value="co">
+                        <label class="btn btn-outline-primary" for="xemDiem3">Có</label>
                     </div>
                 </div>
             </div>

@@ -7,16 +7,42 @@ class QuestionView {
         <tr>
             <th scope="col" width="9%">Mã</th>
             <th scope="col" width="70%">Câu hỏi</th>
-            <th scope="col" width="22%">Loại</th>
+            <th scope="col" width="32%">Loại</th>
         </tr>
     </thead>
     <tbody>';
         while ($row = mysqli_fetch_array($data)){
-            $result .='        <tr>
-            <th scope="row">' . $row['maCau'] . '</th>
-            <td>' . $row['noiDung'] . '</td>
-            <td>' . $row['tenNhomCauHoi'] . '</td>
-        </tr>';
+            $result .=' <tr style="transform: rotate(0);">
+                            <th scope="row">' . $row['maCau'] . '</th>
+                            <td>' . $row['noiDung'] . '</td>
+                            <td>' . $row['tenNhomCauHoi'] . '</td>
+                            <td>
+                                <a class="stretched-link" data-bs-toggle="collapse" href="#cau' . $row['maCau'] . '"></a>
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="cau' . $row['maCau'] . '">
+                            <th scope="col" width="9%"></th>
+                            <td scope="col" width="70%">
+                                <ul class="collapse " id="cau' . $row['maCau'] . '" style="list-style-type:none; margin:0px; padding:0px;">
+                                    <li>
+                                        <p style="margin:0;"><span class="fw-bold">Câu a: </span>a</p>
+                                    </li>
+                                    <li>
+                                        <p style="margin:0;"><span class="fw-bold">Câu a: </span>a</p>
+                                    </li>
+                                    <li>
+                                        <p style="margin:0;"><span class="fw-bold">Câu a: </span>a</p>
+                                    </li>
+                                    <li>
+                                        <p style="margin:0;"><span class="fw-bold">Câu a: </span>a</p>
+                                    </li>
+                                    <li>
+                                        <p style="margin:0;"><span class="fw-bold">Đáp án: </span>a</p>
+                                    </li>
+                                </ul>
+                            </td>
+                            <th scope="col" width="70%"></th>
+                        </tr>';
         }
         return $result;
     }

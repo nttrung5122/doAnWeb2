@@ -34,7 +34,7 @@ function head($currentPage)
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav gap-3"  style="height: 46px;">
+                    <ul class="navbar-nav gap-3">
                         '. createLinkAndButton($currentPage) .'
                         ' . $headerRight . '
                     </ul>
@@ -79,7 +79,7 @@ function createLinkAndButton($currentPage)
     else if ($currentPage == $studentPage)
     {
         return '<li class="nav-item">
-                    <a class="nav-link fs-5 text-nowrap" href="#"  data-bs-toggle="modal" data-bs-target="#form_findClass"  ><i class="fas fa-plus-circle"></i> Tìm lớp</a>
+                    <a class="nav-link fs-5 text-nowrap" href="#" ><i class="fas fa-plus-circle"></i> Tìm lớp</a>
                 </li>';
     }
     else 

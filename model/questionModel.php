@@ -23,8 +23,8 @@ class QuestionModel {
         return mysqli_fetch_array($data)['maNhomCauHoi'];
     }
 
-    public static function createQuestion($noiDung,$idGroup){
-        $sql = "INSERT INTO `cauhoi_nganhang` (`maCau`, `maNhom`, `noiDung`) VALUES (NULL, '$idGroup', '$noiDung');";
+    public static function createQuestion($noiDung,$idGroup,$dapAn){
+        $sql = "INSERT INTO `cauhoi_nganhang` (`maCau`, `maNhom`, `noiDung`,`dapAn`) VALUES (NULL, '$idGroup', '$noiDung','$dapAn');";
         $data= DataProvider::executeSQL($sql);
         $sql = "SELECT * FROM `cauhoi_nganhang` WHERE noiDung='$noiDung';";
         $data= DataProvider::executeSQL($sql);

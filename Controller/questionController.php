@@ -23,11 +23,11 @@ class QuestionController {
         if($idGroup=='newGroup'){
             $idGroup=QuestionModel::createQuestionGroup($tenNhom);
         }
-        $idQuestion=QuestionModel::createQuestion($noidung,$idGroup);
-        QuestionModel::createAnswer($idQuestion,'A',$cauA,'A'==$dapAn);
-        QuestionModel::createAnswer($idQuestion,'B',$cauB,'B'==$dapAn);
-        QuestionModel::createAnswer($idQuestion,'C',$cauC,'C'==$dapAn);
-        QuestionModel::createAnswer($idQuestion,'D',$cauD,'D'==$dapAn);
+        $idQuestion=QuestionModel::createQuestion($noidung,$idGroup,$dapAn);
+        QuestionModel::createAnswer($idQuestion,'a',$cauA,'a'==$dapAn);
+        QuestionModel::createAnswer($idQuestion,'b',$cauB,'b'==$dapAn);
+        QuestionModel::createAnswer($idQuestion,'c',$cauC,'c'==$dapAn);
+        QuestionModel::createAnswer($idQuestion,'d',$cauD,'d'==$dapAn);
         $data['status']="success";
         $data['notice']="Tạo câu hỏi thành công";
         return $data;

@@ -38,10 +38,10 @@
                                 <label class="input-group-text" for="inputGroupSelect01">Đáp án: </label>
                                 <select class="form-select col-sm" name="sltAnswer" aria-label="sltAnswer" id="sltAnswer" required>
                                     <option selected disabled value="">Đáp án:</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="C">C</option>
-                                    <option value="D">D</option>
+                                    <option value="a">A</option>
+                                    <option value="b">B</option>
+                                    <option value="c">C</option>
+                                    <option value="d">D</option>
                                 </select>
                             </div>
                             <select class="form-select col-sm" name="sltQuestionGroup" aria-label="sltQuestionGroup" id="sltQuestionGroup" required onchange="createGroup(this.value)">

@@ -17,8 +17,8 @@
             <!-- Nội dung của pop-up -->
             <div class="modal-body">
                 <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Thời gian làm bài</label>
-                    <div class="col-sm-2">
+                    <label for="" class="col-sm-5 col-form-label">Thời gian làm bài</label>
+                    <div class="col-sm-6">
                         <select class="form-select" aria-label="setTime" name="thoiGianlambai">
                             <option selected disabled hidden>Thời gian</option>
                             <option value="45">45 phút</option>
@@ -29,13 +29,13 @@
                     <div class="col"></div>
                 </div>
                 <div class="row mb-3">
-                    <label for="ngayThi" class="col-sm-3 col-form-label">Ngày làm bài</label>
-                    <div class="col-sm-4">
+                    <label for="ngayThi" class="col-sm-5 col-form-label">Ngày làm bài</label>
+                    <div class="col-sm-6">
                         <input type="datetime-local" class="form-control" name="ngayThi" id="ngayThi">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Đảo câu hỏi</label>
+                    <label for="" class="col-sm-5 col-form-label">Đảo câu hỏi</label>
                     <div class="col">
                         <input type="radio" class="btn-check" id="checkDaocauhoi1" name="daoCauhoi" autocomplete="off" value="true" checked>
                         <label class="btn btn-outline-primary" for="checkDaocauhoi1">Có</label>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Cho phép xem đáp án</label>
+                    <label for="" class="col-sm-5 col-form-label">Cho phép xem đáp án</label>
                     <div class="col">
                         <input type="radio" class="btn-check" id="xemDapan1" name="xemDapan" autocomplete="off" value="khong" checked>
                         <label class="btn btn-outline-primary" for="xemDapan1">Không</label>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="" class="col-sm-3 col-form-label">Cho phép xem điểm</label>
+                    <label for="" class="col-sm-5 col-form-label">Cho phép xem điểm</label>
                     <div class="col">
                         <input type="radio" class="btn-check" id="xemDiem1" name="xemDiem" autocomplete="off" value="khong" checked>
                         <label class="btn btn-outline-primary" for="xemDiem1">Không</label>

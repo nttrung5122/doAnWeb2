@@ -70,6 +70,24 @@ if (isset($_POST['act'])){
 
         }
         break;
+        case "renderAccountTable":{
+            require './adminController.php';
+            $data= adminController::renderAccountTable();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderClassTable":{
+            require './adminController.php';
+            $data= adminController::renderClassTable();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderQuestionTable":{
+            require './adminController.php';
+            $data= adminController::renderClassQuestion();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     }
 }
 

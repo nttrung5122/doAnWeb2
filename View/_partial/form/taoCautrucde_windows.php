@@ -61,6 +61,7 @@
                             <input type="radio" class="btn-check" id="xemDiem3" name="xemDiem" autocomplete="off" value="true">
                             <label class="btn btn-outline-primary" for="xemDiem3">Có</label>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

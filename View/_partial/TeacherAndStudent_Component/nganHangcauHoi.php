@@ -2,6 +2,19 @@
         <script>
             window.onload = function() {
                 renderBankQuestion();
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'renderListClass',
+                    },
+                    success: function(data) {
+                        $("#class").html(JSON.parse(data));
+                        // console.log(data);
+                    }
+                });
+                $('#tabs').find('a.menuClass').addClass('disabled');
+                
             }
 
             function renderBankQuestion(){
@@ -12,8 +25,9 @@
                         act:"renderBankQuestion",
                     },
                     success: function(data) {
-                        // console.log(JSON.parse(data));
-                        $('#bangCauhoi').html(JSON.parse(data)['question']);
+                        // console.log(data);
+                        // console.log(JSON.parse(data)['question']);
+                        $('#bangCauHoi').html(JSON.parse(data)['question']);
                         $('#sltGroupQuestion').html(JSON.parse(data)['groupQuestion']);
                     }
                 });
@@ -113,7 +127,7 @@
                 radio = document.getElementsByName("loaiCauhoi");
                 filterByinput = input.value.toUpperCase();
                 filterByradio = radio.value;
-                table = document.getElementById("bangCauhoi");
+                table = document.getElementById("bangCauHoi");
                 tr = table.getElementsByTagName("tr");
 
                 // lọc câu hỏi
@@ -138,7 +152,7 @@
 
                 radio = document.getElementsByName("loaiCauhoi");
                 filterByradio = loai.value.toUpperCase();
-                table = document.getElementById("bangCauhoi");
+                table = document.getElementById("bangCauHoi");
                 tr = table.getElementsByTagName("tr");
 
                 // lọc câu hỏi
@@ -223,7 +237,7 @@
         </div>
         <!-- Bảng câu hỏi -->
         <div class="table-responsive">
-            <table class="table table-hover align-middle" id="bangCauhoi">
+            <table class="table table-hover align-middle" id="bangCauHoi">
                 <thead class="table-light">
                     <tr>
                         <th scope="col" width="9%">Mã</th>

@@ -11,7 +11,7 @@ class ClassView
         $result = "";
         while ($row = mysqli_fetch_array($data)) {
             $result .= '            <li>
-            <a href="#" class="nav-link link-dark" onclick="renderInfo(\'' . $row['maLop'] . '\')">'
+            <a href="./teacherPage.php?act=general&idClass=' . $row['maLop'] . '" class="nav-link link-dark" onclick="renderInfo(\'' . $row['maLop'] . '\')">'
 
                 . $row['tenLop'] .
                 '</a>
@@ -20,7 +20,7 @@ class ClassView
 
         return $result;
     }   
-    public static function rederMember($data)
+    public static function renderMember($data)
     {
         $result = '<div class="card "><div class="card-body scrollClass"><div class="">';
         while ($row = mysqli_fetch_array($data)) {

@@ -56,7 +56,7 @@ class ClassController{
 
     public static function renderMember($idClass){
         $dataSQL= ClassModel::getStudentInClass($idClass);
-        $data=ClassView::rederMember($dataSQL);
+        $data=ClassView::renderMember($dataSQL);
         return $data;
     }
 }

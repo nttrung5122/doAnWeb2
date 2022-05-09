@@ -70,6 +70,29 @@ if (isset($_POST['act'])){
 
         }
         break;
+        case "createTest":{
+            require './testController.php';
+            $data=TestController::createTest($_POST["idClass"],$_POST["thoiGianLamBai"],$_POST["ngayThi"],$_POST["daoCauHoi"],$_POST["xemDiem"],$_POST["xemDapAn"]);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderQuestionInSettingTest":{
+            require './questionController.php';
+            $data=QuestionController::renderAllQuestionInSettingTest();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "saveQuestionInTest" :{
+            require './testController.php';
+            $data=TestController::saveQuestionInTest($_POST['idTest'],$_POST['arrQuestion']);
+            return json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderListQuestionInSettingTest":{
+            require './questionController.php';
+            $data=QuestionController::renderListQuestionOfTest($_POST['idTest']);
+        }
+        break;
     }
 }
 

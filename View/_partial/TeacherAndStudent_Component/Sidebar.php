@@ -30,19 +30,19 @@ function sidebar($currentPage)
                     </li>
                     <hr>
                     <li class="nav-item ">
-                        <a href="./teacherPage.php?act=general" class="nav-link active">
+                        <a href="#" class="nav-link active menuClass ">
                             <i class="fas fa-chart-bar"></i>
                             Tổng Quan
                         </a>
                     </li>
                     <li>
-                        <a href="#" id="btnRenderMember" class="nav-link link-dark">
+                        <a href="#" id="btnRenderMember" class="nav-link link-dark menuClass">
                             <i class="fas fa-users"></i>
                             Thành Viên
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link link-dark">
+                        <a href="#" class="nav-link link-dark menuClass" data-bs-toggle="modal" data-bs-target="#form_createTest" >
                             <i class="fas fa-book"></i>
                             Tạo đề kiểm tra
                         </a>

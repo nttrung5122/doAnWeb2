@@ -112,7 +112,15 @@ if (isset($_POST['act'])){
         }
         break;
         case "renderListTest" :{
-            // require './'
+            require './testController.php';
+            $data=TestController::renderListTest($_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderInfoTest":{
+            require './testController.php';
+            $data=TestController::renderInfoTest($_POST['idTest']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
     } 
 }

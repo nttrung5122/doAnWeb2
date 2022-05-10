@@ -16,7 +16,7 @@
             <div class="col justify-content-end">
                 <button type="button" class="btn btn-warning text-center fw-bold" id="btnDeleteClass">
                     <i class="fa-solid fa-trash"></i> Xóa Lớp</button>
-            </div>x
+            </div>
         </div>
     </div>
     <!-- Statistical Card -->
@@ -70,67 +70,38 @@
     <!-- Average grade -->
     <!-- Nhấp vào sẽ hiện thông tin của bài ktra ở phần information -->
     <div class="mt-5 pb-5" id="content">
-        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
-            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 1</p>
-            <p>Điểm trung bình:</p>
-            <div class="progress bg-danger bg-opacity-25">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">2.5</div>
-            </div>
-        </div>
-        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
-            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 1</p>
-            <p>Điểm trung bình:</p>
-            <div class="progress bg-danger bg-opacity-25">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">2.5</div>
-            </div>
-        </div>
-        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
-            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 1</p>
-            <p>Điểm trung bình:</p>
-            <div class="progress bg-danger bg-opacity-25">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">2.5</div>
-            </div>
-        </div>
-        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
-            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 2</p>
-            <p>Điểm trung bình:</p>
-            <div class="progress bg-danger bg-opacity-25">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">5</div>
-            </div>
-        </div>
-        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
-            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 3</p>
-            <p>Điểm trung bình:</p>
-            <div class="progress bg-danger bg-opacity-25">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">7.5</div>
-            </div>
-        </div>
-        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
-            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 4</p>
-            <p>Điểm trung bình:</p>
-            <div class="progress bg-danger bg-opacity-25">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">10</div>
-            </div>
-        </div>
+
     </div>
 </div>
-<div class="container col-sm-3 overflow-auto text-center fixed-top bg-light" style="margin-right:0px; margin-top:70px; height:90%; z-index: 1;">
-<div class="border-start">
-            <p>Thông tin</p>
-            <h4>Bài kiểm tra 1</h4>
-            <div class="ps-3 text-start row" style="margin:0; padding:0;">
-                <div class="col-sm-6">
-                    <p>Loại</p>
-                    <p>Đã nộp</p>
-                    <p>Ngày tạo</p>
-                    <p>Chia sẻ</p>
-                </div>
-                <div class="col-sm-6 fw-bold">
-                    <p>Trắc nghiệm</p>
-                    <p>14/40</p>
-                    <p>1 tháng 4</p>
-                    <p><i class="fas fa-share-alt"></i></p>
+<div class="container col-sm-3 overflow-auto text-center fixed-top bg-light" style="margin-right:0px; margin-top:70px; height:90%; z-index: 1;" id="right_content">
+    <!-- <div class="border-start">
+        <p>Thông tin</p>
+        <h4>Bài kiểm tra 1</h4>
+        <div class="ps-3 text-start row" style="margin:0; padding:0;">
+            <div class="col-sm-6">
+                <p>Ngày làm bài</p>
+
+                <p>Đã nộp</p>
+                <p>Thời gian</p>
+                <p>Đảo đề</p>
+                <p>Xem đáp án</p>
+                <div class="col justify-content-end">
+                    <button type="button" class="btn btn-warning text-center fw-bold" onclick="showTest(52001)">
+                        <i class="fa-solid fa-trash"></i> Xem bài kiểm tra</button>
                 </div>
             </div>
-        </div>'
+            <div class="col-sm-6 fw-bold">
+                <p>14-5-2022</p>
+                <p>14/40</p>
+                <p>45 phút</p>
+                <p>Có</p>
+                <p>Có</p>
+                <div class="col justify-content-end">
+                    <button type="button" class="btn btn-warning text-center fw-bold" onclick="deleteTest(52001)">
+                        <i class="fa-solid fa-trash"></i> Xóa bài kiểm tra</button>
+                </div>
+            </div>
+
+        </div>
+    </div>' -->
 </div>

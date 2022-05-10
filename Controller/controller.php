@@ -91,6 +91,8 @@ if (isset($_POST['act'])){
         case "renderListQuestionInSettingTest":{
             require './questionController.php';
             $data=QuestionController::renderListQuestionOfTest($_POST['idTest']);
+            return $data;
+        };
         case "renderAccountTable":{
             require './adminController.php';
             $data= adminController::renderAccountTable();

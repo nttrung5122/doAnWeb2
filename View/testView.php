@@ -58,7 +58,7 @@ class TestView
                                     <p>Xem điểm</p>
                                     <div class="col justify-content-end">
                                     <button type="button" class="btn btn-warning text-center fw-bold" onclick="showTest('.$row['maDe'].')">
-                                        <i class="fa-solid fa-trash"></i> Xem bài kiểm tra</button>
+                                        <i class="fa-solid fa-eye"></i> Xem bài kiểm tra</button>
                                 </div>
                                 </div>
                                 <div class="col-sm-6 fw-bold">

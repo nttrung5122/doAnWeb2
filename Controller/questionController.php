@@ -6,8 +6,9 @@ include '../View/questionView.php';
 class QuestionController {
 
     public static function renderBankQuestion(){
-        $data=QuestionModel::getAllQuesstion();
-        $result['question']=QuestionView::renderBankQuestion($data);
+        $question=QuestionModel::getAllQuestion();
+        $answer=QuestionModel::getAllAnswer();
+        $result['question']=QuestionView::renderBankQuestion($question,$answer);
         $data=QuestionModel::getAllGroupQuestions();
         $result['groupQuestion']=QuestionView::renderQuestionGroup($data);
         return $result;
@@ -33,4 +34,20 @@ class QuestionController {
         return $data;
         // return $data;
     }
+
+    public static function renderAllQuestionInSettingTest(){
+        $question = QuestionModel::getAllQuestion();
+        $data=QuestionView::renderAllQuestionInSettingTest($question);
+        return $data;
+    }
+
+    public static function renderListQuestionOfTest($idTest){
+        $question = QuestionModel::getQuestionOfTest($idTest);
+        $answer=QuestionModel::getAllAnswer();
+        $data=QuestionView::renderListQuestionOfTest($question,$answer);
+        return $data;
+    }
+
 }
+
+// echo QuestionController::renderQuestionInSettingTest();

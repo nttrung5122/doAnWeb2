@@ -29,6 +29,8 @@ session_start();
         }
     </style>
     <script>
+                        var idTest;
+
         window.onload = function() {
             $.ajax({
                 type: "POST",
@@ -38,9 +40,10 @@ session_start();
                 },
                 success: function(data) {
                     $("#class").html(JSON.parse(data));
-                    console.log(data);
+                    // console.log(data);
                 }
-            })
+            });
+            renderInfo(<?php echo json_encode($_GET['idClass']); ?>);
         };
         $(document).ready(function() {
             $('#class a').click(function() {
@@ -136,14 +139,103 @@ session_start();
                         idClass: idClass,
                     },
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         // console.log(JSON.parse(data));
                         $("#content").html(JSON.parse(data));
                     }
                 });
             });
+            $('#btnCreateTest').click(function() {
+                let thoiGianLamBai=$('#thoiGianLamBai').val();
+                let ngayThi= $('#ngayThi').val();
+                let daoCauHoi= $('input[name="daoCauHoi"]:checked').val();
+                let xemDapAn= $('input[name="xemDapAn"]:checked').val();
+                let xemDiem= $('input[name="xemDiem"]:checked').val();
+                let idClass = $("#idClassCurent").val();
+                console.log(thoiGianLamBai);
+                console.log(ngayThi);
+                console.log(daoCauHoi);
+                console.log(xemDiem);
+                console.log(xemDapAn);
+                console.log(idClass);
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act:'createTest',
+                        thoiGianLamBai:thoiGianLamBai,
+                        ngayThi:ngayThi,
+                        daoCauHoi: daoCauHoi,
+                        xemDiem: xemDiem,
+                        xemDapAn: xemDapAn,
+                        idClass: idClass,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        idTest=JSON.parse(data)['maDe'];
+                        console.log(idTest);
+                        showNotice(JSON.parse(data)['notice']);
+                        setTimeout(() => {
+                            $('.modal').modal('hide');
+                                showSettingTest(JSON.parse(data)['maDe']);
+                            }, 1000);
+                    },
+                })
+            });
+            $('#btnSaveQuestionInTest').click(function(){
+                console.log(1);
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "saveQuestionInTest",
+                        arrQuestion:JSON.stringify(questionArr),
+                        // arrQuestion: arrQuestion,
+                        idTest: idTest,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        renderListQuestionInSettingTest();
+                    }
+                })
+            });
         });
 
+        function renderListQuestionInSettingTest(idTest){
+            $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "renderListQuestionInSettingTest",
+                        idTest: idTest,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        
+                    }
+                })
+        }
+
+        function renderSettingTest(){
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data:{
+                    act:'renderQuestionInSettingTest',
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $('#listQuestion').html(JSON.parse(data));
+                }
+                
+            })
+        }
+
+        function showSettingTest(idTest){
+            renderSettingTest();
+            $('#form_settingTest').modal('show');
+        }
+    
         function gen_Code(length, special) {
             let iteration = 0;
             let password = "";
@@ -199,7 +291,9 @@ session_start();
     <?php require("./View/_partial/Header_Footer/Header_Footer.php");
     head($teacherPage);
     include "./View/_partial/form/form_create_class.php";
-    include "./View/_partial/popup/notice.php"
+    include "./View/_partial/popup/notice.php";
+    include "./View/_partial/form/taoCautrucde_windows.php";
+    include "./View/_partial/testPage/testPage.php";
     ?>
 
     <!-- Side Navigation -->

@@ -43,6 +43,7 @@ session_start();
                 }
             });
             renderInfo(<?php echo json_encode($_GET['idClass']); ?>);
+            renderTongQuan();
         };
         $(document).ready(function() {
             $('#class a').click(function() {
@@ -141,6 +142,7 @@ session_start();
                         // console.log(data);
                         // console.log(JSON.parse(data));
                         $("#content").html(JSON.parse(data));
+                        $("#right_content").html("");
                     }
                 });
             });
@@ -207,20 +209,45 @@ session_start();
                 })
             });
             $('#btnTongQuan').click(function(){
-                $.ajax({
+                renderTongQuan();
+
+            })
+        });
+
+        function renderTongQuan(){
+            let idClass = <?php echo json_encode($_GET['idClass']); ?>;
+            console.log(idClass);
+            $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
                     data: {
                         act: "renderListTest",
+                        idClass:idClass,
                         
                     },
                     success: function(data) {
                         console.log(data);
+                        $('#content').html(JSON.parse(data));
                     }
-                })
-            })
-        });
+                }) 
+        }
 
+        function renderInfoTest(idTest){
+            console.log(idTest);
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    idTest:idTest,
+                    act: "renderInfoTest",
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#right_content').html(JSON.parse(data));
+                }
+
+            })
+        }
 
         function renderSettingTest(){
             $.ajax({
@@ -236,6 +263,10 @@ session_start();
                 }
                 
             })
+        }
+
+        function deleteTest(idTest){
+            console.log(idTest);
         }
 
         function showSettingTest(idTest){
@@ -272,6 +303,7 @@ session_start();
             return password;
         }
 
+        var infoClassCurent;
         function renderInfo(idClass) {
             $.ajax({
                 type: "POST",
@@ -282,6 +314,7 @@ session_start();
                 },
                 success: function(data) {
                     data = JSON.parse(data);
+                    infoClassCurent =data;
                     $("#nameClass").html(data['tenLop']);
                     $("#infoClass").html(data['ThongTin']);
                     $("#idClass").html("Mã lớp: " + data['maLop']);

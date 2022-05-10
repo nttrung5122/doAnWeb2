@@ -32,4 +32,17 @@ class TestModel{
         $data['status'] = 'success';
         return $data;
     }
+
+    public static function getTestOfClass($idClass){
+        $sql = "SELECT bode.maDe,bode.tenDe,bode.maLop,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDiem,bode.xemDapAn,AVG(chitietdiem.diem) as diemtb FROM bode LEFT JOIN chitietdiem on bode.maDe=chitietdiem.maDe WHERE maLop='$idClass' GROUP BY bode.maDe;";
+        // $sql = "SELECT * FROM `bode` WHERE 1";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+
+    public static function getInfoTest($idTest){
+        $sql = "SELECT bode.maDe, bode.tenDe,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDapAn,bode.xemDiem, COUNT(chitietdiem.maTaiKhoan) as slBai FROM `bode` LEFT JOIN chitietdiem on chitietdiem.maDe=bode.maDe WHERE bode.maDe='$idTest' GROUP BY bode.maDe;";
+        $data= DataProvider::executeSQL($sql);
+        return $data;
+    }
 }

@@ -20,6 +20,18 @@ class TestController{
         $result['status'] = 'success';
         return $result;
     }
+
+    public static function renderListTest($idClass){
+        $data=TestModel::getTestOfClass($idClass);
+        $result=TestView::renderListTest($data);
+        return $result;
+    }
+
+    public static function renderInfoTest($idTest){
+        $data=TestModel::getInfoTest($idTest);
+        $result=TestView::renderInfoTest($data);
+        return $result;
+    }
 }
 
 

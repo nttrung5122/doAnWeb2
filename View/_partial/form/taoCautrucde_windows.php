@@ -16,6 +16,10 @@
                 </div>
                 <!-- Nội dung của pop-up -->
                 <div class="modal-body">
+                <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="txtNameTest" >
+                        <label for="txtNameTest">Tên bài kiểm tra</label>
+                    </div>
                     <div class="row mb-3">
                         <label for="" class="col-sm-3 col-form-label">Thời gian làm bài</label>
                         <div class="col-sm-4">

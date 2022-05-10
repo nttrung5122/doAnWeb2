@@ -37,8 +37,12 @@ class QuestionController {
 
     public static function renderAllQuestionInSettingTest(){
         $question = QuestionModel::getAllQuestion();
-        $data=QuestionView::renderAllQuestionInSettingTest($question);
-        return $data;
+        $answer=QuestionModel::getAllAnswer();
+
+        $result['question']=QuestionView::renderAllQuestionInSettingTest($question,$answer);
+        $data=QuestionModel::getAllGroupQuestions();
+        $result['groupQuestion']=QuestionView::renderQuestionGroup($data);
+        return $result;
     }
 
     public static function renderListQuestionOfTest($idTest){

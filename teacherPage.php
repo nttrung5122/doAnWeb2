@@ -24,13 +24,12 @@ session_start();
         }
 
         .scrollClass {
-            height: 70vh;
+            height: 42vh;
             overflow-y: auto;
         }
     </style>
     <script>
-                        var idTest;
-
+        var idTest;
         window.onload = function() {
             $.ajax({
                 type: "POST",
@@ -152,6 +151,8 @@ session_start();
                 let xemDapAn= $('input[name="xemDapAn"]:checked').val();
                 let xemDiem= $('input[name="xemDiem"]:checked').val();
                 let idClass = $("#idClassCurent").val();
+                let nameTest = $('#txtNameTest').val();
+                console.log(nameTest);
                 console.log(thoiGianLamBai);
                 console.log(ngayThi);
                 console.log(daoCauHoi);
@@ -164,6 +165,7 @@ session_start();
                     data: {
                         act:'createTest',
                         thoiGianLamBai:thoiGianLamBai,
+                        nameTest: nameTest,
                         ngayThi:ngayThi,
                         daoCauHoi: daoCauHoi,
                         xemDiem: xemDiem,
@@ -195,26 +197,30 @@ session_start();
                     },
                     success: function(data) {
                         console.log(data);
-                        renderListQuestionInSettingTest();
+                        // renderListQuestionInSettingTest();   
+                        showNotice(JSON.parse(data)['notice']);
+                        setTimeout(() => {
+                            $('.modal').modal('hide');
+
+                        },1000);
                     }
                 })
             });
-        });
-
-        function renderListQuestionInSettingTest(idTest){
-            $.ajax({
+            $('#btnTongQuan').click(function(){
+                $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
                     data: {
-                        act: "renderListQuestionInSettingTest",
-                        idTest: idTest,
+                        act: "renderListTest",
+                        
                     },
                     success: function(data) {
                         console.log(data);
-                        
                     }
                 })
-        }
+            })
+        });
+
 
         function renderSettingTest(){
             $.ajax({
@@ -225,7 +231,8 @@ session_start();
                 },
                 success: function(data) {
                     // console.log(data);
-                    $('#listQuestion').html(JSON.parse(data));
+                    $('#listQuestion').html(JSON.parse(data)['question']);
+                    $('#sltGroupQuestionInFormCreateTest').html(JSON.parse(data)['groupQuestion']);
                 }
                 
             })
@@ -310,7 +317,7 @@ session_start();
 
     <!-- Content -->
 
-    <div style="margin-left: 280px; margin-top: 80px;">
+    <div style="margin-left: 280px; margin-top: 0px;">
         <div class="row" style="margin-left: 0; margin-right: 0;">
         <?php
             if(isset($_GET['act']) && $_GET['act'] == 'bankQuestion' ){

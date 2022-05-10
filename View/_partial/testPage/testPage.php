@@ -103,31 +103,11 @@
                 <!-- Nội dung của pop-up -->
                 <div class="modal-body">
                     <div class="container">
-                        <div class="row align-items-start" style="height:750px" >
-                            <div class="col">
-                                <?php include './View/_partial/testPage /cauhoiModules.php'; ?>
-
-                                <div class="text-center fw-bold fs-2">Tên Đề thi</div>
-                                <!-- Tạo list câu hỏi -->
-                                <ol class="list-group list-group-numbered list-group-flush" style="height: 700px;overflow-y: scroll;">
-                                    <!-- Mỗi hàm là 1 câu -->
-                                    <!-- Số cuối hàm là số thứ tự câu trả lời là đáp án -->
-                                    <?php
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 1?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi1', 1);
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 2?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi2', 3);
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 3?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi3', 2);
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 4?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi4', 4);
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 4?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi4', 4);
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 4?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi4', 4);
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 4?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi4', 4);
-                                    taoCauhoi::taoCauhoi('Câu hỏi số 4?', 'Đáp án 1', 'Đáp án 2', 'Đáp án 3', 'Đáp án 4', 'maCauhoi4', 4);
-                                    ?>
-                                </ol>
-                            </div>
+                        <div class="row align-items-start" style="height:730px" >
                             <div class="col">
                                 <div class="row align-items-start">
                                     <div class="text-center fw-bold fs-2 mb-3">Ngân hàng câu hỏi</div>
-                                    <div class="col">
+                                    <div class="col" id="sltGroupQuestionInFormCreateTest">
                                         <!-- select chọn thể loại (nhóm câu hỏi) -->
                                         <select class="form-select" aria-label="Loại câu hỏi" onchange="timCauhoiRadio(this)">
                                             <option hidden value="" selected>Loại câu hỏi</option>

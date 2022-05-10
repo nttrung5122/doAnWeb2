@@ -1,9 +1,11 @@
 <?php
 
-class QuestionView {
+class QuestionView
+{
 
-    public static function renderBankQuestion($question,$answer){
-        $result='                <thead class="table-light">
+    public static function renderBankQuestion($question, $answer)
+    {
+        $result = '                <thead class="table-light">
         <tr>
             <th scope="col" width="9%">Mã</th>
             <th scope="col" width="70%">Câu hỏi</th>
@@ -11,8 +13,8 @@ class QuestionView {
         </tr>
     </thead>
     <tbody>';
-        while ($row = mysqli_fetch_array($question)){
-            $result .=' <tr style="transform: rotate(0);">
+        while ($row = mysqli_fetch_array($question)) {
+            $result .= ' <tr style="transform: rotate(0);">
                             <th scope="row">' . $row['maCau'] . '</th>
                             <td>' . $row['noiDung'] . '</td>
                             <td>' . $row['tenNhomCauHoi'] . '</td>
@@ -24,16 +26,16 @@ class QuestionView {
                             <th scope="col" width="9%"></th>
                             <td scope="col" width="70%">
                                 <ul class="collapse " id="cau' . $row['maCau'] . '" style="list-style-type:none; margin:0px; padding:0px;">';
-            $cnt=4;
-            while ($cnt--){
+            $cnt = 4;
+            while ($cnt--) {
                 $row2 = mysqli_fetch_array($answer);
                 // if($row['maCau'] == $row2['maCau'])
-                    $result .= ' <li>
-                                    <p style="margin:0;"><span class="fw-bold">Câu ' . $row2['maLuaChon'] .' :</span>'. $row2['noiDung'] .'</p>
+                $result .= ' <li>
+                                    <p style="margin:0;"><span class="fw-bold">Câu ' . $row2['maLuaChon'] . ' :</span>' . $row2['noiDung'] . '</p>
                                 </li>';
             }
             $result .= '<li>
-                             <p style="margin:0;"><span class="fw-bold">Đáp án: </span>'.$row['dapAn'] .'</p>
+                             <p style="margin:0;"><span class="fw-bold">Đáp án: </span>' . $row['dapAn'] . '</p>
                        </li>
                        </ul>
                             </td>
@@ -43,40 +45,63 @@ class QuestionView {
         return $result;
     }
 
-    public static function renderQuestionGroup($data){
-        $result='                <select class="form-select" aria-label="Loại câu hỏi" onchange="timCauhoiRadio(this)">
+    public static function renderQuestionGroup($data)
+    {
+        $result = '                <select class="form-select" aria-label="Loại câu hỏi" onchange="timCauhoiRadio(this)">
         <option hidden value="" selected>Loại câu hỏi</option>
         <option value="">Tất cả</option>';
-        while ($row = mysqli_fetch_array($data)){
-            $result.='<option value="'.$row['tenNhomCauHoi'] .'">'.$row['tenNhomCauHoi'] .'</option>';
+        while ($row = mysqli_fetch_array($data)) {
+            $result .= '<option value="' . $row['tenNhomCauHoi'] . '">' . $row['tenNhomCauHoi'] . '</option>';
         }
         return $result;
     }
 
-    public static function renderSltQuestionGroup($data){
-        $result='<option selected disabled value="">Nhóm câu hỏi:</option>
+    public static function renderSltQuestionGroup($data)
+    {
+        $result = '<option selected disabled value="">Nhóm câu hỏi:</option>
         <option value="newGroup">Tạo nhóm mới</option>';
-        while ($row = mysqli_fetch_array($data)){
-        
-        $result.= '<option value="'.$row['maNhomCauHoi'].'">'.$row['tenNhomCauHoi'].'</option>';
+        while ($row = mysqli_fetch_array($data)) {
+
+            $result .= '<option value="' . $row['maNhomCauHoi'] . '">' . $row['tenNhomCauHoi'] . '</option>';
         }
         return $result;
     }
 
-    public static function renderAllQuestionInSettingTest($question){
-        $result ="";
-        while($row = mysqli_fetch_array($question)){
+    public static function renderAllQuestionInSettingTest($question, $answer)
+    {
+        $result = "";
+        while ($row = mysqli_fetch_array($question)) {
             $result .= '        <tr>
-            <th scope="row">' . $row['maCau'] . '</th>
-            <td>' . $row['noiDung'] . '</td>
+            <th scope="row"  >' . $row['maCau'] .  '</th>
+            <td style="transform: rotate(0);" >' . $row['noiDung'] . '<a class="stretched-link" data-bs-toggle="collapse" href="#cau' . $row['maCau'] . '"></a></td>
             <td>' . $row['tenNhomCauHoi'] . '</td>
-            <td><input class="form-check-input" type="checkbox" value="' .$row['maCau'] . '" id="' .$row['maCau']. '" onchange="taoMangcauhoi(this.value)"></td>
-        </tr>';
+            <td><input class="form-check-input" type="checkbox" value="' . $row['maCau'] . '" id="' . $row['maCau'] . '" onchange="taoMangcauhoi(this.value)"></td>
+        </tr>
+        <tr class="collapse" id="cau' . $row['maCau'] . '">
+                            <th scope="col" width="9%"></th>
+                            <td scope="col" width="70%">
+                                <ul class="collapse " id="cau' . $row['maCau'] . '" style="list-style-type:none; margin:0px; padding:0px;">';
+            $cnt = 4;
+            while ($cnt--) {
+                $row2 = mysqli_fetch_array($answer);
+                // if($row['maCau'] == $row2['maCau'])
+                $result .= ' <li>
+                                                        <p style="margin:0;"><span class="fw-bold">Câu ' . $row2['maLuaChon'] . ' :</span>' . $row2['noiDung'] . '</p>
+                                                    </li>';
+            }
+            $result .= '<li>
+                                                 <p style="margin:0;"><span class="fw-bold">Đáp án: </span>' . $row['dapAn'] . '</p>
+                                           </li>
+                                           </ul>
+                                                </td>
+                                                <th scope="col" width="70%"></th>
+                                            </tr>';
         }
         return $result;
     }
 
-    public static function renderListQuestionOfTest($question,$answer){
+    public static function renderListQuestionOfTest($question, $answer)
+    {
         // $result="";
         // while ($row = mysqli_fetch_array($question)){
         //     $result.='
@@ -93,6 +118,6 @@ class QuestionView {
         //     </li>
         //     ';
         // }
-        
+
     }
 }

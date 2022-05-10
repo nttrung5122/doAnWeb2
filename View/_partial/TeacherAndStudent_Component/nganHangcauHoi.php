@@ -43,9 +43,53 @@
                 }
 
             });
-
             }
             $(document).ready(function() {
+                $('#btnRandomCode').click(function() {
+                $("#txtIdClass").val(gen_Code(8));
+            });
+            $('#btnLogOut').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'logOut'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                })
+                window.location = './homePage.php';
+
+            });
+            $("#btnCreateClass").click(function() {
+                let id = $("#txtIdClass").val();
+                let name = $("#txtNameClass").val();
+                let info = $("#txtInfoClass").val();
+                console.log(id);
+                console.log(name);
+                console.log(info);
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "createClass",
+                        id: id,
+                        name: name,
+                        info: info,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        showNotice(JSON.parse(data)['notice']);
+                        if (JSON.parse(data)['status'] == 'success') {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+
+                        }
+                    }
+                })
+            });
                 $('#btnCreateQuestion').click(function(){
                     let noidung=$('#txtQuestion').val();
                     let cauA=$('#txtCauA').val();
@@ -120,6 +164,34 @@
                     })
                 })
             })
+            function gen_Code(length, special) {
+            let iteration = 0;
+            let password = "";
+            let randomNumber;
+            if (special == undefined) {
+                var special = false;
+            }
+            while (iteration < length) {
+                randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
+                if (!special) {
+                    if ((randomNumber >= 33) && (randomNumber <= 47)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 58) && (randomNumber <= 64)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 91) && (randomNumber <= 96)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 123) && (randomNumber <= 126)) {
+                        continue;
+                    }
+                }
+                iteration++;
+                password += String.fromCharCode(randomNumber);
+            }
+            return password;
+        }
             function timCauhoi() {
                 // tạo biến
                 var input, filterByinput, filterByradio, table, tr, td, i, txtValue;
@@ -185,6 +257,7 @@
                 }
                 // console.log(questionArr);
             }
+            
         </script>
         <style>
             table thead,
@@ -215,15 +288,6 @@
         <div class="row align-items-start">
             <div class="text-center fw-bold fs-2 mb-3">Ngân hàng câu hỏi</div>
             <div class="col" id="sltGroupQuestion">
-                <!-- select chọn thể loại (nhóm câu hỏi) -->
-                <!-- <select class="form-select" aria-label="Loại câu hỏi" onchange="timCauhoiRadio(this)">
-                    <option hidden value="" selected>Loại câu hỏi</option>
-                    <option value="">Tất cả</option>
-
-                    <option value="Nông nghiệp">Nông nghiệp</option>
-                    <option value="Công nghệ thông tin">Công nghệ thông tin</option>
-                    <option value="Hài hước">Hài hước</option>
-                </select> -->
             </div>
             <!-- Filter lọc tìm câu hỏi -->
             <div class="col-sm-6">
@@ -238,35 +302,7 @@
         <!-- Bảng câu hỏi -->
         <div class="table-responsive">
             <table class="table table-hover align-middle" id="bangCauHoi">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col" width="9%">Mã</th>
-                        <th scope="col" width="70%">Câu hỏi</th>
-                        <th scope="col" width="22%">Loại</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <!-- Luôn đặt các mô đun bên dưới thẻ này -->
-                    <?php
-                    // include "./model/questionModel.php";
-                    // $bankQuestion=QuestionModal::getAllQuesstion();
-                    // while($row = mysqli_fetch_array($data)){
-                    //     themcauhoiModules::themCauhoi_NoCheckBox($row['maCau'],$row['noiDung'],$row['tenNhomCauHoi']);
-                    // }
-                    // themcauhoiModules::themCauhoi_NoCheckBox(1, 'Bò không ăn cỏ', 'Nông nghiệp');
-                    // themcauhoiModules::themCauhoi_NoCheckBox(2, 'Gạch và đá', 'Xây dựng');
-                    // themcauhoiModules::themCauhoi_NoCheckBox(3, 'Java là gì?', 'Công nghệ thông tin');
-                    // themcauhoiModules::themCauhoi_NoCheckBox(4, 'Có 1 đàn chim đậu trên cành, người thợ săn bắn cái rằm. Hỏi chết mấy con?', 'Hài hước');
-
-                    ?>
-                </tbody>
             </table>
         </div>
-
-        <!-- nút -->
-        <!-- <div class="d-grid gap-2 col-2">
-            <button class="btn btn-primary mt-3" type="button" style="margin-right:0;">Lưu lại</button>
-        </div> -->
     </div>
 </div>

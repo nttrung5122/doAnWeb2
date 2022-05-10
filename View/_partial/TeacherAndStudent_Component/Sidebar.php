@@ -54,7 +54,7 @@ function sidebar($currentPage)
                         </a>
                     </li>
                     <hr>
-                    <li class="nav-item ">
+                    <li class="nav-item " id="btnTongQuan">
                         <a href="#" class="nav-link active menuClass ">
                             <i class="fas fa-chart-bar"></i>
                             Tổng Quan

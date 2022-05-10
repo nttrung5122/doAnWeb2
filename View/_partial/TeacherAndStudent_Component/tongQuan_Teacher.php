@@ -16,7 +16,7 @@
             <div class="col justify-content-end">
                 <button type="button" class="btn btn-warning text-center fw-bold" id="btnDeleteClass">
                     <i class="fa-solid fa-trash"></i> Xóa Lớp</button>
-            </div>
+            </div>x
         </div>
     </div>
     <!-- Statistical Card -->
@@ -78,6 +78,20 @@
             </div>
         </div>
         <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
+            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 1</p>
+            <p>Điểm trung bình:</p>
+            <div class="progress bg-danger bg-opacity-25">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">2.5</div>
+            </div>
+        </div>
+        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
+            <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 1</p>
+            <p>Điểm trung bình:</p>
+            <div class="progress bg-danger bg-opacity-25">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">2.5</div>
+            </div>
+        </div>
+        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
             <p class="mt-3 fs-5 fw-bold">Bài kiểm tra 2</p>
             <p>Điểm trung bình:</p>
             <div class="progress bg-danger bg-opacity-25">
@@ -101,10 +115,22 @@
     </div>
 </div>
 <div class="container col-sm-3 overflow-auto text-center fixed-top bg-light" style="margin-right:0px; margin-top:70px; height:90%; z-index: 1;">
-    <?php require("./View/_partial/TeacherAndStudent_Component/AnnouncementAndInfo.php");
-    // Announcement
-    createAnnouncement();
-    // Information
-    createInformation();
-    ?>
+<div class="border-start">
+            <p>Thông tin</p>
+            <h4>Bài kiểm tra 1</h4>
+            <div class="ps-3 text-start row" style="margin:0; padding:0;">
+                <div class="col-sm-6">
+                    <p>Loại</p>
+                    <p>Đã nộp</p>
+                    <p>Ngày tạo</p>
+                    <p>Chia sẻ</p>
+                </div>
+                <div class="col-sm-6 fw-bold">
+                    <p>Trắc nghiệm</p>
+                    <p>14/40</p>
+                    <p>1 tháng 4</p>
+                    <p><i class="fas fa-share-alt"></i></p>
+                </div>
+            </div>
+        </div>'
 </div>

@@ -59,6 +59,11 @@ class ClassController{
         $data=ClassView::renderMember($dataSQL);
         return $data;
     }
+
+    public static function renderContainerInfoClass(){
+        $data=ClassView::renderContainerInfoClass();
+        return $data;
+    }
 }
     // echo ClassController::renderMember("5IabAbm4");
 

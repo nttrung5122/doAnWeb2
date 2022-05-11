@@ -38,6 +38,12 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "deleteTest":{
+            require './testController.php';
+            $data=TestController::deleteTest($_POST['idTest']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
         case "renderListClass":{
            require './classController.php';
            session_start();
@@ -85,14 +91,15 @@ if (isset($_POST['act'])){
         case "saveQuestionInTest" :{
             require './testController.php';
             $data=TestController::saveQuestionInTest($_POST['idTest'],$_POST['arrQuestion']);
-            return json_encode($data,JSON_UNESCAPED_UNICODE);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
-        case "renderListQuestionInSettingTest":{
-            require './questionController.php';
-            $data=QuestionController::renderListQuestionOfTest($_POST['idTest']);
-            return $data;
-        };
+        // case "renderListQuestionInSettingTest":{
+        //     require './questionController.php';
+        //     $data=QuestionController::renderListQuestionOfTest($_POST['idTest']);
+        //     return $data;
+        // };
+        // break;
         case "renderAccountTable":{
             require './adminController.php';
             $data= adminController::renderAccountTable();
@@ -122,6 +129,19 @@ if (isset($_POST['act'])){
             $data=TestController::renderInfoTest($_POST['idTest']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "renderContainerbankquestion":{
+            require './questionController.php';
+            $data=QuestionController::renderContainerbankquestion();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderContainerInfoClass":{
+            require './classController.php';
+            $data=ClassController::renderContainerInfoClass();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     } 
 }
 

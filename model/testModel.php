@@ -45,4 +45,11 @@ class TestModel{
         $data= DataProvider::executeSQL($sql);
         return $data;
     }
+
+    public static function deleteTest($idTest){
+        $sql = "DELETE FROM `boDe` WHERE `maDe`='$idTest';";
+        $data= DataProvider::executeSQL($sql);    
+        //TO DO remove Student, remove Test
+    }
+
 }

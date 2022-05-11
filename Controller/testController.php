@@ -16,7 +16,7 @@ class TestController{
 
     public static function saveQuestionInTest($idTest,$arrQuestion){
         $data=TestModel::saveQuestionInTest($idTest,json_decode($arrQuestion));
-        $result['notice']="Thêm câu hỏi thành công";
+        $result['notice']='Thêm câu hỏi thành công';
         $result['status'] = 'success';
         return $result;
     }
@@ -31,6 +31,13 @@ class TestController{
         $data=TestModel::getInfoTest($idTest);
         $result=TestView::renderInfoTest($data);
         return $result;
+    }
+
+    public static function deleteTest($idTest){
+        TestModel::deleteTest($idTest);
+        $data['notice']="Xóa đề thành công";
+        $data['status']="success";
+        return $data;
     }
 }
 

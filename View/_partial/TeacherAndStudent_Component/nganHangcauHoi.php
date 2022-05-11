@@ -45,51 +45,7 @@
             });
             }
             $(document).ready(function() {
-                $('#btnRandomCode').click(function() {
-                $("#txtIdClass").val(gen_Code(8));
-            });
-            $('#btnLogOut').click(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'logOut'
-                    },
-                    success: function(data) {
-                        console.log(data);
-                    }
-                })
-                window.location = './homePage.php';
-
-            });
-            $("#btnCreateClass").click(function() {
-                let id = $("#txtIdClass").val();
-                let name = $("#txtNameClass").val();
-                let info = $("#txtInfoClass").val();
-                console.log(id);
-                console.log(name);
-                console.log(info);
-                $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: "createClass",
-                        id: id,
-                        name: name,
-                        info: info,
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        showNotice(JSON.parse(data)['notice']);
-                        if (JSON.parse(data)['status'] == 'success') {
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000);
-
-                        }
-                    }
-                })
-            });
+                
                 $('#btnCreateQuestion').click(function(){
                     let noidung=$('#txtQuestion').val();
                     let cauA=$('#txtCauA').val();
@@ -164,34 +120,6 @@
                     })
                 })
             })
-            function gen_Code(length, special) {
-            let iteration = 0;
-            let password = "";
-            let randomNumber;
-            if (special == undefined) {
-                var special = false;
-            }
-            while (iteration < length) {
-                randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
-                if (!special) {
-                    if ((randomNumber >= 33) && (randomNumber <= 47)) {
-                        continue;
-                    }
-                    if ((randomNumber >= 58) && (randomNumber <= 64)) {
-                        continue;
-                    }
-                    if ((randomNumber >= 91) && (randomNumber <= 96)) {
-                        continue;
-                    }
-                    if ((randomNumber >= 123) && (randomNumber <= 126)) {
-                        continue;
-                    }
-                }
-                iteration++;
-                password += String.fromCharCode(randomNumber);
-            }
-            return password;
-        }
             function timCauhoi() {
                 // tạo biến
                 var input, filterByinput, filterByradio, table, tr, td, i, txtValue;
@@ -217,6 +145,7 @@
             }
 
             function timCauhoiRadio(loai) {
+                
                 console.log(loai.value);
 
                 // tạo biến
@@ -276,7 +205,7 @@
             }
         </style>
     <?php
-        include "./View/_partial/form/form_create_question.php"
+        include "./View/_partial/form/form_create_question.php";
     ?>
 <div class="col-sm-12 mt-3 px-5">
     <!-- Bự quá chỉnh lại col-8 -->

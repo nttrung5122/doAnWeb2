@@ -41,7 +41,7 @@ class QuestionController {
 
         $result['question']=QuestionView::renderAllQuestionInSettingTest($question,$answer);
         $data=QuestionModel::getAllGroupQuestions();
-        $result['groupQuestion']=QuestionView::renderQuestionGroup($data);
+        $result['groupQuestion']=QuestionView::renderQuestionGroupInFrom($data);
         return $result;
     }
 
@@ -52,6 +52,10 @@ class QuestionController {
         return $data;
     }
 
+    public static function renderContainerbankquestion(){
+        $result = QuestionView::renderContainerbankquestion();
+        return $result;
+    }
 }
 
 // echo QuestionController::renderQuestionInSettingTest();

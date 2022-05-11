@@ -106,6 +106,12 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "clickDelete":{
+            require './adminController.php';
+            $data=adminController::clickDelete($_POST['idAdmin'], $_POST['typeAdmin']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
         case "renderClassTable":{
             require './adminController.php';
             $data= adminController::renderClassTable();
@@ -114,7 +120,25 @@ if (isset($_POST['act'])){
         break;
         case "renderQuestionTable":{
             require './adminController.php';
-            $data= adminController::renderClassQuestion();
+            $data= adminController::renderQuestionTable();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "editAccount":{
+            require './adminController.php';
+            $data= adminController::editAccount($_POST['id'], $_POST['email'], $_POST['password'], $_POST['role'], $_POST['name'], $_POST['birth'], $_POST['phone']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "editClass":{
+            require './adminController.php';
+            $data= adminController::editClass($_POST['id'], $_POST['maLop'], $_POST['tenLop'], $_POST['thongTin'], $_POST['soLuong'], $_POST['email']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "editQuestion":{
+            require './adminController.php';
+            $data= adminController::editQuestion($_POST['id'], $_POST['maCau'], $_POST['maNhom'], $_POST['noiDung']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;

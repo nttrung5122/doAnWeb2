@@ -55,19 +55,19 @@ function sidebar($currentPage)
                     </li>
                     <hr>
                     <li class="nav-item " id="btnTongQuan">
-                        <a href="#" class="nav-link active menuClass ">
+                        <a href="#" name="tongQuan" class="nav-link active menuClass ">
                             <i class="fas fa-chart-bar"></i>
                             Tổng Quan
                         </a>
                     </li>
                    <li class="nav-item " >
-                        <a href="#" id="btnRenderMember" class="nav-link link-dark menuClass">
+                        <a href="#" name="thanhVien" id="btnRenderMember" class="nav-link link-dark menuClass">
                             <i class="fas fa-users"></i>
                             Thành Viên
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a href="#" class="nav-link link-dark menuClass" data-bs-toggle="modal" data-bs-target="#form_createTest" >
+                        <a href="#" name="taoDeKiemTra" class="nav-link link-dark menuClass" data-bs-toggle="modal" data-bs-target="#form_createTest" >
 
                             <i class="fas fa-book"></i>
                             Tạo đề kiểm tra

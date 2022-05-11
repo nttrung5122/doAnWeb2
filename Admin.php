@@ -54,6 +54,7 @@
                 }
             });
         }
+
         function renderQuestionTable() {
             $.ajax({
                 type: "POST",
@@ -62,11 +63,11 @@
                     act: "renderQuestionTable",
                 },
                 success: function(data) {
-                    console.log(data);
                     $('#table').html(JSON.parse(data));
                 }
             });
-        }
+        };
+
         $(document).ready(function() {
             $('#class a').click(function() {
                 $('#class').find('a.active').addClass('link-dark');
@@ -90,10 +91,164 @@
                 renderQuestionTable();
             });
         });
+
+        function clickDelete(btn) {
+            var id = btn.getAttribute('name');
+            var type = $('#table-type').attr('name');
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "clickDelete",
+                    idAdmin: id,
+                    typeAdmin: type,
+                },
+                success: function(data) {
+                    $('#table').html(JSON.parse(data));
+                }
+            });
+        }
+
+        function editAccount(btn) {
+            var email = $('input[name="email' + btn.id + '"]').val();
+            var password = $('input[name="password' + btn.id + '"]').val();
+            var role = $('input[name="role' + btn.id + '"]').val();
+            var name = $('input[name="name' + btn.id + '"]').val();
+            var birth = $('input[name="birth' + btn.id + '"]').val();
+            var phone = $('input[name="phone' + btn.id + '"]').val();
+            if (checkAccount(email, password, phone)) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "editAccount",
+                        id: btn.name,
+                        email: email,
+                        password: password,
+                        role: role,
+                        name: name,
+                        birth: birth,
+                        phone: phone,
+                    },
+                    success: function(data) {
+                        $('#table').html(JSON.parse(data));
+                    }
+                });
+            }
+        };
+
+        function editClass(btn) {
+            var maLop = $('input[name="maLop' + btn.id + '"]').val();
+            var tenLop = $('input[name="tenLop' + btn.id + '"]').val();
+            var thongTin = $('input[name="thongTin' + btn.id + '"]').val();
+            var soLuong = $('input[name="soLuong' + btn.id + '"]').val();
+            var email = $('input[name="email' + btn.id + '"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "editClass",
+                    id: btn.name,
+                    maLop: maLop,
+                    tenLop: tenLop,
+                    thongTin: thongTin,
+                    soLuong: soLuong,
+                    email: email,
+                },
+                success: function(data) {
+                    $('#table').html(JSON.parse(data));
+                }
+            });
+        };
+
+        function editQuestion(btn) {
+            var maCau = $('input[name="maCau' + btn.id + '"]').val();
+            var maNhom = $('input[name="maNhom' + btn.id + '"]').val();
+            var noiDung = $('input[name="noiDung' + btn.id + '"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "editQuestion",
+                    id: btn.name,
+                    maCau: maCau,
+                    maNhom: maNhom,
+                    noiDung: noiDung,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#table').html(JSON.parse(data));
+                }
+            });
+        };
+
+        function search() {
+            // tạo biến
+            var input, filterByinput, filterByradio, table, tr, td, i, txtValue, col;
+            input = document.getElementById("search");
+            filterByinput = input.value.toUpperCase();
+            table = document.getElementById("table-type");
+            tr = table.getElementsByTagName("tr");
+            if (table.getAttribute('name') == "Account_Modal") {
+                col = 0;
+            } else if (table.getAttribute('name') == "Class_Modal") {
+                col = 1;
+            } else {
+                col = 2;
+            }
+            // lọc câu hỏi
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[col];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filterByinput) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function checkAccount(emails, password, sdt) {
+            if (!checkSdt(sdt) && sdt.trim() != "") {
+                showNotice('Số điện thoại của bạn không đúng định dạng!');
+                return false;
+            }
+            if (!checkEmail(emails) && emails.trim() != "") {
+                showNotice('Email của bạn không đúng định dạng!');
+                return false;
+            }
+            if (!checkPass(password) && password.trim() != "") {
+                showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
+                return false;
+            }
+            return true;
+        }
+
+        function checkPass(pass) {
+            let pass_regex = /^[a-zA-Z0-9]{8,}$/;
+            return pass_regex.test(pass);
+        }
+
+        function checkSdt(sdt) {
+            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+            return vnf_regex.test(sdt);
+        }
+
+        function checkEmail(email) {
+            return String(email)
+                .toLowerCase()
+                .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                );
+        }
     </script>
     <?php
-    include './View/_partial/popup/modal_modules.php';
-    include './View/_partial/form/form_modules.php';
+    include "./View/_partial/popup/notice.php";
     ?>
 </head>
 
@@ -116,11 +271,11 @@
         <div class="d-flex justify-content-center">
             <div class="input-group border-2 border-dark border rounded-pill mt-2 p-2" style="width:75%;">
                 <i class="fas fa-search fs-4 my-auto mx-2"></i>
-                <input class="form-control border-0" type="text" placeholder="Search...">
+                <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">
             </div>
         </div>
         <div class="container" id="table">
-            
+
         </div>
     </div>
 

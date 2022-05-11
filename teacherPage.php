@@ -28,22 +28,21 @@ session_start();
             overflow-y: auto;
         }
 
-        
+
         table thead,
-            table tfoot {
-                position: sticky;
-            }
+        table tfoot {
+            position: sticky;
+        }
 
-            table thead {
-                inset-block-start: 0;
-                /* "top" */
-            }
+        table thead {
+            inset-block-start: 0;
+            /* "top" */
+        }
 
-            table tfoot {
-                inset-block-end: 0;
-                /* "bottom" */
-            }
-
+        table tfoot {
+            inset-block-end: 0;
+            /* "bottom" */
+        }
     </style>
     <script>
         var idTest;
@@ -52,7 +51,7 @@ session_start();
             renderContainerbankquestion();
             // renderBankQuestion();
 
-                
+
         };
         $(document).ready(function() {
             $('#class a').click(function() {
@@ -106,7 +105,7 @@ session_start();
                         if (JSON.parse(data)['status'] == 'success') {
                             setTimeout(() => {
                                 // window.location.reload();
-                            $('.modal').modal('hide');
+                                $('.modal').modal('hide');
                                 renderListclass();
                             }, 2000);
 
@@ -114,7 +113,7 @@ session_start();
                     }
                 })
             });
-            $("#bankQuestion").click(function(){
+            $("#bankQuestion").click(function() {
                 renderContainerbankquestion();
             });
             $("#btnRenderMember").click(function() {
@@ -138,11 +137,11 @@ session_start();
                 });
             });
             $('#btnCreateTest').click(function() {
-                let thoiGianLamBai=$('#thoiGianLamBai').val();
-                let ngayThi= $('#ngayThi').val();
-                let daoCauHoi= $('input[name="daoCauHoi"]:checked').val();
-                let xemDapAn= $('input[name="xemDapAn"]:checked').val();
-                let xemDiem= $('input[name="xemDiem"]:checked').val();
+                let thoiGianLamBai = $('#thoiGianLamBai').val();
+                let ngayThi = $('#ngayThi').val();
+                let daoCauHoi = $('input[name="daoCauHoi"]:checked').val();
+                let xemDapAn = $('input[name="xemDapAn"]:checked').val();
+                let xemDiem = $('input[name="xemDiem"]:checked').val();
                 let idClass = $("#idClassCurent").val();
                 let nameTest = $('#txtNameTest').val();
                 console.log(nameTest);
@@ -156,10 +155,10 @@ session_start();
                     type: "POST",
                     url: "./Controller/controller.php",
                     data: {
-                        act:'createTest',
-                        thoiGianLamBai:thoiGianLamBai,
+                        act: 'createTest',
+                        thoiGianLamBai: thoiGianLamBai,
                         nameTest: nameTest,
-                        ngayThi:ngayThi,
+                        ngayThi: ngayThi,
                         daoCauHoi: daoCauHoi,
                         xemDiem: xemDiem,
                         xemDapAn: xemDapAn,
@@ -167,23 +166,23 @@ session_start();
                     },
                     success: function(data) {
                         console.log(data);
-                        idTest=JSON.parse(data)['maDe'];
+                        idTest = JSON.parse(data)['maDe'];
                         console.log(idTest);
                         showNotice(JSON.parse(data)['notice']);
                         setTimeout(() => {
                             $('.modal').modal('hide');
-                                showSettingTest(JSON.parse(data)['maDe']);
-                            }, 1000);
+                            showSettingTest(JSON.parse(data)['maDe']);
+                        }, 1000);
                     },
                 })
             });
-            $('#btnSaveQuestionInTest').click(function(){
+            $('#btnSaveQuestionInTest').click(function() {
                 $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
                     data: {
                         act: "saveQuestionInTest",
-                        arrQuestion:JSON.stringify(questionArr),
+                        arrQuestion: JSON.stringify(questionArr),
                         // arrQuestion: arrQuestion,
                         idTest: idTest,
                     },
@@ -193,122 +192,122 @@ session_start();
                         setTimeout(() => {
                             $('.modal').modal('hide');
                             renderListTest();
-                        },1000);
+                        }, 1000);
                     }
                 })
             });
-            $('#btnTongQuan').click(function(){
+            $('#btnTongQuan').click(function() {
                 renderListTest();
 
             })
-            $('#btnCreateQuestion').click(function(){
-                    let noidung=$('#txtQuestion').val();
-                    let cauA=$('#txtCauA').val();
-                    let cauB=$('#txtCauB').val();
-                    let cauC=$('#txtCauC').val();
-                    let cauD=$('#txtCauD').val();
-                    let idGroup=$('#sltQuestionGroup').val();
-                    let dapAn=$('#sltAnswer').val();
-                    let tenNhom=$('#txtNewGroup').val();
-                    console.log(noidung);
-                    console.log(cauA);
-                    console.log(cauB);
-                    console.log(cauC);
-                    console.log(cauD);
-                    console.log(idGroup);
-                    console.log(dapAn);
-                    console.log(tenNhom);
-                    if(noidung==""){
-                        showNotice("Vui lòng nhập nội dung câu hỏi");
-                        return;
-                    }
-                    if(cauA==""){
-                        showNotice("Vui lòng nhập nội dung đáp án A");
-                        return;
-                    }
-                    
-                    if(cauB==""){
-                        showNotice("Vui lòng nhập nội dung đáp án B");
-                        return;
-                    }
-                    
-                    if(cauC==""){
-                        showNotice("Vui lòng nhập nội dung đáp án C");
-                        return;
-                    }
-                    
-                    if(cauD==""){
-                        showNotice("Vui lòng nhập nội dung đáp án D");
-                        return;
-                    }
-                    if(idGroup==null){
-                        showNotice("Vui lòng chọn nhóm câu hỏi");
-                        return;
-                    }
-                    if(idGroup=="newGroup" &&tenNhom==""){
-                        showNotice("Vui lòng nhập tên nhóm muốn tạo");
-                        return;
-                    }
-
-                    if(dapAn==null){
-                        showNotice("Vui lòng chọn đáp án");
-                        return;
-                    }
-                    $.ajax({
-                        type: "POST",
-                        url: "./Controller/controller.php",
-                        data: {
-                            act:'createQuestion',
-                            noidung: noidung,
-                            cauA: cauA,
-                            cauB: cauB,
-                            cauC: cauC,
-                            cauD: cauD,
-                            idGroup: idGroup,
-                            tenNhom: tenNhom,
-                            dapAn: dapAn,   
-                        },
-                        success: function(data) {
-                            showNotice(JSON.parse(data)['notice']);
-                            renderBankQuestion();
-                        }
-                    })
-                })
-        });
-
-        function deleteClass(){
-            if(!confirm('Bạn có chắc muốn xóa lớp này'))
-                return;
-            let idClass = $("#idClassCurent").val();
-                console.log(idClass);
-                if (idClass == "")
+            $('#btnCreateQuestion').click(function() {
+                let noidung = $('#txtQuestion').val();
+                let cauA = $('#txtCauA').val();
+                let cauB = $('#txtCauB').val();
+                let cauC = $('#txtCauC').val();
+                let cauD = $('#txtCauD').val();
+                let idGroup = $('#sltQuestionGroup').val();
+                let dapAn = $('#sltAnswer').val();
+                let tenNhom = $('#txtNewGroup').val();
+                console.log(noidung);
+                console.log(cauA);
+                console.log(cauB);
+                console.log(cauC);
+                console.log(cauD);
+                console.log(idGroup);
+                console.log(dapAn);
+                console.log(tenNhom);
+                if (noidung == "") {
+                    showNotice("Vui lòng nhập nội dung câu hỏi");
                     return;
+                }
+                if (cauA == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án A");
+                    return;
+                }
+
+                if (cauB == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án B");
+                    return;
+                }
+
+                if (cauC == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án C");
+                    return;
+                }
+
+                if (cauD == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án D");
+                    return;
+                }
+                if (idGroup == null) {
+                    showNotice("Vui lòng chọn nhóm câu hỏi");
+                    return;
+                }
+                if (idGroup == "newGroup" && tenNhom == "") {
+                    showNotice("Vui lòng nhập tên nhóm muốn tạo");
+                    return;
+                }
+
+                if (dapAn == null) {
+                    showNotice("Vui lòng chọn đáp án");
+                    return;
+                }
                 $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
                     data: {
-                        act: 'deleteClass',
-                        idClass: idClass
+                        act: 'createQuestion',
+                        noidung: noidung,
+                        cauA: cauA,
+                        cauB: cauB,
+                        cauC: cauC,
+                        cauD: cauD,
+                        idGroup: idGroup,
+                        tenNhom: tenNhom,
+                        dapAn: dapAn,
                     },
                     success: function(data) {
-                        console.log(idClass);
-                        console.log(data);
                         showNotice(JSON.parse(data)['notice']);
-                        if (JSON.parse(data)['status'] == 'success') {
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000);
-                        }
+                        renderBankQuestion();
                     }
-                });
-        }
+                })
+            })
+        });
 
-        function renderContainerbankquestion(){
+        function deleteClass() {
+            if (!confirm('Bạn có chắc muốn xóa lớp này'))
+                return;
+            let idClass = $("#idClassCurent").val();
+            console.log(idClass);
+            if (idClass == "")
+                return;
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
                 data: {
-                    act:"renderContainerbankquestion",
+                    act: 'deleteClass',
+                    idClass: idClass
+                },
+                success: function(data) {
+                    console.log(idClass);
+                    console.log(data);
+                    showNotice(JSON.parse(data)['notice']);
+                    if (JSON.parse(data)['status'] == 'success') {
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                }
+            });
+        }
+
+        function renderContainerbankquestion() {
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "renderContainerbankquestion",
                 },
                 success: function(data) {
                     // console.log(data);
@@ -319,25 +318,26 @@ session_start();
             renderListclass();
             $('#tabs').find('a.menuClass').addClass('disabled');
         }
-        function renderBankQuestion(){
-                $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data:{
-                        act:"renderBankQuestion",
-                    },
-                    success: function(data) {
-                        // console.log(data);
-                        // console.log(JSON.parse(data)['question']);
-                        $('#bangCauHoi').html(JSON.parse(data)['question']);
-                        $('#sltGroupQuestion').html(JSON.parse(data)['groupQuestion']);
-                    }
-                });
-                $.ajax({
+
+        function renderBankQuestion() {
+            $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
-                data:{
-                    act:"renderSltGroupQuestion",
+                data: {
+                    act: "renderBankQuestion",
+                },
+                success: function(data) {
+                    // console.log(data);
+                    // console.log(JSON.parse(data)['question']);
+                    $('#bangCauHoi').html(JSON.parse(data)['question']);
+                    $('#sltGroupQuestion').html(JSON.parse(data)['groupQuestion']);
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "renderSltGroupQuestion",
                 },
                 success: function(data) {
                     // console.log(data);
@@ -345,17 +345,17 @@ session_start();
                 }
 
             });
-            }
-    
+        }
 
 
-        function renderInfoTest(idTest){
+
+        function renderInfoTest(idTest) {
             console.log(idTest);
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
                 data: {
-                    idTest:idTest,
+                    idTest: idTest,
                     act: "renderInfoTest",
                 },
                 success: function(data) {
@@ -366,82 +366,83 @@ session_start();
             })
         }
 
-        function renderSettingTest(){
+        function renderSettingTest() {
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
-                data:{
-                    act:'renderQuestionInSettingTest',
+                data: {
+                    act: 'renderQuestionInSettingTest',
                 },
                 success: function(data) {
                     // console.log(data);
                     $('#listQuestioninfrom').html(JSON.parse(data)['question']);
                     $('#sltGroupQuestionInFormCreateTest').html(JSON.parse(data)['groupQuestion']);
                 }
-                
+
             })
         }
-        function renderListTest(){
+
+        function renderListTest() {
             let idClass = $("#idClassCurent").val();
             console.log(idClass);
             $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: "renderListTest",
-                        idClass:idClass,
-                        
-                    },
-                    success: function(data) {
-                        // console.log(data);
-                        $('#content').html(JSON.parse(data));
-                    }
-                }) 
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "renderListTest",
+                    idClass: idClass,
+
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $('#content').html(JSON.parse(data));
+                }
+            })
         }
 
-        function renderListclass(){
+        function renderListclass() {
             $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'renderListClass',
-                    },
-                    success: function(data) {
-                        $("#class").html(JSON.parse(data));
-                        // console.log(data);
-                    }
-                });
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderListClass',
+                },
+                success: function(data) {
+                    $("#class").html(JSON.parse(data));
+                    // console.log(data);
+                }
+            });
         }
 
-        function deleteTest(idTest){
-            if(!confirm('Bạn có chắc muốn xóa đề thi này'))
+        function deleteTest(idTest) {
+            if (!confirm('Bạn có chắc muốn xóa đề thi này'))
                 return;
-                $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'deleteTest',
-                        idTest: idTest
-                    },
-                    success: function(data) {
-                        // console.log(idClass);
-                        // console.log(data);
-                        showNotice(JSON.parse(data)['notice']);
-                        if (JSON.parse(data)['status'] == 'success') {
-                            setTimeout(() => {
-                                renderListTest();
-                                $('.modal').modal('hide');
-                            }, 2000);
-                        }
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'deleteTest',
+                    idTest: idTest
+                },
+                success: function(data) {
+                    // console.log(idClass);
+                    // console.log(data);
+                    showNotice(JSON.parse(data)['notice']);
+                    if (JSON.parse(data)['status'] == 'success') {
+                        setTimeout(() => {
+                            renderListTest();
+                            $('.modal').modal('hide');
+                        }, 2000);
                     }
-                });
+                }
+            });
         }
 
-        function showSettingTest(idTest){
+        function showSettingTest(idTest) {
             renderSettingTest();
             $('#form_settingTest').modal('show');
         }
-    
+
         function gen_Code(length, special) {
             let iteration = 0;
             let password = "";
@@ -472,8 +473,13 @@ session_start();
         }
 
         var infoClassCurent;
+
         function renderInfoclass(idClass) {
             $('#tabs').find('a.menuClass').removeClass('disabled');
+            $('#tabs').find('a.active').addClass('link-dark');
+            $('#tabs').find('a.active').removeClass('active');
+            $('a[name="tongQuan"]').addClass('active');
+            $('a[name="tongQuan"]').removeClass('link-dark');
             // $('#class').find('a.active').removeClass('active');
             // $('#class a').removeClass('link-dark');
 
@@ -487,7 +493,7 @@ session_start();
                 },
                 success: function(data) {
                     data = JSON.parse(data);
-                    infoClassCurent =data;
+                    infoClassCurent = data;
                     $("#nameClass").html(data['tenLop']);
                     $("#infoClass").html(data['ThongTin']);
                     $("#idClass").html("Mã lớp: " + data['maLop']);
@@ -497,7 +503,8 @@ session_start();
                 }
             })
         }
-        function renderContainerInfoClass(){
+
+        function renderContainerInfoClass() {
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
@@ -510,72 +517,73 @@ session_start();
                 }
             })
         }
+
         function timCauhoi() {
-                // tạo biến
-                var input, filterByinput, filterByradio, table, tr, td, i, txtValue;
-                input = document.getElementById("searchCauhoi");
-                radio = document.getElementsByName("loaiCauhoi");
-                filterByinput = input.value.toUpperCase();
-                filterByradio = radio.value;
-                console.log(filterByinput);
-                table = document.getElementById("bangCauHoi");
-                tr = table.getElementsByTagName("tr");
+            // tạo biến
+            var input, filterByinput, filterByradio, table, tr, td, i, txtValue;
+            input = document.getElementById("searchCauhoi");
+            radio = document.getElementsByName("loaiCauhoi");
+            filterByinput = input.value.toUpperCase();
+            filterByradio = radio.value;
+            console.log(filterByinput);
+            table = document.getElementById("bangCauHoi");
+            tr = table.getElementsByTagName("tr");
 
-                // lọc câu hỏi
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filterByinput) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
+            // lọc câu hỏi
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filterByinput) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
                     }
                 }
             }
+        }
 
-            function timCauhoiRadio(loai) {
-                console.log(loai.value);
+        function timCauhoiRadio(loai) {
+            console.log(loai.value);
 
-                // tạo biến
-                var filterByradio, table, tr, td, i, txtValue;
+            // tạo biến
+            var filterByradio, table, tr, td, i, txtValue;
 
-                radio = document.getElementsByName("loaiCauhoi");
-                filterByradio = loai.value.toUpperCase();
-                table = document.getElementById("bangCauHoi");
-                tr = table.getElementsByTagName("tr");
+            radio = document.getElementsByName("loaiCauhoi");
+            filterByradio = loai.value.toUpperCase();
+            table = document.getElementById("bangCauHoi");
+            tr = table.getElementsByTagName("tr");
 
-                // lọc câu hỏi
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[1];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filterByradio) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
+            // lọc câu hỏi
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filterByradio) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
                     }
                 }
             }
-            // // tạo mảng câu hỏi đã chọn
-            // var questionArr = [];
+        }
+        // // tạo mảng câu hỏi đã chọn
+        // var questionArr = [];
 
-            // function taoMangcauhoi(macauhoi) {
-            //     // console.log(macauhoi);
-            //     var checkBox = document.getElementById(macauhoi);
-            //     if (checkBox.checked == true) {
-            //         questionArr.push(macauhoi);
-            //     } else {
-            //         for (let i = 0; i < questionArr.length; i++) {
-            //             if (questionArr[i] == macauhoi) {
-            //                 questionArr.splice(i, 1);
-            //             }
-            //         }
-            //     }
-            //     // console.log(questionArr);
-            // }
+        // function taoMangcauhoi(macauhoi) {
+        //     // console.log(macauhoi);
+        //     var checkBox = document.getElementById(macauhoi);
+        //     if (checkBox.checked == true) {
+        //         questionArr.push(macauhoi);
+        //     } else {
+        //         for (let i = 0; i < questionArr.length; i++) {
+        //             if (questionArr[i] == macauhoi) {
+        //                 questionArr.splice(i, 1);
+        //             }
+        //         }
+        //     }
+        //     // console.log(questionArr);
+        // }
     </script>
 </head>
 

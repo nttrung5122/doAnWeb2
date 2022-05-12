@@ -255,6 +255,8 @@
                         setTimeout(() => {
                             if (JSON.parse(data)['cv'] == 'gv') {
                                 window.location = "./teacherPage.php?act=bankQuestion";
+                            } else if (JSON.parse(data)['cv'] == 'admin') {
+                                window.location = "./Admin.php";
                             } else {
                                 window.location = "./studentPage.php";
                                 console.log("Sinh vien");

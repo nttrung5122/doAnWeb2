@@ -70,7 +70,7 @@ function createLinkAndButton($currentPage)
     if ($currentPage == $homePage)
     {
         return'<li class="nav-item">
-                    <a class="nav-link fs-5 text-nowrap" href="#">Giới Thiệu</a>
+                    <a class="nav-link fs-5 text-nowrap" href="./HomePage.php">Giới Thiệu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5 text-nowrap" href="#">Liên Lạc</a>

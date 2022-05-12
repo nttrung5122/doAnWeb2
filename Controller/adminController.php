@@ -19,7 +19,7 @@ class adminController
     }
     public static function renderQuestionTable()
     {
-        $head = array('Mã câu', 'Mã nhóm', 'Nội dung');
+        $head = array('Mã câu', 'Mã nhóm', 'Nội dung', 'Đáp án');
         $data = adminModel::getAllQuestions();
         $result = adminTable::createTable($head, $data, adminTable::$questionModal);
         return $result;
@@ -81,7 +81,7 @@ class adminController
         return self::renderClassTable();
     }
 
-    public static function editQuestion($id, $maCau, $maNhom, $noiDung)
+    public static function editQuestion($id, $maCau, $maNhom, $noiDung, $dapAn)
     {
         if ($maNhom != null) {
             adminModel::editQuestion($id, 'maNhom', $maNhom);
@@ -91,6 +91,9 @@ class adminController
         }
         if ($maCau != null) {
             adminModel::editQuestion($id, 'maCau', $maCau);
+        }
+        if ($dapAn != null) {
+            adminModel::editQuestion($id, 'dapAn', $dapAn);
         }
         return self::renderQuestionTable();
     }

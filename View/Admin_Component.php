@@ -114,6 +114,10 @@ class adminTable
                         <span class="input-group-text col-2">Nội dung</span>
                         <input type="text" name="noiDung'.$i.'" class="form-control" placeholder="Nhập nội dung mới">
                     </div>
+                    <div class="input-group mb-1">
+                        <span class="input-group-text col-2">Đáp án</span>
+                        <input type="text" name="dapAn'.$i.'" class="form-control" placeholder="Nhập nhập đáp án mới">
+                    </div>
                     <div class="input-group mb-1 d-flex justify-content-end">
                         <button name="' . $row['maCau'] . '" id="' . $i . '" type="button" onclick="editQuestion(this)" class="btn btn-primary">Lưu</button>
                     </div>';

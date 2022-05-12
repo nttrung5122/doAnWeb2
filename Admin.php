@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,6 +93,21 @@
             $('#question').click(function() {
                 renderQuestionTable();
             });
+
+            $('#btnLogOut').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'logOut'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    }
+                })
+                window.location = './homePage.php';
+
+            });
         });
 
         function clickDelete(btn) {
@@ -116,7 +134,7 @@
             var name = $('input[name="name' + btn.id + '"]').val();
             var birth = $('input[name="birth' + btn.id + '"]').val();
             var phone = $('input[name="phone' + btn.id + '"]').val();
-            if (checkAccount(email, password, phone)) {
+            if (checkAccount(email, password, phone, role)) {
 
                 $.ajax({
                     type: "POST",
@@ -167,22 +185,26 @@
             var maCau = $('input[name="maCau' + btn.id + '"]').val();
             var maNhom = $('input[name="maNhom' + btn.id + '"]').val();
             var noiDung = $('input[name="noiDung' + btn.id + '"]').val();
+            var dapAn = $('input[name="dapAn' + btn.id + '"]').val();
 
-            $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "editQuestion",
-                    id: btn.name,
-                    maCau: maCau,
-                    maNhom: maNhom,
-                    noiDung: noiDung,
-                },
-                success: function(data) {
-                    console.log(data);
-                    $('#table').html(JSON.parse(data));
-                }
-            });
+            if (checkQuestion(dapAn)) {
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "editQuestion",
+                        id: btn.name,
+                        maCau: maCau,
+                        maNhom: maNhom,
+                        noiDung: noiDung,
+                        dapAn: dapAn,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#table').html(JSON.parse(data));
+                    }
+                });
+            }
         };
 
         function search() {
@@ -213,7 +235,15 @@
             }
         }
 
-        function checkAccount(emails, password, sdt) {
+        function checkQuestion(dapAn) {
+            if (!checkAnswer(dapAn) && dapAn.trim() != "") {
+                showNotice('Đáp án phải ở định dạng: a (A), b (B), c (C), d (D)');
+                return false;
+            }
+            return true;
+        }
+
+        function checkAccount(emails, password, sdt, type) {
             if (!checkSdt(sdt) && sdt.trim() != "") {
                 showNotice('Số điện thoại của bạn không đúng định dạng!');
                 return false;
@@ -226,7 +256,15 @@
                 showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
                 return false;
             }
+            if (!checkType(type) && type.trim() != "") {
+                showNotice('Chức vụ chỉ ở định dạng sau: sv (sinh viên), gv (giảng viên), admin')
+                return false;
+            }
             return true;
+        }
+
+        function checkType(type) {
+            return (type == 'sv' || type == 'gv' || type == 'admin');
         }
 
         function checkPass(pass) {
@@ -245,6 +283,11 @@
                 .match(
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 );
+        }
+
+        function checkAnswer(dapAn) {
+            dapAn = dapAn.toLowerCase();
+            return (dapAn == 'a' || dapAn == 'b' || dapAn == 'c' || dapAn == 'd');
         }
     </script>
     <?php

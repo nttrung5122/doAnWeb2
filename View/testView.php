@@ -43,7 +43,7 @@ class TestView
         $daoCauHoi=$row['daoCauHoi']=='true'?'Có':'Không';
         $d=strtotime($row['ngayThi']);
         $ngayThi=date('d-m-Y',$d);
-        $gioThi=date('h:i:sa',$d);
+        $gioThi=date('h:i:s A',$d);
         $result = '    <div class="border-start">
                             <p>Thông tin</p>
                             <h4>'.$row['tenDe'].'</h4>
@@ -82,5 +82,56 @@ class TestView
 
 
         return $result;
+    }
+
+    public static function renderListTestInStudent($listTestNoSubmit,$listTestSubmit){
+        $result="";
+        while ($row = mysqli_fetch_array($listTestNoSubmit)){
+            $result .= '<button type="button" id="maDe'.$row['maDe'].'" class="list-group-item list-group-item-action row d-flex justify-content-between" aria-current="true" onclick="renderInfoTestNoSubmit('.$row['maDe'].',this)">
+                            <div class="col">'.$row['tenDe'].'</div>
+                            <div class="col">Chưa làm</div>
+                        </button>
+                        <hr>';
+        }
+        while ($row = mysqli_fetch_array($listTestSubmit)){
+            $result .= '<button type="button" id="maDe'.$row['maDe'].'" class="list-group-item list-group-item-action row d-flex justify-content-between" aria-current="true" onclick="renderInfoTestSubmited('.$row['maDe'].',this)">
+                            <div class="col">'.$row['tenDe'].'</div>
+                            <div class="col">Đẫ làm</div>
+                        </button>
+                        <hr>';
+        }
+        return $result;
+    }
+
+    public static function renderInfoTestNoSubmit($data){
+        $d=strtotime($data['ngayThi']);
+        $ngayThi=date('d-m-Y',$d);
+        $gioThi=date('h:i:s A',$d);
+        $result='<p class="text-center fs-5 fw-bold">'.$data['tenDe'].'</p>
+                <div class="">
+                    <p class="">Ngày làm bài: '.$ngayThi.'</p>
+                    <p class="">Giờ làm bài: '.$gioThi.'</p>
+
+                    <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
+                    <hr>
+                    <div class="text-center"><a href="#" class="btn btn-success text-center" onclick="doTheTest(\''.$data['maDe'].'\')" data-bs-toggle="modal" data-bs-target="#formDoTest" >Làm bài</a></div>
+                </div>';
+        return $result;
+    }
+
+    public static function renderInfoTestSubmited($data){
+        $d=strtotime($data['ngayThi']);
+        $ngayThi=date('d-m-Y',$d);
+        $gioThi=date('h:i:s A',$d);
+        $result='<p class="text-center fs-5 fw-bold">'.$data['tenDe'].'</p>
+        <div class="">
+            <p class="">Ngày làm bài: '.$ngayThi.'</p>
+            <p class="">Giờ làm bài: '.$gioThi.'</p>
+
+            <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
+            <hr>
+            <div class="text-center"><p >Điểm: '.$data['diem'].'</p></a></div>
+        </div>';
+return $result;
     }
 }

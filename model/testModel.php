@@ -52,4 +52,21 @@ class TestModel{
         //TO DO remove Student, remove Test
     }
 
+    public static function getListTestNoSubmit($idClass,$idStudent){
+        $sql = "SELECT * FROM bode WHERE bode.maDe NOT IN ( SELECT bailam.maDe FROM bailam WHERE bailam.maTaiKhoan=\"$idStudent\") AND bode.maLop=\"$idClass\";";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+    public static function getListTestSubmited($idClass,$idStudent){
+        $sql = "SELECT * FROM bode WHERE bode.maDe IN ( SELECT bailam.maDe FROM bailam WHERE bailam.maTaiKhoan=\"$idStudent\") AND bode.maLop=\"$idClass\";";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+
+    public static function getInfoTestSubmited($idTest,$idStudent){
+        $sql = "SELECT * FROM bailam,bode WHERE bailam.maDe=bode.maDe and bailam.maTaiKhoan=\"sv1@gmail.com\" AND bailam.maDe=\"54001\";";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+
 }

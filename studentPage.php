@@ -14,7 +14,7 @@ session_start();
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/1f286772f7.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>Dashboard</title>
+    <title>Học Sinh</title>
     <style>
         .active {
             background-color: #198754 !important;
@@ -28,21 +28,69 @@ session_start();
             height: 70vh;
             overflow-y: auto;
         }
+
+        #dong_ho h2 {
+            position: relative;
+            display: block;
+            color: black;
+            text-align: center;
+            margin: 10px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+        }
+
+        #dong_ho #thoi_gian {
+            display: flex;
+
+        }
+
+        #dong_ho #thoi_gian div {
+            position: relative;
+            margin: 0 3px;
+        }
+
+        #dong_ho #thoi_gian div span {
+            position: relative;
+            display: block;
+            /* width: 200px;
+            height: 160px; */
+            padding: 5px;
+            background: #2196f3;
+            color: #fff;
+            font-weight: 300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 150%;
+            z-index: 3;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+        }
+
+        #dong_ho {
+            background-color: #82dda5;
+            position: fixed;
+            padding-left: 50px;
+            padding-top: 25px;
+            margin-top: -20px;
+            z-index: 1;
+            width: 280px;
+            height: 100vh;
+        }
     </style>
     <script>
-        window.onload = function() {
-            $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: 'renderInfoClass',
-                },
-                success: function(data) {
-                    $("#class").html(JSON.parse(data));
-                    // console.log(data);
-                }
-            })
-        };
+        function Dong_ho() {
+            var gio = document.getElementById("gio");
+            var phut = document.getElementById("phut");
+            var giay = document.getElementById("giay");
+            var Gio_hien_tai = new Date().getHours();
+            var Phut_hien_tai = new Date().getMinutes();
+            var Giay_hien_tai = new Date().getSeconds();
+            gio.innerHTML = Gio_hien_tai;
+            phut.innerHTML = Phut_hien_tai;
+            giay.innerHTML = Giay_hien_tai;
+        }
+        var Dem_gio = setInterval(Dong_ho, 1000);
         $(document).ready(function() {
             $('#class a').click(function() {
                 $('#class').find('a.active').addClass('link-dark');
@@ -70,7 +118,157 @@ session_start();
                 window.location = './homePage.php';
 
             });
+            $('#btnFindClass').click(function() {
+                let idClass = $('#txtIdClass').val();
+                console.log(idClass);
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "addStudentToClass",
+                        idClass: idClass,
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        showNotice(JSON.parse(data)['notice']);
+                        if (JSON.parse(data)['status'] == 'success') {
+                            setTimeout(() => {
+                                renderListclass();
+                                $('.modal').modal('hide');
+                            }, 2000);
+                        }
+                    }
+                })
+            })
         });
+
+        window.onload = function() {
+            renderListclass();
+        }
+
+        function renderInfoclass(idClass) {
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "getClass",
+                    id: idClass,
+                },
+                success: function(data) {
+                    data = JSON.parse(data);
+                    infoClassCurent = data;
+                    // console.log(data);
+                    $("#nameClass").html(data['tenLop']);
+                    $("#infoClass").html(data['ThongTin']);
+                    // $("#idClass").html("Mã lớp: " + data['maLop']);
+                    // $("#soHs").html(data['soLuong']);
+                    $("#idClassCurent").val(data['maLop']);
+                    $("#nameTeacher").html(data['hoten']);
+                    renderListTest();
+
+                }
+            })
+        }
+
+        function renderListTest() {
+            let idClass = infoClassCurent['maLop'];
+            console.log(idClass);
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "renderListTestInStudentPage",
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $("#table_test").html(JSON.parse(data));
+                }
+            })
+        }
+
+        function renderListclass() {
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderListClassOfStudent',
+                },
+                success: function(data) {
+                    $("#class").html(JSON.parse(data));
+                    console.log(data);
+                }
+            });
+        }
+
+        function renderInfoTestNoSubmit(maDe, btn) {
+            console.log(maDe);
+            $('#table_test').find('button.active').removeClass('active');
+            $("#maDe" + maDe).addClass('active');
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderInfoTestNoSubmit',
+                    idTest: maDe,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $("#info_test").html(JSON.parse(data));
+                }
+            })
+        }
+
+        function renderInfoTestSubmited(maDe, btn) {
+            console.log(maDe);
+            $('#table_test').find('button.active').removeClass('active');
+            $("#maDe" + maDe).addClass('active');
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderInfoTestSubmited',
+                    idTest: maDe,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $("#info_test").html(JSON.parse(data));
+                }
+            })
+        }
+
+        function doTheTest(made) {
+            console.log(made);
+        }
+
+        function removeStudent() {
+            let idClass = infoClassCurent['maLop'];
+            console.log(idClass);
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'removeStudent',
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    showNotice(JSON.parse(data)['notice']);
+                        if (JSON.parse(data)['status'] == 'success') {
+                            setTimeout(() => {
+                                renderListclass();
+                                $('.modal').modal('hide');
+                            }, 2000);
+                        }
+                }
+
+            })
+        }
+        function checkTheBox(name) {
+        console.log(name);
+        // bắt id của checkbox rùi check
+        $("#" + name + "").prop("checked", true);
+    }
     </script>
 </head>
 
@@ -80,91 +278,114 @@ session_start();
     include "./View/_partial/Header_Footer/Header_Footer.php";
     head($studentPage);
     include "./View/_partial/form/form_find_class.php";
+    include "./View/_partial/popup/notice.php";
+    include "./View/_partial/TrangLamBai/pageBailam.php";
+
     ?>
 
     <!-- Sidebar -->
 
-    <div class="d-flex flex-column fixed-top flex-shrink-0 p-2 overflow-auto" style="height:93%; width: 280px; margin-top: 60.2px; background-color: #82dda5; z-index: 1;">
+    <div id="dong_ho">
+        <div id="thoi_gian">
+            <div>
+                <span id="gio">00</span><span>Giờ</span>
+            </div>
+            <div>
+                <span id="phut">00</span><span>Phút</span>
+            </div>
+            <div>
+                <span id="giay">00</span><span>Giây</span>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-top flex-shrink-0 p-2 overflow-auto" style="height:93%; width: 280px; margin-top: 200px; background-color: #82dda5; z-index: 1;">
         <!-- Tính năng -->
         <?php require("./View/_partial/TeacherAndStudent_Component/Sidebar.php");
         Sidebar($studentPage); ?>
         <!-- Danh sách lớp -->
         <span class="fs-3 fw-bold">Danh sách lớp</span>
-        <ul id="class" class="nav nav-pills flex-column mb-5 border-top border-dark pt-2">
+        <ul id="class" class="nav nav-pills flex-column border-top border-dark pt-2">
             <!-- inner danh sách lớp -->
+
         </ul>
     </div>
+
 
     <!-- Content -->
 
     <div style="margin-left: 280px; margin-top: 80px;">
         <div class="row gap-2" style="margin-left: 0; margin-right: 0;">
-        <div class="col-sm-0 mt-2 px-5">
-    <div class="col py-3">
-        <div class="row px-3">
-            <div class="card py-2">
-                <div class="col-md align-self-start">
-                    <h4 id="nameClass"></h4>
-                    <h4 class="ps-3">Mô tả:</h4>
-                    <!-- p for chú thích -->
-                    <p class="ps-5" id="infoClass"></p>
-                </div>
-                <div class="row px-3">
-                    <div class="col">
-                        <h4 id="idClass">Mã lớp:</h4>
-                    </div>
-                    <div class="col">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle mb-2" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                        </svg>
-                        <h4 style="display:inline-block;">Giáo viên:</h4>
-                        <!-- thẻ p cho tên giáo viên -->
-                        <p></p>
-                    </div>
-                    <div class="col ">
-                        <button type="button" class="btn btn-warning text-dark fw-bold">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
-                                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
-                            </svg>
-                            Rời lớp
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <div class="col-sm-0 mt-2 px-5">
+                <div class="col py-3">
 
-        <div class="row px-3 mt-5">
-            <div class="card py-2 ">
-                <div class="row px-2 ">
-                    <div class="col-4 text-center">
-                        <p class=" fs-5 fw-bold">Bài kiểm tra</p>
-                        <ul class="nav nav-pills nav-fill align-items-center align-items-sm-start">
-                            <!-- nav-link active là lớp đang chọn -->
-                            <li class="">
-                                <a class="nav-link active align-items-center align-items-sm-start" aria-current="page" href="#">Bài kiểm tra giữa kì 23/4/2022</a>
-                            </li>
-                        </ul>
+                    <div class="row px-3">
+                        <div class="card py-2">
+                            <div class="col-md align-self-start">
+                                <h4 id="nameClass"></h4>
+                                <h4 class="ps-3">Mô tả:</h4>
+                                <!-- p for chú thích -->
+                                <p class="ps-5" id="infoClass"></p>
+                            </div>
+                            <div class="row px-3">
+
+                                <div class="col">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle mb-2" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
+                                    <h4 style="display:inline-block;">Giáo viên:</h4>
+                                    <!-- thẻ p cho tên giáo viên -->
+                                    <h3 id="nameTeacher">
+                                        </h1>
+                                </div>
+                                <div class="col ">
+                                    <button type="button" class="btn btn-warning text-dark fw-bold" onclick="removeStudent()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+                                            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+                                        </svg>
+                                        Rời lớp
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-2 d-flex" style="height: 200px;">
-                        <div class="vr"></div>
-                    </div>
-                    <div class="col-4">
-                        <p class="text-center fs-5 fw-bold">Bài kiểm tra giữa kì:</p>
-                        <div class="">
-                            <p class="">Ngày bắt đầu:</p>
-                            <p class="">Hạn chót:</p>
-                            <p class="">Thời gian làm bài:</p>
-                            <hr>
-                            <div class="text-center"><a href="#" class="btn btn-success text-center ">Làm bài</a></div>
+
+                    <div class="row px-3 mt-5">
+                        <div class="card py-2 ">
+                            <div class="row px-2 ">
+                                <div class="col text-center">
+                                    <p class=" fs-5 fw-bold">Bài kiểm tra</p>
+
+                                    <div class="list-group px-5" id="table_test">
+                                        <button type="button" id="maDe111" class="list-group-item list-group-item-action active row d-flex justify-content-between" aria-current="true" onclick="renderInfoTest(111,this)">
+                                            <div class="col">Bài kiểm tra giữa kì 23/4/2022</div>
+                                            <div class="col">Chưa làm</div>
+                                        </button>
+                                        <hr>
+                                        <button type="button" id="maDe222" class="list-group-item list-group-item-action  row d-flex justify-content-between" aria-current="true" onclick="renderInfoTest(222,this)">
+                                            <div class="col">Bài kiểm tra giữa kì 23/4/2022</div>
+                                            <div class="col">Chưa làm</div>
+                                        </button>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="col-4 border py-3" id="info_test">
+                                    <p class="text-center fs-5 fw-bold">Bài kiểm tra giữa kì:</p>
+                                    <div class="">
+                                        <p class="">Ngày làm bài:</p>
+                                        <p class="">Thời gian làm bài:</p>
+                                        <hr>
+                                        <div class="text-center">
+                                            <p>Điểm: </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
         </div>
     </div>

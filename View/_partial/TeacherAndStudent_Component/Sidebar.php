@@ -48,14 +48,14 @@ function sidebar($currentPage)
     } else {
         echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
                     <li class="nav-item ">
-                        <a href="#" class="nav-link link-dark fw-bold" id="bankQuestion">
+                        <a href="#" class="nav-link active fw-bold" id="bankQuestion">
                             <i class="far fa-question-circle"></i>
                             Ngân hàng câu hỏi
                         </a>
                     </li>
                     <hr>
                     <li class="nav-item " id="btnTongQuan">
-                        <a href="#" name="tongQuan" class="nav-link active menuClass ">
+                        <a href="#" name="tongQuan" class="nav-link link-dark menuClass ">
                             <i class="fas fa-chart-bar"></i>
                             Tổng Quan
                         </a>

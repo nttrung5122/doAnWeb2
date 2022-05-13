@@ -39,6 +39,25 @@ class TestController{
         $data['status']="success";
         return $data;
     }
+
+    public static function renderListTestInStudent($idClass,$idStudent){
+        $listTestNoSubmit=TestModel::getListTestNoSubmit($idClass,$idStudent);
+        $listTestSubmit=TestModel::getListTestSubmited($idClass,$idStudent);
+        $result=TestView::renderListTestInStudent($listTestNoSubmit,$listTestSubmit);
+        return $result;
+    }
+
+    public static function renderInfoTestNoSubmit($idTest){
+        $data=TestModel::getInfoTest($idTest);
+        $result=TestView::renderInfoTestNoSubmit(mysqli_fetch_array($data));
+        return $result;
+    }
+
+    public static function renderInfoTestSubmited($idTest,$idStudent){
+        $data=TestModel::getInfoTestSubmited($idTest,$idStudent);
+        $result=TestView::renderInfoTestSubmited(mysqli_fetch_array($data));
+        return $result;
+    }
 }
 
 

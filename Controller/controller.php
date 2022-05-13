@@ -166,6 +166,46 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "renderListClassOfStudent":{
+            require './classController.php';
+            session_start();
+            $data=ClassController::renderListClassOfStudent($_SESSION['user'][0]);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+         }  
+        break;
+        case "renderListTestInStudentPage":{
+            require 'testController.php';
+            session_start();
+            $data=TestController::renderListTestInStudent($_POST['idClass'],$_SESSION['user'][0]);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderInfoTestNoSubmit":{
+            require 'testController.php';
+            $data=TestController::renderInfoTestNoSubmit($_POST['idTest']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderInfoTestSubmited":{
+            require 'testController.php';
+            session_start();
+            $data=TestController::renderInfoTestSubmited($_POST['idTest'],$_SESSION['user'][0]);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "addStudentToClass":{
+            require './classController.php';
+            session_start();
+            $data=ClassController::addStudentToClass($_POST['idClass'],$_SESSION['user'][0]);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "removeStudent" :{
+            require './classController.php';
+            session_start();
+            $data=ClassController::removeStudent($_POST['idClass'],$_SESSION['user'][0]);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }
 

@@ -206,6 +206,11 @@ if (isset($_POST['act'])){
             $data=ClassController::removeStudent($_POST['idClass'],$_SESSION['user'][0]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        case "takeATest":{
+            require './testController.php';
+            $data=TestController::takeATest($_POST['idTest']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }
 

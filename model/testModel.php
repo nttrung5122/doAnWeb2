@@ -69,4 +69,16 @@ class TestModel{
         return $data;
     }
 
+    public static function getQuestionOfTest($idTest){
+        $sql = "SELECT * FROM chitietbode,cauhoi_nganhang WHERE chitietbode.maCau=cauhoi_nganhang.maCau and chitietbode.maBoDe='$idTest';";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+
+    public static function getAnswerOfTest($idTest){
+        $sql = "SELECT * FROM luachon WHERE luachon.maCau IN ( SELECT chitietbode.maCau FROM chitietbode WHERE chitietbode.maBoDe='$idTest');";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+
 }

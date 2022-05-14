@@ -58,7 +58,26 @@ class TestController{
         $result=TestView::renderInfoTestSubmited(mysqli_fetch_array($data));
         return $result;
     }
+
+    public static function takeATest($idTest){
+        $data['infoTest']=mysqli_fetch_array(TestModel::getInfoTest($idTest));
+        $listQuestionSql=TestModel::getQuestionOfTest($idTest);
+        $listQuestion=array();
+        while ($row = mysqli_fetch_array($listQuestionSql)){
+            $listQuestion[]=$row;
+        }
+        $listAnswer=array();
+        $listAnswerSql=TestModel::getAnswerOfTest($idTest);
+        while ($row = mysqli_fetch_array($listAnswerSql)){
+            $listAnswer[]=$row;
+        }
+        if($data['infoTest']['daoCauHoi']=='true'){
+            shuffle($listQuestion);
+        }
+        $data['html']=TestView::renderTestForStudent($listQuestion,$listAnswer);
+        return $data;
+    }
 }
 
-
+    // TestController::takeATest("54021");
 ?>

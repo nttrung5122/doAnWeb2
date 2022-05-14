@@ -237,8 +237,34 @@ session_start();
             })
         }
 
-        function doTheTest(made) {
+        function takeATest(made) {
             console.log(made);
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'takeATest',
+                    idTest: made,
+                },
+                success: function(data) {
+                    data=JSON.parse(data);
+                    // console.log(data);
+                    let now=new Date();
+                    let thoiGianLamBai=Date.parse(data['infoTest']['ngayThi']);
+                    m=parseInt(data['infoTest']['thoiGianLamBai'])-Math.round((now-thoiGianLamBai)/60000) + 1;
+                    s=0;        
+                    if(m<=0){
+                        $('.modal').modal('hide');
+                        showNotice("Đã quá thời gian làm bài");
+                        return;
+                    }     
+                    // console.log(thoiGianLamBai);
+                    $("#idTest").val(data['infoTest']['maDe']); 
+                    $('#phieuLamBai').html(data['html']['baiLam']);
+                    $('#deThi').html(data['html']['deThi']);
+                    start();
+                }
+            })
         }
 
         function removeStudent() {
@@ -254,21 +280,83 @@ session_start();
                 success: function(data) {
                     // console.log(data);
                     showNotice(JSON.parse(data)['notice']);
-                        if (JSON.parse(data)['status'] == 'success') {
-                            setTimeout(() => {
-                                renderListclass();
-                                $('.modal').modal('hide');
-                            }, 2000);
-                        }
+                    if (JSON.parse(data)['status'] == 'success') {
+                        setTimeout(() => {
+                            renderListclass();
+                            $('.modal').modal('hide');
+                        }, 2000);
+                    }
                 }
 
             })
         }
+
+        function submitTest(){
+            let idTest=$('#idTest').val();
+            console.log("Nộp bài"+idTest);
+            //Chấm bài
+            $(".modal").modal('hide');
+            showNotice("Nộp bài thành công");
+            setTimeout(() =>{
+                window.location.reload();
+            },1000);
+        }
         function checkTheBox(name) {
-        console.log(name);
-        // bắt id của checkbox rùi check
-        $("#" + name + "").prop("checked", true);
-    }
+            console.log(name);
+            // bắt id của checkbox rùi check
+            $("#" + name + "").prop("checked", true);
+        }
+
+        var h = 0; // Giờ
+        var m = 1; // Phút
+        var s = 0; // Giây
+
+        var timeout = null; // Timeout
+
+        function start() {
+            /*BƯỚC 1: LẤY GIÁ TRỊ BAN ĐẦU*/
+
+            /*BƯỚC 1: CHUYỂN ĐỔI DỮ LIỆU*/
+            // Nếu số giây = -1 tức là đã chạy ngược hết số giây, lúc này:
+            //  - giảm số phút xuống 1 đơn vị
+            //  - thiết lập số giây lại 59
+            if (s === -1) {
+                m -= 1;
+                s = 59;
+            }
+
+            // Nếu số phút = -1 tức là đã chạy ngược hết số phút, lúc này:
+            //  - giảm số giờ xuống 1 đơn vị
+            //  - thiết lập số phút lại 59
+            if (m === -1) {
+                h -= 1;
+                m = 59;
+            }
+
+            // Nếu số giờ = -1 tức là đã hết giờ, lúc này:
+            //  - Dừng chương trình
+            if (h == -1) {
+                clearTimeout(timeout);
+                alert('Hết giờ');
+                submitTest();
+                return false;
+            }
+
+            /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/
+            // document.getElementById('h').innerText = h.toString();
+            document.getElementById('m').innerText = m.toString();
+            document.getElementById('s').innerText = s.toString();
+
+            /*BƯỚC 1: GIẢM PHÚT XUỐNG 1 GIÂY VÀ GỌI LẠI SAU 1 GIÂY */
+            timeout = setTimeout(function() {
+                s--;
+                start();
+            }, 1000);
+        }
+
+        function stop() {
+            clearTimeout(timeout);
+        }
     </script>
 </head>
 

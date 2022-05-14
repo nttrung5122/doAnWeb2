@@ -114,7 +114,7 @@ class TestView
 
                     <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
                     <hr>
-                    <div class="text-center"><a href="#" class="btn btn-success text-center" onclick="doTheTest(\''.$data['maDe'].'\')" data-bs-toggle="modal" data-bs-target="#formDoTest" >Làm bài</a></div>
+                    <div class="text-center"><a href="#" class="btn btn-success text-center" onclick="takeATest(\''.$data['maDe'].'\')" data-bs-toggle="modal" data-bs-target="#formDoTest" >Làm bài</a></div>
                 </div>';
         return $result;
     }
@@ -133,5 +133,43 @@ class TestView
             <div class="text-center"><p >Điểm: '.$data['diem'].'</p></a></div>
         </div>';
 return $result;
+    }
+
+    public static function renderTestForStudent($question,$answer) {
+        $result['deThi']='';
+        $result['baiLam']='';
+        for($i=0;$i<count($question);$i++){
+            $result['deThi'].=
+            '
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">' . $question[$i]['noiDung'] . '</div>
+                    <ul class="list-group list-group-flush">';
+                    foreach($answer as $A){
+                        if($A['maCau']==$question[$i]['maCau'])
+                        $result['deThi'].=
+                        '<li class="list-group-item">
+                            <input class="form-check-input me-1" name="' . $A['maCau'] . '" type="radio" value="' . $A['maLuaChon'] . '" aria-label="Câu trả lời" onchange="checkTheBox(this.name);">
+                            ' . $A['noiDung'] . '
+                        </li>';
+                    }
+                    $result['deThi'].=
+                    '</ul>
+                </div>
+            </li>
+            ';
+            $result['baiLam'].=
+            '
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="'.$question[$i]['maCau'].'" onclick="return false;">
+                    <label class="form-check-label" for="cauhoi1">
+                        Câu ' . $i+1 . '
+                    </label>
+                </div>
+            </div>
+            ';
+        }
+        return $result;
     }
 }

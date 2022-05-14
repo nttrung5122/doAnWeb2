@@ -12,11 +12,12 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="lable_DoTest">Làm bài kiểm tra</h5>
             </div>
-            <div class="modal-body bg-dark">
+            <div class="modal-body bg-light">
                 <div class="container bg-light  ">
                     <div class="row align-items-start">
-                        <div class="col" style="height: 800px; overflow-y: scroll;">
-                            <ol class="list-group list-group-numbered list-group-flush" id="deThi">
+                        <div class="col">
+                            <!-- Chỉnh scroll o day -->
+                            <ol class="list-group list-group-numbered list-group-flush shadow-sm" id="deThi" style="height: 800px; overflow-y: scroll;">
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">' . $noidungcauhoi . '</div>
@@ -90,7 +91,7 @@
                         </div>
                         <div class="col-4">
                             <div class="d-grid gap-2 col-6 mx-auto mb-3 text-center">
-                                <div class="p-2 fw-bold fs-4 bg-primary bg-gradient bg-opacity-75 text-white rounded-2 shadow-sm mt-2">Phiếu bài làm</div>
+                                <div class="p-2 fs-5 bg-primary bg-gradient text-white rounded-2 shadow-sm mt-2">Phiếu bài làm</div>
                             </div>
                             <div class="fw-bold fs-5 mb-5 text-center">Thời gian làm bài còn lại
                                 <div>
@@ -98,7 +99,7 @@
                                     <span id="s">Giây</span>
                                 </div>
                             </div>
-                            <div class="row row-cols-3 g-3 mx-auto bg-white shadow-sm  " id="phieuLamBai">
+                            <div class="row row-cols-3 g-3 mx-auto bg-white shadow-sm" id="phieuLamBai">
                                 <div class="col">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="122" onclick="return false;">
@@ -127,7 +128,7 @@
                             <br>
                             <div class="d-grid gap-2 col-3 mx-auto">
                                 <input type="hidden" name="" id="idTest" value="">
-                                <button class="btn btn-success fs-5" type="button" onclick="submitTest()">Nộp bài</button>
+                                <button class="btn btn-success" type="button" onclick="submitTest()">Nộp bài</button>
                             </div>
                         </div>
                     </div>

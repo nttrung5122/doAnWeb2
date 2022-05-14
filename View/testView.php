@@ -96,7 +96,7 @@ class TestView
         while ($row = mysqli_fetch_array($listTestSubmit)){
             $result .= '<button type="button" id="maDe'.$row['maDe'].'" class="list-group-item list-group-item-action row d-flex justify-content-between" aria-current="true" onclick="renderInfoTestSubmited('.$row['maDe'].',this)">
                             <div class="col">'.$row['tenDe'].'</div>
-                            <div class="col">Đẫ làm</div>
+                            <div class="col">Đã làm</div>
                         </button>
                         <hr>';
         }

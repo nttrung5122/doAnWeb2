@@ -251,6 +251,11 @@ session_start();
                     // console.log(data);
                     let now=new Date();
                     let thoiGianLamBai=Date.parse(data['infoTest']['ngayThi']);
+                    if(now<thoiGianLamBai){
+                        $('.modal').modal('hide');
+                        showNotice("Chưa tới thời gian làm bài");
+                        return;
+                    }
                     m=parseInt(data['infoTest']['thoiGianLamBai'])-Math.round((now-thoiGianLamBai)/60000) + 1;
                     s=0;        
                     if(m<=0){
@@ -290,16 +295,65 @@ session_start();
 
             })
         }
-
+        
         function submitTest(){
+            stop();
             let idTest=$('#idTest').val();
             console.log("Nộp bài"+idTest);
-            //Chấm bài
-            $(".modal").modal('hide');
-            showNotice("Nộp bài thành công");
-            setTimeout(() =>{
-                window.location.reload();
-            },1000);
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act:"getListQuestionInTest",
+                    idTest: idTest,
+                },
+                success: function(data) {
+                    data = JSON.parse(data);
+                    console.log(data.length);
+                    // console.log(listQuestion.length);
+                    let listAnswer=getAnswer(data);
+                    console.log(listAnswer);
+                    chamBai(listAnswer,idTest);
+                }
+            })
+
+            // setTimeout(() =>{
+            //     window.location.reload();
+            // },1000);
+        }
+        function chamBai(listAnswer,idTest){
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "chamBai",
+                    listAnswer: JSON.stringify(listAnswer),
+                    idTest: idTest,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $(".modal").modal('hide');
+                    showNotice("Nộp bài thành công");
+                    renderListTest();
+                }   
+
+            })
+        }
+        
+        function getAnswer(listQuestion){
+            let listAnswer=[];
+            console.log(listQuestion.length);
+            for(let i = 0; i < listQuestion.length; i++){
+                let luaChon=$('input[name="'+listQuestion[i]['maCau']+'"]:checked').val();
+                if($('input[name="'+listQuestion[i]['maCau']+'"]:checked').val()==null){
+                    luaChon="";
+                }
+                listAnswer.push({
+                    maCau:listQuestion[i]['maCau'],
+                    luaChon:luaChon,
+                });
+            }
+            return listAnswer;
         }
         function checkTheBox(name) {
             console.log(name);

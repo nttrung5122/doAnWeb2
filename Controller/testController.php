@@ -77,6 +77,34 @@ class TestController{
         $data['html']=TestView::renderTestForStudent($listQuestion,$listAnswer);
         return $data;
     }
+
+    public static function getListQuestionInTest($idTest){
+        $listQuestionSql=TestModel::getQuestionOfTest($idTest);
+        $listQuestion=array();
+        while ($row = mysqli_fetch_array($listQuestionSql)){
+            $listQuestion[]=$row;
+        }
+        return $listQuestion; 
+    }
+
+    public static function chamBai($listAnswer,$idTest,$email){
+        $listAnswer=json_decode($listAnswer);
+        TestModel::taoChiTietBaiLam($listAnswer,$idTest,$email);
+        $Question=TestModel::getQuestionAndAnswerOfTest($idTest);
+        $tong=0;
+        $soCauDung=0;
+        while ($row = mysqli_fetch_array($Question)){
+            $tong++;
+            foreach($listAnswer as $answer){
+                if($row['maCau']==$answer->maCau){
+                    if($row['dapAn']==$answer->luaChon){
+                        $soCauDung++;
+                    }
+                }
+            }
+        }
+        TestModel::taoBaiLam($idTest,$email,round(($soCauDung/$tong)*10,2));
+    }
 }
 
     // TestController::takeATest("54021");

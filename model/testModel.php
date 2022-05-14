@@ -64,13 +64,13 @@ class TestModel{
     }
 
     public static function getInfoTestSubmited($idTest,$idStudent){
-        $sql = "SELECT * FROM bailam,bode WHERE bailam.maDe=bode.maDe and bailam.maTaiKhoan=\"sv1@gmail.com\" AND bailam.maDe=\"54001\";";
+        $sql = "SELECT * FROM bailam,bode WHERE bailam.maDe=bode.maDe and bailam.maTaiKhoan='$idStudent' AND bailam.maDe='$idTest';";
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
 
     public static function getQuestionOfTest($idTest){
-        $sql = "SELECT * FROM chitietbode,cauhoi_nganhang WHERE chitietbode.maCau=cauhoi_nganhang.maCau and chitietbode.maBoDe='$idTest';";
+        $sql = "SELECT cauhoi_nganhang.noiDung, cauhoi_nganhang.maCau FROM chitietbode,cauhoi_nganhang WHERE chitietbode.maCau=cauhoi_nganhang.maCau and chitietbode.maBoDe='$idTest';";
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
@@ -79,6 +79,26 @@ class TestModel{
         $sql = "SELECT * FROM luachon WHERE luachon.maCau IN ( SELECT chitietbode.maCau FROM chitietbode WHERE chitietbode.maBoDe='$idTest');";
         $data = DataProvider::executeSQL($sql);
         return $data;
+    }
+
+    public static function taoChiTietBaiLam($listAnswer,$idTest,$email){
+        $result="";
+        foreach($listAnswer as $Answer){
+            $maCau=$Answer->maCau;
+            $luaChon=$Answer->luaChon;
+            $sql = "INSERT INTO `chitietbailam`(`maTaiKhoan`, `maCau`, `maDe`, `dapAnChon`) VALUES ('$email','$maCau','$idTest','$luaChon');";
+            $data = DataProvider::executeSQL($sql);
+        }
+    }
+
+    public static function getQuestionAndAnswerOfTest($idTest){
+        $sql = "SELECT cauhoi_nganhang.noiDung, cauhoi_nganhang.maCau,cauhoi_nganhang.dapAn FROM chitietbode,cauhoi_nganhang WHERE chitietbode.maCau=cauhoi_nganhang.maCau and chitietbode.maBoDe='$idTest';";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+    public static function taoBaiLam($idTest,$email,$diem){
+        $sql = "INSERT INTO `bailam`(`maTaiKhoan`, `maDe`, `diem`) VALUES ('$email','$idTest','$diem');";
+        $data = DataProvider::executeSQL($sql);
     }
 
 }

@@ -32,6 +32,12 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "getClassforteacher":{
+            require './classController.php';
+            $data=ClassController::getClassforteacher($_POST['id']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
         case "deleteClass":{
             require './classController.php';
             $data=ClassController::deleteClass($_POST['idClass']);
@@ -78,7 +84,7 @@ if (isset($_POST['act'])){
         break;
         case "createTest":{
             require './testController.php';
-            $data=TestController::createTest($_POST["idClass"],$_POST['nameTest'],$_POST["thoiGianLamBai"],$_POST["ngayThi"],$_POST["daoCauHoi"],$_POST["xemDiem"],$_POST["xemDapAn"]);
+            $data=TestController::createTest($_POST["idClass"],$_POST['nameTest'],$_POST["thoiGianLamBai"],$_POST["ngayThi"],$_POST["daoCauHoi"]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
@@ -225,6 +231,25 @@ if (isset($_POST['act'])){
             $data=TestController::chamBai($_POST['listAnswer'],$_POST['idTest'],$_SESSION['user'][0]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "removeStudentsfromclass":{
+            require './classController.php';
+            $data=ClassController::removeStudentsFromClass($_POST['idClass'],$_POST['mail']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "showTestscores":{
+            require './classController.php';
+            $data=ClassController::showTestscores($_POST['idTest'],$_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "showDetailstestscores":{
+            require './classController.php';
+            $data=ClassController::showDetailstestscores($_POST['idTest'],$_POST['idStudent']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     } 
 }
 

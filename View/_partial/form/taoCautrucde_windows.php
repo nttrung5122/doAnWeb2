@@ -48,25 +48,6 @@
                             <label class="btn btn-outline-primary" for="checkDaocauHoi1">Có</label>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="" class="col-sm-3 col-form-label">Cho phép xem đáp án</label>
-                        <div class="col">
-                            <input type="radio" class="btn-check" id="xemDapAn1" name="xemDapAn" autocomplete="off" value="false" checked>
-                            <label class="btn btn-outline-primary" for="xemDapAn1">Không</label>
-                            <input type="radio" class="btn-check" id="xemDapAn3" name="xemDapAn" autocomplete="off" value="true">
-                            <label class="btn btn-outline-primary" for="xemDapAn3">Có</label>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="" class="col-sm-3 col-form-label">Cho phép xem điểm</label>
-                        <div class="col">
-                            <input type="radio" class="btn-check" id="xemDiem1" name="xemDiem" autocomplete="off" value="false" checked>
-                            <label class="btn btn-outline-primary" for="xemDiem1">Không</label>
-                            <input type="radio" class="btn-check" id="xemDiem3" name="xemDiem" autocomplete="off" value="true">
-                            <label class="btn btn-outline-primary" for="xemDiem3">Có</label>
-                        </div>
-
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <!-- data-bs-dismiss="modal" - đóng cửa sổ popup -->

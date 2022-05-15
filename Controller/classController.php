@@ -39,6 +39,11 @@ class ClassController{
     public static function getClass($idClass){
         return mysqli_fetch_array(ClassModel::getClass($idClass));
     }
+    public static function getClassforteacher($idClass){
+        $data=mysqli_fetch_array(ClassModel::getClassforteacher($idClass));
+        $data['soLuongbaikt']=mysqli_fetch_array(ClassModel::countTestInClass($idClass))['soLuong'];
+        return $data;
+    }
 
     public static function deleteClass($idClass){
         ClassModel::deleteClass($idClass);
@@ -107,6 +112,30 @@ class ClassController{
         ClassModel::removeStudent($idClass,$email);
         $data['status']="success";
         $data['notice']="Rời lớp thành công";
+        return $data;
+    }
+
+    public static function removeStudentsFromClass($idClass,$email){
+        ClassModel::removeStudent($idClass,$email);
+        $data['status']="success";
+        $data['notice']="Xóa sinh viên thành công";
+        return $data;
+    }
+
+    public static function showTestscores($idTest,$idClass){
+        $data= ClassModel::getTestscores($idTest,$idClass);
+        $result=ClassView::showTestscores($data);
+        return $result;
+    }
+
+    public static function showDetailstestscores($idTest,$idStudent){
+        $answer= ClassModel::getQuestionAndAnswerOfTest($idTest);
+        $listAnswer=array();
+        while ($row = mysqli_fetch_array($answer)){
+            $listAnswer[]=$row;
+        }
+        $baiLam=ClassModel::getBaiLam($idTest,$idStudent);
+        $data=ClassView::showDetailstestscores($listAnswer,$baiLam);
         return $data;
     }
 }

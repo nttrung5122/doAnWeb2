@@ -29,6 +29,21 @@ class ClassModel{
         return $data;
     }
 
+    public static function getClassforteacher($idClass){
+        $sql = "SELECT * FROM `lop`,taikhoan WHERE lop.maGiangVien=taikhoan.mail and `maLop`=\"$idClass\";";
+        // $sql = "SELECT *,COUNT(chitietlop.maTaiKhoan) as soLuong FROM lop LEFT JOIN chitietlop on lop.maLop=chitietlop.maLop WHERE `lop.maLop`=\"$idClass\" GROUP BY lop.maLop;";
+        // $sql = "SELECT * FROM `lop`,taikhoan WHERE lop.maGiangVien=taikhoan.mail and `maLop`=\"$idClass\";";
+        $sql = "SELECT *,COUNT(chitietlop.maTaiKhoan) as soLuong FROM lop LEFT JOIN chitietlop on lop.maLop=chitietlop.maLop WHERE lop.maLop='$idClass' GROUP BY lop.maLop;";
+        $data= DataProvider::executeSQL($sql);
+        return $data;
+    }
+
+    public static function countTestInClass($idClass){
+        $sql = "SELECT COUNT(bode.maDe) as soLuong FROM lop LEFT JOIN bode on lop.maLop=bode.maLop  WHERE lop.maLop='$idClass' GROUP BY lop.maLop;";
+        $data= DataProvider::executeSQL($sql);
+        return $data;
+    }
+
     public static function deleteClass($idClass){
         $sql = "DELETE FROM `lop` WHERE `malop`='$idClass';";
         $data= DataProvider::executeSQL($sql);    
@@ -36,7 +51,7 @@ class ClassModel{
     }  
 
     public static function getStudentInClass($idClass){
-        $sql = "SELECT hoTen FROM chitietlop,taikhoan WHERE chitietlop.maTaiKhoan=taikhoan.mail AND maLop=\"$idClass\";";
+        $sql = "SELECT hoTen,mail FROM chitietlop,taikhoan WHERE chitietlop.maTaiKhoan=taikhoan.mail AND maLop=\"$idClass\";";
         $data= DataProvider::executeSQL($sql);    
         return $data;
     }
@@ -55,6 +70,25 @@ class ClassModel{
     public static function getClassOfStudent($email){
         $sql = "SELECT * FROM lop,chitietlop WHERE lop.maLop=chitietlop.maLop and chitietlop.maTaiKhoan='$email';";
         $data= DataProvider::executeSQL($sql);    
+        return $data;
+    }
+
+    public static function getTestscores($idTest,$idClass){
+        // $sql = "SELECT taikhoan.mail,taikhoan.hoten,taikhoan.ngaysinh,bailam.diem FROM taikhoan,chitietlop LEFT JOIN bailam ON chitietlop.maTaiKhoan=bailam.maTaiKhoan AND bailam.maDe='$idTest' WHERE taikhoan.mail=chitietlop.maTaiKhoan and chitietlop.maLop='$idClass';";
+        $sql = "SELECT taikhoan.mail,taikhoan.hoten,taikhoan.ngaysinh,bailam.diem,bailam.maDe FROM taikhoan,chitietlop LEFT JOIN bailam ON chitietlop.maTaiKhoan=bailam.maTaiKhoan AND bailam.maDe='$idTest' WHERE taikhoan.mail=chitietlop.maTaiKhoan and chitietlop.maLop='$idClass';";
+        $data= DataProvider::executeSQL($sql);    
+        return $data;
+    }
+
+    public static function getQuestionAndAnswerOfTest($idTest){
+        $sql = "SELECT cauhoi_nganhang.noiDung, cauhoi_nganhang.maCau,cauhoi_nganhang.dapAn FROM chitietbode,cauhoi_nganhang WHERE chitietbode.maCau=cauhoi_nganhang.maCau and chitietbode.maBoDe='$idTest';";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+
+    public static function getBaiLam($idTest,$idStudent){
+        $sql = "SELECT * FROM `chitietbailam` WHERE chitietbailam.maTaiKhoan='$idStudent' AND chitietbailam.maDe='$idTest';"; 
+        $data = DataProvider::executeSQL($sql);
         return $data;
     }
 

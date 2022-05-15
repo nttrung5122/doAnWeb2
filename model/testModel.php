@@ -11,8 +11,8 @@ class TestModel{
         return $data;
     }
 
-    public static function createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi,$xemDiem,$xemDapAn){
-        $sql = "INSERT INTO `bode` (`maDe`,`tenDe`, `maLop`, `thoiGianLamBai`,`ngayThi`, `daoCauHoi`, `xemDiem`, `xemDapAn`) VALUES (NULL,'$nameTest', '$idClass', '$thoiGianLamBai','$ngayThi','$daoCauHoi', '$xemDiem','$xemDapAn');";
+    public static function createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi){
+        $sql = "INSERT INTO `bode` (`maDe`,`tenDe`, `maLop`, `thoiGianLamBai`,`ngayThi`, `daoCauHoi`, `xemDiem`, `xemDapAn`) VALUES (NULL,'$nameTest', '$idClass', '$thoiGianLamBai','$ngayThi','$daoCauHoi', '','');";
         $data= DataProvider::executeSQL($sql);
         $data=mysqli_fetch_array(TestModel::getAllTest());
         return $data['maDe'];
@@ -34,8 +34,7 @@ class TestModel{
     }
 
     public static function getTestOfClass($idClass){
-        $sql = "SELECT bode.maDe,bode.tenDe,bode.maLop,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDiem,bode.xemDapAn,AVG(chitietdiem.diem) as diemtb FROM bode LEFT JOIN chitietdiem on bode.maDe=chitietdiem.maDe WHERE maLop='$idClass' GROUP BY bode.maDe;";
-        // $sql = "SELECT * FROM `bode` WHERE 1";
+        $sql = "SELECT bode.maDe,bode.tenDe,bode.maLop,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDiem,bode.xemDapAn,AVG(bailam.diem) as diemtb FROM bode LEFT JOIN bailam on bode.maDe=bailam.maDe WHERE bode.maLop='$idClass' GROUP BY bode.maDe;";
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
@@ -99,6 +98,12 @@ class TestModel{
     public static function taoBaiLam($idTest,$email,$diem){
         $sql = "INSERT INTO `bailam`(`maTaiKhoan`, `maDe`, `diem`) VALUES ('$email','$idTest','$diem');";
         $data = DataProvider::executeSQL($sql);
+    }
+
+    public static function getBaiLam($idTest,$idStudent){
+        $sql = "SELECT * FROM `chitietbailam` WHERE chitietbailam.maTaiKhoan='$idStudent' AND chitietbailam.maDe='$idTest';"; 
+        $data = DataProvider::executeSQL($sql);
+        return $data;
     }
 
 }

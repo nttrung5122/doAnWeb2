@@ -27,7 +27,7 @@ class TestView
                 $result .=
                     '<p>Điểm trung bình:</p>
                 <div class="progress bg-danger bg-opacity-25">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' . $diemtb . '%" aria-valuenow="' . $diemtb . '" aria-valuemin="0" aria-valuemax="100">' . $row['diemtb'] . '</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' . $diemtb . '%" aria-valuenow="' . $diemtb . '" aria-valuemin="0" aria-valuemax="100">' .round($row['diemtb'],2) . '</div>
                 </div>';
             }
             $result .= '</div>';
@@ -54,8 +54,6 @@ class TestView
                                     <p>Đã nộp</p>
                                     <p>Thời gian</p>
                                     <p>Đảo đề</p>
-                                    <p>Xem đáp án</p>
-                                    <p>Xem điểm</p>
                                     <div class="col justify-content-end">
                                     <button type="button" class="btn btn-warning text-center fw-bold" onclick="showTest('.$row['maDe'].')">
                                         <i class="fa-solid fa-eye"></i> Xem bài kiểm tra</button>
@@ -67,8 +65,6 @@ class TestView
                                     <p>'.$row['slBai'].'    </p>
                                     <p>'.$row['thoiGianLamBai'].' phút</p>
                                     <p>'.$daoCauHoi.'</p>
-                                    <p>'.$xemDapAn.'</p>
-                                    <p>'.$xemDiem.'</p>
                                     <div class="col justify-content-end">
                                     <button type="button" class="btn btn-warning text-center fw-bold" onclick="deleteTest('.$row['maDe'].')">
                                         <i class="fa-solid fa-trash"></i> Xóa bài kiểm tra</button>
@@ -114,7 +110,7 @@ class TestView
 
                     <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
                     <hr>
-                    <div class="text-center"><a href="#" class="btn btn-success text-center" onclick="takeATest(\''.$data['maDe'].'\')" data-bs-toggle="modal" data-bs-target="#formDoTest" >Làm bài</a></div>
+                    <div class="text-center"><a href="#" class="btn btn-success text-center" onclick="takeATest(\''.$data['maDe'].'\')" >Làm bài</a></div>
                 </div>';
         return $result;
     }

@@ -54,7 +54,7 @@ session_start();
 
         };
         $(document).ready(function() {
-            $('#class a').click(function() {
+            $("#class").on("click", "a", function(event) {
                 $('#class').find('a.active').addClass('link-dark');
                 $('#class').find('a.active').removeClass('active');
                 $(this).addClass('active');
@@ -117,39 +117,22 @@ session_start();
                 renderContainerbankquestion();
             });
             $("#btnRenderMember").click(function() {
-                let idClass = $("#idClassCurent").val();
-                if (idClass == "")
-                    return;
-
-                $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'renderMember',
-                        idClass: idClass,
-                    },
-                    success: function(data) {
-                        // console.log(data);
-                        // console.log(JSON.parse(data));
-                        $("#content").html(JSON.parse(data));
-                        $("#right_content").html("");
-                    }
-                });
+                renderMember();
             });
             $('#btnCreateTest').click(function() {
                 let thoiGianLamBai = $('#thoiGianLamBai').val();
                 let ngayThi = $('#ngayThi').val();
                 let daoCauHoi = $('input[name="daoCauHoi"]:checked').val();
-                let xemDapAn = $('input[name="xemDapAn"]:checked').val();
-                let xemDiem = $('input[name="xemDiem"]:checked').val();
                 let idClass = $("#idClassCurent").val();
                 let nameTest = $('#txtNameTest').val();
+                if(nameTest.trim()==""){
+                    showNotice("Vui lòng nhập tên bài kiểm tra");
+                    return ;
+                }
                 console.log(nameTest);
                 console.log(thoiGianLamBai);
                 console.log(ngayThi);
                 console.log(daoCauHoi);
-                console.log(xemDiem);
-                console.log(xemDapAn);
                 console.log(idClass);
                 $.ajax({
                     type: "POST",
@@ -160,8 +143,6 @@ session_start();
                         nameTest: nameTest,
                         ngayThi: ngayThi,
                         daoCauHoi: daoCauHoi,
-                        xemDiem: xemDiem,
-                        xemDapAn: xemDapAn,
                         idClass: idClass,
                     },
                     success: function(data) {
@@ -274,6 +255,27 @@ session_start();
                 })
             })
         });
+
+        function renderMember(){
+            let idClass = $("#idClassCurent").val();
+                if (idClass == "")
+                    return;
+
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'renderMember',
+                        idClass: idClass,
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        // console.log(JSON.parse(data));
+                        $("#content").html(JSON.parse(data));
+                        $("#right_content").html("");
+                    }
+                });
+        }
 
         function deleteClass() {
             if (!confirm('Bạn có chắc muốn xóa lớp này'))
@@ -488,7 +490,7 @@ session_start();
                 type: "POST",
                 url: "./Controller/controller.php",
                 data: {
-                    act: "getClass",
+                    act: "getClassforteacher",
                     id: idClass,
                 },
                 success: function(data) {
@@ -499,6 +501,8 @@ session_start();
                     $("#idClass").html("Mã lớp: " + data['maLop']);
                     $("#soHs").html(data['soLuong']);
                     $("#idClassCurent").val(data['maLop']);
+                    // console.log(data["soLuongbaikt"]);
+                    $("#soBaikt").html(data["soLuongbaikt"]);
                     renderListTest();
                 }
             })
@@ -567,23 +571,70 @@ session_start();
                 }
             }
         }
-        // // tạo mảng câu hỏi đã chọn
-        // var questionArr = [];
+         function deleteStudent(idStudent){
+            let idClass = $("#idClassCurent").val();
+            $.ajax({
+                type: "POST",
+                url : "./Controller/controller.php",
+                data: {
+                    act : "removeStudentsfromclass",
+                    mail:idStudent,
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    console.log(data);
+                    showNotice(JSON.parse(data)['notice']);
+                    renderMember();
+                }
+            })
+         }
+         function showTest(idTest){
+            //  console.log(idTest);
+            let idClass = $("#idClassCurent").val();
 
-        // function taoMangcauhoi(macauhoi) {
-        //     // console.log(macauhoi);
-        //     var checkBox = document.getElementById(macauhoi);
-        //     if (checkBox.checked == true) {
-        //         questionArr.push(macauhoi);
-        //     } else {
-        //         for (let i = 0; i < questionArr.length; i++) {
-        //             if (questionArr[i] == macauhoi) {
-        //                 questionArr.splice(i, 1);
-        //             }
-        //         }
-        //     }
-        //     // console.log(questionArr);
-        // }
+            $.ajax({
+                type: "POST",
+                url : "./Controller/controller.php",
+                data: {
+                    act : "showTestscores",
+                    idTest: idTest,
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $('#listTestscores').html(JSON.parse(data));
+                    $('#formShowtestscores').modal('show');
+                }
+            })
+         }
+
+         function showDetails(idStudent,idTest,diem){
+            $.ajax({
+                type: "POST",
+                url : "./Controller/controller.php",
+                data: {
+                    act: "showDetailstestscores",
+                    idTest: idTest,
+                    idStudent: idStudent,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    console.log(JSON.parse(data));
+                    $('#chiTietbailam').html(JSON.parse(data)['html']);
+                    $('#soCaudung_formDetails').html(JSON.parse(data)['soCaudung']);
+                    $('#soCausai_formDetails').html(JSON.parse(data)['soCausai']);
+                    $('#soCauchualam_formDetails').html(JSON.parse(data)['soCauchualam']);
+                    $('#diem_formDetails').html(diem);
+                    $('#formShowtestscores').modal('hide');
+                    $('#formShowdetailstestscores').modal('show');
+                }
+            })
+         }
+
+         function cancelShowdetails(){
+             $('#formShowdetailstestscores').modal('hide');
+             $('#formShowtestscores').modal('show');
+         }
     </script>
 </head>
 
@@ -596,7 +647,8 @@ session_start();
     include "./View/_partial/form/taoCautrucde_windows.php";
     include "./View/_partial/testPage/testPage.php";
     include "./View/_partial/form/form_create_question.php";
-
+    include "./View/_partial/hienThiDiem/hienThiDiem.php";
+    include "./View/_partial/chiTietdiem/chitietdiem.php";
     ?>
 
     <!-- Side Navigation -->

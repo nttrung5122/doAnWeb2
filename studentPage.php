@@ -92,11 +92,15 @@ session_start();
         }
         var Dem_gio = setInterval(Dong_ho, 1000);
         $(document).ready(function() {
-            $('#class a').click(function() {
+            $("#class").on("click", "a", function(event) {
                 $('#class').find('a.active').addClass('link-dark');
                 $('#class').find('a.active').removeClass('active');
                 $(this).addClass('active');
                 $(this).removeClass('link-dark');
+                $('#background-content').addClass('d-none');
+                $('#main-content').removeClass('d-none');
+                $('#tabs li:first-child a').addClass('active');
+                $('#tabs a').removeClass('disabled');
             });
             $('#tabs a').click(function() {
                 $('#tabs').find('a.active').addClass('link-dark');
@@ -143,6 +147,9 @@ session_start();
         });
 
         window.onload = function() {
+            $('#main-content').addClass('d-none');
+            $('#tabs a').addClass('disabled');
+            $('#tabs').find('a.active').removeClass('active');
             renderListclass();
         }
 
@@ -252,14 +259,14 @@ session_start();
                     let now=new Date();
                     let thoiGianLamBai=Date.parse(data['infoTest']['ngayThi']);
                     if(now<thoiGianLamBai){
-                        $('.modal').modal('hide');
+                        // $('.modal').modal('hide');
                         showNotice("Chưa tới thời gian làm bài");
                         return;
                     }
                     m=parseInt(data['infoTest']['thoiGianLamBai'])-Math.round((now-thoiGianLamBai)/60000) + 1;
                     s=0;        
                     if(m<=0){
-                        $('.modal').modal('hide');
+                        // $('.modal').modal('hide');
                         showNotice("Đã quá thời gian làm bài");
                         return;
                     }     
@@ -267,6 +274,7 @@ session_start();
                     $("#idTest").val(data['infoTest']['maDe']); 
                     $('#phieuLamBai').html(data['html']['baiLam']);
                     $('#deThi').html(data['html']['deThi']);
+                    $("#formDoTest").modal('show');
                     start();
                 }
             })
@@ -455,7 +463,13 @@ session_start();
 
     <!-- Content -->
 
-    <div style="margin-left: 280px; margin-top: 80px;">
+    <div id="background-content" style="margin-left: 280px; margin-top: 80px;">
+        <div class="container d-flex justify-content-center">
+            <img src="./Assets/img/background-student.jpg" alt="background-student" style="width: 70%;">
+        </div>
+    </div>
+
+    <div  id="main-content"  style="margin-left: 280px; margin-top: 80px;">
         <div class="row gap-2" style="margin-left: 0; margin-right: 0;">
             <div class="col-sm-0 mt-2 px-5">
                 <div class="col py-3">

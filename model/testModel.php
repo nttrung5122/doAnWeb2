@@ -40,7 +40,9 @@ class TestModel{
     }
 
     public static function getInfoTest($idTest){
-        $sql = "SELECT bode.maDe, bode.tenDe,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDapAn,bode.xemDiem, COUNT(chitietdiem.maTaiKhoan) as slBai FROM `bode` LEFT JOIN chitietdiem on chitietdiem.maDe=bode.maDe WHERE bode.maDe='$idTest' GROUP BY bode.maDe;";
+        // $sql = "SELECT bode.maDe, bode.tenDe,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDapAn,bode.xemDiem, COUNT(chitietdiem.maTaiKhoan) as slBai FROM `bode` LEFT JOIN chitietdiem on chitietdiem.maDe=bode.maDe WHERE bode.maDe='$idTest' GROUP BY bode.maDe;";
+        $sql = "SELECT bode.maDe, bode.tenDe,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDapAn,bode.xemDiem, COUNT(bailam.maTaiKhoan) as slBai FROM `bode` LEFT JOIN bailam on bailam.maDe=bode.maDe WHERE bode.maDe='$idTest' GROUP BY bode.maDe;";
+
         $data= DataProvider::executeSQL($sql);
         return $data;
     }

@@ -427,9 +427,9 @@ session_start();
     <?php
     include "./View/_partial/Header_Footer/Header_Footer.php";
     head($studentPage);
-    include "./View/_partial/form/form_find_class.php";
+    include "./View/form/form_find_class.php";
     include "./View/_partial/popup/notice.php";
-    include "./View/_partial/TrangLamBai/pageBailam.php";
+    include "./View/TrangLamBai/pageBailam.php";
 
     ?>
 

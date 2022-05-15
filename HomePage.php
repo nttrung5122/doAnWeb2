@@ -9,8 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Home</title>
     <?php
-    include './View/_partial/form/formSignUp.php';
-    include './View/_partial/form/formSignIn.php';
+    include './View/form/formSignUp.php';
+    include './View/form/formSignIn.php';
     include "./View/_partial/popup/notice.php";
     ?>
 </head>

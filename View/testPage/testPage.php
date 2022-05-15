@@ -70,7 +70,6 @@
         console.log(questionArr);
     }
 </script>
-<?php include './View/_partial/testPage/themCauhoi_vaoTable.php'; ?>
 <style>
     table thead,
     table tfoot {

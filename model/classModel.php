@@ -5,7 +5,7 @@ include '../model/dataProvider.php';
 class ClassModel{
 
     public static function createClass($idClass,$info,$email,$name){
-        $sql = "INSERT INTO `lop`(`maLop`, `tenLop`, `ThongTin`, `soLuong`, `maGiangVien`) VALUES ('$idClass','$name','$info','0','$email');";
+        $sql = "INSERT INTO `lop`(`maLop`, `tenLop`, `ThongTin`, `maGiangVien`) VALUES ('$idClass','$name','$info','$email');";
         $data= DataProvider::executeSQL($sql);
     }
 

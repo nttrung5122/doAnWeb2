@@ -84,9 +84,13 @@ session_start();
 
             });
             $("#btnCreateClass").click(function() {
-                let id = $("#txtIdClass").val();
-                let name = $("#txtNameClass").val();
+                let id = $("#txtIdClass").val().trim();
+                let name = $("#txtNameClass").val().trim();
                 let info = $("#txtInfoClass").val();
+                if(name==''){
+                    showNotice("Vui lòng nhập tên lớp");
+                    return;
+                }
                 console.log(id);
                 console.log(name);
                 console.log(info);
@@ -495,12 +499,13 @@ session_start();
                 },
                 success: function(data) {
                     data = JSON.parse(data);
+                    console.log(data);
                     infoClassCurent = data;
                     $("#nameClass").html(data['tenLop']);
                     $("#infoClass").html(data['ThongTin']);
-                    $("#idClass").html("Mã lớp: " + data['maLop']);
+                    $("#idClass").html("Mã lớp: " + data['0']);
                     $("#soHs").html(data['soLuong']);
-                    $("#idClassCurent").val(data['maLop']);
+                    $("#idClassCurent").val(data['0']);
                     // console.log(data["soLuongbaikt"]);
                     $("#soBaikt").html(data["soLuongbaikt"]);
                     renderListTest();
@@ -642,13 +647,13 @@ session_start();
     <!-- Header -->
     <?php require("./View/_partial/Header_Footer/Header_Footer.php");
     head($teacherPage);
-    include "./View/_partial/form/form_create_class.php";
+    include "./View/form/form_create_class.php";
     include "./View/_partial/popup/notice.php";
-    include "./View/_partial/form/taoCautrucde_windows.php";
-    include "./View/_partial/testPage/testPage.php";
-    include "./View/_partial/form/form_create_question.php";
-    include "./View/_partial/hienThiDiem/hienThiDiem.php";
-    include "./View/_partial/chiTietdiem/chitietdiem.php";
+    include "./View/form/taoCautrucde_windows.php";
+    include "./View/testPage/testPage.php";
+    include "./View/form/form_create_question.php";
+    include "./View/hienThiDiem/hienThiDiem.php";
+    include "./View/chiTietdiem/chitietdiem.php";
     ?>
 
     <!-- Side Navigation -->

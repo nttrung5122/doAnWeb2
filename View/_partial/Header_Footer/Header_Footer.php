@@ -1,4 +1,5 @@
 <?php
+session_start();
 $homePage = "Home Page";
 $studentPage = "Student Page";
 $teacherPage = "Teacher Page";
@@ -6,7 +7,7 @@ function head($currentPage)
 {
     $headerRight = "";
     // $username = "Toàn";
-    if (!isset( $_SESSION['user'])) {
+    if (!isset($_SESSION['user'])) {
         $headerRight = '
         <button type="button" class="btn btn-success col-3 shadow fs-5" style="width: 140px;" data-bs-toggle="modal" data-bs-target="#form_signIn" >Đăng nhập</button>
         <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="width: 140px;" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>';

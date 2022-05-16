@@ -27,7 +27,7 @@ class AuthModel{
     }   
     
     public static function createUser($email,$pass,$hoten,$ngaysinh,$sdt,$cv){        
-        $sql = "INSERT INTO `taikhoan` (`mail`, `password`, `loaiTk`, `hoten`, `ngaysinh`, `sdt`) VALUES ('$email', '$pass', '$cv', '$hoten', '$ngaysinh', '$sdt');";
+        $sql = "INSERT INTO `taikhoan` (`mail`, `password`, `loaiTk`, `hoten`, `ngaysinh`, `sdt`, `active`) VALUES ('$email', '$pass', '$cv', '$hoten', '$ngaysinh', '$sdt',0);";
         $dataSql=DataProvider::executeSQL($sql);
     }
     

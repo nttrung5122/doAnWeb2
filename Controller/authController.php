@@ -25,13 +25,22 @@ class AuthController {
     static public function signIn($user,$password){
         if(AuthModel::checkUsersExit($user)){
             $dataUser=mysqli_fetch_array(AuthModel::getUsers($user));
-            if($dataUser[1]==$password){
-                $data['status']='success';
-                $data['notice']="Đăng nhập thành công thành công";
-                session_start();
-                $_SESSION['user']=$dataUser;
-                $data['cv']=$dataUser['loaiTk'];
-                return $data;
+            if($dataUser['password']==$password){
+                if($dataUser['active']=="1"){
+
+                    $data['status']='success';
+                    $data['notice']="Đăng nhập thành công thành công";
+                    session_start();
+                    $_SESSION['user']=$dataUser;
+                    $data['user']=$dataUser;
+                    $data['cv']=$dataUser['loaiTk'];
+                    return $data;
+                }
+                else{
+                    $data['status']='fail';
+                    $data['notice']="Tài khoản chưa được kích hoạt";
+                    return $data;
+                }
             }
  
         }

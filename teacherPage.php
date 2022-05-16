@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['user'])){
+    header('Location: ./');
+}
+else if($_SESSION['user']['loaiTk']!='gv'){
+    header('Location: ./');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +87,7 @@ session_start();
                         console.log(data);
                     }
                 })
-                window.location = './homePage.php';
+                window.location = './index.php';
 
             });
             $("#btnCreateClass").click(function() {

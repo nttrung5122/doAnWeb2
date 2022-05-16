@@ -15,7 +15,9 @@ if (isset($_POST['act'])){
         }
         break;
         case "logOut":{        
+            session_start();
             session_unset();
+            session_destroy();
             echo json_encode("success");
         }
         break;

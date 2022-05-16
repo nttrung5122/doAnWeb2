@@ -249,7 +249,8 @@
                     password: pass,
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
+                    console.log(JSON.parse(data));
                     showNotice(JSON.parse(data)['notice']);
                     if (JSON.parse(data)['status'] == 'success')
                         setTimeout(() => {

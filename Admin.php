@@ -160,7 +160,6 @@ session_start();
             var maLop = $('input[name="maLop' + btn.id + '"]').val();
             var tenLop = $('input[name="tenLop' + btn.id + '"]').val();
             var thongTin = $('input[name="thongTin' + btn.id + '"]').val();
-            var soLuong = $('input[name="soLuong' + btn.id + '"]').val();
             var email = $('input[name="email' + btn.id + '"]').val();
 
             $.ajax({
@@ -172,10 +171,10 @@ session_start();
                     maLop: maLop,
                     tenLop: tenLop,
                     thongTin: thongTin,
-                    soLuong: soLuong,
                     email: email,
                 },
                 success: function(data) {
+                    console.log(data);
                     $('#table').html(JSON.parse(data));
                 }
             });

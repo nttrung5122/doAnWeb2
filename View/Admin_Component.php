@@ -91,10 +91,6 @@ class adminTable
                         <input type="text" name="thongTin'.$i.'" class="form-control" placeholder="Nhập Thông tin mới">
                     </div>
                     <div class="input-group mb-1">
-                        <span class="input-group-text col-2">Số lượng</span>
-                        <input type="text" name="soLuong'.$i.'" class="form-control" placeholder="Nhập số lượng mới">
-                    </div>
-                    <div class="input-group mb-1">
                         <span class="input-group-text col-2">Email giảng viên</span>
                         <input type="text" name="email'.$i.'"class="form-control" placeholder="Nhập email giảng viên mới">
                     </div>

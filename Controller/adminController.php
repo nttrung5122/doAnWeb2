@@ -12,7 +12,7 @@ class adminController
     }
     public static function renderClassTable()
     {
-        $head = array('Mã lớp', 'Tên lớp', 'Thông tin', 'Số lượng', 'Email giảng viên');
+        $head = array('Mã lớp', 'Tên lớp', 'Thông tin', 'Email giảng viên');
         $data = adminModel::getAllClasses();
         $result = adminTable::createTable($head, $data, adminTable::$classModal);
         return $result;
@@ -61,16 +61,13 @@ class adminController
         return self::renderAccountTable();
     }
 
-    public static function editClass($id, $maLop, $tenLop, $thongTin, $soLuong, $email)
+    public static function editClass($id, $maLop, $tenLop, $thongTin, $email)
     {
         if ($tenLop != null) {
             adminModel::editClass($id, 'tenLop', $tenLop);
         }
         if ($thongTin != null) {
             adminModel::editClass($id, 'ThongTin', $thongTin);
-        }
-        if ($soLuong != null) {
-            adminModel::editClass($id, 'soLuong', $soLuong);
         }
         if ($email != null) {
             adminModel::editClass($id, 'maGiangVien', $email);

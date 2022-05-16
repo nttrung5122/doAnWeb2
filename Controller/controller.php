@@ -138,7 +138,7 @@ if (isset($_POST['act'])){
         break;
         case "editClass":{
             require './adminController.php';
-            $data= adminController::editClass($_POST['id'], $_POST['maLop'], $_POST['tenLop'], $_POST['thongTin'], $_POST['soLuong'], $_POST['email']);
+            $data= adminController::editClass($_POST['id'], $_POST['maLop'], $_POST['tenLop'], $_POST['thongTin'], $_POST['email']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;

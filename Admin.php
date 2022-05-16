@@ -41,6 +41,12 @@ session_start();
                 },
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
+                    $('#activeRadio').html(`<select id="radio" class="form-select mt-3"  style="width: 50%;" aria-label="Default select example" onchange="searchRadio(this)">
+                                                <option disabled selected>Lọc tài khoản kích hoạt</option>
+                                                <option value="1">Đã kích hoạt</option>
+                                                <option value="0">Chưa kích hoạt</option>
+                                                <option value="2">Tất cả</option>
+                                            </select>`);
                 }
             });
         }
@@ -54,6 +60,7 @@ session_start();
                 },
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
+                    $('#activeRadio').html('');
                 }
             });
         }
@@ -67,6 +74,7 @@ session_start();
                 },
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
+                    $('#activeRadio').html('');
                 }
             });
         };
@@ -134,6 +142,7 @@ session_start();
             var name = $('input[name="name' + btn.id + '"]').val();
             var birth = $('input[name="birth' + btn.id + '"]').val();
             var phone = $('input[name="phone' + btn.id + '"]').val();
+            var active = $('input[name="active' + btn.id + '"]').is(':checked') == true ? 1 : 0;
             if (checkAccount(email, password, phone, role)) {
 
                 $.ajax({
@@ -148,6 +157,7 @@ session_start();
                         name: name,
                         birth: birth,
                         phone: phone,
+                        active: active,
                     },
                     success: function(data) {
                         $('#table').html(JSON.parse(data));
@@ -234,6 +244,37 @@ session_start();
             }
         }
 
+        function searchRadio(loai) {
+                
+                console.log(loai.value);
+
+                // tạo biến
+                var filterByradio, table, tr, td, i, txtValue;
+
+                radio = document.getElementsByName("loaiCauhoi");
+                filterByradio = loai.value.toUpperCase();
+                table = document.getElementById("table-type");
+                tr = table.getElementsByTagName("tr");
+
+                // lọc câu hỏi
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[6];
+                    if (loai.value == 2) {
+                        tr[i].style.display = "";
+                        continue;
+                    }
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        console.log("value: " + txtValue);
+                        if (txtValue.toUpperCase().indexOf(filterByradio) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
         function checkQuestion(dapAn) {
             if (!checkAnswer(dapAn) && dapAn.trim() != "") {
                 showNotice('Đáp án phải ở định dạng: a (A), b (B), c (C), d (D)');
@@ -315,6 +356,9 @@ session_start();
                 <i class="fas fa-search fs-4 my-auto mx-2"></i>
                 <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">
             </div>
+        </div>
+        <div id="activeRadio" class="d-flex justify-content-center">
+            
         </div>
         <div class="container" id="table">
 

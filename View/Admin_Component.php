@@ -47,6 +47,9 @@ class adminTable
     }
     public static function createInput($row, $type, $i)
     {
+        $activeAccount = '';
+        if ($type == self::$accountModal &&  $row['active'] == true)
+            $activeAccount = 'checked';
         //input for table
         $input = '';
         if ($type == self::$accountModal) {
@@ -74,25 +77,29 @@ class adminTable
                         <span class="input-group-text col-2">Số điện thoại</span>
                         <input type="text" name="phone' . $i . '" class="form-control" placeholder="Nhập số điện thoại mới">
                     </div>
+                    <div class="form-check form-switch input-group mb-1 p-0"">
+                        <span class="input-group-text col-2">Kích hoạt</span>
+                        <input name="active' . $i . '" class="form-check-input m-auto rounded-pill" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="width: 4rem; height: 30px;" ' . $activeAccount . '>
+                    </div>
                     <div class="input-group mb-1 d-flex justify-content-end">
                         <button name="' . $row['mail'] . '" id="' . $i . '" type="button" onclick="editAccount(this)" class="btn btn-primary">Lưu</button>
                     </div>';
         } else if ($type == self::$classModal) {
             $input = '  <div class="input-group mb-1">
                         <span class="input-group-text col-2">Mã lớp</span>
-                        <input type="text" name="maLop'.$i.'" class="form-control" placeholder="Nhập mã lớp mới">
+                        <input type="text" name="maLop' . $i . '" class="form-control" placeholder="Nhập mã lớp mới">
                     </div>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Tên lớp</span>
-                        <input type="text" name="tenLop'.$i.'" class="form-control" placeholder="Nhập tên lớp mới">
+                        <input type="text" name="tenLop' . $i . '" class="form-control" placeholder="Nhập tên lớp mới">
                     </div>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Thông tin</span>
-                        <input type="text" name="thongTin'.$i.'" class="form-control" placeholder="Nhập Thông tin mới">
+                        <input type="text" name="thongTin' . $i . '" class="form-control" placeholder="Nhập Thông tin mới">
                     </div>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Email giảng viên</span>
-                        <input type="text" name="email'.$i.'"class="form-control" placeholder="Nhập email giảng viên mới">
+                        <input type="text" name="email' . $i . '"class="form-control" placeholder="Nhập email giảng viên mới">
                     </div>
                     <div class="input-group mb-1 d-flex justify-content-end">
                         <button name="' . $row['maLop'] . '" id="' . $i . '" type="button" onclick="editClass(this)" class="btn btn-primary">Lưu</button>
@@ -100,19 +107,19 @@ class adminTable
         } else {
             $input = '  <div class="input-group mb-1">
                         <span class="input-group-text col-2">Mã câu</span>
-                        <input type="text" name="maCau'.$i.'" class="form-control" placeholder="Nhập mã câu mới">
+                        <input type="text" name="maCau' . $i . '" class="form-control" placeholder="Nhập mã câu mới">
                     </div>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Mã nhóm</span>
-                        <input type="text" name="maNhom'.$i.'" class="form-control" placeholder="Nhập mã nhóm mới">
+                        <input type="text" name="maNhom' . $i . '" class="form-control" placeholder="Nhập mã nhóm mới">
                     </div>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Nội dung</span>
-                        <input type="text" name="noiDung'.$i.'" class="form-control" placeholder="Nhập nội dung mới">
+                        <input type="text" name="noiDung' . $i . '" class="form-control" placeholder="Nhập nội dung mới">
                     </div>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Đáp án</span>
-                        <input type="text" name="dapAn'.$i.'" class="form-control" placeholder="Nhập nhập đáp án mới">
+                        <input type="text" name="dapAn' . $i . '" class="form-control" placeholder="Nhập nhập đáp án mới">
                     </div>
                     <div class="input-group mb-1 d-flex justify-content-end">
                         <button name="' . $row['maCau'] . '" id="' . $i . '" type="button" onclick="editQuestion(this)" class="btn btn-primary">Lưu</button>

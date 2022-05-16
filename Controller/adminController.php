@@ -5,7 +5,7 @@ class adminController
 {
     public static function renderAccountTable()
     {
-        $head = array('Email', 'Mật khẩu', 'Chức vụ', 'Tên', 'Ngày sinh', 'Số điện thoại');
+        $head = array('Email', 'Mật khẩu', 'Chức vụ', 'Tên', 'Ngày sinh', 'Số điện thoại', 'Kích hoạt');
         $data = adminModel::getAllAccounts();
         $result = adminTable::createTable($head, $data, adminTable::$accountModal);
         return $result;
@@ -38,7 +38,7 @@ class adminController
         }
     }
 
-    public static function editAccount($id, $email, $password, $role, $name, $birth, $phone)
+    public static function editAccount($id, $email, $password, $role, $name, $birth, $phone, $active)
     {
         if ($password != null) {
             adminModel::editAccount($id, 'password', $password);
@@ -58,6 +58,7 @@ class adminController
         if ($email != null) {
             adminModel::editAccount($id, 'mail', $email);
         }
+        adminModel::editAccount($id, 'active', $active);
         return self::renderAccountTable();
     }
 

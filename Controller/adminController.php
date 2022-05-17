@@ -38,7 +38,7 @@ class adminController
         }
     }
 
-    public static function editAccount($id, $email, $password, $role, $name, $birth, $phone, $active)
+    public static function editAccount($id, $password, $role, $name, $birth, $phone)
     {
         if ($password != null) {
             adminModel::editAccount($id, 'password', $password);
@@ -55,14 +55,10 @@ class adminController
         if ($phone != null) {
             adminModel::editAccount($id, 'sdt', $phone);
         }
-        if ($email != null) {
-            adminModel::editAccount($id, 'mail', $email);
-        }
-        adminModel::editAccount($id, 'active', $active);
         return self::renderAccountTable();
     }
 
-    public static function editClass($id, $maLop, $tenLop, $thongTin, $email)
+    public static function editClass($id, $tenLop, $thongTin, $email)
     {
         if ($tenLop != null) {
             adminModel::editClass($id, 'tenLop', $tenLop);
@@ -73,13 +69,10 @@ class adminController
         if ($email != null) {
             adminModel::editClass($id, 'maGiangVien', $email);
         }
-        if ($maLop != null) {
-            adminModel::editClass($id, 'maLop', $maLop);
-        }
         return self::renderClassTable();
     }
 
-    public static function editQuestion($id, $maCau, $maNhom, $noiDung, $dapAn)
+    public static function editQuestion($id, $maNhom, $noiDung, $dapAn)
     {
         if ($maNhom != null) {
             adminModel::editQuestion($id, 'maNhom', $maNhom);
@@ -87,12 +80,13 @@ class adminController
         if ($noiDung != null) {
             adminModel::editQuestion($id, 'noiDung', $noiDung);
         }
-        if ($maCau != null) {
-            adminModel::editQuestion($id, 'maCau', $maCau);
-        }
         if ($dapAn != null) {
             adminModel::editQuestion($id, 'dapAn', $dapAn);
         }
         return self::renderQuestionTable();
+    }
+
+    public static function active($id, $active) {
+        adminModel::editAccount($id, 'active', $active);
     }
 }

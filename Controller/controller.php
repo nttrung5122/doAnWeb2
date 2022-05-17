@@ -134,19 +134,24 @@ if (isset($_POST['act'])){
         break;
         case "editAccount":{
             require './adminController.php';
-            $data= adminController::editAccount($_POST['id'], $_POST['email'], $_POST['password'], $_POST['role'], $_POST['name'], $_POST['birth'], $_POST['phone'], $_POST['active']);
+            $data= adminController::editAccount($_POST['id'], $_POST['password'], $_POST['role'], $_POST['name'], $_POST['birth'], $_POST['phone']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        case "active":{
+            require './adminController.php';
+            $data= adminController::active($_POST['id'], $_POST['active']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
         case "editClass":{
             require './adminController.php';
-            $data= adminController::editClass($_POST['id'], $_POST['maLop'], $_POST['tenLop'], $_POST['thongTin'], $_POST['email']);
+            $data= adminController::editClass($_POST['id'], $_POST['tenLop'], $_POST['thongTin'], $_POST['email']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
         case "editQuestion":{
             require './adminController.php';
-            $data= adminController::editQuestion($_POST['id'], $_POST['maCau'], $_POST['maNhom'], $_POST['noiDung'], $_POST['dapAn']);
+            $data= adminController::editQuestion($_POST['id'], $_POST['maNhom'], $_POST['noiDung'], $_POST['dapAn']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;

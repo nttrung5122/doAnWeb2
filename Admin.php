@@ -124,6 +124,24 @@ else if($_SESSION['user']['loaiTk']!='admin'){
             });
         });
 
+        function active(s) {
+            // var active = s.hasAttribute('checked');
+            var id = s.name;
+            var active = $('input[name="' + s.name + '"]').is(':checked') == true ? 1 : 0;
+            $.ajax({
+                type: 'POST',
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'active',
+                    active: active,
+                    id: id,
+                },
+                success: function(data) {
+                    renderAccountTable();   
+                }
+            })
+        }
+
         function clickDelete(btn) {
             var id = btn.getAttribute('name');
             var type = $('#table-type').attr('name');
@@ -142,14 +160,12 @@ else if($_SESSION['user']['loaiTk']!='admin'){
         }
 
         function editAccount(btn) {
-            var email = $('input[name="email' + btn.id + '"]').val();
             var password = $('input[name="password' + btn.id + '"]').val();
             var role = $('input[name="role' + btn.id + '"]').val();
             var name = $('input[name="name' + btn.id + '"]').val();
             var birth = $('input[name="birth' + btn.id + '"]').val();
             var phone = $('input[name="phone' + btn.id + '"]').val();
-            var active = $('input[name="active' + btn.id + '"]').is(':checked') == true ? 1 : 0;
-            if (checkAccount(email, password, phone, role)) {
+            if (checkAccount(password, phone, role)) {
 
                 $.ajax({
                     type: "POST",
@@ -157,23 +173,20 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                     data: {
                         act: "editAccount",
                         id: btn.name,
-                        email: email,
                         password: password,
                         role: role,
                         name: name,
                         birth: birth,
                         phone: phone,
-                        active: active,
                     },
                     success: function(data) {
-                        $('#table').html(JSON.parse(data));
+                        renderAccountTable();
                     }
                 });
             }
         };
 
         function editClass(btn) {
-            var maLop = $('input[name="maLop' + btn.id + '"]').val();
             var tenLop = $('input[name="tenLop' + btn.id + '"]').val();
             var thongTin = $('input[name="thongTin' + btn.id + '"]').val();
             var email = $('input[name="email' + btn.id + '"]').val();
@@ -184,7 +197,6 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                 data: {
                     act: "editClass",
                     id: btn.name,
-                    maLop: maLop,
                     tenLop: tenLop,
                     thongTin: thongTin,
                     email: email,
@@ -197,7 +209,6 @@ else if($_SESSION['user']['loaiTk']!='admin'){
         };
 
         function editQuestion(btn) {
-            var maCau = $('input[name="maCau' + btn.id + '"]').val();
             var maNhom = $('input[name="maNhom' + btn.id + '"]').val();
             var noiDung = $('input[name="noiDung' + btn.id + '"]').val();
             var dapAn = $('input[name="dapAn' + btn.id + '"]').val();
@@ -209,7 +220,6 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                     data: {
                         act: "editQuestion",
                         id: btn.name,
-                        maCau: maCau,
                         maNhom: maNhom,
                         noiDung: noiDung,
                         dapAn: dapAn,
@@ -251,35 +261,35 @@ else if($_SESSION['user']['loaiTk']!='admin'){
         }
 
         function searchRadio(loai) {
-                
-                console.log(loai.value);
 
-                // tạo biến
-                var filterByradio, table, tr, td, i, txtValue;
+            console.log(loai.value);
 
-                radio = document.getElementsByName("loaiCauhoi");
-                filterByradio = loai.value.toUpperCase();
-                table = document.getElementById("table-type");
-                tr = table.getElementsByTagName("tr");
+            // tạo biến
+            var filterByradio, table, tr, td, i, txtValue;
 
-                // lọc câu hỏi
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[6];
-                    if (loai.value == 2) {
+            radio = document.getElementsByName("loaiCauhoi");
+            filterByradio = loai.value.toUpperCase();
+            table = document.getElementById("table-type");
+            tr = table.getElementsByTagName("tr");
+
+            // lọc câu hỏi
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[6];
+                if (loai.value == 2) {
+                    tr[i].style.display = "";
+                    continue;
+                }
+                if (td) {
+                    console.log(td.childNodes[0].childNodes[0].hasAttribute('checked') == true ? 1 : 0);
+                    txtValue = td.childNodes[0].childNodes[0].hasAttribute('checked') == true ? 1 : 0;
+                    if (txtValue == loai.value) {
                         tr[i].style.display = "";
-                        continue;
-                    }
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        console.log("value: " + txtValue);
-                        if (txtValue.toUpperCase().indexOf(filterByradio) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
+                    } else {
+                        tr[i].style.display = "none";
                     }
                 }
             }
+        }
 
         function checkQuestion(dapAn) {
             if (!checkAnswer(dapAn) && dapAn.trim() != "") {
@@ -289,13 +299,9 @@ else if($_SESSION['user']['loaiTk']!='admin'){
             return true;
         }
 
-        function checkAccount(emails, password, sdt, type) {
+        function checkAccount(password, sdt, type) {
             if (!checkSdt(sdt) && sdt.trim() != "") {
                 showNotice('Số điện thoại của bạn không đúng định dạng!');
-                return false;
-            }
-            if (!checkEmail(emails) && emails.trim() != "") {
-                showNotice('Email của bạn không đúng định dạng!');
                 return false;
             }
             if (!checkPass(password) && password.trim() != "") {
@@ -364,7 +370,7 @@ else if($_SESSION['user']['loaiTk']!='admin'){
             </div>
         </div>
         <div id="activeRadio" class="d-flex justify-content-center">
-            
+
         </div>
         <div class="container" id="table">
 

@@ -89,4 +89,12 @@ class adminController
     public static function active($id, $active) {
         adminModel::editAccount($id, 'active', $active);
     }
+
+    public static function activeAll(){
+        adminModel::editAccountWithoutCondition('active', '1');
+    }
+
+    public static function unActiveAll(){
+        adminModel::editAccountWithoutCondition('active', '0');
+    }
 }

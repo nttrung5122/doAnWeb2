@@ -1,9 +1,8 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     header('Location: ./');
-}
-else if($_SESSION['user']['loaiTk']!='admin'){
+} else if ($_SESSION['user']['loaiTk'] != 'admin') {
     header('Location: ./');
 }
 ?>
@@ -47,12 +46,15 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                 },
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
-                    $('#activeRadio').html(`<select id="radio" class="form-select mt-3"  style="width: 50%;" aria-label="Default select example" onchange="searchRadio(this)">
+                    $('#activeRadio').html(`<button id="" type="button" class="btn btn-info mx-2" style="height:50%;"  data-bs-toggle="modal" data-bs-target="#form_signUp">Tạo tài khoản</button>
+                                            <select id="radio" class="form-select"  style="width: 50%;" aria-label="Default select example" onchange="searchRadio(this)">
                                                 <option disabled selected>Lọc tài khoản kích hoạt</option>
                                                 <option value="1">Đã kích hoạt</option>
                                                 <option value="0">Chưa kích hoạt</option>
                                                 <option value="2">Tất cả</option>
-                                            </select>`);
+                                            </select>
+                                            <button id="activeAll" type="button" class="btn btn-success mx-2" style="height:50%;" onclick="activeAll();">Kích hoạt tất cả</button>
+                                            <button id="unActiveAll" type="button" class="btn btn-outline-success mx-2" style="height:50%;" onclick="unActiveAll();">Bỏ kích hoạt tất cả</button>`);
                 }
             });
         }
@@ -122,10 +124,67 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                 window.location = './index.php';
 
             });
+            $('#activeAll').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'activeAll'
+                    },
+                    success: function(data) {
+                        renderAccountTable();
+                    }
+                })
+            })
+            $('#unActiveAll').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'unActiveAll'
+                    },
+                    success: function(data) {
+                        renderAccountTable();
+                    }
+                })
+            })
+            $("#btnFormSignUp").click(function(e) {
+                postDataSignUp();
+            });
         });
+        var CV = "gv";
+
+        function setCV(cv) {
+            CV = cv;
+        }
+
+        function activeAll() {
+            $.ajax({
+                type: 'POST',
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'activeAll'
+                },
+                success: function(data) {
+                    renderAccountTable();
+                }
+            })
+        }
+
+        function unActiveAll() {
+            $.ajax({
+                type: 'POST',
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'unActiveAll'
+                },
+                success: function(data) {
+                    renderAccountTable();
+                }
+            })
+        }
 
         function active(s) {
-            // var active = s.hasAttribute('checked');
             var id = s.name;
             var active = $('input[name="' + s.name + '"]').is(':checked') == true ? 1 : 0;
             $.ajax({
@@ -137,7 +196,7 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                     id: id,
                 },
                 success: function(data) {
-                    renderAccountTable();   
+                    const myTimeout = setTimeout(renderAccountTable, 200);
                 }
             })
         }
@@ -337,13 +396,93 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                 );
         }
 
+        function check() {
+            // return true;
+            let emails = $("#inputEmail").val();
+            let password = $("#inputPass1").val();
+            let password2 = $("#inputPass2").val();
+            let sdt = $("#inputSdt").val();
+            let ngaysinh = $("#inputDate").val();
+            let gioitinh = $("#inputGioitinh").val();
+            if (emails.trim() == "" || password.trim() == "" || sdt.trim() == "" || ngaysinh.trim() == "" || gioitinh.trim() == "") {
+                showNotice("Vui lòng nhập đầy đủ thông tin");
+                return false;
+            }
+            if (!checkSdt(sdt)) {
+                showNotice('Số điện thoại của bạn không đúng định dạng!');
+                return false;
+            }
+            if (!checkEmail(emails)) {
+                showNotice('Email của bạn không đúng định dạng!');
+                return false;
+            }
+            if (!checkPass(password)) {
+                showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
+                return false;
+            }
+            if (password != password2) {
+                showNotice("Mật khẩu không khớp vui lòng nhập lại");
+                return false;
+            }
+            if (!$('#checkCondition').is(':checked')) {
+                showNotice("Vui lòng đồng ý với các điều khoản của chúng tôi.")
+                return false;
+            }
+            return true;
+        }
+
         function checkAnswer(dapAn) {
             dapAn = dapAn.toLowerCase();
             return (dapAn == 'a' || dapAn == 'b' || dapAn == 'c' || dapAn == 'd');
         }
+
+        function postDataSignUp() {
+            let ten = $("#inputTen").val();
+            let emails = $("#inputEmail").val();
+            let password = $("#inputPass1").val();
+            let password2 = $("#inputPass2").val();
+            let sdt = $("#inputSdt").val();
+            let ngaysinh = $("#inputDate").val();
+            let gioitinh = $("#inputGioitinh").val();
+            console.log(ten);
+            console.log(emails);
+            console.log(password);
+            console.log(password2);
+            console.log(sdt);
+            console.log(gioitinh);
+            console.log(ngaysinh);
+            console.log(CV);
+            if (check()) {
+                console.log("ajax")
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'signUp',
+                        user: emails,
+                        hoten: ten,
+                        password: password,
+                        sdt: sdt,
+                        ngaysinh: ngaysinh,
+                        gioitinh: gioitinh,
+                        cv: CV,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        showNotice(JSON.parse(data)['notice']);
+                        if (JSON.parse(data)['status'] == 'success') {
+                            $('#form_signUp').modal('hide');
+                            window.location.reload();
+                            // $('#form_signIn').modal('show');
+                        }
+                    }
+                })
+            }
+        }
     </script>
     <?php
     include "./View/_partial/popup/notice.php";
+    include './View/form/formSignUp.php';
     ?>
 </head>
 
@@ -369,7 +508,7 @@ else if($_SESSION['user']['loaiTk']!='admin'){
                 <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">
             </div>
         </div>
-        <div id="activeRadio" class="d-flex justify-content-center">
+        <div id="activeRadio" class="d-flex justify-content-center mt-3">
 
         </div>
         <div class="container" id="table">

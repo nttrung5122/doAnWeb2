@@ -43,6 +43,12 @@ class adminModel
         DataProvider::executeSQL($sql);
     }
 
+    public static function editAccountWithoutCondition($field, $info)
+    {
+        $sql = 'UPDATE TAIKHOAN SET ' . $field . ' = "' . $info . '"';
+        DataProvider::executeSQL($sql);
+    }
+
     public static function editClass($id, $field, $info)
     {
         $sql = 'UPDATE LOP SET ' . $field . ' = "' . $info . '" WHERE maLop = "' . $id . '"';

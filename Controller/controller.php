@@ -142,6 +142,16 @@ if (isset($_POST['act'])){
             $data= adminController::active($_POST['id'], $_POST['active']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        case "activeAll":{
+            require './adminController.php';
+            $data= adminController::activeAll();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        case "unActiveAll":{
+            require './adminController.php';
+            $data= adminController::unActiveAll();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
         break;
         case "editClass":{
             require './adminController.php';

@@ -55,6 +55,8 @@ if (!isset($_SESSION['user'])) {
                                             </select>
                                             <button id="activeAll" type="button" class="btn btn-success mx-2" style="height:50%;" onclick="activeAll();">Kích hoạt tất cả</button>
                                             <button id="unActiveAll" type="button" class="btn btn-outline-success mx-2" style="height:50%;" onclick="unActiveAll();">Bỏ kích hoạt tất cả</button>`);
+                    split();
+                    slitItemIntoPage(currentPage);
                 }
             });
         }
@@ -68,7 +70,10 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
-                    $('#activeRadio').html('');
+                    $('#activeRadio').html(`
+                                            <button class="btn btn-info" href="#" data-bs-toggle="modal" data-bs-target="#form_createClass" ><i class="fas fa-plus-circle"></i> Tạo lớp</button>`);
+                    split();
+                    slitItemIntoPage(0);
                 }
             });
         }
@@ -82,7 +87,10 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
-                    $('#activeRadio').html('');
+                    $('#activeRadio').html(`
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#form_createQuestion" >Tạo câu hỏi</button>`);
+                    split();
+                    slitItemIntoPage(0);
                 }
             });
         };
@@ -91,6 +99,12 @@ if (!isset($_SESSION['user'])) {
             $('#class a').click(function() {
                 $('#class').find('a.active').addClass('link-dark');
                 $('#class').find('a.active').removeClass('active');
+                $(this).addClass('active');
+                $(this).removeClass('link-dark');
+            });
+            $('#pagesBtn').on("click", "a", function(event) {
+                $('#pagesBtn').find('a.active').addClass('link-dark');
+                $('#pagesBtn').find('a.active').removeClass('active');
                 $(this).addClass('active');
                 $(this).removeClass('link-dark');
             });
@@ -117,9 +131,7 @@ if (!isset($_SESSION['user'])) {
                     data: {
                         act: 'logOut'
                     },
-                    success: function(data) {
-                        console.log(data);
-                    }
+                    success: function(data) {}
                 })
                 window.location = './index.php';
 
@@ -151,6 +163,114 @@ if (!isset($_SESSION['user'])) {
             $("#btnFormSignUp").click(function(e) {
                 postDataSignUp();
             });
+            $("#btnCreateClass").click(function() {
+                let id = $("#txtIdClass").val().trim();
+                let name = $("#txtNameClass").val().trim();
+                let info = $("#txtInfoClass").val();
+                if (name == '') {
+                    showNotice("Vui lòng nhập tên lớp");
+                    return;
+                }
+                console.log(id);
+                console.log(name);
+                console.log(info);
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "createClass",
+                        id: id,
+                        name: name,
+                        info: info,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        showNotice(JSON.parse(data)['notice']);
+                        if (JSON.parse(data)['status'] == 'success') {
+                            // window.location.reload();
+                            $('#class').click();
+                        }
+                    }
+                })
+            });
+            $('#btnRandomCode').click(function() {
+                $("#txtIdClass").val(gen_Code(8));
+            });
+
+            //Create question
+            $('#btnCreateQuestion').click(function() {
+                let noidung = $('#txtQuestion').val();
+                let cauA = $('#txtCauA').val();
+                let cauB = $('#txtCauB').val();
+                let cauC = $('#txtCauC').val();
+                let cauD = $('#txtCauD').val();
+                let idGroup = $('#sltQuestionGroup').val();
+                let dapAn = $('#sltAnswer').val();
+                let tenNhom = $('#txtNewGroup').val();
+                console.log(noidung);
+                console.log(cauA);
+                console.log(cauB);
+                console.log(cauC);
+                console.log(cauD);
+                console.log(idGroup);
+                console.log(dapAn);
+                console.log(tenNhom);
+                if (noidung == "") {
+                    showNotice("Vui lòng nhập nội dung câu hỏi");
+                    return;
+                }
+                if (cauA == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án A");
+                    return;
+                }
+
+                if (cauB == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án B");
+                    return;
+                }
+
+                if (cauC == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án C");
+                    return;
+                }
+
+                if (cauD == "") {
+                    showNotice("Vui lòng nhập nội dung đáp án D");
+                    return;
+                }
+                if (idGroup == null) {
+                    showNotice("Vui lòng chọn nhóm câu hỏi");
+                    return;
+                }
+                if (idGroup == "newGroup" && tenNhom == "") {
+                    showNotice("Vui lòng nhập tên nhóm muốn tạo");
+                    return;
+                }
+
+                if (dapAn == null) {
+                    showNotice("Vui lòng chọn đáp án");
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'createQuestion',
+                        noidung: noidung,
+                        cauA: cauA,
+                        cauB: cauB,
+                        cauC: cauC,
+                        cauD: cauD,
+                        idGroup: idGroup,
+                        tenNhom: tenNhom,
+                        dapAn: dapAn,
+                    },
+                    success: function(data) {
+                        showNotice(JSON.parse(data)['notice']);
+                        $('#question').click();
+                    }
+                })
+            })
         });
         var CV = "gv";
 
@@ -213,7 +333,14 @@ if (!isset($_SESSION['user'])) {
                     typeAdmin: type,
                 },
                 success: function(data) {
-                    $('#table').html(JSON.parse(data));
+                    var type = $('#table-type').name;
+                    if (type == 'Account_Modal') {
+                        renderAccountTable();
+                    } else if (type == 'Class_Modal') {
+                        renderClassTable();
+                    } else {
+                        renderQuestionTable();
+                    }
                 }
             });
         }
@@ -261,8 +388,7 @@ if (!isset($_SESSION['user'])) {
                     email: email,
                 },
                 success: function(data) {
-                    console.log(data);
-                    $('#table').html(JSON.parse(data));
+                    renderClassTable();
                 }
             });
         };
@@ -284,8 +410,7 @@ if (!isset($_SESSION['user'])) {
                         dapAn: dapAn,
                     },
                     success: function(data) {
-                        console.log(data);
-                        $('#table').html(JSON.parse(data));
+                        renderQuestionTable();
                     }
                 });
             }
@@ -321,7 +446,6 @@ if (!isset($_SESSION['user'])) {
 
         function searchRadio(loai) {
 
-            console.log(loai.value);
 
             // tạo biến
             var filterByradio, table, tr, td, i, txtValue;
@@ -335,11 +459,12 @@ if (!isset($_SESSION['user'])) {
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[6];
                 if (loai.value == 2) {
-                    tr[i].style.display = "";
+                    // tr[i].style.display = "";
+                    split();
+                    slitItemIntoPage(0);
                     continue;
                 }
                 if (td) {
-                    console.log(td.childNodes[0].childNodes[0].hasAttribute('checked') == true ? 1 : 0);
                     txtValue = td.childNodes[0].childNodes[0].hasAttribute('checked') == true ? 1 : 0;
                     if (txtValue == loai.value) {
                         tr[i].style.display = "";
@@ -348,6 +473,58 @@ if (!isset($_SESSION['user'])) {
                     }
                 }
             }
+        }
+
+        const itemPerPage = 10;
+        var currentPage = 0;
+
+        function split() {
+            var table = document.getElementById("table-type");
+            var tr = table.getElementsByTagName("tr");
+            var totalItems = tr.length - 1;
+            var totalPages = Math.ceil(totalItems / itemPerPage / 2);
+            var s = '';
+            for (var i = 0; i < totalPages; i++) {
+                if (i == 0) {
+                    s += '<li class="page-item"><a class="page-link active text-white" onclick="slitItemIntoPage(' + i + ')" href="#">' + (i + 1) + '</a></li>';
+                } else {
+                    s += '<li class="page-item"><a class="page-link" onclick="slitItemIntoPage(' + i + ')" href="#">' + (i + 1) + '</a></li>';
+                }
+            }
+            $('#pagesBtn').html(s);
+        }
+
+        function getTotalItemsForSearch() {
+            var table = document.getElementById("table-type");
+            var tr = table.getElementsByTagName("tr");
+            var totalItems = 0;
+            for (var i = 0; i < tr.length; i++) {
+                if (tr[i].style.display == "none") {
+                    continue;
+                }
+                totalItems++;
+            }
+            return totalItems;
+        }
+
+        function slitItemIntoPage(page) {
+            currentPage = page;
+            var table = document.getElementById("table-type");
+            var tr = table.getElementsByTagName("tr");
+            var totalItems = tr.length;
+            var index = (page) * itemPerPage;
+            for (var i = 1; i < totalItems; i++) {
+                if (i >= index * 2 && i <= (index + itemPerPage) * 2) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+            $('#pagesBtn').find('a.active').removeClass('text-white');
+            $('#pagesBtn').find('a.active').removeClass('active');
+            var a = document.getElementById('pagesBtn').childNodes[currentPage].childNodes[0];
+            a.classList.add("active");
+            a.classList.add("text-white");
         }
 
         function checkQuestion(dapAn) {
@@ -444,16 +621,7 @@ if (!isset($_SESSION['user'])) {
             let sdt = $("#inputSdt").val();
             let ngaysinh = $("#inputDate").val();
             let gioitinh = $("#inputGioitinh").val();
-            console.log(ten);
-            console.log(emails);
-            console.log(password);
-            console.log(password2);
-            console.log(sdt);
-            console.log(gioitinh);
-            console.log(ngaysinh);
-            console.log(CV);
             if (check()) {
-                console.log("ajax")
                 $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
@@ -468,7 +636,6 @@ if (!isset($_SESSION['user'])) {
                         cv: CV,
                     },
                     success: function(data) {
-                        console.log(data);
                         showNotice(JSON.parse(data)['notice']);
                         if (JSON.parse(data)['status'] == 'success') {
                             $('#form_signUp').modal('hide');
@@ -479,9 +646,40 @@ if (!isset($_SESSION['user'])) {
                 })
             }
         }
+
+        function gen_Code(length, special) {
+            let iteration = 0;
+            let password = "";
+            let randomNumber;
+            if (special == undefined) {
+                var special = false;
+            }
+            while (iteration < length) {
+                randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
+                if (!special) {
+                    if ((randomNumber >= 33) && (randomNumber <= 47)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 58) && (randomNumber <= 64)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 91) && (randomNumber <= 96)) {
+                        continue;
+                    }
+                    if ((randomNumber >= 123) && (randomNumber <= 126)) {
+                        continue;
+                    }
+                }
+                iteration++;
+                password += String.fromCharCode(randomNumber);
+            }
+            return password;
+        }
     </script>
     <?php
     include "./View/_partial/popup/notice.php";
+    include "./View/form/form_create_class.php";
+    include "./View/form/form_create_question.php";
     include './View/form/formSignUp.php';
     ?>
 </head>
@@ -514,6 +712,11 @@ if (!isset($_SESSION['user'])) {
         <div class="container" id="table">
 
         </div>
+        <nav aria-label="Page navigation example">
+            <ul id="pagesBtn" class="pagination justify-content-center">
+
+            </ul>
+        </nav>
     </div>
 
 </body>

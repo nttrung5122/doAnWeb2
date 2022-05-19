@@ -12,7 +12,14 @@ function head($currentPage)
         <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="width: 140px;" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>';
     } else {
         $username = $_SESSION['user'][3];
-        $headerRight = '<li class="nav-item"><a class="nav-link fs-5 text-nowrap" href="#">Thông Báo</a></li>
+        $headerRight = '<li class="nav-item dropstart">
+                            <a href="#" class="nav-link fs-5 text-nowrap dropdown-toggle" id="announcement" data-bs-toggle="dropdown" aria-expanded="false">Thông Báo' . createBadgeAnnouncement(3) . '</a>
+                            <ul class="dropdown-menu overflow-auto" aria-labelledby="announcement" style="height:200px;">
+                                ' . createAnnouncement('Lớp 1', 'Kiểm tra giữa kì Kiểm tra giữa kì Kiểm tra giữa kì Kiểm tra giữa kì Kiểm tra giữa kì', 'Thứ 4') . '
+                                ' . createAnnouncement('Lớp 1', 'Kiểm tra giữa kì', 'Thứ 4') . '
+                                ' . createAnnouncement('Lớp 1', 'Kiểm tra giữa kì', 'Thứ 4') . '
+                            </ul>
+                        </li>
         <li class="nav-item dropstart">
             <a class="nav-link fs-5 text-nowrap dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 ' . $username . '
@@ -35,7 +42,7 @@ function head($currentPage)
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav gap-3">
-                        '. createLinkAndButton($currentPage) .'
+                        ' . createLinkAndButton($currentPage) . '
                         ' . $headerRight . '
                     </ul>
                 </div>
@@ -67,25 +74,38 @@ function footer()
 function createLinkAndButton($currentPage)
 {
     global $homePage, $studentPage;
-    if ($currentPage == $homePage)
-    {
-        return'<li class="nav-item">
+    if ($currentPage == $homePage) {
+        return '<li class="nav-item">
                     <a class="nav-link fs-5 text-nowrap" href="./HomePage.php">Giới Thiệu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5 text-nowrap" href="#">Liên Lạc</a>
                 </li>';
-    }
-    else if ($currentPage == $studentPage)
-    {
+    } else if ($currentPage == $studentPage) {
         return '<li class="nav-item">
                     <a class="nav-link fs-5 text-nowrap" href="#"   data-bs-toggle="modal" data-bs-target="#form_findClass" ><i class="fas fa-plus-circle"></i> Tìm lớp</a>
                 </li>';
-    }
-    else 
-    {
+    } else {
         return '<li class="nav-item">
                     <a class="nav-link fs-5 text-nowrap" href="#" data-bs-toggle="modal" data-bs-target="#form_createClass" ><i class="fas fa-plus-circle"></i> Tạo lớp</a>
                 </li>';
     }
+}
+// tạo số thông báo kế bên chữ "Thông Báo"
+function createBadgeAnnouncement($badge)
+{
+    return '<span class="fs-5 badge text-secondary">' . $badge . '</span>';
+}
+//tạo nội dung từng mục của thông báo
+function createAnnouncement($title, $content, $time)
+{
+    return '<li>
+                <a href="#" class="dropdown-item list-group-item py-3" aria-current="true">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="mb-1">' . $title . '</strong>
+                        <small>' . $time . '</small>
+                    </div>
+                    <p class="small text-center">' . $content . '</p>
+                </a>
+            </li>';
 }

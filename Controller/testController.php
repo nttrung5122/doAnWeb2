@@ -105,6 +105,11 @@ class TestController{
         }
         TestModel::taoBaiLam($idTest,$email,round(($soCauDung/$tong)*10,2));
     }
+
+    public static function getTest($idTest){
+        $data=TestModel::getInfoTest($idTest);
+        return mysqli_fetch_array($data);
+    }   
 }
 
     // TestController::takeATest("54021");

@@ -272,6 +272,17 @@ if (isset($_POST['act'])){
             $data=ClassController::addListStudent($_POST['idClass'],$_POST['arrayStudentId']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "createNotice":{
+            require './classController.php';
+            $data=ClassController::createNotice($_POST['title'],$_POST['notice'],$_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        case "getTest":{
+            require './testController.php';
+            $date=TestController::getTest($_POST['idTest']);
+            echo json_encode($date,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }
 

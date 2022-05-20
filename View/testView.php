@@ -19,9 +19,15 @@ class TestView
     {
         $result = "";
         while ($row = mysqli_fetch_array($data)) {
+            $d=strtotime($row['ngayThi']);
+            $ngayThi=date('d-m-Y',$d);
             $result .= '        <div class="mt-4 border-top border-2" style="transform: rotate(0); cursor:pointer;">
             <a class="stretched-link" onclick="renderInfoTest(' . $row['maDe'] . ')"></a>
-            <p class="mt-3 fs-5 fw-bold">' . $row['tenDe'] . '</p>';
+            <div class="d-flex justify-content-between">
+                <p class="mt-3 fs-5 fw-bold">' . $row['tenDe'] . '</p>
+                <p class="mt-3 fs-7 fw-light">Thời gian làm bài: '.$ngayThi.' </p>
+            </div>
+            ';
             if ($row['diemtb'] != null) {
                 $diemtb = $row['diemtb'] * 10;
                 $result .=

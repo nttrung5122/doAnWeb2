@@ -108,4 +108,9 @@ class TestModel{
         return $data;
     }
 
+    public static function alterInfoTest($idTest,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi){
+        $sql = "UPDATE `bode` SET  `tenDe`='$nameTest',`thoiGianLamBai`='$thoiGianLamBai',`ngayThi`='$ngayThi',`daoCauHoi`='$daoCauHoi' WHERE bode.maDe='$idTest';";
+        $data = DataProvider::executeSQL($sql);
+    }
+
 }

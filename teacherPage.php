@@ -57,6 +57,10 @@ if (!isset($_SESSION['user'])) {
             renderContainerbankquestion();
             // renderBankQuestion();
 
+            // set time default for form create Test
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('ngayThi').value = now.toISOString().slice(0, -8);
 
         };
         $(document).ready(function() {
@@ -168,6 +172,10 @@ if (!isset($_SESSION['user'])) {
                 })
             });
             $('#btnSaveQuestionInTest').click(function() {
+                if(idTest==null){
+                    idTest =$('#idTestcurent').val();
+                }
+                console.log(idTest);
                 $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
@@ -450,8 +458,11 @@ if (!isset($_SESSION['user'])) {
                     // console.log(data);
                     $('#listQuestioninfrom').html(JSON.parse(data)['question']);
                     $('#sltGroupQuestionInFormCreateTest').html(JSON.parse(data)['groupQuestion']);
-                }
+                    for (var i = 0; i < questionArr.length; i++) {
+                        $('#' + questionArr[i]).attr('checked', 'checked');
 
+                    }
+                }
             })
         }
 
@@ -513,6 +524,7 @@ if (!isset($_SESSION['user'])) {
         }
 
         function showSettingTest(idTest) {
+            questionArr = [];
             renderSettingTest();
             $('#form_settingTest').modal('show');
         }
@@ -711,7 +723,7 @@ if (!isset($_SESSION['user'])) {
             $('#formShowtestscores').modal('show');
         }
 
-        function alterTest() {
+        function showFormaltertest() {
             let idTest = $('#idTestcurent').val();
             $.ajax({
                 type: "POST",
@@ -725,24 +737,56 @@ if (!isset($_SESSION['user'])) {
                     let infoTest = JSON.parse(data);
                     $('#txtNameTest_alter').val(infoTest['tenDe']);
                     $('#thoiGianLamBai_alter').val(infoTest['thoiGianLamBai']);
+                    let now = new Date();
+                    let thoiGianLamBai = Date.parse(infoTest['ngayThi']);
+                    if (now > thoiGianLamBai) {
+                        // $('.modal').modal('hide');
+                        showNotice("Không thể thay đổi do đã qua thời gian làm bài");
+                        $('#form_alterTest').modal('hide');
+                        $('#formShowtestscores').modal('show');
+                        return;
+                    }
                     console.log(infoTest['ngayThi']);
                     const offset = new Date().getTimezoneOffset() * 1000 * 60
                     const offsetDate = new Date(infoTest['ngayThi']).valueOf() - offset;
-                    const date = new Date(offsetDate).toISOString().slice(0,-1);
-                    $('input[name=daoCauHoi_alter][value='+infoTest['daoCauHoi']+']').prop("checked", true);
+                    const date = new Date(offsetDate).toISOString().slice(0, -1);
+                    $('input[name=daoCauHoi_alter][value=' + infoTest['daoCauHoi'] + ']').prop("checked", true);
                     $('#ngayThi_alter').val(date);
                 }
             })
         }
 
-        function alterInfoTest(){
+        function alterInfoTest() {
             let idTest = $('#idTestcurent').val();
-            let nameTest=$('#txtNameTest_alter').val();
-            let thoiGianlambai=$('#thoiGianLamBai_alter').val();
+            let nameTest = $('#txtNameTest_alter').val();
+            let thoiGianlambai = $('#thoiGianLamBai_alter').val();
+            let daoCauHoi = $('input[name="daoCauHoi_alter"]:checked').val();
+            let ngayThi = $('#ngayThi_alter').val();
             if (nameTest.trim() == "") {
-                    showNotice("Vui lòng nhập tên bài kiểm tra");
-                    return;
+                showNotice("Vui lòng nhập tên bài kiểm tra");
+                return;
             }
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "alterInfoTest",
+                    idTest: idTest,
+                    nameTest: nameTest,
+                    thoiGianlambai: thoiGianlambai,
+                    daoCauHoi: daoCauHoi,
+                    ngayThi: ngayThi,
+                },
+                success: function(data) {
+                    console.log(JSON.parse(data));
+                    questionArr = JSON.parse(data);
+                    renderListTest();
+                    renderSettingTest();
+                    $('.modal').modal('hide');
+                    $('#form_settingTest').modal('show');
+                }
+
+            })
         }
     </script>
 </head>

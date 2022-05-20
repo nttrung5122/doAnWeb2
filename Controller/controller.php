@@ -283,7 +283,11 @@ if (isset($_POST['act'])){
             $date=TestController::getTest($_POST['idTest']);
             echo json_encode($date,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "alterInfoTest":{
+            require './testController.php';
+            $data=TestController::alterInfoTest($_POST["idTest"],$_POST['nameTest'],$_POST["thoiGianlambai"],$_POST["ngayThi"],$_POST["daoCauHoi"]);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }
-
-?>

@@ -110,6 +110,16 @@ class TestController{
         $data=TestModel::getInfoTest($idTest);
         return mysqli_fetch_array($data);
     }   
+
+    public static function alterInfoTest($idTest,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi){
+        TestModel::alterInfoTest($idTest,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi);
+        $listQuestionsql=TestModel::getQuestionOfTest($idTest);
+        $listQuestion= array();
+        while($row=mysqli_fetch_array($listQuestionsql)){
+            $listQuestion[]=$row['maCau'];
+        }
+        return $listQuestion;
+    }
 }
 
     // TestController::takeATest("54021");

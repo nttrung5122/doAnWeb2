@@ -21,7 +21,7 @@
             <div class="modal-body">
                 <div class="position-relative p-2">
                     <!-- <div class="mx-auto">Thông tin cá nhân</div> -->
-                    <form class="position-relative" action="">
+                    <form class="position-relative was-validated" action="">
                         <!-- input text -->
                         <?php
                         FormBootstrap::horizontalInputrequired("text", "Họ và tên", "inputTen");

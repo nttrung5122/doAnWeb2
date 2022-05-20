@@ -12,7 +12,8 @@ class FormBootstrap
         <div class="row mb-3">
             <label for="' . $id . '" class="col-sm-2 col-form-label">' . $labelName . '</label>
             <div class="col-sm-10">
-                <input type="' . $inputType . '" class="form-control" id="' . $id . '">
+                <input type="' . $inputType . '" class="form-control" id="' . $id . '" required>
+                <div class="invalid-feedback">Vui lòng điền số điện thoại.</div>
             </div>
         </div>
         ';
@@ -26,9 +27,10 @@ class FormBootstrap
             <label for="' . $id . '" class="col-sm-2 col-form-label">' . $labelName . '</label>
             <div class="col-sm-10">
                 <input type="' . $inputType . '" class="form-control" id="' . $id . '" required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Vui lòng điền vào chỗ trống.</div>
             </div>
-            <div class="valid-feedback"></div>
-            <div class="invalid-feedback">Vui lòng điền vào chỗ trống.</div>
+            
         </div>
         ';
     }

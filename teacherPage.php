@@ -138,6 +138,9 @@ if (!isset($_SESSION['user'])) {
                 let ngayThi = $('#ngayThi').val();
                 let daoCauHoi = $('input[name="daoCauHoi"]:checked').val();
                 let idClass = $("#idClassCurent").val();
+                if (idClass == null) {
+                    idClass = infoClassCurent['maLop'];
+                }
                 let nameTest = $('#txtNameTest').val();
                 if (nameTest.trim() == "") {
                     showNotice("Vui lòng nhập tên bài kiểm tra");
@@ -224,11 +227,12 @@ if (!isset($_SESSION['user'])) {
                 showNotice("Vui lòng nhập tiêu đề");
                 return;
             }
-            let notice = $('#txtNotice').val();            
+            let notice = $('#txtNotice').val();
             let idClass = $("#idClassCurent").val();
-            // if (currentClass == null) {
-            //     currentClass = $("#idClassCurent").val();
-            // }
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
+            console.log(idClass);
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
@@ -244,13 +248,12 @@ if (!isset($_SESSION['user'])) {
                 }
             })
         }
-        var currentClass = null;
 
         function renderAnnounment() {
-            // if (currentClass == null) {
-            //     currentClass = $("#idClassCurent").val();
-            // }
             let idClass = $("#idClassCurent").val();
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
@@ -259,8 +262,8 @@ if (!isset($_SESSION['user'])) {
                     idClass: idClass,
                 },
                 success: function(data) {
-                    console.log(data);
-                    $('#body').html(JSON.parse(data));
+                    // console.log(data);
+                    $('#container').html(JSON.parse(data));
                 }
             });
         }
@@ -306,6 +309,9 @@ if (!isset($_SESSION['user'])) {
             let sep = /\r\n|\n/;
             let arrayId = listId.split(sep);
             let idClass = $("#idClassCurent").val();
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
             console.log(arrayId);
             console.log(idClass);
             $.ajax({
@@ -399,7 +405,11 @@ if (!isset($_SESSION['user'])) {
         }
 
         function renderMember() {
+            renderContainerInfoClass();
             let idClass = $("#idClassCurent").val();
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
             if (idClass == "")
                 return;
 
@@ -423,6 +433,9 @@ if (!isset($_SESSION['user'])) {
             if (!confirm('Bạn có chắc muốn xóa lớp này'))
                 return;
             let idClass = $("#idClassCurent").val();
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
             console.log(idClass);
             if (idClass == "")
                 return;
@@ -531,6 +544,9 @@ if (!isset($_SESSION['user'])) {
 
         function renderListTest() {
             let idClass = $("#idClassCurent").val();
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
             console.log(idClass);
             $.ajax({
                 type: "POST",
@@ -649,6 +665,7 @@ if (!isset($_SESSION['user'])) {
                     $("#idClass").html("Mã lớp: " + data['0']);
                     $("#soHs").html(data['soLuong']);
                     $("#idClassCurent").val(data['0']);
+                    console.log($('#idClassCurent').val());
                     // console.log(data["soLuongbaikt"]);
                     $("#soBaikt").html(data["soLuongbaikt"]);
                     renderListTest();
@@ -666,6 +683,16 @@ if (!isset($_SESSION['user'])) {
                 success: function(data) {
                     // console.log(data);
                     $('#container').html(JSON.parse(data));
+                    if (infoClassCurent != null) {
+                        $("#nameClass").html(infoClassCurent['tenLop']);
+                        $("#infoClass").html(infoClassCurent['ThongTin']);
+                        $("#idClass").html("Mã lớp: " + infoClassCurent['0']);
+                        $("#soHs").html(infoClassCurent['soLuong']);
+                        $("#idClassCurent").val(infoClassCurent['0']);
+                        console.log($('#idClassCurent').val());
+                        // console.log(data["soLuongbaikt"]);
+                        $("#soBaikt").html(infoClassCurent["soLuongbaikt"]);
+                    }
                 }
             })
         }
@@ -722,6 +749,9 @@ if (!isset($_SESSION['user'])) {
 
         function deleteStudent(idStudent) {
             let idClass = $("#idClassCurent").val();
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
@@ -741,6 +771,9 @@ if (!isset($_SESSION['user'])) {
         function showTest(idTest) {
             //  console.log(idTest);
             let idClass = $("#idClassCurent").val();
+            if (idClass == null) {
+                idClass = infoClassCurent['maLop'];
+            }
             $('#idTestcurent').val(idTest);
             $.ajax({
                 type: "POST",

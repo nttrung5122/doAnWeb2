@@ -272,7 +272,7 @@ if (!isset($_SESSION['user'])) {
 
         function editAnnouncement(btn) {
             var tieuDe = $('input[name="tieuDe' + btn.id + '"]').val();
-            var noiDung = $('input[name="noiDung' + btn.id + '"]').val();
+            var noiDung = $('textarea[name="noiDung' + btn.id + '"]').val();
             var thoiGian = $('input[name="thoiGian' + btn.id + '"]').val();
 
             $.ajax({

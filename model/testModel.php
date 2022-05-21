@@ -113,4 +113,11 @@ class TestModel{
         $data = DataProvider::executeSQL($sql);
     }
 
+    public static function getTestscores($idTest,$idClass){
+        // $sql = "SELECT taikhoan.mail,taikhoan.hoten,taikhoan.ngaysinh,bailam.diem FROM taikhoan,chitietlop LEFT JOIN bailam ON chitietlop.maTaiKhoan=bailam.maTaiKhoan AND bailam.maDe='$idTest' WHERE taikhoan.mail=chitietlop.maTaiKhoan and chitietlop.maLop='$idClass';";
+        $sql = "SELECT taikhoan.mail,taikhoan.hoten,taikhoan.ngaysinh,bailam.diem,bailam.maDe FROM taikhoan,chitietlop LEFT JOIN bailam ON chitietlop.maTaiKhoan=bailam.maTaiKhoan AND bailam.maDe='$idTest' WHERE taikhoan.mail=chitietlop.maTaiKhoan and chitietlop.maLop='$idClass';";
+        $data= DataProvider::executeSQL($sql);    
+        return $data;
+    }
+
 }

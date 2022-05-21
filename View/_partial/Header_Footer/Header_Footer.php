@@ -5,6 +5,15 @@ $teacherPage = "Teacher Page";
 function head($currentPage)
 {
     $headerRight = "";
+    if (isset($_SESSION['user'])) {
+        if ($_SESSION['user']['loaiTk'] == 'sv') {
+            $link = './studentPage.php';
+        } else if ($_SESSION['user']['loaiTk'] == 'gv') {
+            $link = './teacherPage.php';
+        } else {
+            $link = './Admin.php';
+        }
+    }
     // $username = "Toàn";
     if (!isset($_SESSION['user'])) {
         $headerRight = '
@@ -18,8 +27,7 @@ function head($currentPage)
                 ' . $username . '
             </a>
             <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
-                <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+                <li><a class="dropdown-item" href="./Profile.php">Hồ sơ</a></li>
                 <hr>
                 <li><a class="dropdown-item" href="#" id="btnLogOut">Đăng xuất</a></li>
             </ul>
@@ -27,7 +35,7 @@ function head($currentPage)
     }
     echo '<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="./HomePage.php">
+                <a class="navbar-brand" href="' . $link . '">
                     <img src="./Assets/img/Logo.png" alt="Avatar Logo" style="width:36px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +77,7 @@ function createLinkAndButton($currentPage)
     global $homePage, $studentPage;
     if ($currentPage == $homePage) {
         return '<li class="nav-item">
-                    <a class="nav-link fs-5 text-nowrap" href="./HomePage.php">Giới Thiệu</a>
+                    <a class="nav-link fs-5 text-nowrap" href="./index.php">Giới Thiệu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5 text-nowrap" href="#">Liên Lạc</a>

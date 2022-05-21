@@ -6,6 +6,12 @@
             $(modalID).modal('hide');
             // $('body').removeClass('modal-open');
         }
+
+        function hileNotificationSignUp()
+        {
+            let dangki = document.querySelector('.frmSignUp');
+            dangki.classList.remove('was-validated');
+        }
     </script>
 </head>
 
@@ -16,12 +22,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="popupLabel">Đăng ký</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="hileNotificationSignUp()"></button>
             </div>
             <div class="modal-body">
                 <div class="position-relative p-2">
                     <!-- <div class="mx-auto">Thông tin cá nhân</div> -->
-                    <form class="position-relative" action="">
+                    <form class="position-relative frmSignUp" action="">
                         <!-- input text -->
                         <?php
                         FormBootstrap::horizontalInputrequired("text", "Họ và tên", "inputTen");
@@ -70,7 +76,7 @@
                 <!-- data-bs-dismiss="modal" - đóng cửa sổ popup -->
                 <button type="button" class="btn btn-primary" id="btnFormSignUp">Đăng ký</button>
                 <button type="button" class="btn btn-success" data-bs-target="#form_signIn" data-bs-toggle="modal">Chuyển sang Đăng nhập</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="hileNotificationSignUp()">Thoát</button>
             </div>
         </div>
     </div>

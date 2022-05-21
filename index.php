@@ -136,9 +136,9 @@
 
         });
     });
-
     function check() {
-        // return true;
+        // return true; 
+        let dangki = document.querySelector('.frmSignUp');
         let emails = $("#inputEmail").val();
         let password = $("#inputPass1").val();
         let password2 = $("#inputPass2").val();
@@ -147,26 +147,32 @@
         let gioitinh = $("#inputGioitinh").val();
         if (emails.trim() == "" || password.trim() == "" || sdt.trim() == "" || ngaysinh.trim() == "" || gioitinh.trim() == "") {
             showNotice("Vui lòng nhập đầy đủ thông tin");
+            dangki.classList.add('was-validated');
             return false;
         }
         if (!checkSdt(sdt)) {
             showNotice('Số điện thoại của bạn không đúng định dạng!');
+            dangki.classList.add('was-validated');
             return false;
         }
         if (!checkEmail(emails)) {
             showNotice('Email của bạn không đúng định dạng!');
+            dangki.classList.add('was-validated');
             return false;
         }
         if (!checkPass(password)) {
             showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
+            dangki.classList.add('was-validated');
             return false;
         }
         if (password != password2) {
             showNotice("Mật khẩu không khớp vui lòng nhập lại");
+            dangki.classList.add('was-validated');
             return false;
         }
         if (!$('#checkCondition').is(':checked')) {
-            showNotice("Vui lòng đồng ý với các điều khoản của chúng tôi.")
+            showNotice("Vui lòng đồng ý với các điều khoản của chúng tôi.");
+            dangki.classList.add('was-validated');
             return false;
         }
         return true;
@@ -249,7 +255,7 @@
                     password: pass,
                 },
                 success: function(data) {
-                    // console.log(data);
+                    console.log(data);
                     console.log(JSON.parse(data));
                     showNotice(JSON.parse(data)['notice']);
                     if (JSON.parse(data)['status'] == 'success')

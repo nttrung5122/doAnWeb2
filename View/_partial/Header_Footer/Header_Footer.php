@@ -12,14 +12,7 @@ function head($currentPage)
         <button type="button" class="btn btn-outline-warning col-3 shadow fs-5" style="width: 140px;" data-bs-toggle="modal" data-bs-target="#form_signUp" >Đăng ký</button>';
     } else {
         $username = $_SESSION['user'][3];
-        $headerRight = '<li class="nav-item dropstart">
-                            <a href="#" class="nav-link fs-5 text-nowrap dropdown-toggle" id="announcement" data-bs-toggle="dropdown" aria-expanded="false">Thông Báo' . createBadgeAnnouncement(3) . '</a>
-                            <ul class="dropdown-menu overflow-auto" aria-labelledby="announcement" style="height:200px;">
-                                ' . createAnnouncement('Lớp 1', 'Kiểm tra giữa kì Kiểm tra giữa kì Kiểm tra giữa kì Kiểm tra giữa kì Kiểm tra giữa kì', 'Thứ 4') . '
-                                ' . createAnnouncement('Lớp 1', 'Kiểm tra giữa kì', 'Thứ 4') . '
-                                ' . createAnnouncement('Lớp 1', 'Kiểm tra giữa kì', 'Thứ 4') . '
-                            </ul>
-                        </li>
+        $headerRight = '
         <li class="nav-item dropstart">
             <a class="nav-link fs-5 text-nowrap dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 ' . $username . '

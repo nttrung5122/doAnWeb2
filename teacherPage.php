@@ -1,10 +1,9 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     header('Location: ./');
-}
-else if($_SESSION['user']['loaiTk']!='gv'){
+} else if ($_SESSION['user']['loaiTk'] != 'gv') {
     header('Location: ./');
 }
 ?>
@@ -58,6 +57,10 @@ else if($_SESSION['user']['loaiTk']!='gv'){
             renderContainerbankquestion();
             // renderBankQuestion();
 
+            // set time default for form create Test
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('ngayThi').value = now.toISOString().slice(0, -8);
 
         };
         $(document).ready(function() {
@@ -94,7 +97,7 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                 let id = $("#txtIdClass").val().trim();
                 let name = $("#txtNameClass").val().trim();
                 let info = $("#txtInfoClass").val();
-                if(name==''){
+                if (name == '') {
                     showNotice("Vui lòng nhập tên lớp");
                     return;
                 }
@@ -136,9 +139,9 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                 let daoCauHoi = $('input[name="daoCauHoi"]:checked').val();
                 let idClass = $("#idClassCurent").val();
                 let nameTest = $('#txtNameTest').val();
-                if(nameTest.trim()==""){
+                if (nameTest.trim() == "") {
                     showNotice("Vui lòng nhập tên bài kiểm tra");
-                    return ;
+                    return;
                 }
                 console.log(nameTest);
                 console.log(thoiGianLamBai);
@@ -169,6 +172,10 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                 })
             });
             $('#btnSaveQuestionInTest').click(function() {
+                if(idTest==null){
+                    idTest =$('#idTestcurent').val();
+                }
+                console.log(idTest);
                 $.ajax({
                     type: "POST",
                     url: "./Controller/controller.php",
@@ -198,19 +205,49 @@ else if($_SESSION['user']['loaiTk']!='gv'){
             $('#btnAddstudent').click(function() {
                 addListStudent();
             })
+            $('#btnCreatenotice').click(function() {
+                createNotice();
+            })
+            $('#btnAltertest').click(function() {
+                alterInfoTest();
+            })
 
         });
 
-        function addListStudent(){
-            let listId=$("#txtListstudent").val();
+
+        function createNotice() {
+            let title = $('#txtTitle').val().trim();
+            if (title === "") {
+                showNotice("Vui lòng nhập tiêu đề");
+                return;
+            }
+            let notice = $('#txtNotice').val();
+            let idClass = $("#idClassCurent").val();
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "createNotice",
+                    title: title,
+                    notice: notice,
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            })
+        }
+
+        function addListStudent() {
+            let listId = $("#txtListstudent").val();
             let sep = /\r\n|\n/;
-            let arrayId=listId.split(sep);
-            let idClass= $("#idClassCurent").val();
+            let arrayId = listId.split(sep);
+            let idClass = $("#idClassCurent").val();
             console.log(arrayId);
             console.log(idClass);
             $.ajax({
                 type: "POST",
-                url : "./Controller/controller.php",
+                url: "./Controller/controller.php",
                 data: {
                     act: "addListstudenttoclass",
                     arrayStudentId: JSON.stringify(arrayId),
@@ -226,97 +263,97 @@ else if($_SESSION['user']['loaiTk']!='gv'){
 
         function createQuestion() {
             let noidung = $('#txtQuestion').val();
-                let cauA = $('#txtCauA').val();
-                let cauB = $('#txtCauB').val();
-                let cauC = $('#txtCauC').val();
-                let cauD = $('#txtCauD').val();
-                let idGroup = $('#sltQuestionGroup').val();
-                let dapAn = $('#sltAnswer').val();
-                let tenNhom = $('#txtNewGroup').val();
-                console.log(noidung);
-                console.log(cauA);
-                console.log(cauB);
-                console.log(cauC);
-                console.log(cauD);
-                console.log(idGroup);
-                console.log(dapAn);
-                console.log(tenNhom);
-                if (noidung == "") {
-                    showNotice("Vui lòng nhập nội dung câu hỏi");
-                    return;
-                }
-                if (cauA == "") {
-                    showNotice("Vui lòng nhập nội dung đáp án A");
-                    return;
-                }
+            let cauA = $('#txtCauA').val();
+            let cauB = $('#txtCauB').val();
+            let cauC = $('#txtCauC').val();
+            let cauD = $('#txtCauD').val();
+            let idGroup = $('#sltQuestionGroup').val();
+            let dapAn = $('#sltAnswer').val();
+            let tenNhom = $('#txtNewGroup').val();
+            console.log(noidung);
+            console.log(cauA);
+            console.log(cauB);
+            console.log(cauC);
+            console.log(cauD);
+            console.log(idGroup);
+            console.log(dapAn);
+            console.log(tenNhom);
+            if (noidung == "") {
+                showNotice("Vui lòng nhập nội dung câu hỏi");
+                return;
+            }
+            if (cauA == "") {
+                showNotice("Vui lòng nhập nội dung đáp án A");
+                return;
+            }
 
-                if (cauB == "") {
-                    showNotice("Vui lòng nhập nội dung đáp án B");
-                    return;
-                }
+            if (cauB == "") {
+                showNotice("Vui lòng nhập nội dung đáp án B");
+                return;
+            }
 
-                if (cauC == "") {
-                    showNotice("Vui lòng nhập nội dung đáp án C");
-                    return;
-                }
+            if (cauC == "") {
+                showNotice("Vui lòng nhập nội dung đáp án C");
+                return;
+            }
 
-                if (cauD == "") {
-                    showNotice("Vui lòng nhập nội dung đáp án D");
-                    return;
-                }
-                if (idGroup == null) {
-                    showNotice("Vui lòng chọn nhóm câu hỏi");
-                    return;
-                }
-                if (idGroup == "newGroup" && tenNhom == "") {
-                    showNotice("Vui lòng nhập tên nhóm muốn tạo");
-                    return;
-                }
+            if (cauD == "") {
+                showNotice("Vui lòng nhập nội dung đáp án D");
+                return;
+            }
+            if (idGroup == null) {
+                showNotice("Vui lòng chọn nhóm câu hỏi");
+                return;
+            }
+            if (idGroup == "newGroup" && tenNhom == "") {
+                showNotice("Vui lòng nhập tên nhóm muốn tạo");
+                return;
+            }
 
-                if (dapAn == null) {
-                    showNotice("Vui lòng chọn đáp án");
-                    return;
+            if (dapAn == null) {
+                showNotice("Vui lòng chọn đáp án");
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'createQuestion',
+                    noidung: noidung,
+                    cauA: cauA,
+                    cauB: cauB,
+                    cauC: cauC,
+                    cauD: cauD,
+                    idGroup: idGroup,
+                    tenNhom: tenNhom,
+                    dapAn: dapAn,
+                },
+                success: function(data) {
+                    showNotice(JSON.parse(data)['notice']);
+                    renderBankQuestion();
                 }
-                $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'createQuestion',
-                        noidung: noidung,
-                        cauA: cauA,
-                        cauB: cauB,
-                        cauC: cauC,
-                        cauD: cauD,
-                        idGroup: idGroup,
-                        tenNhom: tenNhom,
-                        dapAn: dapAn,
-                    },
-                    success: function(data) {
-                        showNotice(JSON.parse(data)['notice']);
-                        renderBankQuestion();
-                    }
-                })
+            })
         }
 
-        function renderMember(){
+        function renderMember() {
             let idClass = $("#idClassCurent").val();
-                if (idClass == "")
-                    return;
+            if (idClass == "")
+                return;
 
-                $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'renderMember',
-                        idClass: idClass,
-                    },
-                    success: function(data) {
-                        // console.log(data);
-                        // console.log(JSON.parse(data));
-                        $("#content").html(JSON.parse(data));
-                        $("#right_content").html("");
-                    }
-                });
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderMember',
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    // console.log(JSON.parse(data));
+                    $("#content").html(JSON.parse(data));
+                    $("#right_content").html("");
+                }
+            });
         }
 
         function deleteClass() {
@@ -421,8 +458,11 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                     // console.log(data);
                     $('#listQuestioninfrom').html(JSON.parse(data)['question']);
                     $('#sltGroupQuestionInFormCreateTest').html(JSON.parse(data)['groupQuestion']);
-                }
+                    for (var i = 0; i < questionArr.length; i++) {
+                        $('#' + questionArr[i]).attr('checked', 'checked');
 
+                    }
+                }
             })
         }
 
@@ -440,6 +480,7 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                 success: function(data) {
                     // console.log(data);
                     $('#content').html(JSON.parse(data));
+                    $("#right_content").html("  ");
                 }
             })
         }
@@ -483,6 +524,7 @@ else if($_SESSION['user']['loaiTk']!='gv'){
         }
 
         function showSettingTest(idTest) {
+            questionArr = [];
             renderSettingTest();
             $('#form_settingTest').modal('show');
         }
@@ -614,14 +656,15 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                 }
             }
         }
-         function deleteStudent(idStudent){
+
+        function deleteStudent(idStudent) {
             let idClass = $("#idClassCurent").val();
             $.ajax({
                 type: "POST",
-                url : "./Controller/controller.php",
+                url: "./Controller/controller.php",
                 data: {
-                    act : "removeStudentsfromclass",
-                    mail:idStudent,
+                    act: "removeStudentsfromclass",
+                    mail: idStudent,
                     idClass: idClass,
                 },
                 success: function(data) {
@@ -630,16 +673,17 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                     renderMember();
                 }
             })
-         }
-         function showTest(idTest){
+        }
+
+        function showTest(idTest) {
             //  console.log(idTest);
             let idClass = $("#idClassCurent").val();
-
+            $('#idTestcurent').val(idTest);
             $.ajax({
                 type: "POST",
-                url : "./Controller/controller.php",
+                url: "./Controller/controller.php",
                 data: {
-                    act : "showTestscores",
+                    act: "showTestscores",
                     idTest: idTest,
                     idClass: idClass,
                 },
@@ -649,12 +693,12 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                     $('#formShowtestscores').modal('show');
                 }
             })
-         }
+        }
 
-         function showDetails(idStudent,idTest,diem){
+        function showDetails(idStudent, idTest, diem) {
             $.ajax({
                 type: "POST",
-                url : "./Controller/controller.php",
+                url: "./Controller/controller.php",
                 data: {
                     act: "showDetailstestscores",
                     idTest: idTest,
@@ -672,12 +716,78 @@ else if($_SESSION['user']['loaiTk']!='gv'){
                     $('#formShowdetailstestscores').modal('show');
                 }
             })
-         }
+        }
 
-         function cancelShowdetails(){
-             $('#formShowdetailstestscores').modal('hide');
-             $('#formShowtestscores').modal('show');
-         }
+        function cancelShowdetails() {
+            $('#formShowdetailstestscores').modal('hide');
+            $('#formShowtestscores').modal('show');
+        }
+
+        function showFormaltertest() {
+            let idTest = $('#idTestcurent').val();
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "getTest",
+                    idTest: idTest,
+                },
+                success: function(data) {
+                    console.log(data);
+                    let infoTest = JSON.parse(data);
+                    $('#txtNameTest_alter').val(infoTest['tenDe']);
+                    $('#thoiGianLamBai_alter').val(infoTest['thoiGianLamBai']);
+                    let now = new Date();
+                    let thoiGianLamBai = Date.parse(infoTest['ngayThi']);
+                    if (now > thoiGianLamBai) {
+                        // $('.modal').modal('hide');
+                        showNotice("Không thể thay đổi do đã qua thời gian làm bài");
+                        $('#form_alterTest').modal('hide');
+                        $('#formShowtestscores').modal('show');
+                        return;
+                    }
+                    console.log(infoTest['ngayThi']);
+                    const offset = new Date().getTimezoneOffset() * 1000 * 60
+                    const offsetDate = new Date(infoTest['ngayThi']).valueOf() - offset;
+                    const date = new Date(offsetDate).toISOString().slice(0, -1);
+                    $('input[name=daoCauHoi_alter][value=' + infoTest['daoCauHoi'] + ']').prop("checked", true);
+                    $('#ngayThi_alter').val(date);
+                }
+            })
+        }
+
+        function alterInfoTest() {
+            let idTest = $('#idTestcurent').val();
+            let nameTest = $('#txtNameTest_alter').val();
+            let thoiGianlambai = $('#thoiGianLamBai_alter').val();
+            let daoCauHoi = $('input[name="daoCauHoi_alter"]:checked').val();
+            let ngayThi = $('#ngayThi_alter').val();
+            if (nameTest.trim() == "") {
+                showNotice("Vui lòng nhập tên bài kiểm tra");
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "alterInfoTest",
+                    idTest: idTest,
+                    nameTest: nameTest,
+                    thoiGianlambai: thoiGianlambai,
+                    daoCauHoi: daoCauHoi,
+                    ngayThi: ngayThi,
+                },
+                success: function(data) {
+                    console.log(JSON.parse(data));
+                    questionArr = JSON.parse(data);
+                    renderListTest();
+                    renderSettingTest();
+                    $('.modal').modal('hide');
+                    $('#form_settingTest').modal('show');
+                }
+
+            })
+        }
     </script>
 </head>
 
@@ -693,6 +803,8 @@ else if($_SESSION['user']['loaiTk']!='gv'){
     include "./View/hienThiDiem/hienThiDiem.php";
     include "./View/chiTietdiem/chitietdiem.php";
     include "./View/form/form_addStudent.php";
+    include "./View/form/form_createNotice.php";
+    include "./View/form/form_alterTest.php";
     ?>
 
     <!-- Side Navigation -->

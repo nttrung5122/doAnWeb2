@@ -109,9 +109,10 @@ class ClassModel{
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
-
-    public static function addListStudent($idClass,$listIdstudent){
-
+    
+    public static function createNotice($title,$notice,$idClass){
+        $sql = "INSERT INTO `thongbao`(`idNotice`, `idClass`, `title`, `notice`, `date`) VALUES (null,'$idClass','$title','$notice',null);";
+        $data = DataProvider::executeSQL($sql);
     }
 
 }

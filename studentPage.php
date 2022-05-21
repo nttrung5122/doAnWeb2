@@ -195,7 +195,8 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                 },
                 success: function(data) {
                     // console.log(data);
-                    $("#table_test").html(JSON.parse(data));
+                    $("#content_center").html(JSON.parse(data));
+                    $("#content_left").html("");   
                 }
             })
         }
@@ -216,7 +217,7 @@ else if($_SESSION['user']['loaiTk']!='sv'){
 
         function renderInfoTestNoSubmit(maDe, btn) {
             console.log(maDe);
-            $('#table_test').find('button.active').removeClass('active');
+            $('#content_center').find('button.active').removeClass('active');
             $("#maDe" + maDe).addClass('active');
             $.ajax({
                 type: "POST",
@@ -227,14 +228,14 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                 },
                 success: function(data) {
                     // console.log(data);
-                    $("#info_test").html(JSON.parse(data));
+                    $("#content_left").html(JSON.parse(data));
                 }
             })
         }
 
         function renderInfoTestSubmited(maDe, btn) {
             console.log(maDe);
-            $('#table_test').find('button.active').removeClass('active');
+            $('#content_center').find('button.active').removeClass('active');
             $("#maDe" + maDe).addClass('active');
             $.ajax({
                 type: "POST",
@@ -245,7 +246,7 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                 },
                 success: function(data) {
                     // console.log(data);
-                    $("#info_test").html(JSON.parse(data));
+                    $("#content_left").html(JSON.parse(data));
                 }
             })
         }
@@ -425,6 +426,10 @@ else if($_SESSION['user']['loaiTk']!='sv'){
         function stop() {
             clearTimeout(timeout);
         }
+
+        function renderNotice(){
+            console.log("thông báo")
+        }
     </script>
 </head>
 
@@ -519,7 +524,7 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                                 <div class="col text-center">
                                     <p class=" fs-5 fw-bold">Bài kiểm tra</p>
 
-                                    <div class="list-group px-5" id="table_test">
+                                    <div class="list-group px-5" id="content_center">
                                         <button type="button" id="maDe111" class="list-group-item list-group-item-action active row d-flex justify-content-between" aria-current="true" onclick="renderInfoTest(111,this)">
                                             <div class="col">Bài kiểm tra giữa kì 23/4/2022</div>
                                             <div class="col">Chưa làm</div>
@@ -532,7 +537,7 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                                         <hr>
                                     </div>
                                 </div>
-                                <div class="col-4 border py-3" id="info_test">
+                                <div class="col-4 border py-3" id="content_left">
                                     <p class="text-center fs-5 fw-bold">Bài kiểm tra giữa kì:</p>
                                     <div class="">
                                         <p class="">Ngày làm bài:</p>

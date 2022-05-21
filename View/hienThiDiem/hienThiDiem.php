@@ -22,6 +22,8 @@
                 </table>
             </div>
             <div class="modal-footer">
+                <input type="hidden" name="" id="idTestcurent" value="">
+                <button type="button" class="btn btn-secondary" onclick="showFormaltertest()" data-bs-toggle="modal" data-bs-target="#form_alterTest" >Sửa đề</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Trở về</button>
             </div>
         </div>

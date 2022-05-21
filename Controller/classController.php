@@ -149,6 +149,12 @@ class ClassController{
         $data['notice']="Thêm sinh viên thành công";
         return $data;
     }
+
+    public static function createNotice($title,$notice,$idClass){
+        ClassModel::createNotice($title,$notice,$idClass);
+        $data['notice']="Thêm thông báo thành công";
+        return $data;
+    }
 }
     // echo ClassController::renderMember("5IabAbm4");
 

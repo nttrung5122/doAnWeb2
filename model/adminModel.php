@@ -2,6 +2,12 @@
 include '../model/dataProvider.php';
 class adminModel
 {
+    public static function getAccount($mail)
+    {
+        $sql = 'SELECT * FROM TAIKHOAN where mail = "'.$mail.'"';
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
     public static function getAllAccounts()
     {
         $sql = 'SELECT * FROM TAIKHOAN';

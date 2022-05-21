@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,12 +19,108 @@
             background-color: whitesmoke;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            $('#btnLogOut').click(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'logOut'
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                    }
+                });
+                window.location = './index.php';
+
+            });
+            $('#saveBasic').click(function() {
+                var name = $('#name').val();
+                var birth = $('#birth').val();
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'saveBasic',
+                        name: name,
+                        birth: birth,
+                    },
+                    success: function(data) {
+                        data = JSON.parse(data);
+                        $('#showName').html(data['hoten']);
+                        $('#showBirth').html(data['ngaysinh']);
+                        $('#name').val('');
+                        $('#birth').val('');
+                    }
+                });
+            });
+            $('#saveContact').click(function() {
+                var phone = $('#phone').val();
+                if (!checkSdt(phone)) {
+                    showNotice('Số điện thoại của bạn không đúng định dạng!');
+                    return false;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'saveContact',
+                        phone: phone,
+                    },
+                    success: function(data) {
+                        data = JSON.parse(data);
+                        $('#showPhone').html(data['sdt']);
+                        $('#phone').val('');
+                    }
+                });
+            });
+            $('#savePass').click(function() {
+                var pass1 = $('#pass1').val();
+                var pass2 = $('#pass2').val();
+                if (!checkPass(pass1)) {
+                    showNotice('Mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự');
+                    return false;
+                }
+                if (pass1 != pass2) {
+                    showNotice("Mật khẩu không khớp vui lòng nhập lại");
+                    return false;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'savePass',
+                        password: pass1,
+                    },
+                    success: function(data) {
+                        $('#pass1').val('');
+                        $('#pass2').val('');
+                        showNotice("Thay đổi mật khẩu thành công");
+                    }
+                });
+            });
+        });
+
+        function checkPass(pass) {
+            let pass_regex = /^[a-zA-Z0-9]{8,}$/;
+            return pass_regex.test(pass);
+        }
+
+        function checkSdt(sdt) {
+            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+            return vnf_regex.test(sdt);
+        }
+    </script>
 </head>
 
 <body>
     <!-- Header -->
-    <?php require("./View/_partial/Header_Footer/Header_Footer.php");
-    head($homePage); ?>
+    <?php
+    include "./View/_partial/popup/notice.php";
+    require("./View/_partial/Header_Footer/Header_Footer.php");
+    head($homePage);
+    ?>
 
     <!-- Content -->
     <div class="container p-5" style="margin-top:80px;">
@@ -52,7 +151,7 @@
                                     <p class="text-muted">Tên</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <p class="fw-bold">Nguyễn Phước Toàn</p>
+                                    <p id="showName" class="fw-bold"><?php echo $_SESSION['user']['hoten']; ?> </p>
                                 </div>
                                 <div class="col-md-1">
                                     <i class="fas fa-angle-right"></i>
@@ -60,7 +159,7 @@
                                 <a class="stretched-link" data-bs-toggle="collapse" href="#info1" role="button" aria-expanded="false" aria-controls="info1"></a>
                             </div>
                             <div class="collapse multi-collapse" id="info1">
-                                <input type="text" class="form-control" placeholder="Nhập tên mới">
+                                <input id="name" type="text" class="form-control" placeholder="Nhập tên mới">
                             </div>
                         </li>
                         <li class="list-group-item">
@@ -69,7 +168,7 @@
                                     <p class="text-muted">Ngày sinh</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <p class="fw-bold">10/07/2002</p>
+                                    <p id="showBirth" class="fw-bold"><?php echo $_SESSION['user']['ngaysinh']; ?></p>
                                 </div>
                                 <div class="col-md-1">
                                     <i class="fas fa-angle-right"></i>
@@ -77,7 +176,7 @@
                                 <a class="stretched-link" data-bs-toggle="collapse" href="#info2" role="button" aria-expanded="false" aria-controls="info2"></a>
                             </div>
                             <div class="collapse multi-collapse" id="info2">
-                                <input type="date" class="form-control">
+                                <input id="birth" type="date" class="form-control">
                             </div>
                         </li>
                         <li class="list-group-item">
@@ -86,20 +185,28 @@
                                     <p class="text-muted">Chức vụ</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <p class="fw-bold">Học sinh</p>
+                                    <p class="fw-bold"><?php
+                                                        if ($_SESSION['user']['loaiTk'] == 'gv') {
+                                                            echo 'Giảng viên';
+                                                        } else if ($_SESSION['user']['loaiTk'] == 'sv') {
+                                                            echo 'Sinh viên';
+                                                        } else {
+                                                            echo 'Admin';
+                                                        }
+                                                        ?></p>
                                 </div>
                                 <div class="col-md-1">
                                     <i class="fas fa-angle-right"></i>
                                 </div>
-                                <a class="stretched-link" data-bs-toggle="collapse" href="#info3" role="button" aria-expanded="false" aria-controls="info3"></a>
+                                <!-- <a class="stretched-link" data-bs-toggle="collapse" href="#info3" role="button" aria-expanded="false" aria-controls="info3"></a> -->
                             </div>
-                            <div class="collapse multi-collapse" id="info3">
+                            <!-- <div class="collapse multi-collapse" id="info3">
                                 <input type="text" class="form-control" placeholder="Nhập chức vụ mới">
-                            </div>
+                            </div> -->
                         </li>
                     </ul>
                     <div class="d-flex justify-content-end my-3">
-                        <button class="btn btn-primary px-4">Lưu</button>
+                        <button id="saveBasic" class="btn btn-primary px-4">Lưu</button>
                     </div>
                 </div>
             </div>
@@ -117,16 +224,16 @@
                                     <p class="text-muted">Email</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <p class="fw-bold">nguyenphuoctoan2002@gmail.com</p>
+                                    <p class="fw-bold"><?php echo $_SESSION['user']['mail']; ?></p>
                                 </div>
                                 <div class="col-md-1">
                                     <i class="fas fa-angle-right"></i>
                                 </div>
-                                <a class="stretched-link" data-bs-toggle="collapse" href="#info4" role="button" aria-expanded="false" aria-controls="info4"></a>
+                                <!-- <a class="stretched-link" data-bs-toggle="collapse" href="#info4" role="button" aria-expanded="false" aria-controls="info4"></a> -->
                             </div>
-                            <div class="collapse multi-collapse" id="info4">
+                            <!-- <div class="collapse multi-collapse" id="info4">
                                 <input type="email" class="form-control" placeholder="Nhập email mới">
-                            </div>
+                            </div> -->
                         </li>
                         <li class="list-group-item">
                             <div class="row" style="transform: rotate(0);">
@@ -134,7 +241,7 @@
                                     <p class="text-muted">Điện thoại</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <p class="fw-bold">0708738278</p>
+                                    <p id="showPhone" class="fw-bold"><?php echo $_SESSION['user']['sdt']; ?></p>
                                 </div>
                                 <div class="col-md-1">
                                     <i class="fas fa-angle-right"></i>
@@ -142,12 +249,12 @@
                                 <a class="stretched-link" data-bs-toggle="collapse" href="#info5" role="button" aria-expanded="false" aria-controls="info5"></a>
                             </div>
                             <div class="collapse multi-collapse" id="info5">
-                                <input type="tel" class="form-control" placeholder="Nhập số điện thoại mới">
+                                <input id="phone" type="tel" class="form-control" placeholder="Nhập số điện thoại mới">
                             </div>
                         </li>
                     </ul>
                     <div class="d-flex justify-content-end my-3">
-                        <button class="btn btn-primary px-4">Lưu</button>
+                        <button id="saveContact" class="btn btn-primary px-4">Lưu</button>
                     </div>
                 </div>
             </div>
@@ -174,13 +281,13 @@
                                 <a class="stretched-link" data-bs-toggle="collapse" href="#info6" role="button" aria-expanded="false" aria-controls="info6"></a>
                             </div>
                             <div class="collapse multi-collapse" id="info6">
-                                <input type="password" class="form-control" placeholder="Nhập mật khẩu mới">
-                                <input type="password" class="form-control mt-2" placeholder="Nhập lại mật khẩu mới">
+                                <input id="pass1" type="password" class="form-control" placeholder="Nhập mật khẩu mới">
+                                <input id="pass2" type="password" class="form-control mt-2" placeholder="Nhập lại mật khẩu mới">
                             </div>
                         </li>
                     </ul>
                     <div class="d-flex justify-content-end my-3">
-                        <button class="btn btn-primary px-4">Lưu</button>
+                        <button id="savePass" class="btn btn-primary px-4">Lưu</button>
                     </div>
                 </div>
             </div>

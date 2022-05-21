@@ -314,5 +314,23 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "saveBasic":{
+            require './profileController.php';
+            $data=profileController::saveBasic($_POST['name'], $_POST['birth']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "saveContact":{
+            require './profileController.php';
+            $data=profileController::saveContact($_POST['phone']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "savePass":{
+            require './profileController.php';
+            $data=profileController::savePass($_POST['password']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     } 
 }

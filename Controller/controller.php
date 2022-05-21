@@ -115,23 +115,23 @@ if (isset($_POST['act'])){
         }
         break;
         case "renderAnnounment":{
-            require_once './announcementController.php';
-            $data= announcementController::renderAnnouncement($_POST['idClass']);
+            require_once './classController.php';
+            $data= ClassController::renderAnnouncement($_POST['idClass']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
         case "editAnnouncement":{
             if (isset($_POST['id']) && isset($_POST['tieuDe']) && isset($_POST['noiDung']) && isset($_POST['thoiGian'])) {
 
-                require_once './announcementController.php';
-                announcementController::editAnnouncement($_POST['id'], $_POST['tieuDe'], $_POST['noiDung'], $_POST['thoiGian']);
+                require_once './classController.php';
+                ClassController::editAnnouncement($_POST['id'], $_POST['tieuDe'], $_POST['noiDung'], $_POST['thoiGian']);
                 echo json_encode($data,JSON_UNESCAPED_UNICODE);
             }   
         }
         break;
         case "deleteAnnouncement":{
-            require_once './announcementController.php';
-            $data=announcementController::deleteAnnouncement($_POST['id']);
+            require_once './classController.php';
+            $data=ClassController::deleteAnnouncement($_POST['id']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;

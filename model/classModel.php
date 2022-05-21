@@ -127,6 +127,7 @@ class ClassModel{
 
     public static function editAnnouncement($id, $field, $info)
     {
+        // $info=mysqli_real_escape_string($info);
         $sql = 'UPDATE thongbao SET ' . $field . ' = "' . $info . '" WHERE idNotice = "' . $id . '"';
         DataProvider::executeSQL($sql);
     }

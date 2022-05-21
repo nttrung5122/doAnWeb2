@@ -14,9 +14,9 @@ function sidebar($currentPage)
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a href="#" class="nav-link link-dark">
-                            <i class="fas fa-users"></i>
-                            Thành Viên
+                        <a href="#" class="nav-link link-dark"  onclick="renderNotice()">
+                            <i class="fas fa-bell"></i>
+                            Thông báo
                         </a>
                     </li>
                 
@@ -68,7 +68,7 @@ function sidebar($currentPage)
                     </li>
                    <li class="nav-item " >
                         <a href="#" name="thanhVien" id="btnRenderAnnounment" class="nav-link link-dark menuClass">
-                            <i class="fas fa-bullhorn"></i>
+                            <i class="fas fa-bell"></i>
                             Thông báo
                         </a>
                     </li>

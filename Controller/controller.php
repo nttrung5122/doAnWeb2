@@ -113,11 +113,13 @@ if (isset($_POST['act'])){
             $data= adminController::renderAccountTable();
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
         case "renderAnnounment":{
             require_once './announcementController.php';
             $data= announcementController::renderAnnouncement($_POST['idClass']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
         case "editAnnouncement":{
             if (isset($_POST['id']) && isset($_POST['tieuDe']) && isset($_POST['noiDung']) && isset($_POST['thoiGian'])) {
 
@@ -132,6 +134,7 @@ if (isset($_POST['act'])){
             $data=announcementController::deleteAnnouncement($_POST['id']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
         case "clickDelete":{
             require './adminController.php';
             $data=adminController::clickDelete($_POST['idAdmin'], $_POST['typeAdmin']);
@@ -160,11 +163,13 @@ if (isset($_POST['act'])){
             $data= adminController::active($_POST['id'], $_POST['active']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
         case "activeAll":{
             require './adminController.php';
             $data= adminController::activeAll();
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
         case "unActiveAll":{
             require './adminController.php';
             $data= adminController::unActiveAll();
@@ -308,5 +313,6 @@ if (isset($_POST['act'])){
             $data=TestController::alterInfoTest($_POST["idTest"],$_POST['nameTest'],$_POST["thoiGianlambai"],$_POST["ngayThi"],$_POST["daoCauHoi"]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
     } 
 }

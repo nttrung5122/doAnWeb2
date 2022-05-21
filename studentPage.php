@@ -105,6 +105,8 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                 $(this).removeClass('link-dark');
                 $('#background-content').addClass('d-none');
                 $('#main-content').removeClass('d-none');
+                $('#tabs').find('a.active').addClass('link-dark');
+                $('#tabs').find('a.active').removeClass('active');
                 $('#tabs li:first-child a').addClass('active');
                 $('#tabs a').removeClass('disabled');
             });

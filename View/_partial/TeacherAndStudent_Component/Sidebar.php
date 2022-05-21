@@ -14,9 +14,9 @@ function sidebar($currentPage)
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a href="#" class="nav-link link-dark"  onclick="renderNotice()">
-                            <i class="fas fa-users" ></i>
-                            Thông báo
+                        <a href="#" class="nav-link link-dark">
+                            <i class="fas fa-users"></i>
+                            Thành Viên
                         </a>
                     </li>
                 
@@ -66,18 +66,19 @@ function sidebar($currentPage)
                             Thành Viên
                         </a>
                     </li>
+                   <li class="nav-item " >
+                        <a href="#" name="thanhVien" id="btnRenderAnnounment" class="nav-link link-dark menuClass">
+                            <i class="fas fa-bullhorn"></i>
+                            Thông báo
+                        </a>
+                    </li>
                     <li class="nav-item ">
                         <a href="#" name="taoDeKiemTra" class="nav-link link-dark menuClass" data-bs-toggle="modal" data-bs-target="#form_createTest" >
 
                             <i class="fas fa-book"></i>
                             Tạo đề kiểm tra
                         </a>
-                    </li>                    <li class="nav-item ">
-                    <a href="#" name="taoThongbao" class="nav-link link-dark menuClass" data-bs-toggle="modal" data-bs-target="#form_createNotice" >
-                    <i class="fas fa-bell"></i>
-                        Tạo thông báo
-                    </a>
-                </li>
+                    </li>
                 </ul>';
     }
 }

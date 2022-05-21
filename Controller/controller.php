@@ -113,7 +113,25 @@ if (isset($_POST['act'])){
             $data= adminController::renderAccountTable();
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        case "renderAnnounment":{
+            require_once './announcementController.php';
+            $data= announcementController::renderAnnouncement($_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        case "editAnnouncement":{
+            if (isset($_POST['id']) && isset($_POST['tieuDe']) && isset($_POST['noiDung']) && isset($_POST['thoiGian'])) {
+
+                require_once './announcementController.php';
+                announcementController::editAnnouncement($_POST['id'], $_POST['tieuDe'], $_POST['noiDung'], $_POST['thoiGian']);
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            }   
+        }
         break;
+        case "deleteAnnouncement":{
+            require_once './announcementController.php';
+            $data=announcementController::deleteAnnouncement($_POST['id']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
         case "clickDelete":{
             require './adminController.php';
             $data=adminController::clickDelete($_POST['idAdmin'], $_POST['typeAdmin']);

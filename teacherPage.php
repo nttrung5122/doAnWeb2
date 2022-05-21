@@ -172,8 +172,8 @@ if (!isset($_SESSION['user'])) {
                 })
             });
             $('#btnSaveQuestionInTest').click(function() {
-                if(idTest==null){
-                    idTest =$('#idTestcurent').val();
+                if (idTest == null) {
+                    idTest = $('#idTestcurent').val();
                 }
                 console.log(idTest);
                 $.ajax({
@@ -211,6 +211,9 @@ if (!isset($_SESSION['user'])) {
             $('#btnAltertest').click(function() {
                 alterInfoTest();
             })
+            $('#btnRenderAnnounment').click(function() {
+                renderAnnounment();
+            })
 
         });
 
@@ -221,8 +224,11 @@ if (!isset($_SESSION['user'])) {
                 showNotice("Vui lòng nhập tiêu đề");
                 return;
             }
-            let notice = $('#txtNotice').val();
+            let notice = $('#txtNotice').val();            
             let idClass = $("#idClassCurent").val();
+            // if (currentClass == null) {
+            //     currentClass = $("#idClassCurent").val();
+            // }
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
@@ -234,8 +240,65 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     console.log(data);
+                    renderAnnounment();
                 }
             })
+        }
+        var currentClass = null;
+
+        function renderAnnounment() {
+            // if (currentClass == null) {
+            //     currentClass = $("#idClassCurent").val();
+            // }
+            let idClass = $("#idClassCurent").val();
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "renderAnnounment",
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#body').html(JSON.parse(data));
+                }
+            });
+        }
+
+        function editAnnouncement(btn) {
+            var tieuDe = $('input[name="tieuDe' + btn.id + '"]').val();
+            var noiDung = $('input[name="noiDung' + btn.id + '"]').val();
+            var thoiGian = $('input[name="thoiGian' + btn.id + '"]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "editAnnouncement",
+                    id: btn.name,
+                    tieuDe: tieuDe,
+                    noiDung: noiDung,
+                    thoiGian: thoiGian,
+                },
+                success: function(data) {
+                    renderAnnounment();
+                }
+            });
+        };
+
+        function deleteAnnouncement(btn) {
+            var id = btn.getAttribute('name');
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "deleteAnnouncement",
+                    id: id,
+                },
+                success: function(data) {
+                    renderAnnounment();
+                }
+            });
         }
 
         function addListStudent() {
@@ -821,7 +884,7 @@ if (!isset($_SESSION['user'])) {
 
     <!-- Content -->
 
-    <div style="margin-left: 280px; margin-top: 0px;">
+    <div id="body" style="margin-left: 280px; margin-top: 0px;">
         <div class="row" style="margin-left: 0; margin-right: 0;" id="container">
 
         </div>

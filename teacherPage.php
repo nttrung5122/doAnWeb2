@@ -244,6 +244,8 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     console.log(data);
+                    showNotice(JSON.parse(data)['notice']);
+                    $('.modal').modal('hide');
                     renderAnnounment();
                 }
             })
@@ -290,6 +292,8 @@ if (!isset($_SESSION['user'])) {
         };
 
         function deleteAnnouncement(btn) {
+            if (!confirm('Bạn có chắc muốn xóa thông báo này'))
+                return;
             var id = btn.getAttribute('name');
             $.ajax({
                 type: "POST",
@@ -748,6 +752,8 @@ if (!isset($_SESSION['user'])) {
         }
 
         function deleteStudent(idStudent) {
+            if (!confirm('Bạn có chắc muốn xóa học sinh này'))
+                return;
             let idClass = $("#idClassCurent").val();
             if (idClass == null) {
                 idClass = infoClassCurent['maLop'];

@@ -157,8 +157,3 @@ class ClassController{
     }
 }
     // echo ClassController::renderMember("5IabAbm4");
-
-
-
-
-?>

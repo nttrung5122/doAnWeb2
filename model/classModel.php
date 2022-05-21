@@ -48,10 +48,7 @@ class ClassModel{
     }
 
     public static function getClassforteacher($idClass){
-        $sql = "SELECT * FROM `lop`,taikhoan WHERE lop.maGiangVien=taikhoan.mail and `maLop`=\"$idClass\";";
-        // $sql = "SELECT *,COUNT(chitietlop.maTaiKhoan) as soLuong FROM lop LEFT JOIN chitietlop on lop.maLop=chitietlop.maLop WHERE `lop.maLop`=\"$idClass\" GROUP BY lop.maLop;";
-        // $sql = "SELECT * FROM `lop`,taikhoan WHERE lop.maGiangVien=taikhoan.mail and `maLop`=\"$idClass\";";
-        $sql = "SELECT *,COUNT(chitietlop.maTaiKhoan) as soLuong FROM lop LEFT JOIN chitietlop on lop.maLop=chitietlop.maLop WHERE lop.maLop='$idClass' GROUP BY lop.maLop;";
+        $sql = "SELECT lop.maLop,lop.tenLop,lop.ThongTin,lop.maGiangVien ,COUNT(chitietlop.maTaiKhoan) as soLuong FROM lop LEFT JOIN chitietlop on lop.maLop=chitietlop.maLop WHERE lop.maLop='$idClass' GROUP BY lop.maLop;";
         $data= DataProvider::executeSQL($sql);
         return $data;
     }

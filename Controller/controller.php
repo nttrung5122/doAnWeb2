@@ -296,6 +296,7 @@ if (isset($_POST['act'])){
             $data=ClassController::createNotice($_POST['title'],$_POST['notice'],$_POST['idClass']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
         case "getTest":{
             require './testController.php';
             $date=TestController::getTest($_POST['idTest']);

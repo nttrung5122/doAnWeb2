@@ -19,6 +19,7 @@ if (!isset($_SESSION['user'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <title>Giảng Viên</title>
     <style>
         .active {
@@ -888,6 +889,113 @@ if (!isset($_SESSION['user'])) {
                     $('#form_settingTest').modal('show');
                 }
 
+            })
+        }
+
+        function exportToExcel2(fileName, sheetName, myData) {
+            if (myData.length === 0) {
+                console.error('Chưa có data');
+                return;
+            }
+            let wb;
+            const ws = XLSX.utils.json_to_sheet(myData);
+            // console.log('ws', ws);
+            wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, sheetName);
+            console.log('exportToExcel', myData);
+            // for (i = 0; i < myData.length; i++) {
+                //     if (myData[i].Điểm != "Chưa làm")
+                //     {
+                // XLSX.utils.book_append_sheet(wb, ws, "1");
+                    
+            //     }
+            // }
+
+            console.log('wb', wb);
+            XLSX.writeFile(wb, `${fileName}.xlsx`);
+        }
+
+        function exportToExcel1(fileName, sheetName, table) {
+            let wb;
+            if (table && table !== '') {
+                wb = XLSX.utils.table_to_book($('#' + table)[0]);
+            }
+            console.log('wb', wb);
+            XLSX.writeFile(wb, `${fileName}.xlsx`);
+        }
+
+
+        function exportExcelscorce1() {
+            let idTest = $('#idTestcurent').val();
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "getTest",
+                    idTest: idTest,
+                },
+                success: function(data) {
+                    console.log(data);
+                    let infoTest = JSON.parse(data);
+                    console.log(idTest);
+                    exportToExcel1("Bảng điểm: " + infoTest['tenDe'], "bangDiem", "listTestscores");
+                }
+            })
+        }
+
+        function exportExcelscorce2() {
+            let idTest = $('#idTestcurent').val();
+            let idClass = infoClassCurent['maLop'];
+            console.log(idClass);
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "getTestscores",
+                    idTest: idTest,
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    console.log(JSON.parse(data));
+                    let infoTest = JSON.parse(data)['infoTest'];
+                    let scorce = JSON.parse(data)['scorce'];
+                    let myData = scorce.map((s) => {
+                        return {
+                            Email: s.mail,
+                            'Họ và Tên': s.hoten,
+                            'Ngày Sinh': s.ngaysinh,
+                            'Điểm': s.diem != null ? s.diem : "Chưa làm",
+                        }
+                    });
+                    console.log(myData);
+                    exportToExcel2("Bảng điểm: " + infoTest['maDe'], "Bảng Điểm", myData);
+                }
+            })
+        }
+
+        function exportMember(){
+            idClass= infoClassCurent['maLop'];
+            $.ajax({
+                type: "POST",
+                url : "./Controller/controller.php",
+                data: {
+                    act: "getStudentInClass",
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log(JSON.parse(data));
+                    let myData = JSON.parse(data).map((s) => {
+                        return {
+                            Email: s.mail,
+                            'Họ và Tên': s.hoTen,
+                            'Ngày Sinh': s.ngaysinh,
+                        }
+                    });
+                    console.log(myData);
+                    exportToExcel2("Danh sách học sinh lớp " +infoClassCurent['tenLop'], infoClassCurent['tenLop']+" - "+infoClassCurent['maLop'], myData);
+                }
             })
         }
     </script>

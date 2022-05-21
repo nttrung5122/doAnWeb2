@@ -279,19 +279,19 @@ if (isset($_POST['act'])){
         }
         break;
         case "showTestscores":{
-            require './classController.php';
-            $data=ClassController::showTestscores($_POST['idTest'],$_POST['idClass']);
+            require './testController.php';
+            $data=TestController::showTestscores($_POST['idTest'],$_POST['idClass']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
         case "showDetailstestscores":{
-            require './classController.php';
-            $data=ClassController::showDetailstestscores($_POST['idTest'],$_POST['idStudent']);
+            require './testController.php';
+            $data=TestController::showDetailstestscores($_POST['idTest'],$_POST['idStudent']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
         case "addListstudenttoclass":{
-            require './classController.php';
+            require './testController.php';
             $data=ClassController::addListStudent($_POST['idClass'],$_POST['arrayStudentId']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
@@ -332,5 +332,16 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "getTestscores":{
+            require './testController.php';
+            $data=testController::getTestscores($_POST['idTest'],$_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "getStudentInClass":{
+            require './classController.php';
+            $data=classController::getStudentInClass($_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }

@@ -120,6 +120,35 @@ class TestController{
         }
         return $listQuestion;
     }
+
+
+    public static function getTestscores($idTest,$idClass){
+        $data=TestModel::getTestscores($idTest,$idClass);
+        $listScores= array();
+        while($row=mysqli_fetch_array($data)){
+            $listScores[]=$row;
+        }
+        $result['scorce']=$listScores;
+        $result['infoTest']=TestController::getTest($idTest);
+        return $result;
+    }
+
+    public static function showTestscores($idTest,$idClass){
+        $data= TestModel::getTestscores($idTest,$idClass);
+        $result=TestView::showTestscores($data);
+        return $result;
+    }
+
+    public static function showDetailstestscores($idTest,$idStudent){
+        $answer= TestModel::getQuestionAndAnswerOfTest($idTest);
+        $listAnswer=array();
+        while ($row = mysqli_fetch_array($answer)){
+            $listAnswer[]=$row;
+        }
+        $baiLam=TestModel::getBaiLam($idTest,$idStudent);
+        $data=TestView::showDetailstestscores($listAnswer,$baiLam);
+        return $data;
+    }
 }
 
     // TestController::takeATest("54021");

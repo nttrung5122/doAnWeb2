@@ -66,7 +66,7 @@ class ClassModel{
     }  
 
     public static function getStudentInClass($idClass){
-        $sql = "SELECT hoTen,mail FROM chitietlop,taikhoan WHERE chitietlop.maTaiKhoan=taikhoan.mail AND maLop=\"$idClass\";";
+        $sql = "SELECT hoTen,mail,ngaysinh FROM chitietlop,taikhoan WHERE chitietlop.maTaiKhoan=taikhoan.mail AND maLop=\"$idClass\";";
         $data= DataProvider::executeSQL($sql);    
         return $data;
     }
@@ -88,12 +88,7 @@ class ClassModel{
         return $data;
     }
 
-    public static function getTestscores($idTest,$idClass){
-        // $sql = "SELECT taikhoan.mail,taikhoan.hoten,taikhoan.ngaysinh,bailam.diem FROM taikhoan,chitietlop LEFT JOIN bailam ON chitietlop.maTaiKhoan=bailam.maTaiKhoan AND bailam.maDe='$idTest' WHERE taikhoan.mail=chitietlop.maTaiKhoan and chitietlop.maLop='$idClass';";
-        $sql = "SELECT taikhoan.mail,taikhoan.hoten,taikhoan.ngaysinh,bailam.diem,bailam.maDe FROM taikhoan,chitietlop LEFT JOIN bailam ON chitietlop.maTaiKhoan=bailam.maTaiKhoan AND bailam.maDe='$idTest' WHERE taikhoan.mail=chitietlop.maTaiKhoan and chitietlop.maLop='$idClass';";
-        $data= DataProvider::executeSQL($sql);    
-        return $data;
-    }
+
 
     public static function getQuestionAndAnswerOfTest($idTest){
         $sql = "SELECT cauhoi_nganhang.noiDung, cauhoi_nganhang.maCau,cauhoi_nganhang.dapAn FROM chitietbode,cauhoi_nganhang WHERE chitietbode.maCau=cauhoi_nganhang.maCau and chitietbode.maBoDe='$idTest';";

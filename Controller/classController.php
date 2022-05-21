@@ -65,6 +65,15 @@ class ClassController{
         return $data;
     }
 
+    public static function getStudentInClass($idClass){
+        $data= ClassModel::getStudentInClass($idClass);
+        $listStudent=array();
+        while($row=mysqli_fetch_array($data)){
+            $listStudent[]=$row;
+        }
+        return $listStudent;
+    }
+
     public static function renderContainerInfoClass(){
         $data=ClassView::renderContainerInfoClass();
         return $data;
@@ -122,22 +131,7 @@ class ClassController{
         return $data;
     }
 
-    public static function showTestscores($idTest,$idClass){
-        $data= ClassModel::getTestscores($idTest,$idClass);
-        $result=ClassView::showTestscores($data);
-        return $result;
-    }
 
-    public static function showDetailstestscores($idTest,$idStudent){
-        $answer= ClassModel::getQuestionAndAnswerOfTest($idTest);
-        $listAnswer=array();
-        while ($row = mysqli_fetch_array($answer)){
-            $listAnswer[]=$row;
-        }
-        $baiLam=ClassModel::getBaiLam($idTest,$idStudent);
-        $data=ClassView::showDetailstestscores($listAnswer,$baiLam);
-        return $data;
-    }
 
     public static function addListStudent($idClass,$listIdstudent){
         $arrayStudent=json_decode($listIdstudent);

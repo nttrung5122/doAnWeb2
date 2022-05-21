@@ -155,5 +155,31 @@ class ClassController{
         $data['notice']="Thêm thông báo thành công";
         return $data;
     }
+
+    public static function renderAnnouncement($idClass)
+    {
+        $head = array('Mã thông báo', 'Mã lớp', 'Tiêu đề', 'Nội dung', 'Thời gian');
+        $data = ClassModel::getAllAnnouncements($idClass);
+        $result = ClassView::createTableAnnouncement($head, $data);
+        return $result;
+    }
+
+    public static function deleteAnnouncement($id) {
+        ClassModel::deleteAnnouncement($id);
+    }
+
+    public static function editAnnouncement($id, $tieuDe, $noiDung, $thoiGian)
+    {
+        if ($tieuDe != null) {
+            ClassModel::editAnnouncement($id, 'title', $tieuDe);
+        }
+        if ($noiDung != null) {
+            ClassModel::editAnnouncement($id, 'notice', $noiDung);
+        }
+        if ($thoiGian != null) {
+            ClassModel::editAnnouncement($id, 'date', $thoiGian);
+        }
+    }
+
 }
     // echo ClassController::renderMember("5IabAbm4");

@@ -31,7 +31,7 @@
                         <!-- input text -->
                         <?php
                         FormBootstrap::horizontalInputrequired("text", "Họ và tên", "inputTen");
-                        FormBootstrap::horizontalInputrequired("text", "Email", "inputEmail");
+                        FormBootstrap::horizontalInputrequired("email", "Email", "inputEmail");
                         FormBootstrap::horizontalInput("text", "Số điện thoại", "inputSdt");
                         FormBootstrap::horizontalInputrequired("password", "Nhập mật khẩu", "inputPass1");
                         FormBootstrap::horizontalInputrequired("password", "Nhập lại mật khẩu", "inputPass2");

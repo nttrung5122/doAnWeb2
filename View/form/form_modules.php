@@ -25,7 +25,7 @@ class FormBootstrap
         if($labelName == "Họ và tên")
             $type="Vui lòng nhập họ và tên";
         if($labelName == "Email")
-            $type="Vui lòng nhập Email và phải có @gmail.com";
+            $type="Vui lòng nhập Email và phải có dạng @example.com";
         if($labelName == "Nhập mật khẩu")
             $type="Vui lòng nhập mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự";
         if($labelName == "Nhập lại mật khẩu")

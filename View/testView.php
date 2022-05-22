@@ -109,31 +109,38 @@ class TestView
         $d=strtotime($data['ngayThi']);
         $ngayThi=date('d-m-Y',$d);
         $gioThi=date('h:i:s A',$d);
-        $result='<p class="text-center fs-5 fw-bold">'.$data['tenDe'].'</p>
-                <div class="">
-                    <p class="">Ngày làm bài: '.$ngayThi.'</p>
-                    <p class="">Giờ làm bài: '.$gioThi.'</p>
-
-                    <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
-                    <hr>
-                    <div class="text-center"><a href="#" class="btn btn-success text-center" onclick="takeATest(\''.$data['maDe'].'\')" >Làm bài</a></div>
+        $result='
+                <div class="border p-3">
+                    <p class="text-center fs-5 fw-bold">'.$data['tenDe'].'</p>
+                    <div class="">
+                        <p class="">Ngày làm bài: '.$ngayThi.'</p>
+                        <p class="">Giờ làm bài: '.$gioThi.'</p>
+                        
+                        <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
+                        <hr>
+                        <div class="text-center"><a href="#" class="btn btn-success text-center" onclick="takeATest(\''.$data['maDe'].'\')" >Làm bài</a></div>
+                    </div>
                 </div>';
-        return $result;
+                return $result;
     }
 
     public static function renderInfoTestSubmited($data){
         $d=strtotime($data['ngayThi']);
         $ngayThi=date('d-m-Y',$d);
         $gioThi=date('h:i:s A',$d);
-        $result='<p class="text-center fs-5 fw-bold">'.$data['tenDe'].'</p>
-        <div class="">
-            <p class="">Ngày làm bài: '.$ngayThi.'</p>
-            <p class="">Giờ làm bài: '.$gioThi.'</p>
-
-            <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
-            <hr>
-            <div class="text-center"><p >Điểm: '.$data['diem'].'</p></a></div>
-        </div>';
+        $result='
+        
+                <div class="border p-3">
+                    <p class="text-center fs-5 fw-bold">'.$data['tenDe'].'</p>
+                    <div class="">
+                        <p class="">Ngày làm bài: '.$ngayThi.'</p>
+                        <p class="">Giờ làm bài: '.$gioThi.'</p>
+                        
+                        <p class="">Thời gian làm bài: '.$data['thoiGianLamBai'].'</p>
+                        <hr>
+                        <div class="text-center"><p >Điểm: '.$data['diem'].'</p></a></div>
+                    </div>
+                </div>';
 return $result;
     }
 

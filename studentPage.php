@@ -196,6 +196,9 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     // console.log(data);
+                    $('#title').html("Bài kiểm tra");
+                    $('#content_left').removeClass('col-7');
+                    $('#content_left').addClass('col-4');
                     $("#content_center").html(JSON.parse(data));
                     $("#content_left").html("");
                 }
@@ -441,7 +444,11 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     // console.log(data);
-                    $('#body').html(JSON.parse(data));
+                    $('#title').html("Thông Báo");
+                    $('#content_center').html(JSON.parse(data));
+                    $('#content_left').removeClass('col-4');
+                    $('#content_left').addClass('col-7');
+                    $('#content_left').html("");
                 }
             })
         }
@@ -456,7 +463,7 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     // console.log(data);
-                    $('#annoucementContent').html(JSON.parse(data));
+                    $('#content_left').html(JSON.parse(data));
                 }
             })
         }
@@ -552,9 +559,9 @@ if (!isset($_SESSION['user'])) {
                         <div class="card py-2 ">
                             <div class="row px-2 ">
                                 <div class="col text-center">
-                                    <p class=" fs-5 fw-bold">Bài kiểm tra</p>
+                                    <p class=" fs-5 fw-bold" id="title" >Bài kiểm tra</p>
 
-                                    <div class="list-group px-5" id="content_center">
+                                    <div class="list-group px-5" style="max-height:55vh; overflow-y: auto" id="content_center">
                                         <button type="button" id="maDe111" class="list-group-item list-group-item-action active row d-flex justify-content-between" aria-current="true" onclick="renderInfoTest(111,this)">
                                             <div class="col">Bài kiểm tra giữa kì 23/4/2022</div>
                                             <div class="col">Chưa làm</div>
@@ -567,7 +574,7 @@ if (!isset($_SESSION['user'])) {
                                         <hr>
                                     </div>
                                 </div>
-                                <div class="col-4 border py-3" id="content_left">
+                                <div class="col-4 py-3" id="content_left">
                                     <p class="text-center fs-5 fw-bold">Bài kiểm tra giữa kì:</p>
                                     <div class="">
                                         <p class="">Ngày làm bài:</p>

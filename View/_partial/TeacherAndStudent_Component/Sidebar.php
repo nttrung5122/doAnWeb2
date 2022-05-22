@@ -8,7 +8,7 @@ function sidebar($currentPage)
     if ($currentPage == $studentPage) {
         echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link active" onclick="renderListTest()">
                             <i class="fas fa-chart-bar"></i>
                             Tổng Quan
                         </a>

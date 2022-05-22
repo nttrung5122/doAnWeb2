@@ -343,5 +343,18 @@ if (isset($_POST['act'])){
             $data=classController::getStudentInClass($_POST['idClass']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "renderStudentAnnounment":{
+            require './announcementController.php';
+            $data=announcementController::renderAnnounment($_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderAnnoucementContent":{
+            require './announcementController.php';
+            $data=announcementController::renderAnnoucementContent( $_POST['idAnnouncement']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     } 
 }

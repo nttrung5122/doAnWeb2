@@ -24,6 +24,10 @@
             <div class="modal-footer">
                 <!-- data-bs-dismiss="modal" - đóng cửa sổ popup -->
                 <button type="button" class="btn btn-primary" id="btnAddstudent">Thêm</button>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="input_dom_element"  >Upload</label>
+                        <input type="file" name="inputFile" class="form-control" onchange="handleFileAsync(this)" id="inputFileliststudent " accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                    </div>
             </div>
         </div>
     </div>

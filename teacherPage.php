@@ -200,6 +200,7 @@ if (!isset($_SESSION['user'])) {
                 })
             });
             $('#btnTongQuan').click(function() {
+                renderContainerInfoClass();
                 renderListTest();
 
             })
@@ -403,8 +404,17 @@ if (!isset($_SESSION['user'])) {
                     dapAn: dapAn,
                 },
                 success: function(data) {
+                    console.log(data);
                     showNotice(JSON.parse(data)['notice']);
                     renderBankQuestion();
+                    if (JSON.parse(data)['status'] == 'success') {
+                        $('#txtQuestion').val("");
+                        $('#txtCauA').val("");
+                        $('#txtCauB').val("");
+                        $('#txtCauC').val("");
+                        $('#txtCauD').val("");
+                        $('#inputNameGroup').css('display', 'none');
+                    }
                 }
             })
         }
@@ -904,10 +914,10 @@ if (!isset($_SESSION['user'])) {
             XLSX.utils.book_append_sheet(wb, ws, sheetName);
             console.log('exportToExcel', myData);
             // for (i = 0; i < myData.length; i++) {
-                //     if (myData[i].Điểm != "Chưa làm")
-                //     {
-                // XLSX.utils.book_append_sheet(wb, ws, "1");
-                    
+            //     if (myData[i].Điểm != "Chưa làm")
+            //     {
+            // XLSX.utils.book_append_sheet(wb, ws, "1");
+
             //     }
             // }
 
@@ -974,11 +984,11 @@ if (!isset($_SESSION['user'])) {
             })
         }
 
-        function exportMember(){
-            idClass= infoClassCurent['maLop'];
+        function exportMember() {
+            idClass = infoClassCurent['maLop'];
             $.ajax({
                 type: "POST",
-                url : "./Controller/controller.php",
+                url: "./Controller/controller.php",
                 data: {
                     act: "getStudentInClass",
                     idClass: idClass,
@@ -994,9 +1004,38 @@ if (!isset($_SESSION['user'])) {
                         }
                     });
                     console.log(myData);
-                    exportToExcel2("Danh sách học sinh lớp " +infoClassCurent['tenLop'], infoClassCurent['tenLop']+" - "+infoClassCurent['maLop'], myData);
+                    exportToExcel2("Danh sách học sinh lớp " + infoClassCurent['tenLop'], infoClassCurent['tenLop'] + " - " + infoClassCurent['maLop'], myData);
                 }
             })
+        }
+
+        async function handleFileAsync(e) {
+            // const file = e.target.files[0];
+            const file = e.files[0];
+            const data = await file.arrayBuffer();
+            /* data is an ArrayBuffer */
+            const workbook = XLSX.read(data);
+            console.log(workbook);
+            // console.log(workbook['SheetNames'][0]);
+            // console.log(workbook['Sheets'][workbook['SheetNames'][0]]);
+            // console.log(workbook['Sheets'][workbook['SheetNames'][0]]['A1']);
+            // console.log(workbook['Sheets'][workbook['SheetNames'][0]]['A1']['v']);
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            let textListStudent = "";
+            for (let i = 0; i < workbook['SheetNames'].length; i++) {
+                let sheet = workbook['Sheets'][workbook['SheetNames'][i]];
+                // console.log(sheet);
+                for (key in sheet) {
+                    // console.log(sheet[key]['v']);
+                    var email = sheet[key]['v'];
+                    if (filter.test(email)) {
+                        textListStudent += email + '\n';
+                    }
+                }
+            }
+            // console.log(textListStudent);
+            $('#txtListstudent').val(textListStudent);
+            /* DO SOMETHING WITH workbook HERE */
         }
     </script>
 </head>

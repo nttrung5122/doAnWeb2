@@ -513,7 +513,7 @@ if (!isset($_SESSION['user'])) {
     <div id="main-content" style="margin-left: 280px; margin-top: 80px;">
         <div class="row gap-2" style="margin-left: 0; margin-right: 0;">
             <div class="col-sm-0 mt-2 px-5">
-                <div id="body" class="col py-3">
+                <div class="col py-3">
 
                     <div class="row px-3">
                         <div class="card py-2">
@@ -548,7 +548,7 @@ if (!isset($_SESSION['user'])) {
                         </div>
                     </div>
 
-                    <div class="row px-3 mt-5">
+                    <div id="body" class="row px-3 mt-5">
                         <div class="card py-2 ">
                             <div class="row px-2 ">
                                 <div class="col text-center">

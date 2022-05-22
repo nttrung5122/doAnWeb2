@@ -39,7 +39,7 @@ class Announcement
     public static function createFirstAnnouncementContent($title, $data)
     {
         return '</ul>
-        <div id="annoucementContent" class="col-4 border py-3">
+        <div id="annoucementContent" class="col-6 border py-3">
             <p class="text-center fs-5 fw-bold">'.$title.'</p>
             <hr>
             <div>

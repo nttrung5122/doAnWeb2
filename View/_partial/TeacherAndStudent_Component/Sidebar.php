@@ -14,7 +14,7 @@ function sidebar($currentPage)
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a href="#" class="nav-link link-dark"  onclick="renderNotice()">
+                        <a href="#" class="nav-link link-dark"  onclick="renderAnnounment()">
                             <i class="fas fa-bell"></i>
                             Thông báo
                         </a>

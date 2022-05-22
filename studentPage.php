@@ -1,9 +1,8 @@
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     header('Location: ./');
-}
-else if($_SESSION['user']['loaiTk']!='sv'){
+} else if ($_SESSION['user']['loaiTk'] != 'sv') {
     header('Location: ./');
 }
 ?>
@@ -198,7 +197,7 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                 success: function(data) {
                     // console.log(data);
                     $("#content_center").html(JSON.parse(data));
-                    $("#content_left").html("");   
+                    $("#content_left").html("");
                 }
             })
         }
@@ -263,24 +262,24 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                     idTest: made,
                 },
                 success: function(data) {
-                    data=JSON.parse(data);
+                    data = JSON.parse(data);
                     // console.log(data);
-                    let now=new Date();
-                    let thoiGianLamBai=Date.parse(data['infoTest']['ngayThi']);
-                    if(now<thoiGianLamBai){
+                    let now = new Date();
+                    let thoiGianLamBai = Date.parse(data['infoTest']['ngayThi']);
+                    if (now < thoiGianLamBai) {
                         // $('.modal').modal('hide');
                         showNotice("Chưa tới thời gian làm bài");
                         return;
                     }
-                    m=parseInt(data['infoTest']['thoiGianLamBai'])-Math.round((now-thoiGianLamBai)/60000) + 1;
-                    s=0;        
-                    if(m<=0){
+                    m = parseInt(data['infoTest']['thoiGianLamBai']) - Math.round((now - thoiGianLamBai) / 60000) + 1;
+                    s = 0;
+                    if (m <= 0) {
                         // $('.modal').modal('hide');
                         showNotice("Đã quá thời gian làm bài");
                         return;
-                    }     
+                    }
                     // console.log(thoiGianLamBai);
-                    $("#idTest").val(data['infoTest']['maDe']); 
+                    $("#idTest").val(data['infoTest']['maDe']);
                     $('#phieuLamBai').html(data['html']['baiLam']);
                     $('#deThi').html(data['html']['deThi']);
                     $("#formDoTest").modal('show');
@@ -312,25 +311,25 @@ else if($_SESSION['user']['loaiTk']!='sv'){
 
             })
         }
-        
-        function submitTest(){
+
+        function submitTest() {
             stop();
-            let idTest=$('#idTest').val();
-            console.log("Nộp bài"+idTest);
+            let idTest = $('#idTest').val();
+            console.log("Nộp bài" + idTest);
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
                 data: {
-                    act:"getListQuestionInTest",
+                    act: "getListQuestionInTest",
                     idTest: idTest,
                 },
                 success: function(data) {
                     data = JSON.parse(data);
                     console.log(data.length);
                     // console.log(listQuestion.length);
-                    let listAnswer=getAnswer(data);
+                    let listAnswer = getAnswer(data);
                     console.log(listAnswer);
-                    chamBai(listAnswer,idTest);
+                    chamBai(listAnswer, idTest);
                 }
             })
 
@@ -338,7 +337,8 @@ else if($_SESSION['user']['loaiTk']!='sv'){
             //     window.location.reload();
             // },1000);
         }
-        function chamBai(listAnswer,idTest){
+
+        function chamBai(listAnswer, idTest) {
             $.ajax({
                 type: "POST",
                 url: "./Controller/controller.php",
@@ -352,26 +352,27 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                     $(".modal").modal('hide');
                     showNotice("Nộp bài thành công");
                     renderListTest();
-                }   
+                }
 
             })
         }
-        
-        function getAnswer(listQuestion){
-            let listAnswer=[];
+
+        function getAnswer(listQuestion) {
+            let listAnswer = [];
             console.log(listQuestion.length);
-            for(let i = 0; i < listQuestion.length; i++){
-                let luaChon=$('input[name="'+listQuestion[i]['maCau']+'"]:checked').val();
-                if($('input[name="'+listQuestion[i]['maCau']+'"]:checked').val()==null){
-                    luaChon="";
+            for (let i = 0; i < listQuestion.length; i++) {
+                let luaChon = $('input[name="' + listQuestion[i]['maCau'] + '"]:checked').val();
+                if ($('input[name="' + listQuestion[i]['maCau'] + '"]:checked').val() == null) {
+                    luaChon = "";
                 }
                 listAnswer.push({
-                    maCau:listQuestion[i]['maCau'],
-                    luaChon:luaChon,
+                    maCau: listQuestion[i]['maCau'],
+                    luaChon: luaChon,
                 });
             }
             return listAnswer;
         }
+
         function checkTheBox(name) {
             console.log(name);
             // bắt id của checkbox rùi check
@@ -429,8 +430,35 @@ else if($_SESSION['user']['loaiTk']!='sv'){
             clearTimeout(timeout);
         }
 
-        function renderNotice(){
-            console.log("thông báo")
+        function renderAnnounment() {
+            let idClass = infoClassCurent['maLop'];
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderStudentAnnounment',
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $('#body').html(JSON.parse(data));
+                }
+            })
+        }
+        function renderAnnoucementContent(btn) {
+            let idAnnouncement = btn.name;
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderAnnoucementContent',
+                    idAnnouncement: idAnnouncement,
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $('#annoucementContent').html(JSON.parse(data));
+                }
+            })
         }
     </script>
 </head>
@@ -482,10 +510,10 @@ else if($_SESSION['user']['loaiTk']!='sv'){
         </div>
     </div>
 
-    <div  id="main-content"  style="margin-left: 280px; margin-top: 80px;">
+    <div id="main-content" style="margin-left: 280px; margin-top: 80px;">
         <div class="row gap-2" style="margin-left: 0; margin-right: 0;">
             <div class="col-sm-0 mt-2 px-5">
-                <div class="col py-3">
+                <div id="body" class="col py-3">
 
                     <div class="row px-3">
                         <div class="card py-2">
@@ -555,7 +583,27 @@ else if($_SESSION['user']['loaiTk']!='sv'){
                     </div>
                 </div>
             </div>
-
+            <!-- <div class="card py-2">
+                <div class="row px-3">
+                    <div class="col-4 text-center">
+                        <p class="fs-5 bold">Thông Báo</p>
+                        <div class="list-group px-5">
+                            <button type="button" class="list-group-item list-group-item-action row d-flex justify-content-between active" aria-current="true">
+                                <div class="col">Báo 1</div>
+                                <div class="col">Thời gian</div>
+                            </button>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-8 border py-3">
+                        <p class="text-center fs-5 fw-bold">Báo 1</p>
+                        <div>
+                            <p>Nội dung:</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
 </body>

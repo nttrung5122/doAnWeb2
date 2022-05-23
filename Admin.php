@@ -688,7 +688,7 @@ if (!isset($_SESSION['user'])) {
     <!-- Header -->
     <?php
     require('./View/_partial/Header_Footer/Header_Footer.php');
-    head($homePage);
+    head($admin);
     ?>
 
     <!-- Side Navigation -->

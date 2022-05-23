@@ -119,7 +119,7 @@ session_start();
     <?php
     include "./View/_partial/popup/notice.php";
     require("./View/_partial/Header_Footer/Header_Footer.php");
-    head($homePage);
+    head($profile);
     ?>
 
     <!-- Content -->

@@ -818,7 +818,7 @@ if (!isset($_SESSION['user'])) {
                     idStudent: idStudent,
                 },
                 success: function(data) {
-                    // console.log(data);
+                    console.log(data);
                     console.log(JSON.parse(data));
                     $('#chiTietbailam').html(JSON.parse(data)['html']);
                     $('#soCaudung_formDetails').html(JSON.parse(data)['soCaudung']);
@@ -902,7 +902,7 @@ if (!isset($_SESSION['user'])) {
             })
         }
 
-        function exportToExcel2(fileName, sheetName, myData) {
+        function exportToExcel2(fileName, sheetName, myData,idTest) {
             if (myData.length === 0) {
                 console.error('Chưa có data');
                 return;
@@ -913,13 +913,35 @@ if (!isset($_SESSION['user'])) {
             wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, sheetName);
             console.log('exportToExcel', myData);
-            // for (i = 0; i < myData.length; i++) {
-            //     if (myData[i].Điểm != "Chưa làm")
-            //     {
-            // XLSX.utils.book_append_sheet(wb, ws, "1");
-
-            //     }
-            // }
+            for (i = 0; i < myData.length; i++) {
+                if (myData[i].Điểm != "Chưa làm") {
+                    email=myData[i].Email;
+                    $.ajax({
+                        type: "POST",
+                        url: "./Controller/controller.php",
+                        data: {
+                            act: "getDetailstestscores",
+                            Email: email,
+                            idTest:idTest,
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            data= JSON.parse(data);
+                            console.log(data);
+                            let dataTmp= new Map();
+                            for(key in data){
+                                console.log(key+" : "+ data[key]);
+                                dataTmp.set(key, data[key]);
+                            }
+                            let wsTmp=XLSX.utils.json_to_sheet(dataTmp);
+                            console.log('ws', wsTmp);
+                            XLSX.utils.book_append_sheet(wb, wsTmp, email);
+                            console.log(email);
+                            console.log(dataTmp);
+                        }
+                    })
+                }
+            }
 
             console.log('wb', wb);
             XLSX.writeFile(wb, `${fileName}.xlsx`);
@@ -973,13 +995,14 @@ if (!isset($_SESSION['user'])) {
                     let myData = scorce.map((s) => {
                         return {
                             Email: s.mail,
+                            'Mã sinh viên': s.maCanhan,
                             'Họ và Tên': s.hoten,
                             'Ngày Sinh': s.ngaysinh,
                             'Điểm': s.diem != null ? s.diem : "Chưa làm",
                         }
                     });
                     console.log(myData);
-                    exportToExcel2("Bảng điểm: " + infoTest['maDe'], "Bảng Điểm", myData);
+                    exportToExcel2("Bảng điểm: " + infoTest['maDe'], "Bảng Điểm", myData,infoTest['maDe']);
                 }
             })
         }
@@ -999,8 +1022,10 @@ if (!isset($_SESSION['user'])) {
                     let myData = JSON.parse(data).map((s) => {
                         return {
                             Email: s.mail,
+                            'Mã sinh viên': s.maCanhan,
                             'Họ và Tên': s.hoTen,
                             'Ngày Sinh': s.ngaysinh,
+
                         }
                     });
                     console.log(myData);

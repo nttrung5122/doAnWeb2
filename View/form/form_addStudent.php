@@ -18,7 +18,7 @@
             <div class="modal-body">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Nhập tài khoản học sinh tại đây" id="txtListstudent" style="height: 100px"></textarea>
-                    <label for="floatingTextarea2">Danh sách tài khoản</label>
+                    <label for="floatingTextarea2">Danh sách email</label>
                 </div>
             </div>
             <div class="modal-footer">

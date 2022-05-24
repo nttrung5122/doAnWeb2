@@ -148,6 +148,23 @@ session_start();
                         <li class="list-group-item">
                             <div class="row" style="transform: rotate(0);">
                                 <div class="col-md-3">
+                                    <p class="text-muted">Mã cá nhân</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <p id="showName" class="fw-bold"><?php echo $_SESSION['user']['maCanhan']; ?> </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <i class="fas fa-angle-right"></i>
+                                </div>
+                                <!-- <a class="stretched-link" data-bs-toggle="collapse" href="#info1" role="button" aria-expanded="false" aria-controls="info1"></a> -->
+                            </div>
+                            <!-- <div class="collapse multi-collapse" id="info1">
+                                <input id="name" type="text" class="form-control" placeholder="Nhập tên mới">
+                            </div> -->
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row" style="transform: rotate(0);">
+                                <div class="col-md-3">
                                     <p class="text-muted">Tên</p>
                                 </div>
                                 <div class="col-md-8">

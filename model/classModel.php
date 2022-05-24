@@ -66,7 +66,7 @@ class ClassModel{
     }  
 
     public static function getStudentInClass($idClass){
-        $sql = "SELECT hoTen,mail,ngaysinh FROM chitietlop,taikhoan WHERE chitietlop.maTaiKhoan=taikhoan.mail AND maLop=\"$idClass\";";
+        $sql = "SELECT hoTen,mail,ngaysinh,maCanhan FROM chitietlop,taikhoan WHERE chitietlop.maTaiKhoan=taikhoan.mail AND maLop=\"$idClass\";";
         $data= DataProvider::executeSQL($sql);    
         return $data;
     }

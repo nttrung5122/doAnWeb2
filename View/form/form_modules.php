@@ -30,6 +30,8 @@ class FormBootstrap
             $type="Vui lòng nhập mật khẩu không được chứa kí tự đặt biệt và phải hơn 8 kí tự";
         if($labelName == "Nhập lại mật khẩu")
             $type="Vui lòng nhập lại mật khẩu phải trùng khớp";
+        else
+            $type="Vui lòng nhập mã cá nhân";
         echo '
         <div class="row mb-3">
             <label for="' . $id . '" class="col-sm-2 col-form-label">' . $labelName . '</label>

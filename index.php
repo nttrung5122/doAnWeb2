@@ -199,6 +199,7 @@
     function postDataSignUp() {
         let ten = $("#inputTen").val();
         let emails = $("#inputEmail").val();
+        let maCn=$("#inputMacn").val();
         let password = $("#inputPass1").val();
         let password2 = $("#inputPass2").val();
         let sdt = $("#inputSdt").val();
@@ -226,6 +227,7 @@
                     ngaysinh: ngaysinh,
                     gioitinh: gioitinh,
                     cv: CV,
+                    maCn:maCn,
                 },
                 success: function(data) {
                     console.log(data);

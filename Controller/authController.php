@@ -3,9 +3,9 @@ include '../model/authModel.php';
 
 class AuthController {
 
-    static public function signUp($user, $password,$hoten,$ngaysinh,$sdt,$cv){
+    static public function signUp($user, $password,$maCn,$hoten,$ngaysinh,$sdt,$cv){
         if(!AuthModel::checkUsersExit($user)){
-            AuthModel::createUser($user,$password,$hoten,$ngaysinh,$sdt,$cv);
+            AuthModel::createUser($user,$password,$maCn,$hoten,$ngaysinh,$sdt,$cv);
             // echo json_decode("Tạo tài khoản thành công");
             $data['status']='success';
             $data['notice']="Tạo tài khoản thành công";

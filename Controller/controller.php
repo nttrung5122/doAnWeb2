@@ -3,7 +3,7 @@ if (isset($_POST['act'])){
     switch ($_POST['act']) {
         case "signUp":{
             require './authController.php';
-            $data=AuthController::signUp($_POST['user'],$_POST['password'],$_POST['hoten'],$_POST['ngaysinh'],$_POST['sdt'],$_POST['cv']);
+            $data=AuthController::signUp($_POST['user'],$_POST['password'],$_POST['maCn'],$_POST['hoten'],$_POST['ngaysinh'],$_POST['sdt'],$_POST['cv']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
             
         }
@@ -356,5 +356,10 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "getDetailstestscores":{
+            require './testController.php';
+            $data=testController::getDetailstestscores($_POST['idTest'], $_POST['Email']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }

@@ -149,6 +149,42 @@ class TestController{
         $data=TestView::showDetailstestscores($listAnswer,$baiLam);
         return $data;
     }
+
+    public static function getDetailstestscores($idTest,$idStudent){
+        $answer= TestModel::getQuestionAndAnswerOfTest($idTest);
+        $listAnswer=array();
+        while ($row = mysqli_fetch_array($answer)){
+            $listAnswer[]=$row;
+        }
+        $baiLam=TestModel::getBaiLam($idTest,$idStudent);
+        $soCaudung=0;
+        $soCausai=0;
+        $soCauchualam=0;
+        
+        while ($row = mysqli_fetch_array($baiLam)){
+            if($row['dapAnChon']==''){
+                $soCauchualam++;
+                $result[strval($row['maCau'])]='Chưa làm';
+            }else{
+                // $test++;
+                foreach($listAnswer as $answer){
+                    if($row['maCau']==$answer['maCau']){
+                        if($row['dapAnChon']==$answer['dapAn']){
+                            $soCaudung++;
+                            $result[strval($row['maCau'])]='Đúng';
+                        }else{
+                            $soCausai++;
+                            $result[strval($row['maCau'])]='Sai';
+                        }
+                    }
+                }
+            }
+        }
+        $result['soCausai']=$soCausai;
+        $result['soCaudung']=$soCaudung;
+        $result['soCauchualam']=$soCauchualam;
+        return $result;
+    }
 }
 
     // TestController::takeATest("54021");

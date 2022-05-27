@@ -361,5 +361,12 @@ if (isset($_POST['act'])){
             $data=testController::getDetailstestscores($_POST['idTest'], $_POST['Email']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "getDetialtest":{
+            require './testController.php';
+            $data=testController::getDetialtest($_POST['idTest']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     } 
 }

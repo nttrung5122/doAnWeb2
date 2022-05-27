@@ -120,4 +120,11 @@ class TestModel{
         return $data;
     }
 
+    public static function getDetialtest($idTest){
+        $sql = "SELECT chitietbode.maCau,cauhoi_nganhang.noiDung noiDungcauhoi,cauhoi_nganhang.dapAn,luachon.noiDung noiDungluachon FROM chitietbode,cauhoi_nganhang,luachon WHERE chitietbode.maBoDe='$idTest' and chitietbode.maCau=cauhoi_nganhang.maCau and cauhoi_nganhang.maCau=luachon.maCau and luachon.laDapAn=1;";
+        $data= DataProvider::executeSQL($sql);    
+        return $data;
+    }
+    
 }
+

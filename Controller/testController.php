@@ -177,15 +177,34 @@ class TestController{
                             $result[strval($row['maCau'])]='Sai';
                         }
                     }
+                    // if($row['maCau']==$answer['maCau']){
+                    //     $result[strval($row['maCau'])]['luaChon']=$row['dapAnChon'];
+                    //     if($row['dapAnChon']==$answer['dapAn']){
+                    //         $soCaudung++;
+                    //         $result[strval($row['maCau'])]['ketQua']='Đúng';
+                    //     }else{
+                    //         $soCausai++;
+                    //         $result[strval($row['maCau'])]['ketQua']='Sai';
+                    //     }
+                    // }
                 }
             }
         }
-        $result['soCausai']=$soCausai;
-        $result['soCaudung']=$soCaudung;
-        $result['soCauchualam']=$soCauchualam;
+        $result['Số câu sai']=$soCausai;
+        $result['Số câu đúng']=$soCaudung;
+        $result['Số câu chưa làm']=$soCauchualam;
         return $result;
+    }
+
+    public static function getDetialtest($idTest){
+        $dataSql=TestModel::getDetialtest($idTest);
+        $data=array();
+        while($row=mysqli_fetch_array($dataSql)){
+            $data[]=$row;
+        }
+        return $data;
     }
 }
 
-    // TestController::takeATest("54021");
+
 ?>

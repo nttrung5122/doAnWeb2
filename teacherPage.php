@@ -902,7 +902,7 @@ if (!isset($_SESSION['user'])) {
             })
         }
 
-        function exportToExcel2(fileName, sheetName, myData,idTest) {
+        async function exportToExcel2(fileName, sheetName, myData, idTest) {
             if (myData.length === 0) {
                 console.error('Chưa có data');
                 return;
@@ -913,35 +913,60 @@ if (!isset($_SESSION['user'])) {
             wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, sheetName);
             console.log('exportToExcel', myData);
-            for (i = 0; i < myData.length; i++) {
-                if (myData[i].Điểm != "Chưa làm") {
-                    email=myData[i].Email;
-                    $.ajax({
-                        type: "POST",
-                        url: "./Controller/controller.php",
-                        data: {
-                            act: "getDetailstestscores",
-                            Email: email,
-                            idTest:idTest,
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            data= JSON.parse(data);
-                            console.log(data);
-                            let dataTmp= new Map();
-                            for(key in data){
-                                console.log(key+" : "+ data[key]);
-                                dataTmp.set(key, data[key]);
+            if (idTest != null) {
+                console.log("idTest", idTest);
+                await $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: "getDetialtest",
+                        idTest: idTest,
+                        
+                    },
+                    success: function(data) {
+                        console.log(JSON.parse(data));
+                        let deThi = JSON.parse(data).map((d) => {
+                        return {
+                            "Mã câu hỏi": d.maCau,
+                            "Nội dung câu hỏi": d.noiDungcauhoi,
+                            "Đáp án": d.dapAn,
+                            "Nội dung đáp án" : d.noiDungluachon,
+                        };
+                    });
+                    const wsDethi = XLSX.utils.json_to_sheet(deThi);
+                    XLSX.utils.book_append_sheet(wb, wsDethi, "Chi tiết đề thi");
+                    }
+
+                })
+ 
+                for(i = 0; i < myData.length; i++) {
+                    if (myData[i].Điểm != "Chưa làm") {
+                        email = myData[i].Email;
+                        await $.ajax({
+                            type: "POST",
+                            url: "./Controller/controller.php",
+                            data: {
+                                act: "getDetailstestscores",
+                                Email: email,
+                                idTest: idTest,
+                            },
+                            success: function(data) {
+                                // console.log(data);
+                                data = JSON.parse(data);
+                                console.log("getDetailstestscores",data);
+            
+                                let detailsTestscores = Object.keys(data).map((key) => [String(key), data[key]]);
+                                console.log("detailsTestscores",detailsTestscores);
+                                let wsTmp = XLSX.utils.json_to_sheet(detailsTestscores);
+                                XLSX.utils.sheet_add_aoa(wsTmp, [["Chi tiết bài làm", ""]], { origin: "A1" });
+                                console.log('ws', wsTmp);
+                                XLSX.utils.book_append_sheet(wb, wsTmp, email);
+
                             }
-                            let wsTmp=XLSX.utils.json_to_sheet(dataTmp);
-                            console.log('ws', wsTmp);
-                            XLSX.utils.book_append_sheet(wb, wsTmp, email);
-                            console.log(email);
-                            console.log(dataTmp);
-                        }
-                    })
+                        })
+                    }
                 }
-            }
+            }   
 
             console.log('wb', wb);
             XLSX.writeFile(wb, `${fileName}.xlsx`);
@@ -1002,7 +1027,7 @@ if (!isset($_SESSION['user'])) {
                         }
                     });
                     console.log(myData);
-                    exportToExcel2("Bảng điểm: " + infoTest['maDe'], "Bảng Điểm", myData,infoTest['maDe']);
+                    exportToExcel2("Bảng điểm: " + infoTest['maDe'], "Bảng Điểm", myData, infoTest['maDe']);
                 }
             })
         }

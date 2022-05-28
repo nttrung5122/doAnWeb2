@@ -1126,7 +1126,7 @@ if (!isset($_SESSION['user'])) {
                 }
 
             })
-
+        }
         function hienThicheckbox(){
             $(".checkboxDelete,.btnDeleteList").toggle();
 

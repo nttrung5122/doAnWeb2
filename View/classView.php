@@ -23,13 +23,22 @@ class ClassView
     public static function renderMember($data)
     {
         $result = '
-        <div class="d-flex justify-content-end"><button type="button" class="btn btn-info mb-2" onclick="exportMember()" >Xuất danh sách học sinh</button></div>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-info mb-2 me-2" onclick="exportMember()" >Xuất danh sách học sinh</button>
+            <button type="button" class="btn btn-info mb-2 " onclick="delete_listStudent()" >Xóa danh sách học sinh</button>
+            
+        </div>
                 <div class="card "><div class="card-body scrollClass"><div class="">
+
+
                 ';
         while ($row = mysqli_fetch_array($data)) {
             $result .= ' 
-            <div class ="row">
-            <p class="card-text fs-4 col-8 ">' . $row['hoTen'] . '</p>
+            <div class ="row">  
+            <input type="checkbox" name="'.$row['mail'].'" onchange="taoMangxoahocsinh(this.name)" class="col-1">
+            <p class="card-text fs-4 col-7 ">' . $row['hoTen'] . '</p>
+            
+            
             
             <button class ="col-1 offset-3 btn btn-danger" onclick="deleteStudent(\''.$row['mail'].'\')"> Xóa</button>
             

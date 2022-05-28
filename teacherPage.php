@@ -420,6 +420,7 @@ if (!isset($_SESSION['user'])) {
         }
 
         function renderMember() {
+            studentArr_detele=[];
             renderContainerInfoClass();
             let idClass = $("#idClassCurent").val();
             if (idClass == null) {
@@ -921,25 +922,25 @@ if (!isset($_SESSION['user'])) {
                     data: {
                         act: "getDetialtest",
                         idTest: idTest,
-                        
+
                     },
                     success: function(data) {
                         console.log(JSON.parse(data));
                         let deThi = JSON.parse(data).map((d) => {
-                        return {
-                            "Mã câu hỏi": d.maCau,
-                            "Nội dung câu hỏi": d.noiDungcauhoi,
-                            "Đáp án": d.dapAn,
-                            "Nội dung đáp án" : d.noiDungluachon,
-                        };
-                    });
-                    const wsDethi = XLSX.utils.json_to_sheet(deThi);
-                    XLSX.utils.book_append_sheet(wb, wsDethi, "Chi tiết đề thi");
+                            return {
+                                "Mã câu hỏi": d.maCau,
+                                "Nội dung câu hỏi": d.noiDungcauhoi,
+                                "Đáp án": d.dapAn,
+                                "Nội dung đáp án": d.noiDungluachon,
+                            };
+                        });
+                        const wsDethi = XLSX.utils.json_to_sheet(deThi);
+                        XLSX.utils.book_append_sheet(wb, wsDethi, "Chi tiết đề thi");
                     }
 
                 })
- 
-                for(i = 0; i < myData.length; i++) {
+
+                for (i = 0; i < myData.length; i++) {
                     if (myData[i].Điểm != "Chưa làm") {
                         email = myData[i].Email;
                         await $.ajax({
@@ -953,12 +954,16 @@ if (!isset($_SESSION['user'])) {
                             success: function(data) {
                                 // console.log(data);
                                 data = JSON.parse(data);
-                                console.log("getDetailstestscores",data);
-            
+                                console.log("getDetailstestscores", data);
+
                                 let detailsTestscores = Object.keys(data).map((key) => [String(key), data[key]]);
-                                console.log("detailsTestscores",detailsTestscores);
+                                console.log("detailsTestscores", detailsTestscores);
                                 let wsTmp = XLSX.utils.json_to_sheet(detailsTestscores);
-                                XLSX.utils.sheet_add_aoa(wsTmp, [["Chi tiết bài làm", ""]], { origin: "A1" });
+                                XLSX.utils.sheet_add_aoa(wsTmp, [
+                                    ["Chi tiết bài làm", ""]
+                                ], {
+                                    origin: "A1"
+                                });
                                 console.log('ws', wsTmp);
                                 XLSX.utils.book_append_sheet(wb, wsTmp, email);
 
@@ -966,7 +971,7 @@ if (!isset($_SESSION['user'])) {
                         })
                     }
                 }
-            }   
+            }
 
             console.log('wb', wb);
             XLSX.writeFile(wb, `${fileName}.xlsx`);
@@ -1086,6 +1091,23 @@ if (!isset($_SESSION['user'])) {
             // console.log(textListStudent);
             $('#txtListstudent').val(textListStudent);
             /* DO SOMETHING WITH workbook HERE */
+        }
+        var studentArr_detele = [];
+
+        function taoMangxoahocsinh(maSinhvien) {
+            // console.log(macauhoi);
+            let flag=1;
+            for (let i = 0; i < studentArr_detele.length; i++) {
+                if (studentArr_detele[i] == maSinhvien) {
+                    studentArr_detele.splice(i, 1);
+                    flag=0;
+                }
+            }
+            if(flag==1){
+                studentArr_detele.push(maSinhvien);
+            }
+
+            console.log(studentArr_detele);
         }
     </script>
 </head>

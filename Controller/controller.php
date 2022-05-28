@@ -291,7 +291,7 @@ if (isset($_POST['act'])){
         }
         break;
         case "addListstudenttoclass":{
-            require './testController.php';
+            require './classController.php';
             $data=ClassController::addListStudent($_POST['idClass'],$_POST['arrayStudentId']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }

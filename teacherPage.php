@@ -1109,6 +1109,9 @@ if (!isset($_SESSION['user'])) {
 
             console.log(studentArr_detele);
         }
+        function hienThicheckbox(){
+            $(".checkboxDelete,.btnDeleteList").toggle();
+        }
     </script>
 </head>
 

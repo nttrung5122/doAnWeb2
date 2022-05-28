@@ -23,25 +23,21 @@ class ClassView
     public static function renderMember($data)
     {
         $result = '
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-info mb-2 me-2" onclick="exportMember()" >Xuất danh sách học sinh</button>
-            <button type="button" class="btn btn-info mb-2 " onclick="delete_listStudent()" >Xóa danh sách học sinh</button>
-            
+        <div class="d-flex justify-content-end" id="btnFunctionMember">
+            <button type="button" class="btn btn-primary mb-2 me-2" onclick="exportMember()" >Xuất danh sách học sinh</button>
+            <button type="button" class="btn btn-secondary mb-2 me-2 btnToggleDeleteList" onclick="hienThicheckbox()">Xóa theo danh sách</button>
+            <button type="button" class="btn btn-warning mb-2 btnDeleteList" onclick="delete_listStudent()" style="display: none;">Xóa</button>
         </div>
-                <div class="card "><div class="card-body scrollClass"><div class="">
-
-
-                ';
+        <div class="card "><div class="card-body scrollClass"><div class="">
+        ';
         while ($row = mysqli_fetch_array($data)) {
             $result .= ' 
-            <div class ="row">  
-            <input type="checkbox" name="'.$row['mail'].'" onchange="taoMangxoahocsinh(this.name)" class="col-1">
-            <p class="card-text fs-4 col-7 ">' . $row['hoTen'] . '</p>
-            
-            
-            
-            <button class ="col-1 offset-3 btn btn-danger" onclick="deleteStudent(\''.$row['mail'].'\')"> Xóa</button>
-            
+            <div class ="hstack gap-3">
+                <input type="checkbox" name="'.$row['mail'].'" onchange="taoMangxoahocsinh(this.name)" class="form-check-input checkboxDelete" style="display: none;">
+                <label class="form-check-label fs-4" for="">
+                ' . $row['hoTen'] . '
+                </label>
+                <button class ="col-1 offset-3 btn btn-danger ms-auto" onclick="deleteStudent(\''.$row['mail'].'\')"> Xóa</button>
             </div>
             <hr>
             ';

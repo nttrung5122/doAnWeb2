@@ -368,5 +368,10 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "delete_listStudent":{
+            require './classController.php';
+            $data=classController::delete_listStudent($_POST['listIdstudent'],$_POST['idClass']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }

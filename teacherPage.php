@@ -1109,6 +1109,24 @@ if (!isset($_SESSION['user'])) {
 
             console.log(studentArr_detele);
         }
+
+        function delete_listStudent(){
+            idClass = infoClassCurent['maLop'];
+            $.ajax({
+                type: "POST",
+                url : "./Controller/controller.php",
+                data: {
+                    act :"delete_listStudent",
+                    listIdstudent : JSON.stringify(studentArr_detele),
+                    idClass: idClass,
+                },
+                success: function(data) {
+                    console.log(data);
+                    renderMember();
+                }
+
+            })
+        }
     </script>
 </head>
 

@@ -176,5 +176,15 @@ class ClassController{
         }
     }
 
+    public static function delete_listStudent($listIdstudent,$idClass){
+        $arrayStudent=json_decode($listIdstudent);
+        foreach($arrayStudent as $student){
+            ClassModel::removeStudent($idClass,$student);
+        }
+        $data['status']="success";
+        $data['notice']="Rời lớp thành công";
+        return $data;
+    }
+
 }
     // echo ClassController::renderMember("5IabAbm4");

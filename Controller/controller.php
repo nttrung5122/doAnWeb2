@@ -399,5 +399,24 @@ if (isset($_POST['act'])){
             $data=ReportController::createReport($_SESSION['user'][0],$_POST['title'],$_POST['noiDung']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "renderReport":{
+            require './reportController.php';
+            $data=ReportController::renderReport();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderReportContent":{
+            require './reportController.php';
+            $data=ReportController::renderReportContent($_POST['idReport']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "verify":{
+            require './reportController.php';
+            $data=ReportController::verify($_POST['maReport'], $_POST['active']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     } 
 }

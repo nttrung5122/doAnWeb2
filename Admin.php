@@ -55,6 +55,10 @@ if (!isset($_SESSION['user'])) {
                                             </select>
                                             <button id="activeAll" type="button" class="btn btn-success mx-2" style="height:50%;" onclick="activeAll();">Kích hoạt tất cả</button>
                                             <button id="unActiveAll" type="button" class="btn btn-outline-success mx-2" style="height:50%;" onclick="unActiveAll();">Bỏ kích hoạt tất cả</button>`);
+                    $('#searchArea').html(`<div class="input-group border-2 border-dark border rounded-pill mt-2 p-2" style="width:75%;">
+                                                <i class="fas fa-search fs-4 my-auto mx-2"></i>
+                                                <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">
+                                            </div>`);
                     split();
                     slitItemIntoPage(currentPage);
                 }
@@ -72,6 +76,10 @@ if (!isset($_SESSION['user'])) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`
                                             <button class="btn btn-info" href="#" data-bs-toggle="modal" data-bs-target="#form_createClass" ><i class="fas fa-plus-circle"></i> Tạo lớp</button>`);
+                    $('#searchArea').html(`            <div class="input-group border-2 border-dark border rounded-pill mt-2 p-2" style="width:75%;">
+                <i class="fas fa-search fs-4 my-auto mx-2"></i>
+                <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">
+            </div>`);
                     split();
                     slitItemIntoPage(0);
                 }
@@ -89,6 +97,10 @@ if (!isset($_SESSION['user'])) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`
                     <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#form_createQuestion" ><i class="fas fa-plus-circle"></i> Tạo câu hỏi</button>`);
+                    $('#searchArea').html(`            <div class="input-group border-2 border-dark border rounded-pill mt-2 p-2" style="width:75%;">
+                <i class="fas fa-search fs-4 my-auto mx-2"></i>
+                <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">
+            </div>`);
                     split();
                     slitItemIntoPage(0);
                 }
@@ -106,11 +118,52 @@ if (!isset($_SESSION['user'])) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`
                     <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#form_createGroupQuestion" ><i class="fas fa-plus-circle"></i> Tạo nhóm câu hỏi</button>`);
+                    $('#searchArea').html(`            <div class="input-group border-2 border-dark border rounded-pill mt-2 p-2" style="width:75%;">
+                <i class="fas fa-search fs-4 my-auto mx-2"></i>
+                <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">
+            </div>`);
                     split();
                     slitItemIntoPage(0);
                 }
             });
         };
+
+        function renderReport() {
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "renderReport",
+                },
+                success: function(data) {
+                    $('#table').html(JSON.parse(data));
+                    $('#activeRadio').html(`<select id="radio" class="form-select my-5"  style="width: 50%;" aria-label="Default select example" onchange="searchReportRadio(this)">
+                                                <option disabled selected>Lọc báo cáo xác thực</option>
+                                                <option value="0">Chưa xác thực</option>
+                                                <option value="1">Đã xác thực</option>
+                                                <option value="2">Tất cả</option>
+                                            </select>`);
+                    $('#pagesBtn').html('');
+                    $('#searchArea').html('');
+                }
+            });
+        };
+
+        function renderReportContent(btn) {
+            let idReport = btn.name;
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderReportContent',
+                    idReport: idReport,
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#reportContent').html(JSON.parse(data));
+                }
+            })
+        }
 
         $(document).ready(function() {
             $('#class a').click(function() {
@@ -142,6 +195,9 @@ if (!isset($_SESSION['user'])) {
             });
             $('#GroupQuestion').click(function() {
                 renderGroupQuestionTable();
+            });
+            $('#report').click(function() {
+                renderReport();
             });
 
             $('#btnLogOut').click(function() {
@@ -361,6 +417,24 @@ if (!isset($_SESSION['user'])) {
             })
         }
 
+        function verify(s) {
+            var maReport = s.name;
+            var active = $('input[name="' + s.name + '"]').is(':checked') == true ? 1 : 0;
+            $.ajax({
+                type: 'POST',
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'verify',
+                    active: active,
+                    maReport: maReport,
+                },
+                success: function(data) {
+                    setTimeout(renderReportContent(s), 200);
+                    setTimeout(renderReport, 200);
+                }
+            })
+        }
+
         function clickDelete(btn) {
             var id = btn.getAttribute('name');
             var type = $('#table-type').attr('name');
@@ -517,8 +591,6 @@ if (!isset($_SESSION['user'])) {
         }
 
         function searchRadio(loai) {
-
-
             // tạo biến
             var filterByradio, table, tr, td, i, txtValue;
 
@@ -543,6 +615,27 @@ if (!isset($_SESSION['user'])) {
                     } else {
                         tr[i].style.display = "none";
                     }
+                }
+            }
+        }
+
+        function searchReportRadio(loai) {
+            // tạo biến
+            var filterByradio, table, li, td, i, txtValue;
+            filterByradio = loai.value;
+            table = document.getElementById("reportUl");
+            li = table.getElementsByTagName("li");
+
+            // lọc câu hỏi
+            for (i = 0; i < li.length; i++) {
+                if (filterByradio == 2) {
+                    li[i].style.display = "";
+                    continue;
+                }
+                if(li[i].getAttribute('name') == filterByradio) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
                 }
             }
         }
@@ -773,7 +866,7 @@ if (!isset($_SESSION['user'])) {
 
     <div style="margin-left: 280px; margin-top: 80px;">
         <!-- Search bar -->
-        <div class="d-flex justify-content-center">
+        <div id="searchArea" class="d-flex justify-content-center">
             <div class="input-group border-2 border-dark border rounded-pill mt-2 p-2" style="width:75%;">
                 <i class="fas fa-search fs-4 my-auto mx-2"></i>
                 <input class="form-control border-0" type="text" placeholder="Search..." id="search" onkeyup="search()">

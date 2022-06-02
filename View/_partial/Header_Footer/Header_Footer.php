@@ -4,10 +4,11 @@ $studentPage = "Student Page";
 $teacherPage = "Teacher Page";
 $profile = 'Profile';
 $admin = 'Admin';
+$link = '';
+$linkName ='';
 function head($currentPage)
 {
-    $link = ''; $linkName = '';
-    global $profile;
+    global $link, $linkName, $profile;
     $headerRight = "";
     if (isset($_SESSION['user'])) {
         if ($_SESSION['user']['loaiTk'] == 'sv') {
@@ -70,9 +71,10 @@ function head($currentPage)
 }
 function footer()
 {
+    global $link;
     echo '<div class="row p-5" style="background-color: #82dda5; margin-right:0px">
             <div class="col-3 m-auto">
-                <a class="navbar-brand" href="./index.php">
+                <a class="navbar-brand" href="'.$link.'">
                 <img src="./Assets/img/Logo.png" alt="Avatar Logo" style="width:80px;">
                 </a>
                 <p> &copy;copyright 2022 OnTest All Rights Reserved</p>

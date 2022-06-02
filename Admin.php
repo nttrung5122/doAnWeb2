@@ -46,7 +46,7 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
-                    $('#activeRadio').html(`<button id="" type="button" class="btn btn-info mx-2" style="height:50%;"  data-bs-toggle="modal" data-bs-target="#form_signUp">Tạo tài khoản</button>
+                    $('#activeRadio').html(`<button id="" type="button" class="btn btn-info mx-2" style="height:50%;"  data-bs-toggle="modal" data-bs-target="#form_signUp"><i class="fas fa-plus-circle"></i> Tạo tài khoản</button>
                                             <select id="radio" class="form-select"  style="width: 50%;" aria-label="Default select example" onchange="searchRadio(this)">
                                                 <option disabled selected>Lọc tài khoản kích hoạt</option>
                                                 <option value="1">Đã kích hoạt</option>
@@ -88,7 +88,24 @@ if (!isset($_SESSION['user'])) {
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`
-                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#form_createQuestion" >Tạo câu hỏi</button>`);
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#form_createQuestion" ><i class="fas fa-plus-circle"></i> Tạo câu hỏi</button>`);
+                    split();
+                    slitItemIntoPage(0);
+                }
+            });
+        };
+
+        function renderGroupQuestionTable() {
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "renderGroupQuestionTable",
+                },
+                success: function(data) {
+                    $('#table').html(JSON.parse(data));
+                    $('#activeRadio').html(`
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#form_createGroupQuestion" ><i class="fas fa-plus-circle"></i> Tạo nhóm câu hỏi</button>`);
                     split();
                     slitItemIntoPage(0);
                 }
@@ -122,6 +139,9 @@ if (!isset($_SESSION['user'])) {
             });
             $('#question').click(function() {
                 renderQuestionTable();
+            });
+            $('#GroupQuestion').click(function() {
+                renderGroupQuestionTable();
             });
 
             $('#btnLogOut').click(function() {
@@ -196,6 +216,26 @@ if (!isset($_SESSION['user'])) {
             $('#btnRandomCode').click(function() {
                 $("#txtIdClass").val(gen_Code(8));
             });
+
+            $('#btnCreateGroupQuestion').click(function() {
+                let tenNhomCauHoi = $('#tenNhomCauHoi').val();
+                if (tenNhomCauHoi == "") {
+                    showNotice("Vui lòng nhập tên nhóm câu hỏi");
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "./Controller/controller.php",
+                    data: {
+                        act: 'createGroupQuestion',
+                        tenNhomCauHoi: tenNhomCauHoi,
+                    },
+                    success: function(data) {
+                        showNotice(JSON.parse(data)['notice']);
+                        $('#GroupQuestion').click();
+                    }
+                })
+            })
 
             //Create question
             $('#btnCreateQuestion').click(function() {
@@ -333,13 +373,15 @@ if (!isset($_SESSION['user'])) {
                     typeAdmin: type,
                 },
                 success: function(data) {
-                    var type = $('#table-type').name;
+                    var type = document.getElementById('table-type').getAttribute('name');
                     if (type == 'Account_Modal') {
                         renderAccountTable();
                     } else if (type == 'Class_Modal') {
                         renderClassTable();
-                    } else {
+                    } else if (type == 'Question_Modal') {
                         renderQuestionTable();
+                    } else {
+                        renderGroupQuestionTable();
                     }
                 }
             });
@@ -416,6 +458,22 @@ if (!isset($_SESSION['user'])) {
             }
         };
 
+        function editGroupQuestion(btn) {
+            var tenNhomCauHoi = $('input[name="tenNhomCauHoi' + btn.id + '"]').val();
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "editGroupQuestion",
+                    id: btn.name,
+                    tenNhomCauHoi: tenNhomCauHoi,
+                },
+                success: function(data) {
+                    renderGroupQuestionTable();
+                }
+            });
+        };
+
         function search() {
             // tạo biến
             var input, filterByinput, filterByradio, table, tr, td, i, txtValue, col;
@@ -423,9 +481,23 @@ if (!isset($_SESSION['user'])) {
             filterByinput = input.value.toUpperCase();
             table = document.getElementById("table-type");
             tr = table.getElementsByTagName("tr");
+
+            if (filterByinput == '') {
+                type = table.getAttribute('name');
+                if (type == 'Account_Modal') {
+                    renderAccountTable();
+                } else if (type == 'Class_Modal') {
+                    renderClassTable();
+                } else if (type == 'Group_Question_Modal') {
+                    renderGroupQuestionTable();
+                } else {
+                    renderQuestionTable();
+                }
+            }
+
             if (table.getAttribute('name') == "Account_Modal") {
                 col = 0;
-            } else if (table.getAttribute('name') == "Class_Modal") {
+            } else if (table.getAttribute('name') == "Class_Modal" || table.getAttribute('name') == "Group_Question_Modal") {
                 col = 1;
             } else {
                 col = 2;
@@ -680,6 +752,7 @@ if (!isset($_SESSION['user'])) {
     include "./View/_partial/popup/notice.php";
     include "./View/form/form_create_class.php";
     include "./View/form/form_create_question.php";
+    include "./View/form/form_create_group_question.php";
     include './View/form/formSignUp.php';
     ?>
 </head>

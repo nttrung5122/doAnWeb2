@@ -44,6 +44,18 @@ function sidebar($currentPage)
                             Ngân hàng câu hỏi
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#" id="GroupQuestion" class="nav-link link-dark" style="padding-left: 20px;">
+                            <i class="fas fa-layer-group"></i>
+                            Nhóm câu hỏi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" id="report" class="nav-link link-dark" style="padding-left: 20px;">
+                            <i class="far fa-flag"></i>
+                            Báo cáo
+                        </a>
+                    </li>
                 </ul>';
     } else {
         echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">

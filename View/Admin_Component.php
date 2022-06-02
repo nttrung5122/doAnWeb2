@@ -4,6 +4,7 @@ class adminTable
     public static $accountModal = 'Account_Modal';
     public static $classModal = 'Class_Modal';
     public static $questionModal = 'Question_Modal';
+    public static $groupQuestionModal = 'Group_Question_Modal';
     public static function createTable($head, $data, $type)
     {
         // table head
@@ -32,11 +33,14 @@ class adminTable
             //     }
             // }
             if ($type == self::$accountModal) {
-                for ($j = 0; $j < mysqli_num_fields($data) - 1; $j++) {
+                for ($j = 0; $j < mysqli_num_fields($data); $j++) {
+                    if($row[$j] === $row['active']) {
+                        $active = $row['active'] == 1 ? 'checked' : '';
+                        $table .= '<td><div class="form-check form-switch d-flex justify-content-center"><input name="'.$row[0].'" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" ' . $active . ' onclick="active(this)"></div></td>';
+                        continue;
+                    }
                     $table .= '<td>' . $row[$j] . '</td>';
                 }
-                $active = $row['active'] == 1 ? 'checked' : '';
-                $table .= '<td><div class="form-check form-switch d-flex justify-content-center"><input name="'.$row[0].'" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" ' . $active . ' onclick="active(this)"></div></td>';
             } else {
                 for ($j = 0; $j < mysqli_num_fields($data); $j++) {
                     $table .= '<td>' . $row[$j] . '</td>';
@@ -66,9 +70,6 @@ class adminTable
     }
     public static function createInput($row, $type, $i)
     {
-        $activeAccount = '';
-        if ($type == self::$accountModal &&  $row['active'] == true)
-            $activeAccount = 'checked';
         //input for table
         $input = '';
         if ($type == self::$accountModal) {
@@ -113,7 +114,7 @@ class adminTable
                     <div class="input-group mb-1 d-flex justify-content-end">
                         <button name="' . $row['maLop'] . '" id="' . $i . '" type="button" onclick="editClass(this)" class="btn btn-primary">Lưu</button>
                     </div>';
-        } else {
+        } else if ($type == self::$questionModal) {
             $input = '
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Mã nhóm</span>
@@ -125,10 +126,19 @@ class adminTable
                     </div>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Đáp án</span>
-                        <input type="text" name="dapAn' . $i . '" class="form-control" placeholder="Nhập nhập đáp án mới">
+                        <input type="text" name="dapAn' . $i . '" class="form-control" placeholder="Nhập đáp án mới">
                     </div>
                     <div class="input-group mb-1 d-flex justify-content-end">
                         <button name="' . $row['maCau'] . '" id="' . $i . '" type="button" onclick="editQuestion(this)" class="btn btn-primary">Lưu</button>
+                    </div>';
+        } else {
+            $input = '
+                    <div class="input-group mb-1">
+                        <span class="input-group-text col-2">Tên nhóm câu hỏi</span>
+                        <input type="text" name="tenNhomCauHoi' . $i . '" class="form-control" placeholder="Nhập tên nhóm câu hỏi mới">
+                    </div>
+                    <div class="input-group mb-1 d-flex justify-content-end">
+                        <button name="' . $row['maNhomCauHoi'] . '" id="' . $i . '" type="button" onclick="editGroupQuestion(this)" class="btn btn-primary">Lưu</button>
                     </div>';
         }
         return $input;

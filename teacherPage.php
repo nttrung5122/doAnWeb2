@@ -219,9 +219,44 @@ if (!isset($_SESSION['user'])) {
             $('#btnRenderAnnounment').click(function() {
                 renderAnnounment();
             })
-
+            $('#btnSummitreport').click(function() {
+                summitReport();
+            })
         });
 
+
+        function summitReport(){
+            let title=$("#txtTitlereport").val();
+            let noiDung = $("#txtReport").val();
+            if(title.trim()==""){
+                showNotice("Vui lòng nhập tiêu đề");
+                $("#txtTitlereport").focus();
+                return;
+            }
+            if(noiDung.trim()==""){
+                showNotice("Vui lòng nhập nội dung");
+                $("#txtReport").focus();
+                return;
+            }
+            console.log(title, noiDung);
+            $.ajax({
+                type: "POST",
+                url : "./Controller/controller.php",
+                data: {      
+                    act: "createReport",
+                    title: title.trim(),
+                    noiDung: noiDung.trim(),
+                },
+                success: function(data) {
+                    console.log(data);
+                    showNotice(JSON.parse(data)['notice']);
+                    if(JSON.parse(data)['status'] == 'success'){
+                        $("#txtTitlereport").val("");
+                        $("#txtReport").val("");
+                    }
+                }
+            })
+        }
 
         function createNotice() {
             let title = $('#txtTitle').val().trim();
@@ -1147,6 +1182,7 @@ if (!isset($_SESSION['user'])) {
     include "./View/chiTietdiem/chitietdiem.php";
     include "./View/form/form_addStudent.php";
     include "./View/form/form_createNotice.php";
+    include "./View/form/form_createReport.php";
     include "./View/form/form_alterTest.php";
     ?>
 

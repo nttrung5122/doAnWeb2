@@ -139,6 +139,8 @@ class QuestionView
     <!-- Ngân hàng câu hỏi -->
             <div class="p-3 pb-5 border">
                 <div class="d-flex justify-content-end">
+                    <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#form_createReport" >Báo cáo</button>
+
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form_createQuestion" >Tạo câu hỏi</button>
                 </div>
                 <div class="row align-items-start">

@@ -48,4 +48,6 @@ class AuthController {
             $data['notice']="Tài khoản không tồn tại hoắc mất khẩu không chính xác"; 
             return $data;
     }
+
+    
 }

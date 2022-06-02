@@ -373,5 +373,12 @@ if (isset($_POST['act'])){
             $data=classController::delete_listStudent($_POST['listIdstudent'],$_POST['idClass']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "createReport":{
+            require './reportController.php';
+            session_start();
+            $data=ReportController::createReport($_SESSION['user'][0],$_POST['title'],$_POST['noiDung']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
     } 
 }

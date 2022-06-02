@@ -5,7 +5,7 @@ class adminController
 {
     public static function renderAccountTable()
     {
-        $head = array('Email', 'Mật khẩu', 'Chức vụ', 'Tên', 'Ngày sinh', 'Số điện thoại', 'Kích hoạt');
+        $head = array('Email', 'Mật khẩu', 'Chức vụ', 'Tên', 'Ngày sinh', 'Số điện thoại', 'Kích hoạt', 'Mã cá nhân');
         $data = adminModel::getAllAccounts();
         $result = adminTable::createTable($head, $data, adminTable::$accountModal);
         return $result;
@@ -24,6 +24,13 @@ class adminController
         $result = adminTable::createTable($head, $data, adminTable::$questionModal);
         return $result;
     }
+    public static function renderGroupQuestionTable()
+    {
+        $head = array('Mã nhóm câu hỏi', 'Tên nhóm câu hỏi');
+        $data = adminModel::getAllGroupQuestions();
+        $result = adminTable::createTable($head, $data, adminTable::$groupQuestionModal);
+        return $result;
+    }
     public static function clickDelete($id, $type)
     {
         if ($type == adminTable::$accountModal) {
@@ -32,7 +39,10 @@ class adminController
         } else if ($type == adminTable::$classModal) {
             adminModel::deleteClass($id);
             return self::renderClassTable();
-        } else {
+        } else if ($type == adminTable::$groupQuestionModal) {
+            adminModel::deleteGroupQuestion($id);
+            return self::renderGroupQuestionTable();
+        }else {
             adminModel::deleteQuestion($id);
             return self::renderQuestionTable();
         }
@@ -86,6 +96,13 @@ class adminController
         return self::renderQuestionTable();
     }
 
+    public static function editGroupQuestion($id, $tenNhomCauHoi)
+    {
+        if ($tenNhomCauHoi != null) {
+            adminModel::editGroupQuestion($id, 'tenNhomCauHoi', $tenNhomCauHoi);
+        }
+    }
+
     public static function active($id, $active) {
         adminModel::editAccount($id, 'active', $active);
     }
@@ -96,5 +113,10 @@ class adminController
 
     public static function unActiveAll(){
         adminModel::editAccountWithoutCondition('active', '0');
+    }
+    public static function createGroupQuestion($tenNhomCauHoi) {
+        adminModel::createGroupQuestion($tenNhomCauHoi);
+        $data['notice']="Tạo nhóm câu hỏi thành công";
+        return $data;
     }
 }

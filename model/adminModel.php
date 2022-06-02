@@ -26,7 +26,12 @@ class adminModel
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
-
+    public static function getAllGroupQuestions()
+    {
+        $sql = 'SELECT * FROM nhomcauhoi';
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
     public static function deleteAccount($id)
     {
         $sql = 'DELETE FROM taikhoan WHERE taikhoan.mail = "' . $id . '";';
@@ -40,6 +45,11 @@ class adminModel
     public static function deleteQuestion($id)
     {
         $sql = 'DELETE FROM cauhoi_nganhang WHERE cauhoi_nganhang.maCau = "' . $id . '";';
+        DataProvider::executeSQL($sql);
+    }
+    public static function deleteGroupQuestion($id)
+    {
+        $sql = 'DELETE FROM nhomcauhoi WHERE nhomcauhoi.maNhomCauHoi = "' . $id . '";';
         DataProvider::executeSQL($sql);
     }
 
@@ -63,6 +73,15 @@ class adminModel
     public static function editQuestion($id, $field, $info)
     {
         $sql = 'UPDATE cauhoi_nganhang SET ' . $field . ' = "' . $info . '" WHERE maCau = "' . $id . '"';
+        DataProvider::executeSQL($sql);
+    }
+    public static function editGroupQuestion($id, $field, $info)
+    {
+        $sql = 'UPDATE nhomcauhoi SET ' . $field . ' = "' . $info . '" WHERE maNhomCauHoi = "' . $id . '"';
+        DataProvider::executeSQL($sql);
+    }
+    public static function createGroupQuestion($tenNhomCauHoi) {
+        $sql = "INSERT INTO `nhomcauhoi`(`maNhomCauHoi`, `tenNhomCauHoi`) VALUES (NULL,'$tenNhomCauHoi');";
         DataProvider::executeSQL($sql);
     }
 }

@@ -153,11 +153,24 @@ if (isset($_POST['act'])){
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
+        case "renderGroupQuestionTable":{
+            require './adminController.php';
+            $data= adminController::renderGroupQuestionTable();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "createGroupQuestion":{
+            require './adminController.php';
+            $data= adminController::createGroupQuestion($_POST['tenNhomCauHoi']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
         case "editAccount":{
             require './adminController.php';
             $data= adminController::editAccount($_POST['id'], $_POST['password'], $_POST['role'], $_POST['name'], $_POST['birth'], $_POST['phone']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
         case "active":{
             require './adminController.php';
             $data= adminController::active($_POST['id'], $_POST['active']);
@@ -185,6 +198,12 @@ if (isset($_POST['act'])){
         case "editQuestion":{
             require './adminController.php';
             $data= adminController::editQuestion($_POST['id'], $_POST['maNhom'], $_POST['noiDung'], $_POST['dapAn']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "editGroupQuestion":{
+            require './adminController.php';
+            $data= adminController::editGroupQuestion($_POST['id'], $_POST['tenNhomCauHoi']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
@@ -380,5 +399,24 @@ if (isset($_POST['act'])){
             $data=ReportController::createReport($_SESSION['user'][0],$_POST['title'],$_POST['noiDung']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
+        break;
+        case "renderReport":{
+            require './reportController.php';
+            $data=ReportController::renderReport();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderReportContent":{
+            require './reportController.php';
+            $data=ReportController::renderReportContent($_POST['idReport']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "verify":{
+            require './reportController.php';
+            $data=ReportController::verify($_POST['maReport'], $_POST['active']);
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
     } 
 }

@@ -165,6 +165,20 @@ if (!isset($_SESSION['user'])) {
             })
         }
 
+        function renderAnswer() {
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'renderAnswer',
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#Modal').html(JSON.parse(data));
+                }
+            })
+        }
+
         $(document).ready(function() {
             $('#class a').click(function() {
                 $('#class').find('a.active').addClass('link-dark');
@@ -192,6 +206,7 @@ if (!isset($_SESSION['user'])) {
             });
             $('#question').click(function() {
                 renderQuestionTable();
+                renderAnswer();
             });
             $('#GroupQuestion').click(function() {
                 renderGroupQuestionTable();
@@ -512,7 +527,11 @@ if (!isset($_SESSION['user'])) {
         function editQuestion(btn) {
             var maNhom = $('input[name="maNhom' + btn.id + '"]').val();
             var noiDung = $('input[name="noiDung' + btn.id + '"]').val();
-            var dapAn = $('input[name="dapAn' + btn.id + '"]').val();
+            var dapAn = $('input[name="dapAn' + btn.id + '"]').val().toLowerCase();
+            var cauA = $('input[name="cauA' + btn.id + '"]').val();
+            var cauB = $('input[name="cauB' + btn.id + '"]').val();
+            var cauC = $('input[name="cauC' + btn.id + '"]').val();
+            var cauD = $('input[name="cauD' + btn.id + '"]').val();
 
             if (checkQuestion(dapAn)) {
                 $.ajax({
@@ -524,9 +543,14 @@ if (!isset($_SESSION['user'])) {
                         maNhom: maNhom,
                         noiDung: noiDung,
                         dapAn: dapAn,
+                        cauA: cauA,
+                        cauB: cauB,
+                        cauC: cauC,
+                        cauD: cauD,
                     },
                     success: function(data) {
                         renderQuestionTable();
+                        renderAnswer();
                     }
                 });
             }
@@ -632,7 +656,7 @@ if (!isset($_SESSION['user'])) {
                     li[i].style.display = "";
                     continue;
                 }
-                if(li[i].getAttribute('name') == filterByradio) {
+                if (li[i].getAttribute('name') == filterByradio) {
                     li[i].style.display = "";
                 } else {
                     li[i].style.display = "none";
@@ -884,7 +908,24 @@ if (!isset($_SESSION['user'])) {
             </ul>
         </nav>
     </div>
-
+    <!-- <div class="modal fade" id="answerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div id = "Modal"></div>
 </body>
 
 </html>

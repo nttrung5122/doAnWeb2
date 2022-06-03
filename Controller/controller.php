@@ -197,7 +197,7 @@ if (isset($_POST['act'])){
         break;
         case "editQuestion":{
             require './adminController.php';
-            $data= adminController::editQuestion($_POST['id'], $_POST['maNhom'], $_POST['noiDung'], $_POST['dapAn']);
+            $data= adminController::editQuestion($_POST['id'], $_POST['maNhom'], $_POST['noiDung'], $_POST['dapAn'], $_POST['cauA'], $_POST['cauB'], $_POST['cauC'], $_POST['cauD']);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;
@@ -403,6 +403,12 @@ if (isset($_POST['act'])){
         case "renderReport":{
             require './reportController.php';
             $data=ReportController::renderReport();
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        }
+        break;
+        case "renderAnswer":{
+            require './adminController.php';
+            $data=adminController::renderAnswer();
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;

@@ -31,6 +31,11 @@ class adminController
         $result = adminTable::createTable($head, $data, adminTable::$groupQuestionModal);
         return $result;
     }
+    public static function renderAnswer() {
+        $data = adminModel::getAllAnswers();
+        $result = adminTable::createAnswerModal($data);
+        return $result;
+    }
     public static function clickDelete($id, $type)
     {
         if ($type == adminTable::$accountModal) {
@@ -82,7 +87,7 @@ class adminController
         return self::renderClassTable();
     }
 
-    public static function editQuestion($id, $maNhom, $noiDung, $dapAn)
+    public static function editQuestion($id, $maNhom, $noiDung, $dapAn, $cauA, $cauB, $cauC, $cauD)
     {
         if ($maNhom != null) {
             adminModel::editQuestion($id, 'maNhom', $maNhom);
@@ -93,7 +98,18 @@ class adminController
         if ($dapAn != null) {
             adminModel::editQuestion($id, 'dapAn', $dapAn);
         }
-        return self::renderQuestionTable();
+        if ($cauA != null) {
+            adminModel::editAnswer($id, 'a', 'noiDung', $cauA);
+        }
+        if ($cauB != null) {
+            adminModel::editAnswer($id, 'b', 'noiDung', $cauB);
+        }
+        if ($cauC != null) {
+            adminModel::editAnswer($id, 'c', 'noiDung', $cauC);
+        }
+        if ($cauD != null) {
+            adminModel::editAnswer($id, 'd', 'noiDung', $cauD);
+        }
     }
 
     public static function editGroupQuestion($id, $tenNhomCauHoi)

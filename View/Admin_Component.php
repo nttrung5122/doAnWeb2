@@ -1,10 +1,12 @@
 <?php
+include '../View/_partial/popup/modal_modules.php';
 class adminTable
 {
     public static $accountModal = 'Account_Modal';
     public static $classModal = 'Class_Modal';
     public static $questionModal = 'Question_Modal';
     public static $groupQuestionModal = 'Group_Question_Modal';
+    public static $answer;
     public static function createTable($head, $data, $type)
     {
         // table head
@@ -21,22 +23,11 @@ class adminTable
         $i = 0;
         while ($row = mysqli_fetch_array($data)) {
             $table .= ' <tr>';
-            // if ($type == self::$accountModal) {
-            //     for ($j = 0; $j < mysqli_num_fields($data) - 1; $j++) {
-            //         $table .= '<td>' . $row[$j] . '</td>';
-            //     }
-            //     $active = $row['active'] == 1 ? 'Đã kích hoạt' : 'Chưa kích hoạt';
-            //     $table .= '<td>' . $active . '</td>';
-            // } else {
-            //     for ($j = 0; $j < mysqli_num_fields($data); $j++) {
-            //         $table .= '<td>' . $row[$j] . '</td>';
-            //     }
-            // }
             if ($type == self::$accountModal) {
                 for ($j = 0; $j < mysqli_num_fields($data); $j++) {
-                    if($row[$j] === $row['active']) {
+                    if ($row[$j] === $row['active']) {
                         $active = $row['active'] == 1 ? 'checked' : '';
-                        $table .= '<td><div class="form-check form-switch d-flex justify-content-center"><input name="'.$row[0].'" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" ' . $active . ' onclick="active(this)"></div></td>';
+                        $table .= '<td><div class="form-check form-switch d-flex justify-content-center"><input name="' . $row[0] . '" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" ' . $active . ' onclick="active(this)"></div></td>';
                         continue;
                     }
                     $table .= '<td>' . $row[$j] . '</td>';
@@ -52,8 +43,13 @@ class adminTable
                         </button>
                         <button class="btn btn-danger" name="' . $row[0] . '" onclick="clickDelete(this)">
                             Xoá
-                        </button>
-                    </td>   
+                        </button>';
+            if ($type == self::$questionModal) {
+                $table .= ' <button class="btn btn-primary ms-1" name="' . $row[0] . '" data-bs-toggle="modal" data-bs-target="#answerModal' . $i . '">
+                                Lựa chọn
+                            </button>';
+            }
+            $table .= '</td>   
                     </tr>
                     <tr class="collapse" id="a' . $i . '">
                         <td colspan="12">
@@ -116,6 +112,7 @@ class adminTable
                     </div>';
         } else if ($type == self::$questionModal) {
             $input = '
+                    <h4>Câu hỏi</h4>
                     <div class="input-group mb-1">
                         <span class="input-group-text col-2">Mã nhóm</span>
                         <input type="text" name="maNhom' . $i . '" class="form-control" placeholder="Nhập mã nhóm mới">
@@ -128,9 +125,27 @@ class adminTable
                         <span class="input-group-text col-2">Đáp án</span>
                         <input type="text" name="dapAn' . $i . '" class="form-control" placeholder="Nhập đáp án mới">
                     </div>
+                    <h4>Lựa chọn</h4>
+                    <div class="input-group mb-1">
+                        <span class="input-group-text col-2">Câu A</span>
+                        <input type="text" name="cauA' . $i . '" class="form-control" placeholder="Nhập nội dung mới">
+                    </div>
+                    <div class="input-group mb-1">
+                        <span class="input-group-text col-2">Câu B</span>
+                        <input type="text" name="cauB' . $i . '" class="form-control" placeholder="Nhập nội dung mới">
+                    </div>
+                    <div class="input-group mb-1">
+                        <span class="input-group-text col-2">Câu C</span>
+                        <input type="text" name="cauC' . $i . '" class="form-control" placeholder="Nhập nội dung mới">
+                    </div>
+                    <div class="input-group mb-1">
+                        <span class="input-group-text col-2">Câu D</span>
+                        <input type="text" name="cauD' . $i . '" class="form-control" placeholder="Nhập nội dung mới">
+                    </div>
                     <div class="input-group mb-1 d-flex justify-content-end">
                         <button name="' . $row['maCau'] . '" id="' . $i . '" type="button" onclick="editQuestion(this)" class="btn btn-primary">Lưu</button>
-                    </div>';
+                    </div>
+                    ';
         } else {
             $input = '
                     <div class="input-group mb-1">
@@ -142,5 +157,36 @@ class adminTable
                     </div>';
         }
         return $input;
+    }
+    public static function createAnswerModal($data)
+    {
+        $result = '';
+        // $row = mysqli_fetch_array($data);
+        for ($i = 0; $i < mysqli_num_rows($data) / 4; $i++) {
+            $result .= '<div class="modal fade" id="answerModal' . $i . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Lựa chọn</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">';
+            $j = 0;
+            while ($row = mysqli_fetch_array($data)) {
+                $result .=     '<p>Câu ' . $row['maLuaChon'] . ': ' . $row['noiDung'] . '</p>';
+                $j++;
+                if ($j == 4) {
+                    break;
+                }
+            }
+            $result .=      '</div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+        }
+        return $result;
     }
 }

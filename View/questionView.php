@@ -141,7 +141,7 @@ class QuestionView
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#form_createReport" >Báo cáo</button>
 
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form_createQuestion" >Tạo câu hỏi</button>
+                    <button class="btn btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#form_createQuestion" >Tạo câu hỏi</button>
                 </div>
                 <div class="row align-items-start">
                     <div class="text-center fw-bold fs-2 mb-3">Ngân hàng câu hỏi</div>

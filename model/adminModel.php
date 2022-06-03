@@ -32,6 +32,11 @@ class adminModel
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
+    public static function getAllAnswers(){
+        $sql = "SELECT * FROM `luachon` ORDER BY `maCau` ASC,`maLuaChon` ASC ;";
+        $data= DataProvider::executeSQL($sql);
+        return $data;
+    }
     public static function deleteAccount($id)
     {
         $sql = 'DELETE FROM taikhoan WHERE taikhoan.mail = "' . $id . '";';
@@ -78,6 +83,10 @@ class adminModel
     public static function editGroupQuestion($id, $field, $info)
     {
         $sql = 'UPDATE nhomcauhoi SET ' . $field . ' = "' . $info . '" WHERE maNhomCauHoi = "' . $id . '"';
+        DataProvider::executeSQL($sql);
+    }
+    public static function editAnswer($id, $maLuaChon, $field, $info) {
+        $sql = 'UPDATE luachon SET ' . $field . ' = "' . $info . '" where maCau = "' . $id . '" and maLuaChon = "'.$maLuaChon.'"';
         DataProvider::executeSQL($sql);
     }
     public static function createGroupQuestion($tenNhomCauHoi) {

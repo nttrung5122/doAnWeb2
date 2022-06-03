@@ -86,7 +86,7 @@ if (isset($_POST['act'])){
         break;
         case "createTest":{
             require './testController.php';
-            $data=TestController::createTest($_POST["idClass"],$_POST['nameTest'],$_POST["thoiGianLamBai"],$_POST["ngayThi"],$_POST["daoCauHoi"]);
+            $data=TestController::createTest($_POST["idClass"],$_POST['nameTest'],$_POST["thoiGianLamBai"],$_POST["ngayThi"],$_POST["daoCauHoi"],$_POST["loaiDe"]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE);
         }
         break;

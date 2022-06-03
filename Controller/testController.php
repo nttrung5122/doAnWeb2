@@ -6,8 +6,8 @@ include '../View/testView.php';
 
 class TestController{
 
-    public static function createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi){
-        $data['maDe']=TestModel::createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi);
+    public static function createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi,$loaiDe){
+        $data['maDe']=TestModel::createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi,$loaiDe);
         $data['status']="success";
         $data['notice']="Tạo đề thành công";
         return $data;

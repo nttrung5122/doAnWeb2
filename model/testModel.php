@@ -11,8 +11,8 @@ class TestModel{
         return $data;
     }
 
-    public static function createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi){
-        $sql = "INSERT INTO `bode` (`maDe`,`tenDe`, `maLop`, `thoiGianLamBai`,`ngayThi`, `daoCauHoi`, `xemDiem`, `xemDapAn`) VALUES (NULL,'$nameTest', '$idClass', '$thoiGianLamBai','$ngayThi','$daoCauHoi', '','');";
+    public static function createTest($idClass,$nameTest,$thoiGianLamBai,$ngayThi,$daoCauHoi,$loaiDe){
+        $sql = "INSERT INTO `bode` (`maDe`,`tenDe`, `maLop`, `thoiGianLamBai`,`ngayThi`, `daoCauHoi`, `xemDiem`, `xemDapAn`,`loaiDe`) VALUES (NULL,'$nameTest', '$idClass', '$thoiGianLamBai','$ngayThi','$daoCauHoi', '','','$loaiDe');";
         $data= DataProvider::executeSQL($sql);
         $data=mysqli_fetch_array(TestModel::getAllTest());
         return $data['maDe'];

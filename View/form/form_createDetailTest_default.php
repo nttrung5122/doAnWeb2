@@ -92,7 +92,7 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form_settingTest">
         Tạo câu hỏi
     </button>
-    <div class="modal" id="form_settingTest" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
+    <div class="modal" id="form_createDetailTest_default" tabindex="-1" aria-labelledby="popupLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">

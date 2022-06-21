@@ -18,7 +18,7 @@
                         <div class="col">
                             <!-- Chỉnh scroll o day -->
                             <ol class="list-group list-group-numbered list-group-flush shadow-sm" id="deThi" style="height: 800px; overflow-y: scroll;">
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">' . $noidungcauhoi . '</div>
                                         <ul class="list-group list-group-flush">
@@ -86,7 +86,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </li>
+                                </li> -->
                             </ol>
                         </div>
                         <div class="col-4">
@@ -95,12 +95,12 @@
                             </div>
                             <div class="fw-bold fs-5 mb-5 text-center">Thời gian làm bài còn lại
                                 <div>
-                                    <span id="m">Phút</span> :
-                                    <span id="s">Giây</span>
+                                    <span id="m1">Phút</span> :
+                                    <span id="s1">Giây</span>
                                 </div>
                             </div>
                             <div class="row row-cols-3 g-3 mx-auto bg-white shadow-sm" id="phieuLamBai">
-                                <div class="col">
+                                <!-- <div class="col">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="122" onclick="return false;">
                                         <label class="form-check-label" for="cauhoi1">
@@ -123,7 +123,7 @@
                                             Câu ' . $socau . '
                                         </label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <br>
                             <div class="d-grid gap-2 col-3 mx-auto">

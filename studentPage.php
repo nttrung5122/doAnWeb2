@@ -266,9 +266,10 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     data = JSON.parse(data);
-                    // console.log(data);
+                    console.log(data);
                     let now = new Date();
                     let thoiGianLamBai = Date.parse(data['infoTest']['ngayThi']);
+                    $("#idTest").val(data['infoTest']['maDe']);
                     if (now < thoiGianLamBai) {
                         // $('.modal').modal('hide');
                         showNotice("Chưa tới thời gian làm bài");
@@ -281,11 +282,17 @@ if (!isset($_SESSION['user'])) {
                         showNotice("Đã quá thời gian làm bài");
                         return;
                     }
-                    // console.log(thoiGianLamBai);
-                    $("#idTest").val(data['infoTest']['maDe']);
-                    $('#phieuLamBai').html(data['html']['baiLam']);
-                    $('#deThi').html(data['html']['deThi']);
-                    $("#formDoTest").modal('show');
+                    if(data['infoTest']['loaiDe']=='default')
+                    {     
+                        // console.log(thoiGianLamBai);
+                        $('#phieuLamBai').html(data['html']['baiLam']);
+                        $('#deThi').html(data['html']['deThi']);
+                        $("#formDoTest").modal('show');
+                    }
+                    else{
+                        $("#formDoTestPDF").modal('show');
+
+                    }
                     start();
                 }
             })
@@ -315,7 +322,7 @@ if (!isset($_SESSION['user'])) {
             })
         }
 
-        function submitTest() {
+        function submitTestDefault() {
             stop();
             let idTest = $('#idTest').val();
             console.log("Nộp bài" + idTest);
@@ -328,7 +335,7 @@ if (!isset($_SESSION['user'])) {
                 },
                 success: function(data) {
                     data = JSON.parse(data);
-                    console.log(data.length);
+                    // console.log(data.length);
                     // console.log(listQuestion.length);
                     let listAnswer = getAnswer(data);
                     console.log(listAnswer);
@@ -339,6 +346,17 @@ if (!isset($_SESSION['user'])) {
             // setTimeout(() =>{
             //     window.location.reload();
             // },1000);
+        }
+
+        function submitTestPDF() {
+            stop();
+            let idTest = $('#idTest').val();
+            console.log("Nộp bài" + idTest);
+            var values = $("select[name='test']")
+            .map(function() {
+                return $(this).val();
+            }).get();
+            console.log(values);
         }
 
         function chamBai(listAnswer, idTest) {
@@ -419,8 +437,11 @@ if (!isset($_SESSION['user'])) {
 
             /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/
             // document.getElementById('h').innerText = h.toString();
-            document.getElementById('m').innerText = m.toString();
-            document.getElementById('s').innerText = s.toString();
+            document.getElementById('m1').innerText = m.toString();
+            document.getElementById('s1').innerText = s.toString();
+            
+            document.getElementById('m2').innerText = m.toString();
+            document.getElementById('s2').innerText = s.toString();
 
             /*BƯỚC 1: GIẢM PHÚT XUỐNG 1 GIÂY VÀ GỌI LẠI SAU 1 GIÂY */
             timeout = setTimeout(function() {
@@ -431,6 +452,29 @@ if (!isset($_SESSION['user'])) {
 
         function stop() {
             clearTimeout(timeout);
+        }
+
+        function submitTest(){
+            let idTest = $('#idTest').val();
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: 'getTest',
+                    idTest: idTest,
+                },
+                success: function(data) {
+                    // console.log(JSON.parse(data));
+                    let infoTest= JSON.parse(data);
+                    if(infoTest['loaiDe']=='default'){
+                        console.log('submit default');
+                        submitTestDefault();
+                    }else{
+                        console.log('submit PDF');
+                        submitTestPDF();
+                    }
+                }
+            })
         }
 
         function renderAnnounment() {
@@ -478,6 +522,7 @@ if (!isset($_SESSION['user'])) {
     include "./View/form/form_find_class.php";
     include "./View/_partial/popup/notice.php";
     include "./View/TrangLamBai/pageBailam.php";
+    include "./View/TrangLamBai/pageBailamPDF.php";
 
     ?>
 

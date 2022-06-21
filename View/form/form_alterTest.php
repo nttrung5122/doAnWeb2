@@ -39,7 +39,16 @@
 
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-3 d-none">
+                        <label for="" class="col-sm-3 col-form-label">Loại đề</label>
+                        <div class="col">
+                            <input type="radio" class="btn-check" id="checkLoaiDe_default" name="loaiDe_alter" autocomplete="off" value="default" checked onclick="changeTypetest(this)">
+                            <label class="btn btn-outline-primary" for="checkLoaiDe_default">Chọn câu hỏi</label>
+                            <input type="radio" class="btn-check" id="checkLoaiDe_pdf" name="loaiDe_alter" autocomplete="off" value="pdf" onclick="changeTypetest(this)">
+                            <label class="btn btn-outline-primary" for="checkLoaiDe_pdf">Upload file pdf</label>
+                        </div>
+                    </div>
+                    <div class="row mb-3" id="inputSuf_formAlterTest">
                         <label for="" class="col-sm-3 col-form-label">Đảo câu hỏi</label>
                         <div class="col">
                             <input type="radio" class="btn-check" id="checkDaocauHoi3" name="daoCauHoi_alter" autocomplete="off" value="false" checked>

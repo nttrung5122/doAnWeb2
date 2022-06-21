@@ -149,6 +149,7 @@ if (!isset($_SESSION['user'])) {
                     data: {
                         act: "saveQuestionInTest",
                         arrQuestion: JSON.stringify(questionArr),
+                        loaiDe: "default",
                         // arrQuestion: arrQuestion,
                         idTest: idTest,
                     },
@@ -185,6 +186,32 @@ if (!isset($_SESSION['user'])) {
             $('#btnSummitreport').click(function() {
                 summitReport();
             })
+            $('#form_uploadFile').submit(function(e) {
+                e.preventDefault();
+                var form = document.getElementById('form_uploadFile');
+                var fdata = new FormData(form);
+                console.log(fdata);
+                $.ajax({
+                    type: "POST",
+                    url: './Controller/upload.php',
+                    data: fdata,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(result) {
+                        console.log(result);
+                        if (result == "success") {
+                            showNotice("Tạo đề thành công");
+                            setTimeout(() => {
+                                $('.modal').modal('hide');
+                                renderListTest();
+                            }, 1000);
+                        } else {
+                            showNotice("Tạo đề không thành công </br> Lưu ý: Chỉ được tải file dạng pdf");
+                        }
+                    }
+                });
+            });
         });
 
         async function createTest() {
@@ -224,10 +251,115 @@ if (!isset($_SESSION['user'])) {
                     console.log(idTest);
                     showNotice(JSON.parse(data)['notice']);
                     setTimeout(() => {
-                            $('.modal').modal('hide');
-                            showSettingTest(JSON.parse(data)['maDe'],loaiDe);
+                        $('.modal').modal('hide');
+                        showSettingTest(JSON.parse(data)['maDe'], loaiDe);
                     }, 1000);
                 },
+            })
+        }
+
+        var count = 0;
+        // var questnum =document.getElementById('socauhoi').value;
+        // console.log(questnum);
+        // cập nhật số câu hỏi
+        function capnhatCauhoi() {
+
+            // count = document.getElementsByClassName("card h-100").length;
+            var values = $(".cardQuestion")
+                .map(function() {
+                    return $(this).val();
+                }).get();
+            count = document.getElementById("soCauhoi").value;
+            console.log(count);
+            let html = '';
+            for (let i = 1; i <= count; i++) {
+                var socau = i;
+                html += addCard(socau, values[i - 1]);
+                // console.log( addCard(socau,values[i-1]));
+            }
+            document.getElementById('containerCardQuestion').innerHTML = html;
+            count--;
+        }
+
+
+        // hàm này chèn thẻ vào trước nút thêm câu hỏi
+        // chưa thiết kế id hay name cho câu hỏi để đẩy dữ liệu
+        function addCard(socau, value) {
+            function checkUndefined() {
+                return value == undefined ? `selected` : ``;
+            }
+
+            function checkA() {
+                return value == 'A' ? `selected` : ``;
+            }
+
+            function checkB() {
+                return value == 'B' ? `selected` : ``;
+            }
+
+            function checkC() {
+                return value == 'C' ? `selected` : ``;
+            }
+
+            function checkD() {
+                return value == 'D' ? `selected` : ``;
+            }
+            var card =
+                `<div name="cauhoi" class="col cardcauhoi">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Câu ` + socau + `</h5>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="">Đáp án</label>
+                                <select class="form-select cardQuestion" id="">
+                                    <option value="" ` + checkUndefined() + ` hidden>Chọn</option>
+                                    <option value="A"` + checkA() + `>A</option>
+                                    <option value="B"` + checkB() + `>B</option>
+                                    <option value="C"` + checkC() + `>C</option>
+                                    <option value="D"` + checkD() + `>D</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            // <input type="text"  class='form-control cardQuestion'>
+
+            // $(card).insertBefore("#buttonAddCard");
+            return card;
+        }
+        // xóa thẻ
+        function xoaCard() {
+            // console.log(socau);
+            const elmnt = document.getElementsByClassName("col cardcauhoi")[count--];
+            elmnt.remove();
+        }
+
+        function createTestPDF() {
+            let idTest = $('#idTest_form_createDetailTest_PDF').val();
+            // console.log("Nộp bài" + idTest);
+            var values = $(".cardQuestion")
+                .map(function() {
+                    return $(this).val();
+                }).get();
+            // console.log(values,idTest);
+            $('#form_uploadFile').submit();
+            $.ajax({
+                type: "POST",
+                url: "./Controller/controller.php",
+                data: {
+                    act: "saveQuestionInTest",
+                    arrQuestion: JSON.stringify(values),
+                    loaiDe: "PDF",
+                    idTest: idTest,
+                },
+                success: function(data) {
+                    console.log(data);
+                    // showNotice(JSON.parse(data)['notice']);
+                    // setTimeout(() => {
+                    //     $('.modal').modal('hide');
+                    //     renderListTest();
+                    // }, 1000);
+                }
             })
         }
 
@@ -599,6 +731,15 @@ if (!isset($_SESSION['user'])) {
             })
         }
 
+        function renderSettingTest_PDF(){
+            let html='';
+            for (var i = 0; i < questionArr.length; i++) {
+                html+= addCard(i+1, questionArr[i]);
+            }
+            $('#soCauhoi').val(questionArr.length);
+            document.getElementById('containerCardQuestion').innerHTML = html;
+        }
+
         function renderListTest() {
             let idClass = $("#idClassCurent").val();
             if (idClass == null) {
@@ -659,15 +800,17 @@ if (!isset($_SESSION['user'])) {
             });
         }
 
-        function showSettingTest(idTest,loaiDe) {
+        function showSettingTest(idTest, loaiDe) {
             questionArr = [];
-            if(loaiDe=='default'){
+            if (loaiDe == 'default') {
                 renderSettingTest_default();
                 $('#form_createDetailTest_default').modal('show');
-            }
-            else {
+            } else {
                 // renderSettingTest_default();
-                $('#form_createDetailTest_default').modal('show');
+                $('#form_createDetailTest_PDF').modal('show');
+                $('#idTest_form_createDetailTest_PDF').val(idTest);
+                $('#soCauhoi').val(1);
+                capnhatCauhoi();
             }
         }
 
@@ -908,6 +1051,14 @@ if (!isset($_SESSION['user'])) {
                         return;
                     }
                     console.log(infoTest['ngayThi']);
+                    if(infoTest['loaiDe']=="pdf"){
+                        $('#inputSuf_formAlterTest').addClass('d-none');
+                        $('input[name=loaiDe_alter][value="pdf"]').prop("checked", true);
+                    }
+                    else{
+                        $('input[name=loaiDe_alter][value="default"]').prop("checked", true);
+                        $('#inputSuf_formAlterTest').removeClass('d-none');
+                    }
                     const offset = new Date().getTimezoneOffset() * 1000 * 60
                     const offsetDate = new Date(infoTest['ngayThi']).valueOf() - offset;
                     const date = new Date(offsetDate).toISOString().slice(0, -1);
@@ -923,7 +1074,7 @@ if (!isset($_SESSION['user'])) {
             let thoiGianlambai = $('#thoiGianLamBai_alter').val();
             let daoCauHoi = $('input[name="daoCauHoi_alter"]:checked').val();
             let ngayThi = $('#ngayThi_alter').val();
-            let loaiDe = $('input[name="loaiDe"]:checked').val();
+            let loaiDe = $('input[name="loaiDe_alter"]:checked').val();
             if (nameTest.trim() == "") {
                 showNotice("Vui lòng nhập tên bài kiểm tra");
                 return;
@@ -941,12 +1092,21 @@ if (!isset($_SESSION['user'])) {
                     loaiDe: loaiDe,
                 },
                 success: function(data) {
-                    console.log(JSON.parse(data));
-                    questionArr = JSON.parse(data);
+                    console.log(data);
+                    // console.log(JSON.parse(data));
                     renderListTest();
-                    renderSettingTest_default();
-                    $('.modal').modal('hide');
-                    $('#form_createDetailTest_default').modal('show');
+                    console.log("Loai de",loaiDe);
+                    questionArr = JSON.parse(data);
+                    if(loaiDe=="default"){
+                        renderSettingTest_default();
+                        $('.modal').modal('hide');
+                        $('#form_createDetailTest_default').modal('show');
+                    }
+                    else{
+                        $('.modal').modal('hide');
+                        renderSettingTest_PDF();
+                        $('#form_createDetailTest_PDF').modal('show');
+                    }
                 }
 
             })
@@ -974,21 +1134,32 @@ if (!isset($_SESSION['user'])) {
 
                     },
                     success: function(data) {
-                        console.log(JSON.parse(data));
-                        let deThi = JSON.parse(data).map((d) => {
-                            return {
-                                "Mã câu hỏi": d.maCau,
-                                "Nội dung câu hỏi": d.noiDungcauhoi,
-                                "Đáp án": d.dapAn,
-                                "Nội dung đáp án": d.noiDungluachon,
-                            };
-                        });
+                        console.log(data);
+                        let deThi
+                        if(JSON.parse(data)['loaiDe']=='default'){
+                            deThi = JSON.parse(data)['data'].map((d) => {
+                                return {
+                                    "Mã câu hỏi": d.maCau,
+                                    "Nội dung câu hỏi": d.noiDungcauhoi,
+                                    "Đáp án": d.dapAn,
+                                    "Nội dung đáp án": d.noiDungluachon,
+                                };
+                            });
+                        }
+                        else{
+                            deThi = JSON.parse(data)['data'].map((d) => {
+                                return {
+                                    "Mã câu hỏi": d.maCau,
+                                    "Đáp án": d.dapAn,
+                                };
+                            });
+                        }
                         const wsDethi = XLSX.utils.json_to_sheet(deThi);
                         XLSX.utils.book_append_sheet(wb, wsDethi, "Chi tiết đề thi");
                     }
 
                 })
-
+                // Chưa xuất danh sách làm bài đè thi pdf
                 for (i = 0; i < myData.length; i++) {
                     if (myData[i].Điểm != "Chưa làm") {
                         email = myData[i].Email;
@@ -1026,33 +1197,33 @@ if (!isset($_SESSION['user'])) {
             XLSX.writeFile(wb, `${fileName}.xlsx`);
         }
 
-        function exportToExcel1(fileName, sheetName, table) {
-            let wb;
-            if (table && table !== '') {
-                wb = XLSX.utils.table_to_book($('#' + table)[0]);
-            }
-            console.log('wb', wb);
-            XLSX.writeFile(wb, `${fileName}.xlsx`);
-        }
+        // function exportToExcel1(fileName, sheetName, table) {
+        //     let wb;
+        //     if (table && table !== '') {
+        //         wb = XLSX.utils.table_to_book($('#' + table)[0]);
+        //     }
+        //     console.log('wb', wb);
+        //     XLSX.writeFile(wb, `${fileName}.xlsx`);
+        // }
 
 
-        function exportExcelscorce1() {
-            let idTest = $('#idTestcurent').val();
-            $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "getTest",
-                    idTest: idTest,
-                },
-                success: function(data) {
-                    console.log(data);
-                    let infoTest = JSON.parse(data);
-                    console.log(idTest);
-                    exportToExcel1("Bảng điểm: " + infoTest['tenDe'], "bangDiem", "listTestscores");
-                }
-            })
-        }
+        // function exportExcelscorce1() {
+        //     let idTest = $('#idTestcurent').val();
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "./Controller/controller.php",
+        //         data: {
+        //             act: "getTest",
+        //             idTest: idTest,
+        //         },
+        //         success: function(data) {
+        //             console.log(data);
+        //             let infoTest = JSON.parse(data);
+        //             console.log(idTest);
+        //             exportToExcel1("Bảng điểm: " + infoTest['tenDe'], "bangDiem", "listTestscores");
+        //         }
+        //     })
+        // }
 
         function exportExcelscorce2() {
             let idTest = $('#idTestcurent').val();
@@ -1208,6 +1379,7 @@ if (!isset($_SESSION['user'])) {
     include "./View/form/form_createReport.php";
     include "./View/form/form_alterTest.php";
     include "./View/form/form_createDetailTest_default.php";
+    include "./View/form/form_createDetailTest_PDF.php";
     ?>
 
     <!-- Side Navigation -->

@@ -23,7 +23,7 @@ class TestModel{
         $data = DataProvider::executeSQL($sql);
     }
 
-    public static function saveQuestionInTest($idTest,$arrQuestion){
+    public static function saveQuestionInTestDefault($idTest,$arrQuestion){
         TestModel::deleteQuestionInTest($idTest);
         foreach($arrQuestion as &$value ){            
             $sql = "INSERT INTO `chitietbode` (`maCau`, `maBoDe`) VALUES ('$value', '$idTest');";
@@ -32,16 +32,28 @@ class TestModel{
         $data['status'] = 'success';
         return $data;
     }
+    public static function saveQuestionInTestPDF($idTest,$arrQuestion){
+        TestModel::deleteQuestionInTest($idTest);
+        $cnt=0;
+        foreach($arrQuestion as &$value ){            
+            $sql = "INSERT INTO `chitietbode` (`maCau`, `maBoDe`,`dapAn`) VALUES ('$cnt', '$idTest','$value');";
+            $tmp= DataProvider::executeSQL($sql);
+            $cnt++;
+        }
+        $data['status'] = 'success';
+        return $data;
+    }
 
     public static function getTestOfClass($idClass){
-        $sql = "SELECT bode.maDe,bode.tenDe,bode.maLop,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDiem,bode.xemDapAn,AVG(bailam.diem) as diemtb FROM bode LEFT JOIN bailam on bode.maDe=bailam.maDe WHERE bode.maLop='$idClass' GROUP BY bode.maDe;";
+        // $sql = "SELECT bode.maDe,bode.tenDe,bode.maLop,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDiem,bode.xemDapAn,AVG(bailam.diem) as diemtb FROM bode LEFT JOIN bailam on bode.maDe=bailam.maDe WHERE bode.maLop='$idClass' GROUP BY bode.maDe;";
+        $sql = "SELECT bode.maDe,bode.tenDe,bode.maLop,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDiem,bode.xemDapAn,AVG(bailam.diem) as diemtb FROM bode LEFT JOIN bailam on bode.maDe=bailam.maDe WHERE bode.maLop='$idClass' GROUP BY bode.maDe ORDER BY `ngayThi` DESC;";
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
 
     public static function getInfoTest($idTest){
         // $sql = "SELECT bode.maDe, bode.tenDe,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDapAn,bode.xemDiem, COUNT(chitietdiem.maTaiKhoan) as slBai FROM `bode` LEFT JOIN chitietdiem on chitietdiem.maDe=bode.maDe WHERE bode.maDe='$idTest' GROUP BY bode.maDe;";
-        $sql = "SELECT bode.maDe, bode.tenDe,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDapAn,bode.xemDiem, COUNT(bailam.maTaiKhoan) as slBai FROM `bode` LEFT JOIN bailam on bailam.maDe=bode.maDe WHERE bode.maDe='$idTest' GROUP BY bode.maDe;";
+        $sql = "SELECT bode.maDe, bode.tenDe,bode.thoiGianLamBai,bode.ngayThi,bode.daoCauHoi,bode.xemDapAn,bode.xemDiem,bode.loaiDe, COUNT(bailam.maTaiKhoan) as slBai FROM `bode` LEFT JOIN bailam on bailam.maDe=bode.maDe WHERE bode.maDe='$idTest' GROUP BY bode.maDe;";
 
         $data= DataProvider::executeSQL($sql);
         return $data;
@@ -72,6 +84,12 @@ class TestModel{
 
     public static function getQuestionOfTest($idTest){
         $sql = "SELECT cauhoi_nganhang.noiDung, cauhoi_nganhang.maCau FROM chitietbode,cauhoi_nganhang WHERE chitietbode.maCau=cauhoi_nganhang.maCau and chitietbode.maBoDe='$idTest';";
+        $data = DataProvider::executeSQL($sql);
+        return $data;
+    }
+    
+    public static function getQuestionOfTestPDF($idTest){
+        $sql = "SELECT * FROM chitietbode WHERE chitietbode.maBoDe='$idTest';";
         $data = DataProvider::executeSQL($sql);
         return $data;
     }

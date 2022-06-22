@@ -182,6 +182,31 @@ return $result;
         return $result;
     }
 
+    public static function renderTestPDFForStudent($question,$idTest){
+        $result['deThi']='./Assets/deThi/'.$idTest.'.pdf';
+        $result['baiLam']='';
+        for($i=1;$i<=count($question);$i++){
+            $result['baiLam'].='
+            <div class="col">
+                <div class="form-check" style="padding-left: 0;">
+                    <label class="form-check-label">
+                        Câu '.$i.':
+                    </label>
+                    <select name="test">
+                        <option hidden></option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                </div>
+            </div>
+            ';
+        }
+        return $result;
+
+    }
+
     public static function showTestscores($data){
         $result='
         <thead class="bg-success bg-opacity-25">

@@ -16,13 +16,13 @@ class TestController
     }
 
 
-    public static function saveQuestionInTest($idTest, $arrQuestion,$loaiDe)
+    public static function saveQuestionInTest($idTest, $arrQuestion, $loaiDe)
     {
-        if($loaiDe=='default'){
+        if ($loaiDe == 'default') {
             $data = TestModel::saveQuestionInTestDefault($idTest, json_decode($arrQuestion));
             $result['notice'] = 'Thêm câu hỏi thành công';
             $result['status'] = 'success';
-        }else{
+        } else {
             $data = TestModel::saveQuestionInTestPDF($idTest, json_decode($arrQuestion));
             $result['notice'] = 'Tạo đáp án thành công';
             $result['status'] = 'success';
@@ -92,6 +92,13 @@ class TestController
                 shuffle($listQuestion);
             }
             $data['html'] = TestView::renderTestForStudent($listQuestion, $listAnswer);
+        } else {
+            $listQuestionSql = TestModel::getQuestionOfTestPDF($idTest);
+            $listQuestion = array();
+            while ($row = mysqli_fetch_array($listQuestionSql)) {
+                $listQuestion[] = $row;
+            }
+            $data['html'] = TestView::renderTestPDFForStudent($listQuestion, $idTest);
         }
         return $data;
     }
@@ -108,19 +115,30 @@ class TestController
 
     public static function chamBai($listAnswer, $idTest, $email)
     {
-        $listAnswer = json_decode($listAnswer);
-        TestModel::taoChiTietBaiLam($listAnswer, $idTest, $email);
-        $Question = TestModel::getQuestionAndAnswerOfTest($idTest);
         $tong = 0;
         $soCauDung = 0;
-        while ($row = mysqli_fetch_array($Question)) {
-            $tong++;
-            foreach ($listAnswer as $answer) {
-                if ($row['maCau'] == $answer->maCau) {
-                    if ($row['dapAn'] == $answer->luaChon) {
-                        $soCauDung++;
+        $listAnswer = json_decode($listAnswer);
+        $infoTest = mysqli_fetch_array(TestModel::getInfoTest($idTest));
+        TestModel::taoChiTietBaiLam($listAnswer, $idTest, $email, $infoTest['loaiDe']);
+        if ($infoTest['loaiDe'] == 'default') {
+            $Question = TestModel::getQuestionAndAnswerOfTest($idTest);
+            while ($row = mysqli_fetch_array($Question)) {
+                $tong++;
+                foreach ($listAnswer as $answer) {
+                    if ($row['maCau'] == $answer->maCau) {
+                        if ($row['dapAn'] == $answer->luaChon) {
+                            $soCauDung++;
+                        }
                     }
                 }
+            }
+        } else {
+            $Question = TestModel::getQuestionOfTestPDF($idTest);
+            while ($row = mysqli_fetch_array($Question)) {
+                if ($row['dapAn'] == $listAnswer[$row['maCau']]) {
+                    $soCauDung++;
+                }
+                $tong++;
             }
         }
         TestModel::taoBaiLam($idTest, $email, round(($soCauDung / $tong) * 10, 2));
@@ -132,16 +150,16 @@ class TestController
         return mysqli_fetch_array($data);
     }
 
-    public static function alterInfoTest($idTest, $nameTest, $thoiGianLamBai, $ngayThi, $daoCauHoi,$loaiDe)
+    public static function alterInfoTest($idTest, $nameTest, $thoiGianLamBai, $ngayThi, $daoCauHoi, $loaiDe)
     {
         TestModel::alterInfoTest($idTest, $nameTest, $thoiGianLamBai, $ngayThi, $daoCauHoi);
-        if($loaiDe=='default'){
+        if ($loaiDe == 'default') {
             $listQuestionsql = TestModel::getQuestionOfTest($idTest);
             $listQuestion = array();
             while ($row = mysqli_fetch_array($listQuestionsql)) {
                 $listQuestion[] = $row['maCau'];
             }
-        }else{
+        } else {
             $listQuestionsql = TestModel::getQuestionOfTestPDF($idTest);
             $listQuestion = array();
             while ($row = mysqli_fetch_array($listQuestionsql)) {
@@ -185,44 +203,66 @@ class TestController
 
     public static function getDetailstestscores($idTest, $idStudent)
     {
-        $answer = TestModel::getQuestionAndAnswerOfTest($idTest);
-        $listAnswer = array();
-        while ($row = mysqli_fetch_array($answer)) {
-            $listAnswer[] = $row;
-        }
-        $baiLam = TestModel::getBaiLam($idTest, $idStudent);
         $soCaudung = 0;
         $soCausai = 0;
         $soCauchualam = 0;
+        $infoTest = TestController::getTest($idTest);
+        if ($infoTest['loaiDe'] == 'default') {
 
-        while ($row = mysqli_fetch_array($baiLam)) {
-            if ($row['dapAnChon'] == '') {
-                $soCauchualam++;
-                $result[strval($row['maCau'])] = 'Chưa làm';
-            } else {
-                // $test++;
-                foreach ($listAnswer as $answer) {
-                    if ($row['maCau'] == $answer['maCau']) {
-                        if ($row['dapAnChon'] == $answer['dapAn']) {
-                            $soCaudung++;
-                            $result[strval($row['maCau'])] = 'Đúng';
-                        } else {
-                            $soCausai++;
-                            $result[strval($row['maCau'])] = 'Sai';
+            $answer = TestModel::getQuestionAndAnswerOfTest($idTest);
+            $listAnswer = array();
+            while ($row = mysqli_fetch_array($answer)) {
+                $listAnswer[] = $row;
+            }
+            $baiLam = TestModel::getBaiLam($idTest, $idStudent);
+            while ($row = mysqli_fetch_array($baiLam)) {
+                if ($row['dapAnChon'] == '') {
+                    $soCauchualam++;
+                    $result[strval($row['maCau'])] = 'Chưa làm';
+                } else {
+                    // $test++;
+                    foreach ($listAnswer as $answer) {
+                        if ($row['maCau'] == $answer['maCau']) {
+                            if ($row['dapAnChon'] == $answer['dapAn']) {
+                                $soCaudung++;
+                                $result[strval($row['maCau'])] = 'Đúng';
+                            } else {
+                                $soCausai++;
+                                $result[strval($row['maCau'])] = 'Sai';
+                            }
                         }
                     }
-                    // if($row['maCau']==$answer['maCau']){
-                    //     $result[strval($row['maCau'])]['luaChon']=$row['dapAnChon'];
-                    //     if($row['dapAnChon']==$answer['dapAn']){
-                    //         $soCaudung++;
-                    //         $result[strval($row['maCau'])]['ketQua']='Đúng';
-                    //     }else{
-                    //         $soCausai++;
-                    //         $result[strval($row['maCau'])]['ketQua']='Sai';
-                    //     }
-                    // }
                 }
             }
+        }
+        else{
+            $dataSql = TestModel::getQuestionOfTestPDF($idTest);
+            $listQuestion = array();
+            while ($row = mysqli_fetch_array($dataSql)) {
+                $listQuestion[] = $row;
+            }
+            $baiLam = TestModel::getBaiLam($idTest, $idStudent);
+            while ($row = mysqli_fetch_array($baiLam)) {
+                if ($row['dapAnChon'] == '') {
+                    $soCauchualam++;
+                    $result[strval($row['maCau'])] = 'Chưa làm';
+                } else {
+                    // $test++;
+                    foreach ($listQuestion as $answer) {
+                        if ($row['maCau'] == $answer['maCau']) {
+                            if ($row['dapAnChon'] == $answer['dapAn']) {
+                                $soCaudung++;
+                                $result[strval($row['maCau'])] = 'Đúng';
+                            } else {
+                                $soCausai++;
+                                $result[strval($row['maCau'])] = 'Sai';
+                            }
+                        }
+                    }
+                }
+            }
+            
+
         }
         $result['Số câu sai'] = $soCausai;
         $result['Số câu đúng'] = $soCaudung;
@@ -232,22 +272,21 @@ class TestController
 
     public static function getDetialtest($idTest)
     {
-        $infoTest=mysqli_fetch_array(TestModel::getInfoTest($idTest));
-        $result['loaiDe']=$infoTest['loaiDe'];
+        $infoTest = mysqli_fetch_array(TestModel::getInfoTest($idTest));
+        $result['loaiDe'] = $infoTest['loaiDe'];
         $data = array();
-        if($infoTest['loaiDe']=='default'){
+        if ($infoTest['loaiDe'] == 'default') {
             $dataSql = TestModel::getDetialtest($idTest);
             while ($row = mysqli_fetch_array($dataSql)) {
                 $data[] = $row;
             }
-        }
-        else{
+        } else {
             $dataSql = TestModel::getQuestionOfTestPDF($idTest);
             while ($row = mysqli_fetch_array($dataSql)) {
                 $data[] = $row;
             }
         }
-        $result['data']=$data;
+        $result['data'] = $data;
         // return $data;
         return $result;
     }

@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 29, 2022 at 09:41 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th6 22, 2022 lúc 09:52 AM
+-- Phiên bản máy phục vụ: 10.4.22-MariaDB
+-- Phiên bản PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `qlttn`
+-- Cơ sở dữ liệu: `qlttn`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bailam`
+-- Cấu trúc bảng cho bảng `bailam`
 --
 
 CREATE TABLE `bailam` (
@@ -34,10 +34,11 @@ CREATE TABLE `bailam` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `bailam`
+-- Đang đổ dữ liệu cho bảng `bailam`
 --
 
 INSERT INTO `bailam` (`maTaiKhoan`, `maDe`, `diem`) VALUES
+('hocsinh1@gmail.com', '54049', 2.5),
 ('L1SV1@gmail.com', '54037', 1.43),
 ('L1SV2@gmail.com', '54037', 0),
 ('L2SV2@gmail.com', '54037', 4.29),
@@ -45,13 +46,18 @@ INSERT INTO `bailam` (`maTaiKhoan`, `maDe`, `diem`) VALUES
 ('sv123@gmail.com', '54033', 2.5),
 ('sv123@gmail.com', '54035', 5),
 ('sv123@gmail.com', '54039', 7.5),
+('sv123@gmail.com', '54049', 2.5),
+('sv123@gmail.com', '54062', 2),
+('sv123@gmail.com', '54064', 2),
+('sv123@gmail.com', '54080', 6),
+('sv123@gmail.com', '54081', 10),
 ('sv1@gmail.com', '54036', 7.5),
 ('tunguy12b4thptlh2020@gmail.com', '54037', 2.86);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bode`
+-- Cấu trúc bảng cho bảng `bode`
 --
 
 CREATE TABLE `bode` (
@@ -62,26 +68,35 @@ CREATE TABLE `bode` (
   `ngayThi` datetime NOT NULL,
   `daoCauHoi` varchar(11) NOT NULL,
   `xemDiem` varchar(255) NOT NULL,
-  `xemDapAn` varchar(255) NOT NULL
+  `xemDapAn` varchar(255) NOT NULL,
+  `loaiDe` varchar(255) NOT NULL DEFAULT 'default'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `bode`
+-- Đang đổ dữ liệu cho bảng `bode`
 --
 
-INSERT INTO `bode` (`maDe`, `tenDe`, `maLop`, `thoiGianLamBai`, `ngayThi`, `daoCauHoi`, `xemDiem`, `xemDapAn`) VALUES
-(54033, 'Test 1', '8b0xJP5c', 46, '2022-05-15 23:25:00', 'false', '', ''),
-(54034, 'sdfsd', '', 45, '2022-05-15 23:37:00', 'false', '', ''),
-(54035, 'fsdfs', 'PXyiOFlQ', 45, '2022-05-15 23:38:00', 'false', '', ''),
-(54036, 'Bài kiểm tra Web', 'ABC', 45, '2022-05-17 07:20:00', 'false', '', ''),
-(54037, 'Bài kiểm tra 1', 'abcd', 5, '2022-05-17 08:12:00', 'false', '', ''),
-(54038, 'trung', 'abcd', 45, '2022-05-28 09:14:00', 'false', '', ''),
-(54039, 'Kiểm tra giữa kì', '8b0xJP5c', 45, '2022-05-18 10:14:00', 'true', '', ''),
-(54047, 'classs', '8b0xJP5c', 45, '2022-05-21 10:32:00', 'false', '', ''),
-(54048, 'fsdf', '123', 45, '2022-05-21 10:47:00', 'false', '', '');
+INSERT INTO `bode` (`maDe`, `tenDe`, `maLop`, `thoiGianLamBai`, `ngayThi`, `daoCauHoi`, `xemDiem`, `xemDapAn`, `loaiDe`) VALUES
+(54033, 'Test 1', '8b0xJP5c', 46, '2022-05-15 23:25:00', 'false', '', '', 'default'),
+(54034, 'sdfsd', '', 45, '2022-05-15 23:37:00', 'false', '', '', 'default'),
+(54035, 'fsdfs', 'PXyiOFlQ', 45, '2022-05-15 23:38:00', 'false', '', '', 'default'),
+(54036, 'Bài kiểm tra Web', 'ABC', 45, '2022-05-17 07:20:00', 'false', '', '', 'default'),
+(54037, 'Bài kiểm tra 1', 'abcd', 5, '2022-05-17 08:12:00', 'false', '', '', 'default'),
+(54038, 'trung', 'abcd', 45, '2022-05-28 09:14:00', 'false', '', '', 'default'),
+(54039, 'Kiểm tra giữa kì', '8b0xJP5c', 45, '2022-05-18 10:14:00', 'true', '', '', 'default'),
+(54047, 'classs', '8b0xJP5c', 45, '2022-05-21 10:32:00', 'false', '', '', 'default'),
+(54048, 'fsdf', '123', 45, '2022-05-21 10:47:00', 'false', '', '', 'default'),
+(54049, 'bài 1', '841464_Nhom4', 45, '2022-06-02 15:30:00', 'false', '', '', 'default'),
+(54059, '123', '841464_Nhom4', 45, '2022-06-03 16:14:00', 'false', '', '', 'default'),
+(54060, '123', '123', 45, '2022-06-20 16:23:00', 'false', '', '', 'pdf'),
+(54062, '123', '841464_Nhom4', 45, '2022-06-20 18:54:00', 'false', '', '', 'default'),
+(54063, 'sdfsdf', '841464_Nhom4', 45, '2022-06-20 19:08:00', 'false', '', '', 'pdf'),
+(54064, '567', '841464_Nhom4', 45, '2022-06-20 19:27:00', 'false', '', '', 'default'),
+(54080, 'test', '841464_Nhom4', 120, '2022-06-22 13:30:00', 'false', '', '', 'pdf'),
+(54081, 'test2', '841464_Nhom4', 45, '2022-06-22 14:30:00', 'false', '', '', 'pdf');
 
 --
--- Triggers `bode`
+-- Bẫy `bode`
 --
 DELIMITER $$
 CREATE TRIGGER `xóa bài làm` AFTER DELETE ON `bode` FOR EACH ROW DELETE FROM bailam WHERE bailam.maDe not IN (SELECT maDe from bode )
@@ -99,7 +114,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cauhoi_nganhang`
+-- Cấu trúc bảng cho bảng `cauhoi_nganhang`
 --
 
 CREATE TABLE `cauhoi_nganhang` (
@@ -110,7 +125,7 @@ CREATE TABLE `cauhoi_nganhang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `cauhoi_nganhang`
+-- Đang đổ dữ liệu cho bảng `cauhoi_nganhang`
 --
 
 INSERT INTO `cauhoi_nganhang` (`maCau`, `maNhom`, `noiDung`, `dapAn`) VALUES
@@ -134,7 +149,7 @@ INSERT INTO `cauhoi_nganhang` (`maCau`, `maNhom`, `noiDung`, `dapAn`) VALUES
 (12036, '42020', 'nội dung', 'b');
 
 --
--- Triggers `cauhoi_nganhang`
+-- Bẫy `cauhoi_nganhang`
 --
 DELIMITER $$
 CREATE TRIGGER `question` AFTER DELETE ON `cauhoi_nganhang` FOR EACH ROW DELETE FROM luachon WHERE maCau not IN (SELECT maCau from cauhoi_nganhang )
@@ -144,7 +159,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitietbailam`
+-- Cấu trúc bảng cho bảng `chitietbailam`
 --
 
 CREATE TABLE `chitietbailam` (
@@ -155,10 +170,14 @@ CREATE TABLE `chitietbailam` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `chitietbailam`
+-- Đang đổ dữ liệu cho bảng `chitietbailam`
 --
 
 INSERT INTO `chitietbailam` (`maTaiKhoan`, `maCau`, `maDe`, `dapAnChon`) VALUES
+('hocsinh1@gmail.com', '12001', '54049', ''),
+('hocsinh1@gmail.com', '12002', '54049', ''),
+('hocsinh1@gmail.com', '12003', '54049', 'a'),
+('hocsinh1@gmail.com', '12004', '54049', 'a'),
 ('L1SV1@gmail.com', '12001', '54037', 'b'),
 ('L1SV1@gmail.com', '12002', '54037', 'c'),
 ('L1SV1@gmail.com', '12003', '54037', 'b'),
@@ -187,18 +206,51 @@ INSERT INTO `chitietbailam` (`maTaiKhoan`, `maCau`, `maDe`, `dapAnChon`) VALUES
 ('nttnguyen2002@gmail.com', '12005', '54037', 'a'),
 ('nttnguyen2002@gmail.com', '12006', '54037', 'd'),
 ('nttnguyen2002@gmail.com', '12007', '54037', 'c'),
+('sv123@gmail.com', '0', '54080', 'A'),
+('sv123@gmail.com', '0', '54081', 'A'),
+('sv123@gmail.com', '1', '54080', 'A'),
+('sv123@gmail.com', '1', '54081', 'B'),
 ('sv123@gmail.com', '12001', '54033', 'a'),
 ('sv123@gmail.com', '12001', '54035', 'a'),
 ('sv123@gmail.com', '12001', '54039', 'a'),
+('sv123@gmail.com', '12001', '54049', 'a'),
+('sv123@gmail.com', '12001', '54062', 'a'),
+('sv123@gmail.com', '12001', '54064', 'a'),
 ('sv123@gmail.com', '12002', '54033', 'a'),
 ('sv123@gmail.com', '12002', '54035', 'b'),
 ('sv123@gmail.com', '12002', '54039', 'a'),
+('sv123@gmail.com', '12002', '54049', 'a'),
+('sv123@gmail.com', '12002', '54062', 'a'),
+('sv123@gmail.com', '12002', '54064', 'a'),
 ('sv123@gmail.com', '12003', '54033', ''),
 ('sv123@gmail.com', '12003', '54035', 'a'),
 ('sv123@gmail.com', '12003', '54039', 'a'),
+('sv123@gmail.com', '12003', '54049', ''),
+('sv123@gmail.com', '12003', '54062', ''),
+('sv123@gmail.com', '12003', '54064', ''),
 ('sv123@gmail.com', '12004', '54033', ''),
 ('sv123@gmail.com', '12004', '54035', ''),
 ('sv123@gmail.com', '12004', '54039', 'b'),
+('sv123@gmail.com', '12004', '54049', ''),
+('sv123@gmail.com', '12004', '54062', ''),
+('sv123@gmail.com', '12004', '54064', ''),
+('sv123@gmail.com', '12005', '54062', ''),
+('sv123@gmail.com', '12005', '54064', ''),
+('sv123@gmail.com', '2', '54080', 'B'),
+('sv123@gmail.com', '2', '54081', 'C'),
+('sv123@gmail.com', '3', '54080', 'A'),
+('sv123@gmail.com', '3', '54081', 'D'),
+('sv123@gmail.com', '4', '54080', 'B'),
+('sv123@gmail.com', '4', '54081', 'D'),
+('sv123@gmail.com', '5', '54080', 'C'),
+('sv123@gmail.com', '5', '54081', 'C'),
+('sv123@gmail.com', '6', '54080', 'A'),
+('sv123@gmail.com', '6', '54081', 'B'),
+('sv123@gmail.com', '7', '54080', 'B'),
+('sv123@gmail.com', '7', '54081', 'A'),
+('sv123@gmail.com', '8', '54080', 'C'),
+('sv123@gmail.com', '8', '54081', ''),
+('sv123@gmail.com', '9', '54080', 'D'),
 ('sv1@gmail.com', '12001', '54036', 'a'),
 ('sv1@gmail.com', '12002', '54036', 'a'),
 ('sv1@gmail.com', '12005', '54036', 'a'),
@@ -214,61 +266,100 @@ INSERT INTO `chitietbailam` (`maTaiKhoan`, `maCau`, `maDe`, `dapAnChon`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitietbode`
+-- Cấu trúc bảng cho bảng `chitietbode`
 --
 
 CREATE TABLE `chitietbode` (
   `maCau` varchar(255) NOT NULL,
-  `maBoDe` varchar(255) NOT NULL
+  `maBoDe` varchar(255) NOT NULL,
+  `dapAn` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `chitietbode`
+-- Đang đổ dữ liệu cho bảng `chitietbode`
 --
 
-INSERT INTO `chitietbode` (`maCau`, `maBoDe`) VALUES
-('12001', '54033'),
-('12001', '54034'),
-('12001', '54035'),
-('12001', '54036'),
-('12001', '54037'),
-('12001', '54038'),
-('12001', '54039'),
-('12001', '54047'),
-('12001', '54048'),
-('12002', '54033'),
-('12002', '54034'),
-('12002', '54035'),
-('12002', '54036'),
-('12002', '54037'),
-('12002', '54038'),
-('12002', '54039'),
-('12002', '54047'),
-('12002', '54048'),
-('12003', '54033'),
-('12003', '54034'),
-('12003', '54035'),
-('12003', '54037'),
-('12003', '54038'),
-('12003', '54039'),
-('12003', '54047'),
-('12003', '54048'),
-('12004', '54033'),
-('12004', '54034'),
-('12004', '54035'),
-('12004', '54037'),
-('12004', '54038'),
-('12004', '54039'),
-('12005', '54036'),
-('12005', '54037'),
-('12006', '54037'),
-('12007', '54037'),
-('12010', '54036');
+INSERT INTO `chitietbode` (`maCau`, `maBoDe`, `dapAn`) VALUES
+('0', '54080', 'A'),
+('0', '54081', 'A'),
+('1', '54080', 'A'),
+('1', '54081', 'B'),
+('12001', '54033', NULL),
+('12001', '54034', NULL),
+('12001', '54035', NULL),
+('12001', '54036', NULL),
+('12001', '54037', NULL),
+('12001', '54038', NULL),
+('12001', '54039', NULL),
+('12001', '54047', NULL),
+('12001', '54048', NULL),
+('12001', '54049', NULL),
+('12001', '54059', NULL),
+('12001', '54062', NULL),
+('12001', '54064', NULL),
+('12002', '54033', NULL),
+('12002', '54034', NULL),
+('12002', '54035', NULL),
+('12002', '54036', NULL),
+('12002', '54037', NULL),
+('12002', '54038', NULL),
+('12002', '54039', NULL),
+('12002', '54047', NULL),
+('12002', '54048', NULL),
+('12002', '54049', NULL),
+('12002', '54059', NULL),
+('12002', '54062', NULL),
+('12002', '54064', NULL),
+('12003', '54033', NULL),
+('12003', '54034', NULL),
+('12003', '54035', NULL),
+('12003', '54037', NULL),
+('12003', '54038', NULL),
+('12003', '54039', NULL),
+('12003', '54047', NULL),
+('12003', '54048', NULL),
+('12003', '54049', NULL),
+('12003', '54059', NULL),
+('12003', '54062', NULL),
+('12003', '54064', NULL),
+('12004', '54033', NULL),
+('12004', '54034', NULL),
+('12004', '54035', NULL),
+('12004', '54037', NULL),
+('12004', '54038', NULL),
+('12004', '54039', NULL),
+('12004', '54049', NULL),
+('12004', '54059', NULL),
+('12004', '54062', NULL),
+('12004', '54064', NULL),
+('12005', '54036', NULL),
+('12005', '54037', NULL),
+('12005', '54059', NULL),
+('12005', '54062', NULL),
+('12005', '54064', NULL),
+('12006', '54037', NULL),
+('12007', '54037', NULL),
+('12010', '54036', NULL),
+('2', '54080', 'B'),
+('2', '54081', 'C'),
+('3', '54080', 'A'),
+('3', '54081', 'D'),
+('4', '54080', 'B'),
+('4', '54081', 'D'),
+('5', '54080', 'C'),
+('5', '54081', 'C'),
+('6', '54080', 'D'),
+('6', '54081', 'B'),
+('7', '54080', 'A'),
+('7', '54081', 'A'),
+('8', '54080', 'B'),
+('8', '54081', ''),
+('9', '54080', 'C');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitietlop`
+-- Cấu trúc bảng cho bảng `chitietlop`
 --
 
 CREATE TABLE `chitietlop` (
@@ -277,10 +368,11 @@ CREATE TABLE `chitietlop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `chitietlop`
+-- Đang đổ dữ liệu cho bảng `chitietlop`
 --
 
 INSERT INTO `chitietlop` (`maLop`, `maTaiKhoan`) VALUES
+('841464_Nhom4', 'hocsinh1@gmail.com'),
 ('abcd', 'L1SV1@gmail.com'),
 ('abcd', 'L1SV2@gmail.com'),
 ('abcd', 'L1SV3@gmail.com'),
@@ -329,7 +421,7 @@ INSERT INTO `chitietlop` (`maLop`, `maTaiKhoan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lop`
+-- Cấu trúc bảng cho bảng `lop`
 --
 
 CREATE TABLE `lop` (
@@ -340,7 +432,7 @@ CREATE TABLE `lop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `lop`
+-- Đang đổ dữ liệu cho bảng `lop`
 --
 
 INSERT INTO `lop` (`maLop`, `tenLop`, `ThongTin`, `maGiangVien`) VALUES
@@ -352,10 +444,11 @@ INSERT INTO `lop` (`maLop`, `tenLop`, `ThongTin`, `maGiangVien`) VALUES
 ('HxWayMjv', 'Lớp 1', '', 'gv1@gmail.com'),
 ('lDBF7QAd', 'lớp 2', '', 'trung@gmail.com'),
 ('PXyiOFlQ', 'Lớp 4', 'eqwqw', 'gv1@gmail.com'),
-('QNpKqgPF', 'Lớp 1', '', 'gv1@gmail.com');
+('QNpKqgPF', 'Lớp 1', '', 'gv1@gmail.com'),
+('zKHkKsdR', 'ds', 'csd', 'nguyntrung291@gmail.com');
 
 --
--- Triggers `lop`
+-- Bẫy `lop`
 --
 DELIMITER $$
 CREATE TRIGGER `test` AFTER DELETE ON `lop` FOR EACH ROW DELETE FROM chitietlop WHERE maLop not IN (SELECT maLop from lop )
@@ -365,7 +458,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `luachon`
+-- Cấu trúc bảng cho bảng `luachon`
 --
 
 CREATE TABLE `luachon` (
@@ -376,7 +469,7 @@ CREATE TABLE `luachon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `luachon`
+-- Đang đổ dữ liệu cho bảng `luachon`
 --
 
 INSERT INTO `luachon` (`maLuaChon`, `maCau`, `noiDung`, `laDapAn`) VALUES
@@ -456,7 +549,7 @@ INSERT INTO `luachon` (`maLuaChon`, `maCau`, `noiDung`, `laDapAn`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nhomcauhoi`
+-- Cấu trúc bảng cho bảng `nhomcauhoi`
 --
 
 CREATE TABLE `nhomcauhoi` (
@@ -465,7 +558,7 @@ CREATE TABLE `nhomcauhoi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `nhomcauhoi`
+-- Đang đổ dữ liệu cho bảng `nhomcauhoi`
 --
 
 INSERT INTO `nhomcauhoi` (`maNhomCauHoi`, `tenNhomCauHoi`) VALUES
@@ -483,7 +576,7 @@ INSERT INTO `nhomcauhoi` (`maNhomCauHoi`, `tenNhomCauHoi`) VALUES
 (42020, 'abc');
 
 --
--- Triggers `nhomcauhoi`
+-- Bẫy `nhomcauhoi`
 --
 DELIMITER $$
 CREATE TRIGGER `QuestionGroup` AFTER DELETE ON `nhomcauhoi` FOR EACH ROW DELETE FROM cauhoi_nganhang WHERE cauhoi_nganhang.maNhom not in (SELECT maNhomCauHoi FROM nhomcauhoi)
@@ -493,7 +586,31 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `taikhoan`
+-- Cấu trúc bảng cho bảng `report`
+--
+
+CREATE TABLE `report` (
+  `maReport` int(255) NOT NULL,
+  `maGv` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tieuDe` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `noiDung` varchar(5000) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thoiGian` datetime NOT NULL DEFAULT current_timestamp(),
+  `trangThai` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `report`
+--
+
+INSERT INTO `report` (`maReport`, `maGv`, `tieuDe`, `noiDung`, `thoiGian`, `trangThai`) VALUES
+(73005, 'nguyntrung291@gmail.com', 'ừ', 'fwe', '2022-06-02 16:25:28', 1),
+(73006, 'nguyntrung291@gmail.com', 'vsdvs', '', '2022-06-02 16:28:52', 1),
+(73007, 'nguyntrung291@gmail.com', '   vds', 'vsdvs', '2022-06-02 16:30:31', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `taikhoan`
 --
 
 CREATE TABLE `taikhoan` (
@@ -508,7 +625,7 @@ CREATE TABLE `taikhoan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `taikhoan`
+-- Đang đổ dữ liệu cho bảng `taikhoan`
 --
 
 INSERT INTO `taikhoan` (`mail`, `password`, `loaiTk`, `hoten`, `ngaysinh`, `sdt`, `active`, `maCanhan`) VALUES
@@ -553,7 +670,7 @@ INSERT INTO `taikhoan` (`mail`, `password`, `loaiTk`, `hoten`, `ngaysinh`, `sdt`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `thongbao`
+-- Cấu trúc bảng cho bảng `thongbao`
 --
 
 CREATE TABLE `thongbao` (
@@ -565,7 +682,7 @@ CREATE TABLE `thongbao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `thongbao`
+-- Đang đổ dữ liệu cho bảng `thongbao`
 --
 
 INSERT INTO `thongbao` (`idNotice`, `idClass`, `title`, `notice`, `date`) VALUES
@@ -586,99 +703,111 @@ INSERT INTO `thongbao` (`idNotice`, `idClass`, `title`, `notice`, `date`) VALUES
 (11026, '841464_Nhom4', 'tiêu đề', 'nội dung', '2022-05-28 04:15:10');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `bailam`
+-- Chỉ mục cho bảng `bailam`
 --
 ALTER TABLE `bailam`
   ADD PRIMARY KEY (`maTaiKhoan`,`maDe`);
 
 --
--- Indexes for table `bode`
+-- Chỉ mục cho bảng `bode`
 --
 ALTER TABLE `bode`
   ADD PRIMARY KEY (`maDe`);
 
 --
--- Indexes for table `cauhoi_nganhang`
+-- Chỉ mục cho bảng `cauhoi_nganhang`
 --
 ALTER TABLE `cauhoi_nganhang`
   ADD PRIMARY KEY (`maCau`);
 
 --
--- Indexes for table `chitietbailam`
+-- Chỉ mục cho bảng `chitietbailam`
 --
 ALTER TABLE `chitietbailam`
   ADD PRIMARY KEY (`maTaiKhoan`,`maCau`,`maDe`);
 
 --
--- Indexes for table `chitietbode`
+-- Chỉ mục cho bảng `chitietbode`
 --
 ALTER TABLE `chitietbode`
   ADD PRIMARY KEY (`maCau`,`maBoDe`);
 
 --
--- Indexes for table `chitietlop`
+-- Chỉ mục cho bảng `chitietlop`
 --
 ALTER TABLE `chitietlop`
   ADD PRIMARY KEY (`maTaiKhoan`,`maLop`) USING BTREE;
 
 --
--- Indexes for table `lop`
+-- Chỉ mục cho bảng `lop`
 --
 ALTER TABLE `lop`
   ADD PRIMARY KEY (`maLop`);
 
 --
--- Indexes for table `luachon`
+-- Chỉ mục cho bảng `luachon`
 --
 ALTER TABLE `luachon`
   ADD PRIMARY KEY (`maLuaChon`,`maCau`);
 
 --
--- Indexes for table `nhomcauhoi`
+-- Chỉ mục cho bảng `nhomcauhoi`
 --
 ALTER TABLE `nhomcauhoi`
   ADD PRIMARY KEY (`maNhomCauHoi`);
 
 --
--- Indexes for table `taikhoan`
+-- Chỉ mục cho bảng `report`
+--
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`maReport`);
+
+--
+-- Chỉ mục cho bảng `taikhoan`
 --
 ALTER TABLE `taikhoan`
   ADD PRIMARY KEY (`mail`);
 
 --
--- Indexes for table `thongbao`
+-- Chỉ mục cho bảng `thongbao`
 --
 ALTER TABLE `thongbao`
   ADD PRIMARY KEY (`idNotice`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `bode`
+-- AUTO_INCREMENT cho bảng `bode`
 --
 ALTER TABLE `bode`
-  MODIFY `maDe` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54049;
+  MODIFY `maDe` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54082;
 
 --
--- AUTO_INCREMENT for table `cauhoi_nganhang`
+-- AUTO_INCREMENT cho bảng `cauhoi_nganhang`
 --
 ALTER TABLE `cauhoi_nganhang`
   MODIFY `maCau` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12037;
 
 --
--- AUTO_INCREMENT for table `nhomcauhoi`
+-- AUTO_INCREMENT cho bảng `nhomcauhoi`
 --
 ALTER TABLE `nhomcauhoi`
   MODIFY `maNhomCauHoi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42021;
 
 --
--- AUTO_INCREMENT for table `thongbao`
+-- AUTO_INCREMENT cho bảng `report`
+--
+ALTER TABLE `report`
+  MODIFY `maReport` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73008;
+
+--
+-- AUTO_INCREMENT cho bảng `thongbao`
 --
 ALTER TABLE `thongbao`
   MODIFY `idNotice` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11027;

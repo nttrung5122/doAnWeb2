@@ -291,7 +291,8 @@ if (!isset($_SESSION['user'])) {
                     }
                     else{
                         $("#formDoTestPDF").modal('show');
-
+                        $("#ifrPDF").attr('src',data['html']['deThi']);
+                        $('#phieuLamBaiPDF').html(data['html']['baiLam']);
                     }
                     start();
                 }
@@ -352,11 +353,11 @@ if (!isset($_SESSION['user'])) {
             stop();
             let idTest = $('#idTest').val();
             console.log("Nộp bài" + idTest);
-            var values = $("select[name='test']")
+            var listAnswer = $("select[name='test']")
             .map(function() {
                 return $(this).val();
             }).get();
-            console.log(values);
+            chamBai(listAnswer, idTest);
         }
 
         function chamBai(listAnswer, idTest) {

@@ -32,11 +32,11 @@
                             <ol class="list-group list-group-numbered list-group-flush shadow-sm" id="deThiPDF" style="height: 85vh;">
                             
                                 <!-- File PDF -->
-                                <iframe src="./Assets/deThi/test.pdf" title="W3Schools Free Online Web Tutorials" height="100%" frameborder="0"></iframe>
+                                <iframe id="ifrPDF" src="./Assets/deThi/test.pdf" title="" height="100%" frameborder="0"></iframe>
                             2
                             </ol>
                         </div>
-                        <div class="col-5">
+                        <div class="col-6">
                             <div class="d-grid gap-2 col-6 mx-auto mb-3 text-center">
                                 <div class="p-2 fs-5 bg-primary bg-gradient text-white rounded-2 shadow-sm mt-2">Phiếu bài làm</div>
                             </div>
@@ -46,11 +46,11 @@
                                     <span id="s2">Giây</span>
                                 </div>
                             </div>
-                            <div class="row row-cols-5 g-3 mx-auto bg-white shadow-sm overflow-auto" style="height: 50vh;" id="phieuLamBaiPDF">
-                                <div class="col">
+                            <div class="row row-cols-5 g-3 mx-auto bg-white shadow-sm overflow-auto align-content-start justify-content-start" style="height: 50vh;" id="phieuLamBaiPDF">
+                                <!-- <div class="col">
                                     <div class="form-check" style="padding-left: 0;">
                                         <label class="form-check-label">
-                                            Câu 1:
+                                            Câu 100:
                                         </label>
                                         <select name="test">
                                             <option hidden></option>
@@ -60,63 +60,7 @@
                                             <option value="d">D</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check" style="padding-left: 0;">
-                                        <label class="form-check-label">
-                                            Câu 2:
-                                        </label>
-                                        <select name="test">
-                                            <option hidden></option>
-                                            <option value="a">A</option>
-                                            <option value="b">B</option>
-                                            <option value="c">C</option>
-                                            <option value="d">D</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check" style="padding-left: 0;">
-                                        <label class="form-check-label">
-                                            Câu 3:
-                                        </label>
-                                        <select name="test">
-                                            <option hidden></option>
-                                            <option value="a">A</option>
-                                            <option value="b">B</option>
-                                            <option value="c">C</option>
-                                            <option value="d">D</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check" style="padding-left: 0;">
-                                        <label class="form-check-label">
-                                            Câu 4:
-                                        </label>
-                                        <select name="test">
-                                            <option hidden></option>
-                                            <option value="a">A</option>
-                                            <option value="b">B</option>
-                                            <option value="c">C</option>
-                                            <option value="d">D</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check" style="padding-left: 0;">
-                                        <label class="form-check-label">
-                                            Câu 5:
-                                        </label>
-                                        <select name="test">
-                                            <option hidden></option>
-                                            <option value="a">A</option>
-                                            <option value="b">B</option>
-                                            <option value="c">C</option>
-                                            <option value="d">D</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
                             <br>
                             <div class="d-grid gap-2 col-3 mx-auto">

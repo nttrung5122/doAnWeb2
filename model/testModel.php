@@ -66,12 +66,12 @@ class TestModel{
     }
 
     public static function getListTestNoSubmit($idClass,$idStudent){
-        $sql = "SELECT * FROM bode WHERE bode.maDe NOT IN ( SELECT bailam.maDe FROM bailam WHERE bailam.maTaiKhoan=\"$idStudent\") AND bode.maLop=\"$idClass\";";
+        $sql = "SELECT * FROM bode WHERE bode.maDe NOT IN ( SELECT bailam.maDe FROM bailam WHERE bailam.maTaiKhoan=\"$idStudent\") AND bode.maLop=\"$idClass\" ORDER BY `bode`.`maDe` DESC ;";
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
     public static function getListTestSubmited($idClass,$idStudent){
-        $sql = "SELECT * FROM bode WHERE bode.maDe IN ( SELECT bailam.maDe FROM bailam WHERE bailam.maTaiKhoan=\"$idStudent\") AND bode.maLop=\"$idClass\";";
+        $sql = "SELECT * FROM bode WHERE bode.maDe IN ( SELECT bailam.maDe FROM bailam WHERE bailam.maTaiKhoan=\"$idStudent\") AND bode.maLop=\"$idClass\"ORDER BY `bode`.`maDe` DESC ;";
         $data = DataProvider::executeSQL($sql);
         return $data;
     }
@@ -100,13 +100,22 @@ class TestModel{
         return $data;
     }
 
-    public static function taoChiTietBaiLam($listAnswer,$idTest,$email){
+    public static function taoChiTietBaiLam($listAnswer,$idTest,$email,$loaiDe){
         $result="";
-        foreach($listAnswer as $Answer){
-            $maCau=$Answer->maCau;
-            $luaChon=$Answer->luaChon;
-            $sql = "INSERT INTO `chitietbailam`(`maTaiKhoan`, `maCau`, `maDe`, `dapAnChon`) VALUES ('$email','$maCau','$idTest','$luaChon');";
-            $data = DataProvider::executeSQL($sql);
+        if($loaiDe=='default'){
+            foreach($listAnswer as $Answer){
+                $maCau=$Answer->maCau;
+                $luaChon=$Answer->luaChon;
+                $sql = "INSERT INTO `chitietbailam`(`maTaiKhoan`, `maCau`, `maDe`, `dapAnChon`) VALUES ('$email','$maCau','$idTest','$luaChon');";
+                $data = DataProvider::executeSQL($sql);
+            }
+        }else{
+            $maCau=0;
+            foreach($listAnswer as $luaChon){
+                $sql = "INSERT INTO `chitietbailam`(`maTaiKhoan`, `maCau`, `maDe`, `dapAnChon`) VALUES ('$email','$maCau','$idTest','$luaChon');";
+                $data = DataProvider::executeSQL($sql);
+                $maCau++;
+            }
         }
     }
 

@@ -33,7 +33,6 @@
                             
                                 <!-- File PDF -->
                                 <iframe id="ifrPDF" src="./Assets/deThi/test.pdf" title="" height="100%" frameborder="0"></iframe>
-                            2
                             </ol>
                         </div>
                         <div class="col-6">

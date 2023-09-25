@@ -5,7 +5,7 @@ class AuthController {
 
     static public function signUp($user, $password,$maCn,$hoten,$ngaysinh,$sdt,$cv){
         if(!AuthModel::checkUsersExit($user)){
-            AuthModel::createUser($user,$password,$maCn,$hoten,$ngaysinh,$sdt,$cv);
+            AuthModel::createUser($user,md5($password),$maCn,$hoten,$ngaysinh,$sdt,$cv);
             // echo json_decode("Tạo tài khoản thành công");
             $data['status']='success';
             $data['notice']="Tạo tài khoản thành công";
@@ -25,7 +25,7 @@ class AuthController {
     static public function signIn($user,$password){
         if(AuthModel::checkUsersExit($user)){
             $dataUser=mysqli_fetch_array(AuthModel::getUsers($user));
-            if($dataUser['password']==$password){
+            if($dataUser['password']== md5($password)){
                 if($dataUser['active']=="1"){
 
                     $data['status']='success';

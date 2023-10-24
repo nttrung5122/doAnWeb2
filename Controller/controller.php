@@ -1,6 +1,8 @@
 <?php
+// if (isset($_GET['act'])) {
 if (isset($_POST['act'])) {
     switch ($_POST['act']) {
+    // switch ($_GET['act']) {
         case "signUp": {
                 require './authController.php';
                 $data = AuthController::signUp($_POST['user'], $_POST['password'], $_POST['maCn'], $_POST['hoten'], $_POST['ngaysinh'], $_POST['sdt'], $_POST['cv']);
@@ -10,6 +12,7 @@ if (isset($_POST['act'])) {
         case "signIn": {
                 require './authController.php';
                 $data = AuthController::signIn($_POST['user'], $_POST['password']);
+                // $data = AuthController::signIn($_GET['user'], $_GET['password']);
                 echo json_encode($data, JSON_UNESCAPED_UNICODE);
             }
             break;

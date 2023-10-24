@@ -137,7 +137,7 @@ class QuestionView
         <div class="col-sm-12 mt-3 px-5">
     <!-- Bự quá chỉnh lại col-8 -->
     <!-- Ngân hàng câu hỏi -->
-            <div class="p-3 pb-5 border">
+            <div class="p-3 pb-5 mt-5 border">
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#form_createReport" >Báo cáo</button>
 

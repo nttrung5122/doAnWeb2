@@ -1,6 +1,6 @@
 <?php
-include_once '../model/announcementModel.php';
-include_once '../View/_partial/TeacherAndStudent_Component/Announcement.php';
+include_once './model/announcementModel.php';
+include_once './View/_partial/TeacherAndStudent_Component/Announcement.php';
 class announcementController {
     public static function renderAnnounment($idClass) {
         $data = announcementModel::getAllAnnouncements($idClass);
@@ -13,4 +13,9 @@ class announcementController {
         $result = Announcement::createAnnouncementContent($data);
         return $result;
     }
+}
+
+switch (end($request_url_parts)) {
+
+    
 }

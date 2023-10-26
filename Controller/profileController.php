@@ -1,5 +1,5 @@
 <?php 
-include_once '../model/adminModel.php';
+include_once './model/adminModel.php';
 session_start();
 class profileController {
     public static function saveBasic($name, $birth) {
@@ -37,4 +37,8 @@ class profileController {
         $data = mysqli_fetch_array($data);
         $_SESSION['user'] = $data;
     }
+}
+switch (end($request_url_parts)) {
+
+    
 }

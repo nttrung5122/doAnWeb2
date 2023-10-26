@@ -2,27 +2,8 @@
 $studentPage = "Student Page";
 $teacherPage = "Teacher Page";
 $admin = "Admin";
-function sidebar($currentPage)
-{
-    global $studentPage, $admin;
-    if ($currentPage == $studentPage) {
-        echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active" onclick="renderListTest()">
-                            <i class="fas fa-chart-bar"></i>
-                            Tổng Quan
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a href="#" class="nav-link link-dark"  onclick="renderAnnounment()">
-                            <i class="fas fa-bell"></i>
-                            Thông báo
-                        </a>
-                    </li>
-                
-                </ul>';
-    } else if ($currentPage == $admin) {
-        echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
+function sidebarAdmin(){
+    echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
                     <li class="nav-item">
                         <a href="#" id="account" class="nav-link active" style="padding-left: 20px;">
                             <i class="fas fa-users"></i>
@@ -57,40 +38,60 @@ function sidebar($currentPage)
                         </a>
                     </li>
                 </ul>';
-    } else {
+}
+function sidebarTeacherPage(){
+    echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
+    <li class="nav-item ">
+        <a href="#" class="nav-link active fw-bold" id="bankQuestion">
+            <i class="far fa-question-circle"></i>
+            Ngân hàng câu hỏi
+        </a>
+    </li>
+    <hr>
+    <li class="nav-item " id="btnTongQuan">
+        <a href="#" name="tongQuan" class="nav-link link-dark menuClass ">
+            <i class="fas fa-chart-bar"></i>
+            Tổng Quan
+        </a>
+    </li>
+   <li class="nav-item " >
+        <a href="#" name="thanhVien" id="btnRenderMember" class="nav-link link-dark menuClass">
+            <i class="fas fa-users"></i>
+            Thành Viên
+        </a>
+    </li>
+   <li class="nav-item " >
+        <a href="#" name="thanhVien" id="btnRenderAnnounment" class="nav-link link-dark menuClass">
+            <i class="fas fa-bell"></i>
+            Thông báo
+        </a>
+    </li>
+    <li class="nav-item ">
+        <a href="#" name="taoDeKiemTra" class="nav-link link-dark menuClass" data-bs-toggle="modal" data-bs-target="#form_createTest" >
+
+            <i class="fas fa-book"></i>
+            Tạo đề kiểm tra
+        </a>
+    </li>
+</ul>';
+}
+
+function sidebarStudentPage()
+{
         echo '<ul id="tabs" class="nav nav-pills flex-column mt-2 mb-5">
-                    <li class="nav-item ">
-                        <a href="#" class="nav-link active fw-bold" id="bankQuestion">
-                            <i class="far fa-question-circle"></i>
-                            Ngân hàng câu hỏi
-                        </a>
-                    </li>
-                    <hr>
-                    <li class="nav-item " id="btnTongQuan">
-                        <a href="#" name="tongQuan" class="nav-link link-dark menuClass ">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" onclick="renderListTest()">
                             <i class="fas fa-chart-bar"></i>
                             Tổng Quan
                         </a>
                     </li>
-                   <li class="nav-item " >
-                        <a href="#" name="thanhVien" id="btnRenderMember" class="nav-link link-dark menuClass">
-                            <i class="fas fa-users"></i>
-                            Thành Viên
-                        </a>
-                    </li>
-                   <li class="nav-item " >
-                        <a href="#" name="thanhVien" id="btnRenderAnnounment" class="nav-link link-dark menuClass">
+                    <li class="nav-item ">
+                        <a href="#" class="nav-link link-dark"  onclick="renderAnnounment()">
                             <i class="fas fa-bell"></i>
                             Thông báo
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a href="#" name="taoDeKiemTra" class="nav-link link-dark menuClass" data-bs-toggle="modal" data-bs-target="#form_createTest" >
-
-                            <i class="fas fa-book"></i>
-                            Tạo đề kiểm tra
-                        </a>
-                    </li>
+                
                 </ul>';
-    }
+    
 }

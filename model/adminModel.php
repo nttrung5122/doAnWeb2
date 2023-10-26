@@ -1,5 +1,5 @@
 <?php
-include '../model/dataProvider.php';
+include './model/dataProvider.php';
 class adminModel
 {
     public static function getAccount($mail)

@@ -1,7 +1,7 @@
 <?php
 
-include '../model/questionModel.php';
-include '../View/questionView.php';
+include './model/questionModel.php';
+include './View/questionView.php';
 
 class QuestionController {
 
@@ -59,3 +59,16 @@ class QuestionController {
 }
 
 // echo QuestionController::renderQuestionInSettingTest();
+switch (end($request_url_parts)) {
+    case "createQuestion": {
+        $data = QuestionController::createQuestion($_POST['noidung'], $_POST['cauA'], $_POST['cauB'], $_POST['cauC'], $_POST['cauD'], $_POST['idGroup'], $_POST['tenNhom'], $_POST['dapAn']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderSltGroupQuestion": {
+        $data = QuestionController::renderSltQuestionGroup();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    
+}

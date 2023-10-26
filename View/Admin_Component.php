@@ -1,5 +1,5 @@
 <?php
-include '../View/_partial/popup/modal_modules.php';
+include './View/_partial/popup/modal_modules.php';
 class adminTable
 {
     public static $accountModal = 'Account_Modal';

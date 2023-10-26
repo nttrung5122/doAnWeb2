@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header('Location: ./');
-} else if ($_SESSION['user']['loaiTk'] != 'admin') {
-    header('Location: ./');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,13 +31,11 @@ if (!isset($_SESSION['user'])) {
 
         function renderAccountTable() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "renderAccountTable",
-                },
+                type: "GET",
+                url: "./api/renderAccountTable",
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
+                    // console.log(data);
                     $('#activeRadio').html(`<button id="" type="button" class="btn btn-info mx-2" style="height:50%;"  data-bs-toggle="modal" data-bs-target="#form_signUp"><i class="fas fa-plus-circle"></i> Tạo tài khoản</button>
                                             <select id="radio" class="form-select"  style="width: 50%;" aria-label="Default select example" onchange="searchRadio(this)">
                                                 <option disabled selected>Lọc tài khoản kích hoạt</option>
@@ -67,11 +57,8 @@ if (!isset($_SESSION['user'])) {
 
         function renderClassTable() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "renderClassTable",
-                },
+                type: "GET",
+                url: "./api/renderClassTable",
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`
@@ -88,11 +75,8 @@ if (!isset($_SESSION['user'])) {
 
         function renderQuestionTable() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "renderQuestionTable",
-                },
+                type: "GET",
+                url: "./api/renderQuestionTable",
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`
@@ -109,11 +93,8 @@ if (!isset($_SESSION['user'])) {
 
         function renderGroupQuestionTable() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "renderGroupQuestionTable",
-                },
+                type: "GET",
+                url: "./api/renderGroupQuestionTable",
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`
@@ -130,11 +111,8 @@ if (!isset($_SESSION['user'])) {
 
         function renderReport() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "renderReport",
-                },
+                type: "GET",
+                url: "./api/renderReport",
                 success: function(data) {
                     $('#table').html(JSON.parse(data));
                     $('#activeRadio').html(`<select id="radio" class="form-select my-5"  style="width: 50%;" aria-label="Default select example" onchange="searchReportRadio(this)">
@@ -152,14 +130,13 @@ if (!isset($_SESSION['user'])) {
         function renderReportContent(btn) {
             let idReport = btn.name;
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderReportContent",
                 data: {
-                    act: 'renderReportContent',
                     idReport: idReport,
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#reportContent').html(JSON.parse(data));
                 }
             })
@@ -167,13 +144,10 @@ if (!isset($_SESSION['user'])) {
 
         function renderAnswer() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: 'renderAnswer',
-                },
+                type: "GET",
+                url: "./api/renderAnswer",
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#Modal').html(JSON.parse(data));
                 }
             })
@@ -218,23 +192,19 @@ if (!isset($_SESSION['user'])) {
             $('#btnLogOut').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'logOut'
-                    },
-                    success: function(data) {}
+                    url: "./api/logOut",
+                    success: function(data) {
+                        console.log(data);
+                        location.reload();
+                    }
                 })
-                window.location = './index.php';
-
             });
             $('#activeAll').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'activeAll'
-                    },
+                    url: "./api/activeAll",
                     success: function(data) {
+                        console.log(data);
                         renderAccountTable();
                     }
                 })
@@ -242,11 +212,9 @@ if (!isset($_SESSION['user'])) {
             $('#unActiveAll').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'unActiveAll'
-                    },
+                    url: "./api/unActiveAll",
                     success: function(data) {
+                        console.log(data);
                         renderAccountTable();
                     }
                 })
@@ -267,15 +235,14 @@ if (!isset($_SESSION['user'])) {
                 console.log(info);
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: "./api/createClass",
                     data: {
-                        act: "createClass",
                         id: id,
                         name: name,
                         info: info,
                     },
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         showNotice(JSON.parse(data)['notice']);
                         if (JSON.parse(data)['status'] == 'success') {
                             // window.location.reload();
@@ -296,9 +263,8 @@ if (!isset($_SESSION['user'])) {
                 }
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: "./api/createGroupQuestion",
                     data: {
-                        act: 'createGroupQuestion',
                         tenNhomCauHoi: tenNhomCauHoi,
                     },
                     success: function(data) {
@@ -318,14 +284,14 @@ if (!isset($_SESSION['user'])) {
                 let idGroup = $('#sltQuestionGroup').val();
                 let dapAn = $('#sltAnswer').val();
                 let tenNhom = $('#txtNewGroup').val();
-                console.log(noidung);
-                console.log(cauA);
-                console.log(cauB);
-                console.log(cauC);
-                console.log(cauD);
-                console.log(idGroup);
-                console.log(dapAn);
-                console.log(tenNhom);
+                // console.log(noidung);
+                // console.log(cauA);
+                // console.log(cauB);
+                // console.log(cauC);
+                // console.log(cauD);
+                // console.log(idGroup);
+                // console.log(dapAn);
+                // console.log(tenNhom);
                 if (noidung == "") {
                     showNotice("Vui lòng nhập nội dung câu hỏi");
                     return;
@@ -364,9 +330,8 @@ if (!isset($_SESSION['user'])) {
                 }
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: "./api/createQuestion",
                     data: {
-                        act: 'createQuestion',
                         noidung: noidung,
                         cauA: cauA,
                         cauB: cauB,
@@ -383,7 +348,7 @@ if (!isset($_SESSION['user'])) {
                 })
             })
         });
-        var CV = "gv";
+        var CV = "admin";
 
         function setCV(cv) {
             CV = cv;
@@ -391,28 +356,24 @@ if (!isset($_SESSION['user'])) {
 
         function activeAll() {
             $.ajax({
-                type: 'POST',
-                url: "./Controller/controller.php",
-                data: {
-                    act: 'activeAll'
-                },
-                success: function(data) {
-                    renderAccountTable();
-                }
-            })
+                    type: 'POST',
+                    url: "./api/activeAll",
+                    success: function(data) {
+                        console.log(data);
+                        renderAccountTable();
+                    }
+                })
         }
 
         function unActiveAll() {
             $.ajax({
-                type: 'POST',
-                url: "./Controller/controller.php",
-                data: {
-                    act: 'unActiveAll'
-                },
-                success: function(data) {
-                    renderAccountTable();
-                }
-            })
+                    type: 'POST',
+                    url: "./api/unActiveAll",
+                    success: function(data) {
+                        // console.log(data);
+                        renderAccountTable();
+                    }
+                })
         }
 
         function active(s) {
@@ -420,13 +381,13 @@ if (!isset($_SESSION['user'])) {
             var active = $('input[name="' + s.name + '"]').is(':checked') == true ? 1 : 0;
             $.ajax({
                 type: 'POST',
-                url: "./Controller/controller.php",
+                url: "./api/active",
                 data: {
-                    act: 'active',
                     active: active,
                     id: id,
                 },
                 success: function(data) {
+                    // console.log(data);
                     const myTimeout = setTimeout(renderAccountTable, 200);
                 }
             })
@@ -437,13 +398,13 @@ if (!isset($_SESSION['user'])) {
             var active = $('input[name="' + s.name + '"]').is(':checked') == true ? 1 : 0;
             $.ajax({
                 type: 'POST',
-                url: "./Controller/controller.php",
+                url: "./api/verify",
                 data: {
-                    act: 'verify',
                     active: active,
                     maReport: maReport,
                 },
                 success: function(data) {
+                    console.log(data);
                     setTimeout(renderReportContent(s), 200);
                     setTimeout(renderReport, 200);
                 }
@@ -455,9 +416,8 @@ if (!isset($_SESSION['user'])) {
             var type = $('#table-type').attr('name');
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/deleteAcc",
                 data: {
-                    act: "clickDelete",
                     idAdmin: id,
                     typeAdmin: type,
                 },
@@ -486,9 +446,8 @@ if (!isset($_SESSION['user'])) {
 
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: "./api/editAccount",
                     data: {
-                        act: "editAccount",
                         id: btn.name,
                         password: password,
                         role: role,
@@ -497,6 +456,7 @@ if (!isset($_SESSION['user'])) {
                         phone: phone,
                     },
                     success: function(data) {
+                        console.log(data);
                         renderAccountTable();
                     }
                 });
@@ -510,9 +470,8 @@ if (!isset($_SESSION['user'])) {
 
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/editClass",
                 data: {
-                    act: "editClass",
                     id: btn.name,
                     tenLop: tenLop,
                     thongTin: thongTin,
@@ -536,9 +495,8 @@ if (!isset($_SESSION['user'])) {
             if (checkQuestion(dapAn)) {
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: "./api/editQuestion",
                     data: {
-                        act: "editQuestion",
                         id: btn.name,
                         maNhom: maNhom,
                         noiDung: noiDung,
@@ -560,9 +518,8 @@ if (!isset($_SESSION['user'])) {
             var tenNhomCauHoi = $('input[name="tenNhomCauHoi' + btn.id + '"]').val();
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/editGroupQuestion",
                 data: {
-                    act: "editGroupQuestion",
                     id: btn.name,
                     tenNhomCauHoi: tenNhomCauHoi,
                 },
@@ -813,9 +770,8 @@ if (!isset($_SESSION['user'])) {
             if (check()) {
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: "./api/signUp",
                     data: {
-                        act: 'signUp',
                         user: emails,
                         hoten: ten,
                         password: password,
@@ -885,7 +841,7 @@ if (!isset($_SESSION['user'])) {
     <div class="d-flex flex-column fixed-top flex-shrink-0 p-2 overflow-auto" style="height:93%; width: 280px; margin-top: 60.2px; background-color: #82dda5; z-index: 1;">
         <!-- Tính năng -->
         <?php require("./View/_partial/TeacherAndStudent_Component/Sidebar.php");
-        Sidebar($admin); ?>
+        sidebarAdmin(); ?>
     </div>
 
     <div style="margin-left: 280px; margin-top: 80px;">

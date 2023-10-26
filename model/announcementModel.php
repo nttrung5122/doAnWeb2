@@ -1,5 +1,5 @@
 <?php
-include_once '../model/dataProvider.php';
+include_once './model/dataProvider.php';
 class announcementModel {
     public static function getAllAnnouncements($idClass) {
         $sql = "SELECT * FROM thongbao WHERE idClass = '$idClass'";

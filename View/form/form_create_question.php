@@ -93,3 +93,13 @@
     </div>
 
 </body>
+<script>
+    $.ajax({
+                    type: "GET",
+                    url: "./api/renderSltGroupQuestion",
+                    success: function(data) {
+                        // console.log(data);
+                        $('#sltQuestionGroup').html(JSON.parse(data));
+                    }
+                })
+</script>

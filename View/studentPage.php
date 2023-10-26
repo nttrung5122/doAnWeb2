@@ -1,10 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header('Location: ./');
-} else if ($_SESSION['user']['loaiTk'] != 'sv') {
-    header('Location: ./');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,7 +111,7 @@ if (!isset($_SESSION['user'])) {
             $('#btnLogOut').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
+                    url: "./api",
                     data: {
                         act: 'logOut'
                     },
@@ -126,8 +119,7 @@ if (!isset($_SESSION['user'])) {
                         console.log(data);
                     }
                 })
-                window.location = './index.php';
-
+                location.reload();
             });
             $('#btnFindClass').click(function() {
                 let idClass = $('#txtIdClass').val();
@@ -545,7 +537,7 @@ if (!isset($_SESSION['user'])) {
     <div class="fixed-top flex-shrink-0 p-2 overflow-auto" style="height:93%; width: 280px; margin-top: 200px; background-color: #82dda5; z-index: 1;">
         <!-- Tính năng -->
         <?php require("./View/_partial/TeacherAndStudent_Component/Sidebar.php");
-        Sidebar($studentPage); ?>
+        sidebarStudentPage(); ?>
         <!-- Danh sách lớp -->
         <span class="fs-3 fw-bold">Danh sách lớp</span>
         <ul id="class" class="nav nav-pills flex-column border-top border-dark pt-2">

@@ -1,7 +1,7 @@
 <?php
 
-include '../model/testModel.php';
-include '../View/testView.php';
+include './model/testModel.php';
+include './View/testView.php';
 
 
 class TestController
@@ -300,4 +300,8 @@ class TestController
         }
         return $data;
     }
+}
+switch (end($request_url_parts)) {
+
+    
 }

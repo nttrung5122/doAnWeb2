@@ -1,7 +1,7 @@
 <?php
 
-include '../model/classModel.php';
-include '../View/classView.php';
+include './model/classModel.php';
+include './View/classView.php';
 
 class ClassController{
     
@@ -188,3 +188,10 @@ class ClassController{
 
 }
     // echo ClassController::renderMember("5IabAbm4");
+switch (end($request_url_parts)) {
+    case "createClass": {
+        $data = ClassController::createClass($_POST['id'], $_POST['info'], $_SESSION['user'][0], $_POST['name']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+}

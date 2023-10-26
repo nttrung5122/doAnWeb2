@@ -205,21 +205,20 @@
         let sdt = $("#inputSdt").val();
         let ngaysinh = $("#inputDate").val();
         let gioitinh = $("#inputGioitinh").val();
-        console.log(ten);
-        console.log(emails);
-        console.log(password);
-        console.log(password2);
-        console.log(sdt);
-        console.log(gioitinh);
-        console.log(ngaysinh);
-        console.log(CV);
+        // console.log(ten);
+        // console.log(emails);
+        // console.log(password);
+        // console.log(password2);
+        // console.log(sdt);
+        // console.log(gioitinh);
+        // console.log(ngaysinh);
+        // console.log(CV);
         if (check()) {
-            console.log("ajax")
+            // console.log("ajax")
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/signUp",
                 data: {
-                    act: 'signUp',
                     user: emails,
                     hoten: ten,
                     password: password,
@@ -250,9 +249,8 @@
         } else {
             $.ajax({
                 type: 'POST',
-                url: "./Controller/controller.php",
+                url: "./api/signIn",
                 data: {
-                    act: 'signIn',
                     user: id,
                     password: pass,
                 },
@@ -263,11 +261,11 @@
                     if (JSON.parse(data)['status'] == 'success')
                         setTimeout(() => {
                             if (JSON.parse(data)['cv'] == 'gv') {
-                                window.location = "./teacherPage.php";
+                                location.reload();
                             } else if (JSON.parse(data)['cv'] == 'admin') {
-                                window.location = "./Admin.php";
+                                location.reload();
                             } else {
-                                window.location = "./studentPage.php";
+                                location.reload();
                                 console.log("Sinh vien");
                             }
 

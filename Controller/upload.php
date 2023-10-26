@@ -1,7 +1,7 @@
 <?php
 
 // $targetfolder = "./Assets/deThi/";
-$targetfolder = "../Assets/deThi/";
+$targetfolder = "./Assets/deThi/";
 
 $targetfolder = $targetfolder . $_POST['idTest'].'.pdf';
 // $targetfolder = $targetfolder . basename($_FILES['fileToUpload']['name']);

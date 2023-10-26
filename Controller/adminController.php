@@ -1,6 +1,6 @@
 <?php
-include "../View/Admin_Component.php";
-include "../model/adminModel.php";
+include "./View/Admin_Component.php";
+include "./model/adminModel.php";
 class adminController
 {
     public static function renderAccountTable()
@@ -125,14 +125,90 @@ class adminController
 
     public static function activeAll(){
         adminModel::editAccountWithoutCondition('active', '1');
+        return 1;
     }
 
     public static function unActiveAll(){
         adminModel::editAccountWithoutCondition('active', '0');
+        return 1;
     }
     public static function createGroupQuestion($tenNhomCauHoi) {
         adminModel::createGroupQuestion($tenNhomCauHoi);
         $data['notice']="Tạo nhóm câu hỏi thành công";
         return $data;
     }
+}
+
+switch (end($request_url_parts)) {
+    case "renderClassTable": {
+        $data = adminController::renderClassTable();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderQuestionTable": {
+        $data = adminController::renderQuestionTable();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderAccountTable": {
+        $data = adminController::renderAccountTable();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderGroupQuestionTable": {
+        $data = adminController::renderGroupQuestionTable();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderAnswer": {
+        $data = adminController::renderAnswer();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "activeAll": {
+        $data = adminController::activeAll();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "unActiveAll": {
+        $data = adminController::unActiveAll();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "createGroupQuestion": {
+        $data = adminController::createGroupQuestion($_POST['tenNhomCauHoi']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "active": {
+        $data = adminController::active($_POST['id'], $_POST['active']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "deleteAcc": {
+        $data = adminController::clickDelete($_POST['idAdmin'], $_POST['typeAdmin']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        // echo 1;
+    }
+    break;
+    case "editAccount": {
+        $data = adminController::editAccount($_POST['id'], $_POST['password'], $_POST['role'], $_POST['name'], $_POST['birth'], $_POST['phone']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "editClass": {
+        $data = adminController::editClass($_POST['id'], $_POST['tenLop'], $_POST['thongTin'], $_POST['email']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "editQuestion": {
+        $data = adminController::editQuestion($_POST['id'], $_POST['maNhom'], $_POST['noiDung'], $_POST['dapAn'], $_POST['cauA'], $_POST['cauB'], $_POST['cauC'], $_POST['cauD']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "editGroupQuestion": {
+        $data = adminController::editGroupQuestion($_POST['id'], $_POST['tenNhomCauHoi']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
 }

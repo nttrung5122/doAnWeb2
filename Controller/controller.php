@@ -1,17 +1,28 @@
 <?php
 // if (isset($_GET['act'])) {
+// echo $_POST['act'];
+$request_url = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
+$request_url = rtrim($request_url, '/');
+$request_url = strtok($request_url, '?');
+$route_parts = explode('/', $route);
+$request_url_parts = explode('/', $request_url);
+array_shift($route_parts);
+array_shift($request_url_parts);
+echo end($request_url_parts);
+
 if (isset($_POST['act'])) {
     switch ($_POST['act']) {
     // switch ($_GET['act']) {
         case "signUp": {
-                require './authController.php';
+                include_once 'authController.php';
                 $data = AuthController::signUp($_POST['user'], $_POST['password'], $_POST['maCn'], $_POST['hoten'], $_POST['ngaysinh'], $_POST['sdt'], $_POST['cv']);
                 echo json_encode($data, JSON_UNESCAPED_UNICODE);
             }
             break;
-        case "signIn": {
-                require './authController.php';
+        case 'signIn': {
+                require 'authController.php';
                 $data = AuthController::signIn($_POST['user'], $_POST['password']);
+                // echo "signIn";
                 // $data = AuthController::signIn($_GET['user'], $_GET['password']);
                 echo json_encode($data, JSON_UNESCAPED_UNICODE);
             }
@@ -196,18 +207,8 @@ if (isset($_POST['act'])) {
                 echo json_encode($data, JSON_UNESCAPED_UNICODE);
             }
             break;
-        case "editQuestion": {
-                require './adminController.php';
-                $data = adminController::editQuestion($_POST['id'], $_POST['maNhom'], $_POST['noiDung'], $_POST['dapAn'], $_POST['cauA'], $_POST['cauB'], $_POST['cauC'], $_POST['cauD']);
-                echo json_encode($data, JSON_UNESCAPED_UNICODE);
-            }
-            break;
-        case "editGroupQuestion": {
-                require './adminController.php';
-                $data = adminController::editGroupQuestion($_POST['id'], $_POST['tenNhomCauHoi']);
-                echo json_encode($data, JSON_UNESCAPED_UNICODE);
-            }
-            break;
+
+
         case "renderListTest": {
                 require './testController.php';
                 $data = TestController::renderListTest($_POST['idClass']);
@@ -425,5 +426,7 @@ if (isset($_POST['act'])) {
                 echo json_encode($data, JSON_UNESCAPED_UNICODE);
             }
             break;
+        default:
+            echo 'default';
     }
 }

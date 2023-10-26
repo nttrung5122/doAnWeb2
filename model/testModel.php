@@ -1,6 +1,6 @@
 <?php
 
-include '../model/dataProvider.php';
+include './model/dataProvider.php';
 
 class TestModel{
 

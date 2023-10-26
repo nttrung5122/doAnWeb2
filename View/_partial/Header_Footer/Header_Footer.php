@@ -13,13 +13,13 @@ function head($currentPage)
     if (isset($_SESSION['user'])) {
         if ($_SESSION['user']['loaiTk'] == 'sv') {
             $linkName = 'Trang Sinh Viên';
-            $link = './studentPage.php';
+            $link = './#';
         } else if ($_SESSION['user']['loaiTk'] == 'gv') {
             $linkName = 'Trang Giảng Viên';
-            $link = './teacherPage.php';
+            $link = './#';
         } else {
             $linkName = 'Trang Admin';
-            $link = './Admin.php';
+            $link = './#';
         }
     }
     // $username = "Toàn";

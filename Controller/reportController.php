@@ -1,8 +1,8 @@
 <?php
 
 
-include '../model/reportModel.php';
-include '../View/reportView.php';
+include './model/reportModel.php';
+include './View/reportView.php';
 
 class ReportController{
     public static function createReport($email,$title,$noiDung){
@@ -24,4 +24,22 @@ class ReportController{
     public static function verify($maReport, $active) {
         $data = ReportModel::editReport($maReport,'trangThai',$active);
     }
+}
+
+switch (end($request_url_parts)) {
+    case "renderReport": {
+        $data = ReportController::renderReport();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderReportContent": {
+        $data = ReportController::renderReportContent($_GET['idReport']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "verify": {
+        $data = ReportController::verify($_POST['maReport'], $_POST['active']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
 }

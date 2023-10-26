@@ -70,5 +70,19 @@ switch (end($request_url_parts)) {
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
     break;
-    
+    case "renderContainerbankquestion": {
+        $data = QuestionController::renderContainerbankquestion();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderBankQuestion": {
+        $data = QuestionController::renderBankQuestion();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderQuestionInSettingTest": {
+        $data = QuestionController::renderAllQuestionInSettingTest();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
 }

@@ -194,4 +194,71 @@ switch (end($request_url_parts)) {
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
     break;
+    case "createNotice": {
+        $data = ClassController::createNotice($_POST['title'], $_POST['notice'], $_POST['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderAnnounment": {
+        $data = ClassController::renderAnnouncement($_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "editAnnouncement": {
+        if (isset($_POST['id']) && isset($_POST['tieuDe']) && isset($_POST['noiDung']) && isset($_POST['thoiGian'])) { 
+            ClassController::editAnnouncement($_POST['id'], $_POST['tieuDe'], $_POST['noiDung'], $_POST['thoiGian']);
+            echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        }
+    }
+    break;
+    case "deleteAnnouncement": {
+        $data = ClassController::deleteAnnouncement($_POST['id']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "addListstudenttoclass": {
+        $data = ClassController::addListStudent($_POST['idClass'], $_POST['arrayStudentId']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderMember": {
+        $data = ClassController::renderMember($_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "deleteClass": {
+        $data = ClassController::deleteClass($_POST['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderListClass": {
+        $data = ClassController::renderListClass($_SESSION['user'][0]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getClassforteacher": {
+        $data = ClassController::getClassforteacher($_GET['id']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;        
+    case "renderContainerInfoClass": {
+        $data = ClassController::renderContainerInfoClass();
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "removeStudentsfromclass": {
+        $data = ClassController::removeStudentsFromClass($_POST['idClass'], $_POST['mail']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getStudentInClass": {
+        $data = classController::getStudentInClass($_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "delete_listStudent": {
+        $data = classController::delete_listStudent($_POST['listIdstudent'], $_POST['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
 }

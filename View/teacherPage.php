@@ -75,10 +75,7 @@
             $('#btnLogOut').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "./api",
-                    data: {
-                        act: 'logOut'
-                    },
+                    url: "./api/logOut",
                     success: function(data) {
                         console.log(data);
                     }
@@ -99,9 +96,8 @@
                 console.log(info);
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: ".api/createClass",
                     data: {
-                        act: "createClass",
                         id: id,
                         name: name,
                         info: info,
@@ -136,7 +132,7 @@
                 console.log(idTest);
                 $.ajax({
                     type: "POST",
-                    url: "./Controller/controller.php",
+                    url: ".api/saveQuestionInTest",
                     data: {
                         act: "saveQuestionInTest",
                         arrQuestion: JSON.stringify(questionArr),
@@ -184,7 +180,7 @@
                 console.log(fdata);
                 $.ajax({
                     type: "POST",
-                    url: './Controller/upload.php',
+                    url: './api/upload',
                     data: fdata,
                     contentType: false,
                     cache: false,
@@ -226,9 +222,8 @@
             console.log(idClass);
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/createTest",
                 data: {
-                    act: 'createTest',
                     thoiGianLamBai: thoiGianLamBai,
                     nameTest: nameTest,
                     ngayThi: ngayThi,
@@ -336,9 +331,8 @@
             $('#form_uploadFile').submit();
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: ".api/saveQuestionInTest",
                 data: {
-                    act: "saveQuestionInTest",
                     arrQuestion: JSON.stringify(values),
                     loaiDe: "PDF",
                     idTest: idTest,
@@ -370,9 +364,8 @@
             console.log(title, noiDung);
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/createReport",
                 data: {
-                    act: "createReport",
                     title: title.trim(),
                     noiDung: noiDung.trim(),
                 },
@@ -401,9 +394,8 @@
             console.log(idClass);
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/createNotice",
                 data: {
-                    act: "createNotice",
                     title: title,
                     notice: notice,
                     idClass: idClass,
@@ -423,10 +415,9 @@
                 idClass = infoClassCurent['maLop'];
             }
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderAnnounment",
                 data: {
-                    act: "renderAnnounment",
                     idClass: idClass,
                 },
                 success: function(data) {
@@ -443,7 +434,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/editAnnouncement",
                 data: {
                     act: "editAnnouncement",
                     id: btn.name,
@@ -463,9 +454,8 @@
             var id = btn.getAttribute('name');
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/deleteAnnouncement",
                 data: {
-                    act: "deleteAnnouncement",
                     id: id,
                 },
                 success: function(data) {
@@ -486,9 +476,8 @@
             console.log(idClass);
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/addListstudenttoclass",
                 data: {
-                    act: "addListstudenttoclass",
                     arrayStudentId: JSON.stringify(arrayId),
                     idClass: idClass,
                 },
@@ -555,9 +544,8 @@
             }
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/createQuestion",
                 data: {
-                    act: 'createQuestion',
                     noidung: noidung,
                     cauA: cauA,
                     cauB: cauB,
@@ -582,7 +570,7 @@
                 }
             })
         }
-
+//TODO: check
         function renderMember() {
             studentArr_detele = [];
             renderContainerInfoClass();
@@ -594,10 +582,9 @@
                 return;
 
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderMember",
                 data: {
-                    act: 'renderMember',
                     idClass: idClass,
                 },
                 success: function(data) {
@@ -621,9 +608,8 @@
                 return;
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/deleteClass",
                 data: {
-                    act: 'deleteClass',
                     idClass: idClass
                 },
                 success: function(data) {
@@ -641,11 +627,8 @@
 
         function renderContainerbankquestion() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "renderContainerbankquestion",
-                },
+                type: "GET",
+                url: "./api/renderContainerbankquestion",
                 success: function(data) {
                     // console.log(data);
                     $('#container').html(JSON.parse(data));
@@ -658,8 +641,8 @@
 
         function renderBankQuestion() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderBankQuestion",
                 data: {
                     act: "renderBankQuestion",
                 },
@@ -671,8 +654,8 @@
                 }
             });
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderSltGroupQuestion",
                 data: {
                     act: "renderSltGroupQuestion",
                 },
@@ -689,11 +672,10 @@
         function renderInfoTest(idTest) {
             console.log(idTest);
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderInfoTest",
                 data: {
                     idTest: idTest,
-                    act: "renderInfoTest",
                 },
                 success: function(data) {
                     // console.log(data);
@@ -705,11 +687,8 @@
 
         function renderSettingTest_default() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: 'renderQuestionInSettingTest',
-                },
+                type: "GET",
+                url: "./api/renderQuestionInSettingTest",
                 success: function(data) {
                     // console.log(data);
                     $('#listQuestioninfrom').html(JSON.parse(data)['question']);
@@ -738,12 +717,11 @@
             }
             console.log(idClass);
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
-                data: {
-                    act: "renderListTest",
-                    idClass: idClass,
+                type: "GET",
+                url: "./api/renderListTest",
 
+                data: {
+                    idClass: idClass,
                 },
                 success: function(data) {
                     // console.log(data);
@@ -755,8 +733,8 @@
 
         function renderListclass() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderListClass",
                 data: {
                     act: 'renderListClass',
                 },
@@ -772,9 +750,8 @@
                 return;
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/deleteTest",
                 data: {
-                    act: 'deleteTest',
                     idTest: idTest
                 },
                 success: function(data) {
@@ -847,10 +824,9 @@
 
             renderContainerInfoClass();
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/getClassforteacher",
                 data: {
-                    act: "getClassforteacher",
                     id: idClass,
                 },
                 success: function(data) {
@@ -872,8 +848,8 @@
 
         function renderContainerInfoClass() {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/renderContainerInfoClass",
                 data: {
                     act: "renderContainerInfoClass",
                 },
@@ -953,9 +929,8 @@
             }
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/removeStudentsfromclass",
                 data: {
-                    act: "removeStudentsfromclass",
                     mail: idStudent,
                     idClass: idClass,
                 },
@@ -975,8 +950,8 @@
             }
             $('#idTestcurent').val(idTest);
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/showTestscores",
                 data: {
                     act: "showTestscores",
                     idTest: idTest,
@@ -992,10 +967,9 @@
 
         function showDetails(idStudent, idTest, diem) {
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/showDetailstestscores",
                 data: {
-                    act: "showDetailstestscores",
                     idTest: idTest,
                     idStudent: idStudent,
                 },
@@ -1021,10 +995,9 @@
         function showFormaltertest() {
             let idTest = $('#idTestcurent').val();
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/getTest",
                 data: {
-                    act: "getTest",
                     idTest: idTest,
                 },
                 success: function(data) {
@@ -1072,9 +1045,8 @@
             }
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/alterInfoTest",
                 data: {
-                    act: "alterInfoTest",
                     idTest: idTest,
                     nameTest: nameTest,
                     thoiGianlambai: thoiGianlambai,
@@ -1117,10 +1089,9 @@
             if (idTest != null) {
                 console.log("idTest", idTest);
                 await $.ajax({
-                    type: "POST",
-                    url: "./Controller/controller.php",
+                    type: "GET",
+                    url: "./api/getDetialtest",
                     data: {
-                        act: "getDetialtest",
                         idTest: idTest,
 
                     },
@@ -1155,10 +1126,9 @@
                     if (myData[i].Điểm != "Chưa làm") {
                         email = myData[i].Email;
                         await $.ajax({
-                            type: "POST",
-                            url: "./Controller/controller.php",
+                            type: "GET",
+                            url: "./api/getDetailstestscores",
                             data: {
-                                act: "getDetailstestscores",
                                 Email: email,
                                 idTest: idTest,
                             },
@@ -1221,10 +1191,9 @@
             let idClass = infoClassCurent['maLop'];
             console.log(idClass);
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/getTestscores",
                 data: {
-                    act: "getTestscores",
                     idTest: idTest,
                     idClass: idClass,
                 },
@@ -1251,10 +1220,9 @@
         function exportMember() {
             idClass = infoClassCurent['maLop'];
             $.ajax({
-                type: "POST",
-                url: "./Controller/controller.php",
+                type: "GET",
+                url: "./api/getStudentInClass",
                 data: {
-                    act: "getStudentInClass",
                     idClass: idClass,
                 },
                 success: function(data) {
@@ -1325,9 +1293,8 @@
             idClass = infoClassCurent['maLop'];
             $.ajax({
                 type: "POST",
-                url: "./Controller/controller.php",
+                url: "./api/delete_listStudent",
                 data: {
-                    act: "delete_listStudent",
                     listIdstudent: JSON.stringify(studentArr_detele),
                     idClass: idClass,
                 },

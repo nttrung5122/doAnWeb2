@@ -45,14 +45,47 @@ get('/ontest/api/renderReport','./Controller/reportController.php');
 get('/ontest/api/renderReportContent','./Controller/reportController.php');
 
 post('/ontest/api/verify','./Controller/reportController.php');
+post('/ontest/api/createReport','./Controller/reportController.php');
+
+get('/ontest/api/renderAnnounment','./Controller/classController.php');
+get('/ontest/api/renderMember','./Controller/classController.php');
+get('/ontest/api/renderListClass','./Controller/classController.php');
+get('/ontest/api/getClassforteacher','./Controller/classController.php');
+get('/ontest/api/renderContainerInfoClass','./Controller/classController.php');
+get('/ontest/api/getStudentInClass','./Controller/classController.php');
 
 post('/ontest/api/createClass','./Controller/classController.php');
+post('/ontest/api/createNotice','./Controller/classController.php');
+post('/ontest/api/editAnnouncement','./Controller/classController.php');
+post('/ontest/api/deleteAnnouncement','./Controller/classController.php');
+post('/ontest/api/addListstudenttoclass','./Controller/classController.php');
+post('/ontest/api/deleteClass','./Controller/classController.php');
+post('/ontest/api/removeStudentsfromclass','./Controller/classController.php');
+post('/ontest/api/delete_listStudent','./Controller/classController.php');
 
 
 post('/ontest/api/createQuestion','./Controller/questionController.php');
+
 get('/ontest/api/renderSltGroupQuestion','./Controller/questionController.php');
+get('/ontest/api/renderContainerbankquestion','./Controller/questionController.php');
+get('/ontest/api/renderBankQuestion','./Controller/questionController.php');
+get('/ontest/api/renderQuestionInSettingTest','./Controller/questionController.php');
 
+post('/ontest/api/saveQuestionInTest','./Controller/testController.php');
+post('/ontest/api/createTest','./Controller/testController.php');
+post('/ontest/api/deleteTest','./Controller/testController.php');
+post('/ontest/api/getTest','./Controller/testController.php');
+post('/ontest/api/alterInfoTest','./Controller/testController.php');
 
+get('/ontest/api/renderInfoTest','./Controller/testController.php');
+get('/ontest/api/renderListTest','./Controller/testController.php');
+get('/ontest/api/showTestscores','./Controller/testController.php');
+get('/ontest/api/showDetailstestscores','./Controller/testController.php');
+get('/ontest/api/getDetialtest','./Controller/testController.php');
+get('/ontest/api/getDetailstestscores','./Controller/testController.php');
+get('/ontest/api/getTestscores','./Controller/testController.php');
+
+post('/ontest/api/upload','./Controller/upload.php');
 // For GET or POST
 // The 404.php which is inside the views folder will be called
 // The 404.php has access to $_GET and $_POST

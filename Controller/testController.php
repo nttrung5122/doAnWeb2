@@ -302,6 +302,64 @@ class TestController
     }
 }
 switch (end($request_url_parts)) {
-
-    
+    case "saveQuestionInTest": {
+        $data = TestController::saveQuestionInTest($_POST['idTest'], $_POST['arrQuestion'], $_POST['loaiDe']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "createTest": {
+        $data = TestController::createTest($_POST["idClass"], $_POST['nameTest'], $_POST["thoiGianLamBai"], $_POST["ngayThi"], $_POST["daoCauHoi"], $_POST["loaiDe"]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderInfoTest": {
+        $data = TestController::renderInfoTest($_GET['idTest']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderListTest": {
+        $data = TestController::renderListTest($_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "deleteTest": {
+        $data = TestController::deleteTest($_POST['idTest']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "showTestscores": {
+        $data = TestController::showTestscores($_GET['idTest'], $_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "showDetailstestscores": {
+        $data = TestController::showDetailstestscores($_GET['idTest'], $_GET['idStudent']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getTest": {
+        $date = TestController::getTest($_GET['idTest']);
+        echo json_encode($date, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "alterInfoTest": {
+        $data = TestController::alterInfoTest($_POST["idTest"], $_POST['nameTest'], $_POST["thoiGianlambai"], $_POST["ngayThi"], $_POST["daoCauHoi"],$_POST["loaiDe"]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getDetialtest": {
+        $data = testController::getDetialtest($_GET['idTest']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getDetailstestscores": {
+        $data = testController::getDetailstestscores($_GET['idTest'], $_GET['Email']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getTestscores": {
+        $data = testController::getTestscores($_GET['idTest'], $_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
 }

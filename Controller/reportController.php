@@ -42,4 +42,9 @@ switch (end($request_url_parts)) {
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
     break;
+    case "createReport": {
+        $data = ReportController::createReport($_SESSION['user'][0], $_POST['title'], $_POST['noiDung']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
 }

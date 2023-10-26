@@ -8,8 +8,14 @@ $link = '';
 $linkName ='';
 function head($currentPage)
 {
-    global $link, $linkName, $profile;
+    $homePage = "Home Page";
+    $studentPage = "Student Page";
+    $teacherPage = "Teacher Page";
+    $profile = 'Profile';
+    $admin = 'Admin';
     $headerRight = "";
+    $link = '';
+    $linkName ='';
     if (isset($_SESSION['user'])) {
         if ($_SESSION['user']['loaiTk'] == 'sv') {
             $linkName = 'Trang Sinh Viên';
@@ -94,7 +100,11 @@ function footer()
 }
 function createLinkAndButton($currentPage, $link, $linkName)
 {
-    global $studentPage, $profile, $teacherPage;
+    $homePage = "Home Page";
+    $studentPage = "Student Page";
+    $teacherPage = "Teacher Page";
+    $profile = 'Profile';
+    $admin = 'Admin';
     if ($currentPage == $studentPage) {
         return '<li class="nav-item">
                     <a class="nav-link fs-5 text-nowrap" href="#"   data-bs-toggle="modal" data-bs-target="#form_findClass" ><i class="fas fa-plus-circle"></i> Tìm lớp</a>

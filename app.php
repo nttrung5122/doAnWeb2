@@ -20,6 +20,7 @@ function Authentication(){
   
 }
 get('/ontest', Authentication());
+get('/ontest/Profile',"./View/Profile.php" );
 
 post('/ontest/api/signUp','./Controller/authController.php');
 post('/ontest/api/signIn','./Controller/authController.php');
@@ -53,6 +54,8 @@ get('/ontest/api/renderListClass','./Controller/classController.php');
 get('/ontest/api/getClassforteacher','./Controller/classController.php');
 get('/ontest/api/renderContainerInfoClass','./Controller/classController.php');
 get('/ontest/api/getStudentInClass','./Controller/classController.php');
+get('/ontest/api/getClass','./Controller/classController.php');
+get('/ontest/api/renderListClassOfStudent','./Controller/classController.php');
 
 post('/ontest/api/createClass','./Controller/classController.php');
 post('/ontest/api/createNotice','./Controller/classController.php');
@@ -62,6 +65,8 @@ post('/ontest/api/addListstudenttoclass','./Controller/classController.php');
 post('/ontest/api/deleteClass','./Controller/classController.php');
 post('/ontest/api/removeStudentsfromclass','./Controller/classController.php');
 post('/ontest/api/delete_listStudent','./Controller/classController.php');
+post('/ontest/api/addStudentToClass','./Controller/classController.php');
+post('/ontest/api/removeStudent','./Controller/classController.php');
 
 
 post('/ontest/api/createQuestion','./Controller/questionController.php');
@@ -74,9 +79,10 @@ get('/ontest/api/renderQuestionInSettingTest','./Controller/questionController.p
 post('/ontest/api/saveQuestionInTest','./Controller/testController.php');
 post('/ontest/api/createTest','./Controller/testController.php');
 post('/ontest/api/deleteTest','./Controller/testController.php');
-post('/ontest/api/getTest','./Controller/testController.php');
 post('/ontest/api/alterInfoTest','./Controller/testController.php');
+post('/ontest/api/chamBai','./Controller/testController.php');
 
+get('/ontest/api/getTest','./Controller/testController.php');
 get('/ontest/api/renderInfoTest','./Controller/testController.php');
 get('/ontest/api/renderListTest','./Controller/testController.php');
 get('/ontest/api/showTestscores','./Controller/testController.php');
@@ -84,6 +90,20 @@ get('/ontest/api/showDetailstestscores','./Controller/testController.php');
 get('/ontest/api/getDetialtest','./Controller/testController.php');
 get('/ontest/api/getDetailstestscores','./Controller/testController.php');
 get('/ontest/api/getTestscores','./Controller/testController.php');
+get('/ontest/api/renderListTestInStudentPage','./Controller/testController.php');
+get('/ontest/api/renderInfoTestNoSubmit','./Controller/testController.php');
+get('/ontest/api/renderInfoTestSubmited','./Controller/testController.php');
+get('/ontest/api/takeATest','./Controller/testController.php');
+get('/ontest/api/getListQuestionInTest','./Controller/testController.php');
+
+get('/ontest/api/renderStudentAnnounment','./Controller/announcementController.php');
+get('/ontest/api/renderAnnoucementContent','./Controller/announcementController.php');
+
+
+post('/ontest/api/saveBasic','./Controller/profileController.php');
+post('/ontest/api/saveContact','./Controller/profileController.php');
+post('/ontest/api/savePass','./Controller/profileController.php');
+
 
 post('/ontest/api/upload','./Controller/upload.php');
 // For GET or POST

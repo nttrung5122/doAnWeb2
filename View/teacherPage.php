@@ -78,9 +78,10 @@
                     url: "./api/logOut",
                     success: function(data) {
                         console.log(data);
+                        location.reload();
                     }
                 })
-                location.reload();
+                
 
             });
             $("#btnCreateClass").click(function() {

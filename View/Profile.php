@@ -1,5 +1,6 @@
 <?php
-session_start();
+    if (!isset($_SESSION['user'])) 
+        header('Location: ./');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,25 +25,20 @@ session_start();
             $('#btnLogOut').click(function() {
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
-                    data: {
-                        act: 'logOut'
-                    },
+                    url: "./api/logOut",
                     success: function(data) {
-                        // console.log(data);
+                        console.log(data);
+                        location.reload();
                     }
-                });
-                window.location = './index.php';
-
+                })
             });
             $('#saveBasic').click(function() {
                 var name = $('#name').val();
                 var birth = $('#birth').val();
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
+                    url: "./api/saveBasic",
                     data: {
-                        act: 'saveBasic',
                         name: name,
                         birth: birth,
                     },
@@ -63,9 +59,8 @@ session_start();
                 }
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
+                    url: "./api/saveContact",
                     data: {
-                        act: 'saveContact',
                         phone: phone,
                     },
                     success: function(data) {
@@ -88,9 +83,8 @@ session_start();
                 }
                 $.ajax({
                     type: 'POST',
-                    url: "./Controller/controller.php",
+                    url: "./api/savePass",
                     data: {
-                        act: 'savePass',
                         password: pass1,
                     },
                     success: function(data) {

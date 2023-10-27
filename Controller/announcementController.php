@@ -16,6 +16,15 @@ class announcementController {
 }
 
 switch (end($request_url_parts)) {
-
+    case "renderStudentAnnounment": {
+        $data = announcementController::renderAnnounment($_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderAnnoucementContent": {
+        $data = announcementController::renderAnnoucementContent($_GET['idAnnouncement']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
     
 }

@@ -261,4 +261,25 @@ switch (end($request_url_parts)) {
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
     break;
+    case "addStudentToClass": {
+        $data = ClassController::addStudentToClass($_POST['idClass'], $_SESSION['user'][0]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getClass": {
+        $data = ClassController::getClass($_GET['idClass']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderListClassOfStudent": {
+        $data = ClassController::renderListClassOfStudent($_SESSION['user'][0]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "removeStudent": {
+        $data = ClassController::removeStudent($_POST['idClass'], $_SESSION['user'][0]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+
 }

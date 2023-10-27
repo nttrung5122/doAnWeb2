@@ -52,9 +52,9 @@ function head($currentPage)
                 ' . $username . '
             </a>
             <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="./Profile.php">Hồ sơ</a></li>
+                <li><a class="dropdown-item" href="./Profile">Hồ sơ</a></li>
                 <hr>
-                <li><a class="dropdown-item" href="#" id="btnLogOut">Đăng xuất</a></li>
+                <li><a class="dropdown-item" href="" id="btnLogOut">Đăng xuất</a></li>
             </ul>
         </li>';
     }

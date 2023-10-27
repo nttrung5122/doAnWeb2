@@ -362,4 +362,34 @@ switch (end($request_url_parts)) {
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
     break;
+    case "renderListTestInStudentPage": {
+        $data = TestController::renderListTestInStudent($_GET['idClass'], $_SESSION['user'][0]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderInfoTestNoSubmit": {
+        $data = TestController::renderInfoTestNoSubmit($_GET['idTest']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "renderInfoTestSubmited": {
+        $data = TestController::renderInfoTestSubmited($_GET['idTest'], $_SESSION['user'][0]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "takeATest": {
+        $data = TestController::takeATest($_GET['idTest']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "getListQuestionInTest": {
+        $data = TestController::getListQuestionInTest($_GET['idTest']);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
+    case "chamBai": {
+        $data = TestController::chamBai($_POST['listAnswer'], $_POST['idTest'], $_SESSION['user'][0]);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    break;
 }

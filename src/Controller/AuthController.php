@@ -50,6 +50,7 @@ class AuthController
 }
 
 // echo end($request_url_parts) == 'login';
+if(isset($request_url_parts))
 switch (end($request_url_parts)) {
     case "signUp": {
             $data = AuthController::signUp($_POST['user'], $_POST['password'], $_POST['maCn'], $_POST['hoten'], $_POST['ngaysinh'], $_POST['sdt'], $_POST['cv']);

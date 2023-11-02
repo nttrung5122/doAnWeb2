@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\URLTest::testSluggifyReturnsSluggifiedString":8,"Tests\\authControllerTest::testSignIn":8},"times":{"Tests\\StupidTest::testTrueIsTrue":0.006,"Tests\\URLTest::testSluggifyReturnsSluggifiedString":0.011,"Tests\\authControllerTest::testSignIn":0.01}}

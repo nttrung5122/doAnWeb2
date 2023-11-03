@@ -96,8 +96,8 @@
                 console.log(name);
                 console.log(info);
                 $.ajax({
-                    type: "POST",
-                    url: ".api/createClass",
+                    type: 'POST',
+                    url: "./api/createClass",
                     data: {
                         id: id,
                         name: name,
@@ -133,12 +133,10 @@
                 console.log(idTest);
                 $.ajax({
                     type: "POST",
-                    url: ".api/saveQuestionInTest",
+                    url: "./api/saveQuestionInTest",
                     data: {
-                        act: "saveQuestionInTest",
                         arrQuestion: JSON.stringify(questionArr),
                         loaiDe: "default",
-                        // arrQuestion: arrQuestion,
                         idTest: idTest,
                     },
                     success: function(data) {
@@ -332,7 +330,7 @@
             $('#form_uploadFile').submit();
             $.ajax({
                 type: "POST",
-                url: ".api/saveQuestionInTest",
+                url: "./api/saveQuestionInTest",
                 data: {
                     arrQuestion: JSON.stringify(values),
                     loaiDe: "PDF",

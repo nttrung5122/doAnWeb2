@@ -1,8 +1,6 @@
 <?php
 namespace App\model;
 
-// include './model/dataProvider.php';
-
 class AuthModel{
     public static function getAllUsers(){
         $sql = "SELECT * FROM `taikhoan`;";

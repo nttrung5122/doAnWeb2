@@ -1,7 +1,9 @@
 <?php
-
-include './model/testModel.php';
-include './View/testView.php';
+namespace App\Controller;
+use App\model\TestModel;
+use App\View\TestView;
+// include './model/testModel.php';
+// include './View/testView.php';
 
 
 class TestController
@@ -118,6 +120,7 @@ class TestController
         $tong = 0;
         $soCauDung = 0;
         $listAnswer = json_decode($listAnswer);
+        $cnt=0;
         $infoTest = mysqli_fetch_array(TestModel::getInfoTest($idTest));
         TestModel::taoChiTietBaiLam($listAnswer, $idTest, $email, $infoTest['loaiDe']);
         if ($infoTest['loaiDe'] == 'default') {
@@ -142,6 +145,7 @@ class TestController
             }
         }
         TestModel::taoBaiLam($idTest, $email, round(($soCauDung / $tong) * 10, 2));
+        return round(($soCauDung / $tong) * 10, 2);
     }
 
     public static function getTest($idTest)
@@ -301,6 +305,7 @@ class TestController
         return $data;
     }
 }
+if(isset($request_url_parts))
 switch (end($request_url_parts)) {
     case "saveQuestionInTest": {
         $data = TestController::saveQuestionInTest($_POST['idTest'], $_POST['arrQuestion'], $_POST['loaiDe']);
@@ -389,7 +394,7 @@ switch (end($request_url_parts)) {
     break;
     case "chamBai": {
         $data = TestController::chamBai($_POST['listAnswer'], $_POST['idTest'], $_SESSION['user'][0]);
-        echo $_POST['listAnswer'];
+        // echo $_POST['listAnswer'];
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
     break;

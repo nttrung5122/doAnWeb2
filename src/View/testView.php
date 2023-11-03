@@ -1,4 +1,6 @@
 <?php
+namespace App\View;
+
 class TestView
 {
     public static function renderSettingTest($question)

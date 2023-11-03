@@ -12,7 +12,7 @@ class authControllerTest extends TestCase
             ["admin1@gmail.com","11111111","success"],
             ["admin1@gmail.com","222222","fail"],
             ["hocsinh1@gmail.com","11111111","success"],
-            ["gv1@gmail.com","22222","success"],
+            ["gv1@gmail.com","11111111","success"],
             ["trung123@gmail.com","22222","fail"]
         ];        
     }

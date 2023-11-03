@@ -1,6 +1,5 @@
 <?php
-
-include './model/dataProvider.php';
+namespace App\model;
 
 class TestModel{
 
@@ -64,6 +63,7 @@ class TestModel{
         $data= DataProvider::executeSQL($sql);    
         //TO DO remove Student, remove Test
     }
+    
 
     public static function getListTestNoSubmit($idClass,$idStudent){
         $sql = "SELECT * FROM bode WHERE bode.maDe NOT IN ( SELECT bailam.maDe FROM bailam WHERE bailam.maTaiKhoan=\"$idStudent\") AND bode.maLop=\"$idClass\" ORDER BY `bode`.`maDe` DESC ;";

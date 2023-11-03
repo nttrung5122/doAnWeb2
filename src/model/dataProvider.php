@@ -1,4 +1,6 @@
 <?php
+namespace App\model;
+
 class DataProvider {
     private static $localhost = "localhost";
     private static $username = "admin";

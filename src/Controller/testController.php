@@ -389,6 +389,7 @@ switch (end($request_url_parts)) {
     break;
     case "chamBai": {
         $data = TestController::chamBai($_POST['listAnswer'], $_POST['idTest'], $_SESSION['user'][0]);
+        echo $_POST['listAnswer'];
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
     break;

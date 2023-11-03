@@ -1,6 +1,7 @@
 <?php
+namespace App\model;
 
-include './model/dataProvider.php';
+// include './model/dataProvider.php';
 
 class AuthModel{
     public static function getAllUsers(){

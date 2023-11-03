@@ -1,5 +1,7 @@
 <?php
-include './model/authModel.php';
+namespace App\Controller;
+use App\model\AuthModel;
+// include './model/authModel.php';
 
 class AuthController
 {

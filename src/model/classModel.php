@@ -1,6 +1,6 @@
 <?php
 
-include './model/dataProvider.php';
+namespace App\model;
 
 class ClassModel{
 

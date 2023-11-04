@@ -124,6 +124,21 @@ class testControllerTest extends TestCase
                 12006 => 'Đúng',
                 12007 => 'Chưa làm',
             ]],
+            ['54086', 'hocsinh1@gmail.com', [
+                'Số câu sai' => 5,
+                'Số câu đúng' => 5,
+                'Số câu chưa làm' => 0,
+                0 => 'Đúng',
+                1 => 'Đúng',
+                2 => 'Đúng',
+                3 => 'Đúng',
+                4 => 'Đúng',
+                5 => 'Sai',
+                6 => 'Sai',
+                7 => 'Sai',
+                8 => 'Sai',
+                9 => 'Sai',
+            ]],
         ];
     }
 

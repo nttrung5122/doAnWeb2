@@ -1,5 +1,5 @@
-
 <?php
+namespace App\View;
 
 // include '../Controller/classController.php';
 

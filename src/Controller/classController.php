@@ -17,7 +17,7 @@ class ClassController{
     }
 
     public static function createClass($idClass,$info,$email,$name){
-        if(ClassController::checkClassExists($idClass)){
+        if(self::checkClassExists($idClass)){
             $data['notice']="Mã lớp đã tồn tại";
             $data['status']="fails";
             return $data;

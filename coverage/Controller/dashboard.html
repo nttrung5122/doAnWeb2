@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for D:\xampp\htdocs\ontest\src\Controller</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=10.1.7" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css?v=10.1.7" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=10.1.7" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">D:\xampp\htdocs\ontest\src</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Controller</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="URL.php.html#4">App\Controller\URL</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#4">adminController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="announcementController.php.html#4">announcementController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#6">ClassController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="profileController.php.html#4">profileController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="questionController.php.html#6">QuestionController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="reportController.php.html#7">ReportController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#9">App\Controller\TestController</a></td><td class="text-right">29%</td></tr>
+       <tr><td><a href="AuthController.php.html#6">App\Controller\AuthController</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="classController.php.html#6">ClassController</a></td><td class="text-right">1406</td></tr>
+       <tr><td><a href="testController.php.html#9">App\Controller\TestController</a></td><td class="text-right">1133</td></tr>
+       <tr><td><a href="adminController.php.html#4">adminController</a></td><td class="text-right">1122</td></tr>
+       <tr><td><a href="profileController.php.html#4">profileController</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="questionController.php.html#6">QuestionController</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="AuthController.php.html#6">App\Controller\AuthController</a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="URL.php.html#6"><abbr title="App\Controller\URL::sluggify">sluggify</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#6"><abbr title="adminController::renderAccountTable">renderAccountTable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#13"><abbr title="adminController::renderClassTable">renderClassTable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#20"><abbr title="adminController::renderQuestionTable">renderQuestionTable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#27"><abbr title="adminController::renderGroupQuestionTable">renderGroupQuestionTable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#34"><abbr title="adminController::renderAnswer">renderAnswer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#39"><abbr title="adminController::clickDelete">clickDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#56"><abbr title="adminController::editAccount">editAccount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#76"><abbr title="adminController::editClass">editClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#90"><abbr title="adminController::editQuestion">editQuestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#115"><abbr title="adminController::editGroupQuestion">editGroupQuestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#122"><abbr title="adminController::active">active</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#126"><abbr title="adminController::activeAll">activeAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#131"><abbr title="adminController::unActiveAll">unActiveAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="adminController.php.html#135"><abbr title="adminController::createGroupQuestion">createGroupQuestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="announcementController.php.html#5"><abbr title="announcementController::renderAnnounment">renderAnnounment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="announcementController.php.html#11"><abbr title="announcementController::renderAnnoucementContent">renderAnnoucementContent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#8"><abbr title="ClassController::checkClassExists">checkClassExists</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#19"><abbr title="ClassController::createClass">createClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#34"><abbr title="ClassController::getClassOfTeacher">getClassOfTeacher</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#39"><abbr title="ClassController::getClass">getClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#42"><abbr title="ClassController::getClassforteacher">getClassforteacher</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#48"><abbr title="ClassController::deleteClass">deleteClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#55"><abbr title="ClassController::renderListClass">renderListClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#62"><abbr title="ClassController::renderMember">renderMember</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#68"><abbr title="ClassController::getStudentInClass">getStudentInClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#77"><abbr title="ClassController::renderContainerInfoClass">renderContainerInfoClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#82"><abbr title="ClassController::getClassOfStudent">getClassOfStudent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#87"><abbr title="ClassController::renderListClassOfStudent">renderListClassOfStudent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#93"><abbr title="ClassController::checkStudentInClass">checkStudentInClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#103"><abbr title="ClassController::addStudentToClass">addStudentToClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#120"><abbr title="ClassController::removeStudent">removeStudent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#127"><abbr title="ClassController::removeStudentsFromClass">removeStudentsFromClass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#136"><abbr title="ClassController::addListStudent">addListStudent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#148"><abbr title="ClassController::createNotice">createNotice</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#154"><abbr title="ClassController::renderAnnouncement">renderAnnouncement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#162"><abbr title="ClassController::deleteAnnouncement">deleteAnnouncement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#166"><abbr title="ClassController::editAnnouncement">editAnnouncement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="classController.php.html#179"><abbr title="ClassController::delete_listStudent">delete_listStudent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="profileController.php.html#6"><abbr title="profileController::saveBasic">saveBasic</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="profileController.php.html#19"><abbr title="profileController::saveContact">saveContact</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="profileController.php.html#29"><abbr title="profileController::savePass">savePass</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="profileController.php.html#39"><abbr title="profileController::getUser">getUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="questionController.php.html#8"><abbr title="QuestionController::renderBankQuestion">renderBankQuestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="questionController.php.html#17"><abbr title="QuestionController::renderSltQuestionGroup">renderSltQuestionGroup</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="questionController.php.html#23"><abbr title="QuestionController::createQuestion">createQuestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="questionController.php.html#38"><abbr title="QuestionController::renderAllQuestionInSettingTest">renderAllQuestionInSettingTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="questionController.php.html#48"><abbr title="QuestionController::renderListQuestionOfTest">renderListQuestionOfTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="questionController.php.html#55"><abbr title="QuestionController::renderContainerbankquestion">renderContainerbankquestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="reportController.php.html#8"><abbr title="ReportController::createReport">createReport</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="reportController.php.html#14"><abbr title="ReportController::renderReport">renderReport</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="reportController.php.html#19"><abbr title="ReportController::renderReportContent">renderReportContent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="reportController.php.html#24"><abbr title="ReportController::verify">verify</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#12"><abbr title="App\Controller\TestController::createTest">createTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#21"><abbr title="App\Controller\TestController::saveQuestionInTest">saveQuestionInTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#35"><abbr title="App\Controller\TestController::renderListTest">renderListTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#42"><abbr title="App\Controller\TestController::renderInfoTest">renderInfoTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#49"><abbr title="App\Controller\TestController::deleteTest">deleteTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#57"><abbr title="App\Controller\TestController::renderListTestInStudent">renderListTestInStudent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#65"><abbr title="App\Controller\TestController::renderInfoTestNoSubmit">renderInfoTestNoSubmit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#72"><abbr title="App\Controller\TestController::renderInfoTestSubmited">renderInfoTestSubmited</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#79"><abbr title="App\Controller\TestController::takeATest">takeATest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#108"><abbr title="App\Controller\TestController::getListQuestionInTest">getListQuestionInTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#157"><abbr title="App\Controller\TestController::alterInfoTest">alterInfoTest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#177"><abbr title="App\Controller\TestController::getTestscores">getTestscores</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#189"><abbr title="App\Controller\TestController::showTestscores">showTestscores</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#196"><abbr title="App\Controller\TestController::showDetailstestscores">showDetailstestscores</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#277"><abbr title="App\Controller\TestController::getDetialtest">getDetialtest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#298"><abbr title="App\Controller\TestController::getDetialtestPDF">getDetialtestPDF</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="testController.php.html#208"><abbr title="App\Controller\TestController::getDetailstestscores">getDetailstestscores</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="AuthController.php.html#27"><abbr title="App\Controller\AuthController::signIn">signIn</abbr></a></td><td class="text-right">81%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="adminController.php.html#90"><abbr title="adminController::editQuestion">editQuestion</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="adminController.php.html#56"><abbr title="adminController::editAccount">editAccount</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="testController.php.html#79"><abbr title="App\Controller\TestController::takeATest">takeATest</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="testController.php.html#208"><abbr title="App\Controller\TestController::getDetailstestscores">getDetailstestscores</abbr></a></td><td class="text-right">25</td></tr>
+       <tr><td><a href="adminController.php.html#39"><abbr title="adminController::clickDelete">clickDelete</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="adminController.php.html#76"><abbr title="adminController::editClass">editClass</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="classController.php.html#136"><abbr title="ClassController::addListStudent">addListStudent</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="classController.php.html#166"><abbr title="ClassController::editAnnouncement">editAnnouncement</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="testController.php.html#157"><abbr title="App\Controller\TestController::alterInfoTest">alterInfoTest</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="testController.php.html#277"><abbr title="App\Controller\TestController::getDetialtest">getDetialtest</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="classController.php.html#8"><abbr title="ClassController::checkClassExists">checkClassExists</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="classController.php.html#93"><abbr title="ClassController::checkStudentInClass">checkStudentInClass</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="classController.php.html#103"><abbr title="ClassController::addStudentToClass">addStudentToClass</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="profileController.php.html#6"><abbr title="profileController::saveBasic">saveBasic</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="adminController.php.html#115"><abbr title="adminController::editGroupQuestion">editGroupQuestion</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="classController.php.html#19"><abbr title="ClassController::createClass">createClass</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="classController.php.html#68"><abbr title="ClassController::getStudentInClass">getStudentInClass</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="classController.php.html#179"><abbr title="ClassController::delete_listStudent">delete_listStudent</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="profileController.php.html#19"><abbr title="profileController::saveContact">saveContact</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="profileController.php.html#29"><abbr title="profileController::savePass">savePass</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="questionController.php.html#23"><abbr title="QuestionController::createQuestion">createQuestion</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="testController.php.html#21"><abbr title="App\Controller\TestController::saveQuestionInTest">saveQuestionInTest</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="testController.php.html#108"><abbr title="App\Controller\TestController::getListQuestionInTest">getListQuestionInTest</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="testController.php.html#177"><abbr title="App\Controller\TestController::getTestscores">getTestscores</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="testController.php.html#196"><abbr title="App\Controller\TestController::showDetailstestscores">showDetailstestscores</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="testController.php.html#298"><abbr title="App\Controller\TestController::getDetialtestPDF">getDetialtestPDF</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="AuthController.php.html#27"><abbr title="App\Controller\AuthController::signIn">signIn</abbr></a></td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 10.1.7</a> using <a href="https://www.php.net/" target="_top">PHP 8.2.4</a> and <a href="https://phpunit.de/">PHPUnit 10.4.2</a> at Fri Nov 3 17:52:55 CET 2023.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=10.1.7" type="text/javascript"></script>
+  <script src="../_js/d3.min.js?v=10.1.7" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js?v=10.1.7" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([7,0,0,1,0,0,0,0,0,1,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([69,0,0,0,0,0,0,1,0,1,0,3], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[87.5,6,"<a href=\"AuthController.php.html#6\">App\\Controller\\AuthController<\/a>"],[0,1,"<a href=\"URL.php.html#4\">App\\Controller\\URL<\/a>"],[0,33,"<a href=\"adminController.php.html#4\">adminController<\/a>"],[0,2,"<a href=\"announcementController.php.html#4\">announcementController<\/a>"],[0,37,"<a href=\"classController.php.html#6\">ClassController<\/a>"],[0,8,"<a href=\"profileController.php.html#4\">profileController<\/a>"],[0,7,"<a href=\"questionController.php.html#6\">QuestionController<\/a>"],[0,4,"<a href=\"reportController.php.html#7\">ReportController<\/a>"],[29.09090909090909,55,"<a href=\"testController.php.html#9\">App\\Controller\\TestController<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,2,"<a href=\"AuthController.php.html#9\">App\\Controller\\AuthController::signUp<\/a>"],[81.25,4,"<a href=\"AuthController.php.html#27\">App\\Controller\\AuthController::signIn<\/a>"],[0,1,"<a href=\"URL.php.html#6\">App\\Controller\\URL::sluggify<\/a>"],[0,1,"<a href=\"adminController.php.html#6\">adminController::renderAccountTable<\/a>"],[0,1,"<a href=\"adminController.php.html#13\">adminController::renderClassTable<\/a>"],[0,1,"<a href=\"adminController.php.html#20\">adminController::renderQuestionTable<\/a>"],[0,1,"<a href=\"adminController.php.html#27\">adminController::renderGroupQuestionTable<\/a>"],[0,1,"<a href=\"adminController.php.html#34\">adminController::renderAnswer<\/a>"],[0,4,"<a href=\"adminController.php.html#39\">adminController::clickDelete<\/a>"],[0,6,"<a href=\"adminController.php.html#56\">adminController::editAccount<\/a>"],[0,4,"<a href=\"adminController.php.html#76\">adminController::editClass<\/a>"],[0,8,"<a href=\"adminController.php.html#90\">adminController::editQuestion<\/a>"],[0,2,"<a href=\"adminController.php.html#115\">adminController::editGroupQuestion<\/a>"],[0,1,"<a href=\"adminController.php.html#122\">adminController::active<\/a>"],[0,1,"<a href=\"adminController.php.html#126\">adminController::activeAll<\/a>"],[0,1,"<a href=\"adminController.php.html#131\">adminController::unActiveAll<\/a>"],[0,1,"<a href=\"adminController.php.html#135\">adminController::createGroupQuestion<\/a>"],[0,1,"<a href=\"announcementController.php.html#5\">announcementController::renderAnnounment<\/a>"],[0,1,"<a href=\"announcementController.php.html#11\">announcementController::renderAnnoucementContent<\/a>"],[0,3,"<a href=\"classController.php.html#8\">ClassController::checkClassExists<\/a>"],[0,2,"<a href=\"classController.php.html#19\">ClassController::createClass<\/a>"],[0,1,"<a href=\"classController.php.html#34\">ClassController::getClassOfTeacher<\/a>"],[0,1,"<a href=\"classController.php.html#39\">ClassController::getClass<\/a>"],[0,1,"<a href=\"classController.php.html#42\">ClassController::getClassforteacher<\/a>"],[0,1,"<a href=\"classController.php.html#48\">ClassController::deleteClass<\/a>"],[0,1,"<a href=\"classController.php.html#55\">ClassController::renderListClass<\/a>"],[0,1,"<a href=\"classController.php.html#62\">ClassController::renderMember<\/a>"],[0,2,"<a href=\"classController.php.html#68\">ClassController::getStudentInClass<\/a>"],[0,1,"<a href=\"classController.php.html#77\">ClassController::renderContainerInfoClass<\/a>"],[0,1,"<a href=\"classController.php.html#82\">ClassController::getClassOfStudent<\/a>"],[0,1,"<a href=\"classController.php.html#87\">ClassController::renderListClassOfStudent<\/a>"],[0,3,"<a href=\"classController.php.html#93\">ClassController::checkStudentInClass<\/a>"],[0,3,"<a href=\"classController.php.html#103\">ClassController::addStudentToClass<\/a>"],[0,1,"<a href=\"classController.php.html#120\">ClassController::removeStudent<\/a>"],[0,1,"<a href=\"classController.php.html#127\">ClassController::removeStudentsFromClass<\/a>"],[0,4,"<a href=\"classController.php.html#136\">ClassController::addListStudent<\/a>"],[0,1,"<a href=\"classController.php.html#148\">ClassController::createNotice<\/a>"],[0,1,"<a href=\"classController.php.html#154\">ClassController::renderAnnouncement<\/a>"],[0,1,"<a href=\"classController.php.html#162\">ClassController::deleteAnnouncement<\/a>"],[0,4,"<a href=\"classController.php.html#166\">ClassController::editAnnouncement<\/a>"],[0,2,"<a href=\"classController.php.html#179\">ClassController::delete_listStudent<\/a>"],[0,3,"<a href=\"profileController.php.html#6\">profileController::saveBasic<\/a>"],[0,2,"<a href=\"profileController.php.html#19\">profileController::saveContact<\/a>"],[0,2,"<a href=\"profileController.php.html#29\">profileController::savePass<\/a>"],[0,1,"<a href=\"profileController.php.html#39\">profileController::getUser<\/a>"],[0,1,"<a href=\"questionController.php.html#8\">QuestionController::renderBankQuestion<\/a>"],[0,1,"<a href=\"questionController.php.html#17\">QuestionController::renderSltQuestionGroup<\/a>"],[0,2,"<a href=\"questionController.php.html#23\">QuestionController::createQuestion<\/a>"],[0,1,"<a href=\"questionController.php.html#38\">QuestionController::renderAllQuestionInSettingTest<\/a>"],[0,1,"<a href=\"questionController.php.html#48\">QuestionController::renderListQuestionOfTest<\/a>"],[0,1,"<a href=\"questionController.php.html#55\">QuestionController::renderContainerbankquestion<\/a>"],[0,1,"<a href=\"reportController.php.html#8\">ReportController::createReport<\/a>"],[0,1,"<a href=\"reportController.php.html#14\">ReportController::renderReport<\/a>"],[0,1,"<a href=\"reportController.php.html#19\">ReportController::renderReportContent<\/a>"],[0,1,"<a href=\"reportController.php.html#24\">ReportController::verify<\/a>"],[0,1,"<a href=\"testController.php.html#12\">App\\Controller\\TestController::createTest<\/a>"],[0,2,"<a href=\"testController.php.html#21\">App\\Controller\\TestController::saveQuestionInTest<\/a>"],[0,1,"<a href=\"testController.php.html#35\">App\\Controller\\TestController::renderListTest<\/a>"],[0,1,"<a href=\"testController.php.html#42\">App\\Controller\\TestController::renderInfoTest<\/a>"],[0,1,"<a href=\"testController.php.html#49\">App\\Controller\\TestController::deleteTest<\/a>"],[0,1,"<a href=\"testController.php.html#57\">App\\Controller\\TestController::renderListTestInStudent<\/a>"],[0,1,"<a href=\"testController.php.html#65\">App\\Controller\\TestController::renderInfoTestNoSubmit<\/a>"],[0,1,"<a href=\"testController.php.html#72\">App\\Controller\\TestController::renderInfoTestSubmited<\/a>"],[0,6,"<a href=\"testController.php.html#79\">App\\Controller\\TestController::takeATest<\/a>"],[0,2,"<a href=\"testController.php.html#108\">App\\Controller\\TestController::getListQuestionInTest<\/a>"],[100,8,"<a href=\"testController.php.html#118\">App\\Controller\\TestController::chamBai<\/a>"],[100,1,"<a href=\"testController.php.html#151\">App\\Controller\\TestController::getTest<\/a>"],[0,4,"<a href=\"testController.php.html#157\">App\\Controller\\TestController::alterInfoTest<\/a>"],[0,2,"<a href=\"testController.php.html#177\">App\\Controller\\TestController::getTestscores<\/a>"],[0,1,"<a href=\"testController.php.html#189\">App\\Controller\\TestController::showTestscores<\/a>"],[0,2,"<a href=\"testController.php.html#196\">App\\Controller\\TestController::showDetailstestscores<\/a>"],[60.97560975609756,14,"<a href=\"testController.php.html#208\">App\\Controller\\TestController::getDetailstestscores<\/a>"],[0,4,"<a href=\"testController.php.html#277\">App\\Controller\\TestController::getDetialtest<\/a>"],[0,2,"<a href=\"testController.php.html#298\">App\\Controller\\TestController::getDetialtestPDF<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
